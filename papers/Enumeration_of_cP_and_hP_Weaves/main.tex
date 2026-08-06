@@ -1,0 +1,2368 @@
+ \documentclass[12pt]{article}
+\usepackage{a4wide}
+\usepackage{rotating}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{comment}
+%\usepackage{arxiv}
+\usepackage{float}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+%\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}		% Can be removed after putting your text content
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{doi}
+\usepackage{pgffor}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{comment}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[english]{babel}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{todonotes}
+\usepackage{booktabs}
+
+\usepackage{tikz-cd}
+
+
+\usepackage{array}
+\usepackage[thinlines]{easytable}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{subfiles}
+
+\newcommand{\keywords}[1]{%
+  \par\noindent\textbf{Keywords: }#1
+}
+\DeclareMathOperator{\Con}{Con}
+\DeclareMathOperator{\HH}{Homeo}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\Aff}{Aff}
+\DeclareMathOperator{\OO}{O}
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{cor}[theorem]{Corollary}
+
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\N}{{\mathbb{N}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\PP}{{\mathcal{P}}}
+\DeclareMathOperator{\Fix}{Fix}
+\newcommand{\V}{{\mathcal{R}}}
+\DeclareMathOperator{\Aut}{Aut}
+%\DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\Rot}{Rot}
+\newcommand{\C}{{\mathcal{C}}}
+\newcommand{\define}[1]{\textbf{\emph{#1}}}
+
+\usetikzlibrary{calc,fit,positioning,bending}
+\title{Enumeration of Partial Cubic Primitive Volumetric Bravais Weaves}
+\author{Reymond Akpanya, Alice C. Niemeyer, Tolga Talha Yildiz,\\ Vinayak R. Khrishnamurthy, Ergun Akleman}
+
+%%%% todo nodes
+\newcommand{\rey}[1]{\todo[size=\tiny,color=yellow!30]{#1 --- Rey}}
+\newcommand{\Rey}[1]{\todo[size=\tiny,inline,color=yellow!30]{#1 --- Rey}}
+
+\newcommand{\tolga}[1]{\todo[size=\tiny,color=blue!30]{#1 --- Tolga}}
+\newcommand{\Tolga}[1]{\todo[size=\tiny,inline,color=blue!30]{#1 --- Tolga}}
+
+
+\newcommand{\akleman}[1]{\todo[size=\tiny,color=orange!30]{#1 --- Akleman}}
+\newcommand{\Akleman}[1]{\todo[size=\tiny,inline,color=orange!30]{#1 --- Akleman}}
+
+\newcommand{\alice}[1]{\todo[size=\tiny,color=red!30]{#1 --- alice}}
+\newcommand{\Alice}[1]{\todo[size=\tiny,inline,color=red!30]{#1 --- Alice}}
+
+\newcommand{\krishnamurthy}[1]{\todo[size=\tiny,color=green!30]{#1 --- Krishnamurthy}}
+
+\newcommand{\Krishnamurthy}[1]{\todo[size=\tiny,inline,color=green!30]{#1 --- Krishnamurthy}}
+
+
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Gr\"unbaum and Shephard initiated the mathematical study of planar weaves,
+and Y{\i}ld{\i}z et al.\ recently extended this framework to three
+dimensions through volumetric Bravais weaves. In this paper we enumerate
+partial cubic primitive volumetric weaves. For the cubic primitive lattice,
+each cell has one of eight local configurations up to homotopy, so a partial
+$n\times n\times n$ weave can be represented by a map from the $n^3$ cells
+to this set of configurations. The group
+$G_n=\mathrm{Rot}(C)\ltimes \mathbb Z_n^3$
+acts naturally on these representations by rotations of the ambient cube
+and translations modulo $n$. We determine the cycle structures and
+fixed-point counts for this action and apply Burnside's lemma, in the
+de Bruijn enumeration framework, to obtain an explicit formula for the
+number of inequivalent partial $n\times n\times n$ cubic primitive weaves.
+\end{abstract}
+
+
+
+% keywords can be removed
+\keywords{Enumeration of  Weaves; Permutation Groups, Cycle Index Polynomial, Pólya’s enumeration theory, de Bruijn Enumeration Theory}
+
+
+
+\section{Introduction}
+\label{sec:intro}
+
+The mathematical study of woven structures originates in the work of Grünbaum and Shepard \cite{Grunbaum80}, who systematically investigated planar woven fabrics and classified these structures with respect to various notions of symmetry. Their work revealed deep connections between weaving patterns, tilings, and symmetry groups, and laid the foundation for a rich interplay between combinatorics, geometry, and group theory.
+Subsequent work developed this
+viewpoint in several directions, including the study of two-way periodic fabrics via bipartite
+tournaments \cite{Clapham85}, the enumeration of twills using Burnside’s lemma and sieve methods \cite{MR729012}, and the generation of repeating patterns from decorated fundamental regions \cite{MR2305591}.
+For more studies on planar woven fabrics we refer the reader to \cite{MR3371613,Grunbaum86,Roth1995,Thomas2010}.
+
+More recently, Yıldız et al.\ introduced \emph{volumetric Bravais weaves}, extending the theory of woven structures from two to three dimensions, see \cite{tolga}. In their work, volumetric Bravais weaves are defined as entanglements of threads that are closely related to Bravais lattices and their corresponding Voronoi decompositions in $\mathbb{R}^3$. Here, a thread is the image of an injective continuous map
+$f:\mathbb R\to\mathbb R^3$, and a volumetric weave is an
+entanglement of pairwise disjoint threads adapted to the Voronoi
+decomposition of a Bravais lattice satisfying additional properties. We recall the precise definition in
+Section~\ref{sec:prelims}.
+
+
+
+Indeed, this perspective provides a natural generalization of planar weaving patterns and leads to a rich class of three–dimensional periodic structures.
+In this paper we focus on cubic primitive weaves, arising from the cubic
+primitive lattice with basis
+$
+B=\{(1,0,0),(0,1,0),(0,0,1)\}.$
+Its Voronoi decomposition consists of congruent cubes. A partial cubic
+primitive weave is obtained by restricting a full cubic primitive weave to a
+finite finite subset of such Voronoi cells. Figure~\ref{fig:exweaves} shows two examples
+of partial cubic
+primitive weaves arising from $3\times3\times3$ blocks. We observe that such finite blocks can also be extended
+periodically by translations along the coordinate directions.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{.82\textwidth}
+        \centering
+        \includegraphics[width=.4\linewidth]{Figures/cP_weaves/cp_assembly.png}
+        \hfill
+        \includegraphics[width=.4\linewidth]{Figures/cP_weaves/cp_assembly_abcd.png}
+        \caption{Two partial weaves arising from different $3\times3\times3$ arrangements of cubes.}
+    \end{subfigure}
+
+    \begin{subfigure}{.9\textwidth}
+        \centering
+        \begin{tikzpicture}[node distance=2.5mm]
+            \node (b) [align=center, on grid]
+            {\includegraphics[width=0.2\linewidth]{Figures/fig2/partial_2x2x2.jpg}};
+            \node (x) [align=center, on grid, right=65mm of b]{\includegraphics[width=0.24\linewidth]{Figures/fig2/x_extension.jpg}};
+            \node (xy) [align=center, on grid,below=40mm of x]{\includegraphics[width=0.24\linewidth]{Figures/fig2/xy_extension.jpg}};
+            \node (xyz) [align=center, on grid,left=65mm of xy]{\includegraphics[width=0.24\linewidth]{Figures/fig2/xyz.jpg}};
+            \draw[->, thick] (b) edge[bend left=25] node[above]  {\footnotesize$x$-translation}  (x);
+            \draw[->, thick] (x) edge[bend left=25] node[left]  {\footnotesize$y$-translation}  (xy);
+            \draw[->, thick] (xy) edge[bend left=25] node[below] {\footnotesize$z$-translation}  (xyz);
+            \node (loop) [draw,inner sep=1mm,rounded corners=1mm, fit=(b)(x)(xy)(xyz)]{};
+        \end{tikzpicture}
+        \caption{Extending a partial $2\times2\times2$ cubic primitive weave by successive translations.}
+    \end{subfigure}
+    \caption{Partial cubic primitive weaves and their periodic extension by translations.}
+    \label{fig:exweaves}
+    \label{fig:translateWeaves}
+\end{figure}
+This instance leads us to the central question of this work.
+\begin{question}
+    How many \emph{inequivalent} cubic primitive weaves exist that are constructed by a partial $n {\times} n {\times} n$ cubic weave via translations?
+\end{question}
+Loosely speaking, two weaves are equivalent if they are homotopic, that is, their threads may be continuously deformed into each other
+without crossing each other or the cell edges. The precise equivalence
+relation is recalled in Remark~\ref{remark:equi}. Thus, the proposed enumeration problem
+provides a natural first step toward understanding periodic cubic
+primitive weaves.
+
+The set of partial $n\times n\times n$ cubic primitive weaves carries a natural action of
+$G_n:=\mathrm{Rot}(C)\ltimes \mathbb Z_n^3,$
+where $C$ is the cube obtained as the union of the $n^3$ cells in the
+chosen block. Here, $\mathrm{Rot}(C)\cong S_4$ rotates the cube $C$ and
+the local configurations within the different cells, while $\mathbb Z_n^3$ translates the cells modulo
+$n$. Thus, the enumeration problem becomes an orbit-counting problem for
+the action of $G_n$ on the set of equivalence classes of partial cubic primitive weaves.
+In particular, we observe that two partial weaves whose corresponding equivalence classes lie in different orbits under the action of $\mathrm{Rot}(C) \cdot \mathbb{Z}_n^3$ yield inequivalent cubic primitive weaves. Thus, in order to answer the central question of this work, we have to determine the number of inequivalent $n {\times} n {\times} n$ cubic primitive weaves.
+We achieve this by studying the action of $\mathrm{Rot}(C) \cdot \mathbb{Z}_n^3$ on the equivalence classes of partial weaves and computing the corresponding cycle index polynomial of $\mathrm{Rot}(C) \cdot \mathbb{Z}_n^3$.
+
+We now state the main result of the paper. For this, let $\Delta_n$ be the set of the $n^3$ cells in the chosen block and let
+$G_n:=\mathrm{Rot}(C)\ltimes \mathbb Z_n^3,$
+where $C$ is the union of these cells.
+Let $\Omega$ be the equivalence classes on the set of partial $n\times n\times n$ cubic primitive weaves.
+As described above, the action of $G_n$ on $\Delta_n$ and on $\Omega$ induces an action on
+$\Omega^{\Delta_n}$. Hence, we obtain the following.
+\begin{theorem}\label{thm:main}
+For every $n\geq 3$, the number of inequivalent partial
+$n\times n\times n$ cubic primitive weaves is
+\[
+\psi(n):=\frac{1}{\vert G_n\vert}
+\sum_{g\in G_n} \operatorname{Fix}_{\Omega^{\Delta_n}}(g),
+\]
+where the summands are determined explicitly by the cycle type of $g$ on
+$\Delta_n$ and on $\Omega$.
+\end{theorem}
+Equivalently, $\psi(n)$ is given by the closed
+form in Theorem~\ref{thm:orbit-formula}. The case $n=2$ is exceptional, since the rotation and translation subgroups
+do not form a semidirect product of order $24n^3$. We treat this case
+separately in Proposition~\ref{prop:n-equals-2}.
+The proof our main theorem proceeds by computing the cycle structures of the elements of
+$G_n$ in their action on $\Delta_n$, combining these with the induced action
+of $\mathrm{Rot}(C)$ on the eight local configurations.
+The number of orbits grows rapidly. To indicate the scale of this growth,
+Table~\ref{tab:growth-orbits} gives approximate values for small values of
+$n$.
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$\textbf{n}$ & 3 & 4 & 5 & 6 & 7 \\
+\hline
+\textbf{\# orbits ($\approx$)}
+& $2.89 \cdot 10^{22}$
+& $4.85 \cdot 10^{54}$
+& $1.46 \cdot 10^{110}$
+& $2.31 \cdot 10^{191}$
+& $2.30 \cdot 10^{306}$\\
+\hline
+\end{tabular}
+\vspace{-0.2cm}
+\caption{Approximate growth of the number of orbits.}
+\label{tab:growth-orbits}
+\end{table}
+
+\subsection*{Structure of the paper}\rey{Journals: European Journal of Combinatorics; Discrete Mathematics; JCTA; Eletronic Journal of Combinatorics}
+
+In Section~\ref{sec:prelims}, we introduce the preliminary notions that are essential for our investigation. In particular, we formally define (partial) cubic primitive weaves and explain how they can be represented via volumetric representations, that is, mappings from $\mathbb{Z}^3$ or $\mathbb{Z}_n^3$ into finite sets. In Section \ref{sec:actions}, we introduce group actions on (partial) volumetric weaves and volumetric representations. These will allow us to answer the central question of this paper.
+In Section~\ref{section:actioncpweaves}, we study this actions on the (partial) cubic primitive weaves in more detail. In particular, we describe the cycle structures of the elements of $\mathrm{Rot}(C)\cdot \mathbb{Z}_n^3$ acting on the partial $n\times n\times n$ cubic primitive weaves and use this in Section~\ref{counting} and Section~\ref{counts} to determine the number of inequivalent partial cubic primitive weaves by applying Pólya’s counting theory and the de Bruijn generalization.
+
+The implementations used in this investigation are available in GAP~\cite{GAP4} and Magma~\cite{Bosma}, and can be found in \cite{yildiz_symmetry_decomposition}.
+
+
+
+
+
+
+
+
+
+
+\section{Preliminaries}\label{sec:prelims}
+
+In this section, we introduce the preliminary notions used throughout our investigation. If not stated otherwise, $n$ is a natural number satisfying $n\geq 2$.
+
+\subsection{Volumetric Weaves}
+
+We first fix the notation for translated Voronoi cells of a lattice. This allows us to define volumetric weaves by specifying how threads pass through the facets of these cells.
+
+\begin{remark}
+Let $M \subseteq \mathbb{R}^3$ be a set and $v \in \mathbb{R}^3$ a vector. We write
+\[
+M+v=v+M:=\{x+v\mid x\in M\}
+\]
+for its translation by $v$. We denote the interior of $M$ by $M^\circ$ and its boundary by $\partial M$.
+Let $\mathcal{L}(B)$ be a full lattice in $\mathbb{R}^3$ with basis $B=\{b_1,b_2,b_3\}$. For $w\in\mathcal{L}(B)$, let $V_w$ be the Voronoi cell of $\mathcal{L}(B)$ at $w$, i.e.
+\[
+V_w = \{ x \in \mathbb{R}^3 \mid \; \Vert x-w\Vert  \le \Vert (x + v)-w\Vert  \ \text{for all } v \in \mathcal{L}(B) \}.
+\]
+We write $V:=V_{\underline{0}}$ for the Voronoi cell at the origin and define
+\[
+V(i,j,k):=V+(ib_1+jb_2+kb_3)
+\]
+for $(i,j,k)\in\mathbb Z^3$. We denote the set of facets of a cell $V(i,j,k)$ by $\mathcal F(V(i,j,k))$. If $f\in\mathcal F(V(i,j,k))$, then $e_f$ denotes the lattice vector that translates $f$ to the opposite facet of the same cell.
+\end{remark}
+
+
+Using this notation, we now define volumetric weaves. After the definition, we briefly explain the role of each condition. Since the threads of an entanglement $\omega$ are pairwise disjoint, we identify $\omega$ with the set $\bigcup_{t\in \omega}t$ whenever convenient.
+
+\begin{definition}\label{def:weave}
+Let $\omega$ be an entanglement of threads. Further, let $\mathcal{L}(B)$ be a full lattice in $\mathbb{R}^3$ with basis $B=\{b_1,b_2,b_3\}$, and let $V=V_{\underline{0}}$ be the Voronoi cell of $\mathcal{L}(B)$ around the origin.
+We say that $\omega$ is a \emph{volumetric weave} with basis $B$, if the following conditions hold for all $(i,j,k)\in \mathbb{Z}^3$:
+\begin{enumerate}
+\item $\vert \omega\cap f\ \vert=\vert \omega\cap f^\circ\ \vert=1$ for every facet $f$ of $\mathcal{F}(V(i,j,k)),$
+\item
+$\bigl\vert \{\, t\in \omega \mid t\cap V(i,j,k)\neq\emptyset \,\}\bigr\vert =\frac{\vert \mathcal{F}(V)\vert }{2},$
+
+\item $\vert t\cap\partial V(i,j,k)\vert\in\{0,2\}$ for every thread $t\in\omega$,
+
+
+\item
+if a thread $t\in\omega$ intersects a facet $f\in \mathcal{F}(V(i,j,k))$, that is $t\cap f\neq \emptyset$, then
+\[
+t\cap (f + \ell e_f)\neq \emptyset
+\quad \text{for all } \ell\in\mathbb{Z}.
+\]
+\end{enumerate}
+If $\Delta$ is a non-empty subset of $\mathbb{Z}^3,$ then we call $$\omega_{\Delta}:=\omega \cap \bigcup_{(i,j,k)\in {\Delta}}V(i,j,k)$$ a \emph{partial volumetric weave with basis $B$ induced by $\Delta$}. In the case that $\Delta$ is given by $$\Delta=\{(i,j,k)\mid 0\leq i,j,k<n \},$$ where $n\geq 1$, we say that $\omega_{\Delta}$ is a partial $n{\times} n{\times} n$ volumetric weave with basis $B$.
+\end{definition}
+
+
+As mentioned above, the conditions formulated above encode the regular structure of a volumetric weave.
+The first condition ensures that for every facet interior there exists exactly one thread that passes through it.
+The second condition imposes that
+every Voronoi cell is intersected by exactly half as many threads as the number of its faces.
+Condition~(3) states that a thread either does not intersect a cell at all or enters and exits the cell exactly once.  Consequently, a thread intersects the boundary of a cell in exactly two points and does not pass through vertices or edges. Together with Condition (4) we know that every thread enters and leaves a Voronoi cell through two different face interiors. Moreover, this last condition guarantees the periodicity of the threads with respect to the lattice. If a thread intersects a face $f$ of a cell, then it also intersects all lattice translates of this face in the direction orthogonal to $f$.
+
+
+\subsection{Partial Weaves and Homotopy}
+
+For the enumeration problem studied in this paper, we do not work directly with an infinite full weave. Instead, we restrict a full weave to a finite set of cells and compare such restrictions up to homotopy.
+
+
+Note that the partial volumetric weaves with basis $B$ considered in this work always arise as restrictions of volumetric weaves with basis $B$ called a \emph{full weave}. Thus, using our notation, if ${\Delta} \subseteq \mathbb{Z}^3$ is a non-empty set and $\omega_{\Delta}$ is a partial weave with basis $B$, then there exists a volumetric weave $\omega$ with basis $B$ such that $\omega_{\Delta}$ is the restriction of $\omega$ to ${\Delta}$. In general, however, there may exist distinct full weaves $\omega$ and $\omega'$ such that $\omega_{\Delta} = \omega'_{\Delta}$.
+
+
+With the definition of a volumetric Bravais weave in place, we can introduce homotopies of different weaves with the same basis and same Voronoi decomposition.
+\begin{definition}
+Let ${\Delta}\subseteq \mathbb{Z}^3$ be a non-empty subset and $B$ a basis of a full lattice  $\mathcal{L}(B)$ in $\mathbb{R}^3$. Let $\omega_{\Delta}$ and $\omega'_{\Delta}$ be two (partial) volumetric weaves with basis $B$ induced by ${\Delta}$. Note if ${\Delta}=\mathbb{Z}^3$, then $\omega_{\Delta}$ and $\omega'_{\Delta}$ are simply volumetric weaves with basis $B.$ Moreover, let $V=V_{\underline{0}}$ be the Voronoi cell of $\mathcal{L}(B)$ centred at the origin. \rey{nenne equivalenz, zwischen Weaves}
+    A homotopy $\phi:[0,1]\times C\to C$, where  $C$ is defined as $$C:=\bigcup_{(i,j,k)\in {\Delta}}V(i,j,k),$$ is called a \emph{homotopy of (partial) volumetric weaves with basis $B$} from $\omega_\Delta$ to $\omega'_\Delta$, if
+    \begin{enumerate}
+        \item ${\phi_0}_{\mid \omega_{\Delta}}=\mathrm{id}_{\omega_{\Delta}}$ and  $\phi_1(\omega_{\Delta})=\omega_{\Delta}',$
+        \item $\phi_t(\omega)$ is a (partial) volumetric weave with basis $B$ for all $t\in [0,1].$
+    \end{enumerate}
+\end{definition}
+
+
+
+
+\subsection{Configurations and Volumetric Representations}
+
+The previous notions still describe the geometry of the threads. We now pass to a finite combinatorial description by recording, for each cell, which local configuration occurs there.
+
+
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=2.5mm]
+        \node (b) [align=center, on grid]
+        {\includegraphics[width=0.20\linewidth]{Figures/fig3/2d/base.jpg}\\\footnotesize partial $2\times2$};
+        \node (f) [align=center, on grid, right=40mm of b]{\includegraphics[width=0.20\linewidth]{Figures/fig3/2d/full.jpg}\\\footnotesize full $2\times2$};
+        \node (fx) [align=center, on grid,right=40mm of f]{\includegraphics[width=0.20\linewidth]{Figures/fig3/2d/full_x_translation.jpg}\\\footnotesize $x$-translation by 1 unit};
+        \node (fxr) [align=center, on grid,right=40mm of fx]{\includegraphics[width=0.20\linewidth]{Figures/fig3/2d/full_x_translation_rot90_recolor.jpg}\\\footnotesize$90^\circ$-rotation};
+        \node (loop) [draw,inner sep=1mm,rounded corners=1mm, fit=(b)(f)(fx)(fxr)]{};
+    \end{tikzpicture}
+    \Tolga{Show examples of rotation + translations in 2D and in 3D}
+    \caption{The element $TODO\in \mathrm{Rot}(C) \cdot \mathbb{Z}_n^2$ acting on a partial cubic primitive weave in $\mathbb{R}^2$}
+    \label{fig:actiononweaves}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=2.5mm]
+        \node (b1) [align=center, on grid]
+        {\includegraphics[width=0.24\linewidth]{Figures/fig3/3d/base.jpg}};
+        \node (f) [align=center, on grid, right=40mm of b1]{\includegraphics[width=0.24\linewidth]{Figures/fig3/3d/full.jpg}};
+        \node (fx) [align=center, on grid,right=40mm of f]{\includegraphics[width=0.24\linewidth]{Figures/fig3/3d/x_translated.jpg}};
+        \node (fxr) [align=center, on grid,right=40mm of fx]{\includegraphics[width=0.24\linewidth]{Figures/fig3/3d/rotated.jpg}};
+        \node (b) [align=center, on grid, below=42mm of b1]
+        {\includegraphics[width=0.24\linewidth]{Figures/fig3/3d/base_ortho.jpg}};
+        \node (f) [align=center, on grid, right=40mm of b]{\includegraphics[width=0.24\linewidth]{Figures/fig3/3d/full_ortho.jpg}};
+        \node (fx) [align=center, on grid,right=40mm of f]{\includegraphics[width=0.24\linewidth]{Figures/fig3/3d/x_translated_ortho.jpg}};
+        \node (fxr) [align=center, on grid,right=40mm of fx]{\includegraphics[width=0.24\linewidth]{Figures/fig3/3d/rotated_ortho.jpg}};
+        \node (bl) [align=center, on grid, below=25mm of b] {\footnotesize partial $2\times2\times2$};
+        \node (fl) [align=center, on grid, right=40mm of bl]{\footnotesize full $2\times2\times2$};
+        \node (fl) [align=center, on grid,right=40mm of fl]{\footnotesize $x$-translation by 1 unit};
+        \node (fxl) [align=center, on grid,right=40mm of fl]{\footnotesize$90^\circ$-rotation};
+        \node (loop) [draw,inner sep=1mm,rounded corners=1mm, fit=(b1)(fxr)(fxl)]{};
+    \end{tikzpicture}
+    \Tolga{Show examples of rotation + translations in 2D and in 3D}
+    \caption{The element $TODO\in \mathrm{Rot}(C) \cdot \mathbb{Z}_n^3$ acting on a partial cubic primitive weave in $\mathbb{R}^3$}
+    \label{fig:actiononweaves3d}
+\end{figure}
+
+
+The notion of homotopic (partial) weaves allows us to introduce an equivalence relation on the set of (partial) volumetric weaves with a given basis.
+\begin{remark}\label{remark:equi}
+Let $\mathcal{L}(B)$ be a full lattice in $\mathbb{R}^3$ with basis $B=\{b_1,b_2,b_3\}.$ Furthermore, let $\mathcal{W}(B)$ denote the set
+of all volumetric weaves with basis $B$. The notion of homotopies of weaves with the same basis $B$ induces an equivalence relation on $\mathcal{W}(B)$.
+We call the equivalence classes under this relation \emph{weave classes} and denote the class of a weave $\omega$ by $[\omega]_B$.
+Furthermore, we define the set of weave classes by $\mathcal{C}(B):=\{[\omega]_B\mid \omega\in \mathcal{W}(B)\}$.
+
+Now, let $V=V_{\underline{0}}$ be the Voronoi cell of the lattice $\mathcal{L}(B)$ centred around the origin and ${\Delta}$ a non-empty subset of $\mathbb{Z}^3$.
+In the following, we assume that $\underline{0}\in {\Delta}$. Again, we note that if ${\Delta}=\mathbb{Z}^3$, then $\omega_{\Delta}=\omega$ is a full volumetric weave with basis $B.$ The equivalence relation on $\mathcal{W}(B)$ induces a relation on $\mathcal{W}_{\Delta}(B):=\{\omega_{\Delta}\mid \omega \in \mathcal{W}(B)\}$, namely the (partial) volumetric weaves with basis $B$ induced by ${\Delta}$.
+We denote the equivalence class of a (partial) weave $\omega_{\Delta}$ in this relation by $[\omega_{\Delta}]_B$. Similarly, we define the set of partial weave classes by $\mathcal{C}_{\Delta}(B):=\{[\omega_{\Delta}]_B\mid \omega_{\Delta}\in \mathcal{W}_{\Delta}(B)\}$.
+Further, if $\omega_{\Delta}$ is a (partial) volumetric weave with basis $B$ induced by ${\Delta}$, then we call $$\omega_{\Delta}(i,j,k):=\{V(i,j,k)\cap \omega'_{\Delta}\mid \omega_{\Delta}'\in [\omega_{\Delta}]_B\},$$ where $(i,j,k)\in {\Delta}$, the configuration of $\omega_{\Delta}$ at $(i,j,k).$
+Note, we observe that $$\omega_{\Delta}(i,j,k) =\{(i,j,k) + \omega_{\Delta}(0,0,0)\mid \omega_{\Delta}'\in [\omega_{\Delta}]_B\},$$ i.e., $\omega_{\Delta}(i,j,k)$ and $\omega_{{\Delta}}(0,0,0),$ differ only by a translation in $\mathbb{R}^3.$ In Definition~\ref{def:volrep}, we aim to exploit the configurations at points $(i,j,k)\in {\Delta}$ of a (partial) volumetric weave $\omega_{\Delta}$ to obtain a simplified representation of the whole weave. Thus, we define the configuration space of $B$ by $\mathrm{Conf}(B):=\{\omega(0,0,0)\mid \omega\in \mathcal{W}(B)\}$
+and assume $\omega_{\Delta}(i,j,k)\in \mathrm{Conf}(B)$ for all $(i,j,k)\in {\Delta}$ and $\omega_{\Delta}\in \mathcal{W}_{\Delta}(B).$ This assumption is again justified, since, as noted above, the configurations at different points $(i,j,k)\in {\Delta}$ differ only by a translation.
+\end{remark}
+For instance, Yildiz et al. established that there are exactly eight configurations of a cube forming a Voronoi cell of the cubic primitive weaves. Representatives of these are illustrated in Figure~\ref{fig:8conf}.
+It is easy to see that the symmetry group of the cube acts transitively on these configurations.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{.23\textwidth}
+        \includegraphics[scale=0.1]{Figures/cP_weaves/configs/c1.png}
+    \end{subfigure}
+    \begin{subfigure}{.23\textwidth}
+        \includegraphics[scale=0.1]{Figures/cP_weaves/configs/c2.png}
+    \end{subfigure}
+        \begin{subfigure}{.23\textwidth}
+        \includegraphics[scale=0.1]{Figures/cP_weaves/configs/c3.png}
+    \end{subfigure}
+        \begin{subfigure}{.23\textwidth}
+        \includegraphics[scale=0.1]{Figures/cP_weaves/configs/c4.png}
+    \end{subfigure}
+
+        \begin{subfigure}{.23\textwidth}
+        \includegraphics[scale=0.1]{Figures/cP_weaves/configs/c5.png}
+    \end{subfigure}
+        \begin{subfigure}{.23\textwidth}
+        \includegraphics[scale=0.1]{Figures/cP_weaves/configs/c6.png}
+    \end{subfigure}
+        \begin{subfigure}{.23\textwidth}
+        \includegraphics[scale=0.1]{Figures/cP_weaves/configs/c7.png}
+    \end{subfigure}
+        \begin{subfigure}{.23\textwidth}
+        \includegraphics[scale=0.1]{Figures/cP_weaves/configs/c8.png}
+    \end{subfigure}
+    \caption{The eight configurations of a cube forming a Voronoi cell of the cubic primitive lattice}
+    \label{fig:8conf}
+\end{figure}
+Note that if $\omega_{\Delta}$ is a (partial) volumetric weave with basis $B$, then, up to homotopy, $\omega_{\Delta}$ can be reconstructed from the configurations $\omega_{{\Delta}}(i,j,k)\in \mathrm{Conf}(B)$, where $(i,j,k)\in {\Delta}.$
+\[
+Picture
+\]
+\Tolga{From line configuration to weave and the other way round}
+This observation motivates the following definition of a volumetric representation, which will simplify our study of volumetric weaves.
+
+
+
+
+
+\begin{definition}\label{def:volrep}
+Let ${\Delta}\subseteq \mathbb{Z}^3$ be a non-empty set and $\omega_{\Delta}$ be a (partial) volumetric weave with basis $B=\{b_1,b_2,b_3\}$. A \emph{(partial) volumetric representation} of $\omega$ is a map
+\[
+\kappa:{\Delta} \to \mathrm{Conf}(B),(i,j,k)\mapsto \omega_{\Delta}(i,j,k).
+\]
+That means, under $\kappa$, each point $(i,j,k)\in {\Delta}$ is assigned to the corresponding configuration of $\omega_{\Delta}$ at $(i,j,k)$.
+If $\vert\mathrm{Conf}(B)\vert, \vert{\Delta}\vert < \infty$, we may fix bijections ${\Delta} \to \{1,\ldots, \vert{\Delta}\vert\}$ and $\mathrm{Conf}(B) \to \{1,\ldots, \vert\mathrm{Conf}(B)\vert\}$. With these identifications, we may equivalently regard the volumetric representation as a map
+\[
+\kappa:\{1,\ldots, \vert {\Delta}\vert \} \to \{1,\ldots,\vert\mathrm{Conf}(B)\vert\}.
+\]
+This yields a more concrete description of the volumetric representation in the finite case.
+In the special case that ${\Delta}=\{(i,j,k)\mid 0\leq i,j,k<n \},$ we say that  $\kappa$ is a $n\times n\times n$-volumetric representation. We denote the set of all (partial) volumetric representations by $\mathcal{R}(B)$ or $\mathcal{R}_\Delta(B),$ respectively.
+\end{definition}
+
+For instance, if $\omega_{\Delta}$ is a partial $n\times n\times n$ volumetric weave with basis $B$, then the volumetric representation forms a function $$\kappa:\{1,\ldots,n^3\}\to \{1,\ldots,8\}.$$
+In the following section, we will use this structure of a volumetric representation for a partial $n\times n\times n$ volumetric weave to establish several group actions on the set of partial cubic primitive weaves.
+
+
+
+
+\section{Group Actions on (Partial) Cubic Primitive Weaves}\label{sec:actions}
+
+In this subsection, we introduce group actions on (partial) volumetric waves annd their volumetric representations.
+We then turn to partial cubic primitive weaves, where we make these actions explicit and concrete.
+In particular, we define an action of the group $S_4 \cdot \mathbb{Z}_n^3$ on the partial $n\times n\times n$ cubic primitive weaves. This group action will be a key tool in the study of inequivalent partial $n \times n \times n$ cubic primitive weaves.
+
+
+
+\subsection{Group Actions on Volumetric Weaves}
+
+We begin with the infinite setting, where rotations of the Voronoi cell and lattice translations act naturally on the whole lattice and hence on full volumetric weaves.
+
+
+Let $B$ be the basis of a full lattice $\mathcal{L}(B)$ in $\mathbb{R}^3$.
+Furthermore, let $V=V_{\underline{0}}$ be the Voronoi cell of $\mathcal{L}(B)$ centred at the origin.  We can use $V$ and $\mathcal{L}(B)$ to derive a group acting on the $\mathcal{L}(B)$ as follows: First, let $\Rot(V)$ be the rotation group of $V$. Note that $\Rot(V)$ can be embedded into the orthogonal group $O_3$ and furthermore $\mathcal{L}(B)$ can be interpreted as an abelian group isomorphic to $\mathbb{Z}^3$. Hence, the semi-direct product $G:=\Rot(V)\ltimes \mathcal{L}(B)$ acts on the lattice $\mathbb{R}^3$ as follows:
+For a lattice point $x\in \mathbb{R}^3$ and an element $(\sigma,\tau)\in G$ we define $x^{(\sigma,\tau)}:={x^{\sigma}}+\tau,$ where $x^\sigma$ is the point that arises some applying the rotation $\sigma$ to the vector~$x.$
+The multiplication of elements in $G$ is given by $(\sigma_1,\tau_1)\cdot(\sigma_2,\tau_2)=(\sigma_1\sigma_2,\tau_1^{\sigma_2}+\tau_2). $ Hence, the above definition indeed yields an action of $G$ on $\mathbb{R}^3.$
+Since for all $x \in \mathcal{L}(B)$ and $(\sigma,\tau)\in G$ the element $x^{(\sigma,\tau)}$ is again a point in the lattice $\mathcal{L}(B),$ the above action induces actions of the form
+\[
+\mathcal{L}(B)\times G\to \mathcal{L}(B) \text{ and } \mathcal{W}(B)\times G\to \mathcal{W}(B).
+\]
+Additionally, since two volumetric weaves $\omega_1,\omega_2\in \mathcal{W}(B)$ with $\omega_1\in [\omega_2]_B$
+satisfy ${\omega_1}^{(\sigma,\tau)}\in [{\omega_2}^{(\sigma,\tau)} ]$ for all $(\sigma,\tau)\in G$, the described action on $\mathcal{W}(B)$ gives us an action of $G$ on the weave classes $\mathcal{C}(B).$
+\subsection{Group Actions on Partial $n\times n\times n$ Volumetric Weaves}
+\label{section:action}
+
+We now pass from volumetric weaves to partial $n\times n\times n$ volumetric weaves. To achieve this, translations are taken modulo $n$, so that the finite set of cells is preserved.
+
+Inspired by the above action of $G$ on $\mathcal{W}(B)$ we aim to construct a group acting on the set of partial $n\times n \times n$ cubic primitive weaves.
+For this purpose, we define the sets ${\Delta}$  as ${\Delta}:=\{(i,j,k)\in \mathbb{Z}^3\mid 0\leq i,j,k < n\},$ where $n\geq 2$  and $C$ as
+\[
+C:=\bigcup_{(i,j,k)\in {\Delta}} V(i,j,k).
+\]
+Moreover, we define $\mathcal{L}_{\Delta}:=\{ib_1+jb_2+kb_3\mid (i,j,k)\in \Delta\}.$
+Note that by considering the coefficients of the vectors in $B$ for the sum $\tau_1 + \tau_2$ of any two elements $\tau_1, \tau_2 \in \mathcal{L}_{\Delta}$ modulo $n$, we obtain $\mathcal{L}_{\Delta} \cong \mathbb{Z}_n^3$. By combining the rotation group $\Rot(C)$ and $\mathcal{L}_{\Delta}$, we obtain a group $G_n:=\Rot(C) \cdot \mathcal{L}_{\Delta}$ via the multiplication $(\sigma_1,\tau_1)\cdot(\sigma_2,\tau_2)=(\sigma_1\sigma_2,\tau_1^{\sigma_2}+\tau_2).$
+With this, we obtain our action of $G_n$ on the set $\mathcal{L}_{\Delta}$ via
+$$\pi_1:\mathcal{L}_{\Delta} \times G_n \to \mathcal{L}_{\Delta}: (x, (\sigma, \tau)) \mapsto
+x^{(\sigma,\tau)}:= x^\sigma+\tau,$$
+ where $x\in\mathcal{L}_ {\Delta},$ $x^\sigma$ denotes the vector resulting from applying the rotation $\sigma\in \Rot(C)$ to $x$ and the translation of the vector $x^\sigma$ by the vector $\tau$ is applied modulo $n.$
+ We observe that this action induces an action of $G_n$ on $\mathcal{W}_{\Delta}(B)$ via
+ $$\omega_\Delta^{(\sigma,\tau)}:=\{x^{(\sigma,\tau)}\mid  x\in \omega_\Delta\},$$ where $\omega_\Delta$ is a partial $n\times n\times n$ volumetric weave.
+
+ 
+ \begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.23\linewidth}
+        \includegraphics[width=\linewidth]{Figures/fig7/axis_of_rotation.jpg}
+        \caption{Rotation axis is between the opposite corners of the cube.}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.69\linewidth}
+        \includegraphics[width=0.32\linewidth]{Figures/fig7/plane_of_rotation.jpg}
+        \includegraphics[width=0.32\linewidth]{Figures/fig7/plane_of_rotation_r1.jpg}
+        \includegraphics[width=0.32\linewidth]{Figures/fig7/plane_of_rotation_r2.jpg}
+        \caption{This particular cP-weave is fixed under an element of the conjugacy class $3^a$.}
+    \end{subfigure}
+
+    \caption{An example of rotation action of order 3 acting on a $3\times3\times3$ cP-Weave which is fixed under this operation.}
+    \label{fig:v3_action}
+\end{figure}
+\Tolga{Illustrations of an element acting on a configuration; rotation of order 3 around the axis going through to oposite vertices; illustrate that there are configuration that are fixed under this rotation; colour the matching to better show the fixed points of the rotation of order 3; insert thin rotation axis}
+
+
+ 
+ 
+ Again, since two $n\times n\times n$ volumetric weaves $\omega_1,\omega_2$ with basis $B$ and $(\omega_1)_{\Delta}\in [(\omega_2)_{\Delta}]_B$
+satisfy $${(\omega_1)_{\Delta}}^{(\sigma,\tau)}\in [{(\omega_2)_{\Delta}}^{(\sigma,\tau)} ],$$ the action of $G_n$ on $\mathcal{W}_{\Delta}(B)$ gives us an action of $G_n$ on $\mathcal{C}_{\Delta}(B).$ Moreover, $G_n$ acts on the configuration space via:
+\[
+\pi_2:\mathrm{Conf}(B)\times G_n \to \mathrm{Conf}(B), (\omega_\Delta(0,0,0), (\sigma,\tau ))\mapsto  \omega^{(\sigma,\tau)}_\Delta(0,0,0)
+\]
+Note that $\omega^{(\sigma,\tau)}_\Delta(0,0,0)= \omega^{(\sigma, \underline{0})}_\Delta(0,0,0).$ That means the effect of an element $(\sigma,\tau)\in G_n$ on a configuration contained in $\mathrm{Conf}(B)$ only depends on $\sigma\in \mathrm{Rot}(C).$
+\subsection{Action on Volumetric Representations}
+
+The  action on partial weaves induces an action on their corresponding volumetric representations. This is the action needed for our proposed fixed-point count.
+
+
+In the previous section, we have already established that partial $n\times n\times n$ volumetric weaves with basis $B$ admit volumetric representations of the form $\kappa:\Delta\to \mathrm{Conf}(B).$
+By choosing suitable bijections, these representations can be written as $$\kappa:\{1,\ldots, n^3\}\to \{1,\ldots, \vert \mathrm{Conf}(B)\vert \}.$$
+Now, our aim is to derive a group action $\mathcal{R}(B)\times G_n\to \mathcal{R}(B)$ such that for every $(\sigma,\tau)\in G_n$ and $\omega_{\Delta}\in \mathcal{W}_{\Delta}(B)$ the following holds: if $\kappa$ is the volumetric representation of  $\omega_\Delta$, then $\kappa^{(\sigma,\tau)}$ is the volumetric representation of  $\omega_\Delta^{(\sigma,\tau)}.$
+Here, we achieve this by making use of the actions $\pi_1$ and $\pi_2$ established in Section~\ref{section:action}. We proceed as follows:
+
+First, assume that $\ell:=|\mathrm{Conf}(B)|<\infty$. Since $\mathrm{Conf}(B)$ and $\Delta$ are finite, we fix bijections
+\[
+ \phi:\Delta \to \{1,\ldots,n^3\}
+ \quad\text{and}\quad
+ \theta:\mathrm{Conf}(B)\to \{1,\ldots,\ell\}.
+\]
+These bijections turn $\pi_1$ and $\pi_2$ into permutation representations
+$\Phi:G_n\to \mathrm{S}_{n^3}$ and $\Theta:G_n\to \mathrm{S}_{\ell}$.
+Thus $G_n$ acts on the labels $\{1,\ldots,n^3\}$ and $\{1,\ldots,\ell\}$ by
+$i^g:=i^{\Phi(g)}
+$ and $j^g:=j^{\Theta(g)},$ respectively.
+We define the induced action on volumetric representations by
+\[
+\kappa^g(i):=\kappa(i^{g^{-1}})^g.
+\]
+Here, $i^{g^{-1}}$ is computed using the induced action on cell labels, while the final exponent $g$ is computed using the induced action on configuration labels. With this definition, $\kappa^g$ is the volumetric representation of $\omega_\Delta^g$.
+
+As stated in Section~\ref{sec:intro}, our goal is to determine the number of inequivalent volumetric weaves with basis $B$ that arise by suitably translating partial $n \times n \times n$ volumetric weaves with basis $B$. This number is precisely the number of orbits of $G_n$ acting on the set of volumetric representations of partial $n \times n \times n$ volumetric weaves with basis $B$.
+
+To compute this, we develop tools for determining the number of orbits of $G_n$ acting on $\mathcal{C}_\Delta(B)$, or equivalently on $\mathcal{R}_{\Delta}(B)$. We do so by counting the fixed points of elements of $G_n$ acting on $\mathcal{R}_{\Delta}(B)$ and then applying the Burnside's counting theorem, see \cite{MR69818}. In order to achieve this, we need two auxiliary lemmas. The following two observations explain the divisibility condition that appears in the fixed-point formula in Theorem~\ref{thm:brujin}.
+
+
+\begin{lemma}
+    Let $g:=(\sigma,\tau)\in G_n$ be an element that has a fixed point $\kappa\in \mathcal{R}(B)$. If some $i\in \{1,\ldots,n^3\}$ is a fixed point of $g$ acting on $\{1,\ldots,n^3\}$, then $\kappa(i)$ has to be a fixed point of $g$ acting on $\{1,\ldots,\ell\}.$
+\end{lemma}
+\begin{proof}
+The result follows directly from
+       $\kappa(i)=\kappa^{g}(i)=\kappa(i^{g^{-1}})^{g}=\kappa(i)^{g}.$
+\end{proof}
+\begin{lemma}
+    Let $g:=(\sigma,\tau)\in G_n$ be an element that has a fixed point $\kappa\in \mathcal{R}_\Delta(B)$. Furthermore, let $c_\Phi$ be a cycle of $\Phi(g)\in \mathrm{S}_{n^3}$ and $c_\Theta$ a cycle of $\Theta(g) \in \mathrm{S}_\ell$ such that some $i\in \{1,\ldots,n^3\}$ and $\kappa(i)$ are moved points of $c_\Phi$ and $c_\Theta,$ respectively. Then $\vert c_\Theta\vert $ divides $\vert c_\Phi\vert$.
+\end{lemma}
+\begin{proof}
+   We define $k:=\vert c_\Phi\vert$ and observe that $i^{g^k}=i^{\Phi(g^k)}=i$. Since $\kappa$ is a fixed point of $g$, we know that $\kappa=\kappa^{g^k}$. This allows us to conclude the following equations:
+   $$\kappa(i)=\kappa^{g^k}(i)=\kappa(i^{g^{(-k)}})^{g^k}=\kappa(i)^{g^k}.$$
+   Because of $\kappa(i)$ being a moved point of $c_\Theta$, we obtain ${\kappa(i)}^{c_\Theta}=\kappa(i)$. Thus, the result follows.
+\end{proof}
+
+Adapting the results of \cite{MR1577579} and \cite{MR18142} to our setting, one obtains that the number of orbits of $G_n$ acting on $\mathcal{R}_\Delta(B)$ may be determined from the induced actions of $G_n$ on $\{1,\ldots,n^3\}$ and on $\{1,\ldots,\ell\}$.
+We now state a corresponding version of this result in our framework and provide an alternative proof. For the original statements, we refer the reader to the references cited above.
+\begin{theorem}\label{thm:brujin}
+Let $g:=(\sigma,\tau)\in G_n$ be an element. If for every cycle $c_\Phi$ of $\Phi(g)$ there exists a cycle $c_\Theta$ of $\Theta(g)$ such that $\vert c_\Theta\vert$ divides $ \vert c_\Phi\vert,$ then $g$ has a fixed point on $\mathcal{R}(B)$.
+In this case, if ${n_1}^{a_1}\cdots n_p^{a_p}$ and ${m_1}^{b_1}\cdots m_q^{b_q}$ are the cycle structures of $\Phi(g)$ and $\Theta(g),$ and $d_i$ is defined as
+$$d_i:=\sum_{\substack{ m_j\mid n_i}} b_jm_j, $$
+for $1\leq i \leq p,$
+then the number of fixed points of $g$ acting on $\mathcal{R}(B)$ is given by $d_1
+^{a_1}\cdots d_p^{a_p}.$
+\end{theorem}
+\begin{proof}
+First, note that if $M$ is a subset of $\{1,\ldots,n^3\}$ satisfying $M^{g}=M$ and $\bar{\kappa}:M\to \{1,\ldots,\ell\}$ a map, then $\bar{\kappa}^{g}:M\to \{1,\ldots,\ell\}: i \mapsto \bar{\kappa}(i^{g^{-1}})^{g}$  is a well-defined.
+We exploit this fact to recursively construct a fixed point $\kappa:\{1,\ldots,n^3\} \to \{1,\ldots,\ell\}$ of $g$ acting on $\mathcal{R}(B)$. First, let $c_{\Phi}=(i_1 \cdots  i_{\vert c_\Phi\vert})$ be a cycle of $\Phi(g)$.
+ We know that there exists a cycle $c_\Theta=(j_1 \cdots  j_{\vert c_\Theta\vert })$ of $\Theta(g)$ such that $\vert c_\Theta\vert $ divides $\vert c_\Phi\vert.$
+ Hence, we can construct a map $\kappa_1:\{i_1,\ldots,i_{\vert c_\Phi\vert }\} \to \{1,\ldots,\ell\}$ satisfying ${\kappa_1}^{g}=\kappa_1$ by defining $\kappa_1(i_1):=j_1$ and $\kappa_1(i_k):={j_1}^{(g)^{k-1}}$ for $2\leq k \leq \vert c_\Phi\vert .$
+ This means that $\kappa_1(i_1)=\kappa_1({i_{\vert c_\Phi\vert }})^{g}$ and $\kappa_1(i_k)=\kappa_1({i_{k-1}})^{g}$ for all $2\leq k \leq \vert c_\Phi\vert .$ This results in $\kappa_1$ satisfying
+ \[
+{\kappa_1}^{g}(i_{1})={\kappa_1}({i_{1}}^{(g)^{-1}})^{g}=\kappa_1(i_{\vert c_{\Phi}\vert })^{g}=\kappa_1(i_1)
+\]
+ and
+\[
+{\kappa_1}^{g}(i_{k})={\kappa_1}({i_{k}}^{g^{-1}})^{g}=\kappa_1(i_{k-1})^{g}=\kappa_1(i_k)
+\]
+for all $2\leq k\leq \vert c_\Phi\vert$. Thus, $\kappa_1$ satisfies ${\kappa_1}^{g}=\kappa_1$.
+Note, every choice of a cycle $c=(e_1,\ldots,e_{\vert c \vert})$ of $(g)_\Omega$ whose length divides $\vert c_\Phi\vert$ and every choice of the image
+$\kappa_1(i_1):=e$ with $e\in \{e_1,\ldots, e_{\vert c\vert} \}$ as described above, gives us a map $\kappa_1$ satisfying ${\kappa_1}^{g}=\kappa_1$.
+So, if $c_\Phi$ is a cycle of length $n_i$ then there are $d_i$ possibilities of constructing such a map $\kappa_1,$ where $n_i$ and $d_i$ are defined as in the above statement.
+Now, let the maps $\kappa_1,\ldots,\kappa_r$ with domains $M_1\subseteq \ldots \subseteq  M_r$ already be constructed. In the following we consider the cases (i) $M_r=\{1,\ldots,n^3\}$ and (ii)~$M_r\subset \{1,\ldots,n^3\}.$
+
+(i) If $M_r=\{1,\ldots,n\},$ then $\kappa:=\kappa_r$ satisfies $\kappa^{g}=\kappa$ and is therefore a desired fixed point of $g$ acting on $\mathcal{R}(B)$.
+
+(ii) We now examine the case that the domain $M_r$ is a proper subset of $\{1,\ldots,n^3\}$. In this case, there exists an integer $i'_1\in \{1,\ldots,n^3 \}\setminus M_r.$
+We know that there exists a cycle $c'_{\Phi}=(i'_1 \cdots  i'_{\vert c'_\Phi\vert })$ of $\Phi(g)$, i.e.\ a cycle of $\Phi(g)$ containing $i_1'$.
+Furthermore, by our assumption, there is a cycle $c'_\Theta=(j'_1 \cdots  j'_{\vert c'_\Theta\vert })$ of $\Theta(g)$ such that $\vert c'_\Theta\vert $ divides $\vert c'_\Phi\vert.$ We exploit this instance to construct a set $M_{r+1}$ containing $M_r$ and a map $\kappa_{r+1}:M_{r+1}\to \{1,\ldots,\ell\}$ satisfying ${\kappa_{r+1}}^{g}=\kappa_{r+1}.$ This map can be constructed by defining
+$$\kappa_{r+1}: M_{r+1}\to \{1,\ldots,\ell\}, i\mapsto
+\begin{cases}
+  j'_1, & i=i'_1,\\
+  {j'_1}^{g^{k-1}}, & i=i'_k, 2\leq k \leq \vert c'_\Phi\vert, \\
+ \kappa_r(i), & i \in M_r.\\
+\end{cases}$$
+Similarly as discussed for the above map $\kappa_1$, we can easily check that $\kappa_{r+1}$ satisfies ${\kappa_{r+1}}^{g}=\kappa_{r+1}.$ Again, every choice of a cycle $c'=(e'_1\cdots e'_{\vert c' \vert})$ whose length divides $\vert c'_\Phi\vert$ and every choice of the image $\kappa_{r+1}(i_1):=e'$ with $e\in \{e'_1,\ldots, e'_{\vert c'\vert} \}$ as described above, gives us a map $\kappa_{r+1}$ satisfying ${\kappa_{r+1}}^{g}=\kappa_{r+1}$. So, if $c'_\Phi$ is a cycle of length $n_i$ then there are $d_i$ possibilities of extending a map $\kappa_r$ to a map $\kappa_{r+1}.$
+
+ Since $\{1,\ldots,n^3 \}$ is finite, we will obtain a map $\kappa: \{1,\ldots,n^3 \}\to \{1,\ldots,\ell\}$ satisfying $\kappa^{g}=\kappa$ after finitely many recursion steps. That means that $\kappa$ is a fixed point of $g$ acting on $\mathcal{R}(B)$.
+
+Furthermore, by \Cref{cycleslm}, we know that if $c=(i_1,\ldots,i_{\vert c\vert })$ is a cycle of $\Phi(g)$, and $\bar{\kappa}:\{1,\ldots,n^3 \}\to \{1,\ldots,\ell\}$ a fixed point of $g$ acting on $\mathcal{R}(B)$, then $\bar{\kappa}(i_1),\ldots,\bar{\kappa}(i_{\vert c\vert})$ have to be contained in the same cycle $c'$ of $\Theta(g)$ satisfying $\vert c' \vert \mid \vert c \vert $. Thus, every fixed point $\bar{\kappa}$ of $g$ acting on $\mathcal{R}(B)$ can be constructed as illustrated above. This directly implies that there exactly $d_1^{a_1}\cdots d_k^{a_k}$ fixed points of $g$ acting on $\mathcal{R}(B),$  where $d_i$ and $a_i$ are defined as in the above statement.
+\end{proof}
+Hence, if we denote by $ \mathrm{Fix}(g) $ the number of fixed points of an element $ g \in G_n $ acting on $ \mathcal{R}_\Delta(B) $, defined as in the statement above, then the number of orbits is given by the orbit-counting lemma as
+\[
+\frac{1}{\vert G_n\vert}\sum_{g\in G_n} \mathrm{Fix}(g).
+\]
+
+\section{The Group Action on Cubic Primitive Weaves}\label{section:actioncpweaves}
+
+We now specialize the general construction of the previous section to cubic primitive weaves. Let $B$ be the standard basis of $\mathbb{R}^3$ and let $n\geq 2$. The relevant set of cell indices is
+\[
+\Delta_n=\{(i,j,k)\in\mathbb Z^3\mid 0\leq i,j,k<n\},
+\]
+and $\mathcal{W}_{\Delta_n}(B)$ is the set of partial $n\times n\times n$ cubic primitive weaves. Moreover, $\mathcal{L}_{\Delta_n}=\Delta_n$, and the Voronoi cell $V$ is a unit cube centred at the origin. Thus the set
+\[
+C_0=\bigcup_{(i,j,k)\in \Delta_n}V(i,j,k)
+\]
+is an $n\times n\times n$ cube with centre
+\[
+c_n=\left(\frac{n-1}{2},\frac{n-1}{2},\frac{n-1}{2}\right).
+\]
+
+It will sometimes be convenient to work with a copy of this cube whose centre is the origin. For this purpose, we set
+$C:=C_0-c_n.$
+The centres of the cells of $C$ form the set
+$
+\widehat{\Delta}_n:=\{u-c_n\mid u\in\Delta_n\}\subseteq\mathbb R^3.
+$
+We identify this set with $\Delta_n$ by
+$\iota:\Delta_n\to\widehat{\Delta}_n:\iota(u)=u-c_n.$
+The group
+$G_n=\Rot(C)\cdot \mathbb{Z}_n^3$
+acts on the set $\widehat{\Delta}_n$. Here, $\Rot(C)$ rotates the centred cube. The group $\mathbb Z_n^3$ acts on the cell indices $\Delta_n$ by addition modulo $n$, and via the identification $\iota$ this gives an action on the cells of $C$.
+
+
+In the fixed-point computations following sections, we will see that the contribution of an element of $G_n$ depends on its rotation component only through the conjugacy class of this component in $\Rot(C)$. We therefore recall these classes and fix a convenient description of $\Rot(C)$ as a matrix group.
+
+\begin{remark}\label{rem:mat}
+The group $\Rot(C)$ is isomorphic to $S_4$. We use the following notation for its conjugacy classes:
+\[
+\begin{array}{c|c|c|c}
+\text{class} & \text{order} & \text{number of elements} & \text{rotation axis}\\
+\hline
+1^a & 1 & 1 & \text{identity}\\
+3^a & 3 & 8 & \text{opposite vertices}\\
+4^a & 4 & 6 & \text{opposite face centres}\\
+2^a & 2 & 3 & \text{opposite face centres}\\
+2^b & 2 & 6 & \text{opposite edge centres}
+\end{array}
+\]
+The cube $C$ is centred at the origin and the outward normal vectors of its faces are parallel to the standard basis vectors of $\mathbb{R}^3$. Hence every rotation of $C$ is represented by a signed permutation matrix with determinant one, and we may write
+\[
+\Rot(C)=\langle
+\begin{pmatrix}
+0&-1&0\\
+1&0&0\\
+0&0&1
+\end{pmatrix}
+,
+\begin{pmatrix}
+0&1&0\\
+0&0&1\\
+1&0&0
+\end{pmatrix}
+\rangle.
+\]
+\end{remark}
+Having fixed this description of $\Rot(C)$ as a matrix group, we now pass from the geometric action on cells and configurations to the corresponding permutation actions. For this, we fix bijections
+    \[
+     \phi:\widehat{\Delta}_n \to \{1,\ldots,n^3\} \text{ and } \theta:\mathrm{Conf}(B)\to \{1,\ldots,8 \}.
+    \]
+We define $\theta$ by the order of the eight configurations displayed in Figure~\ref{fig:8conf}: the configuration in position $i$ is assigned to $i$, for $1\leq i\leq 8$. For the cells, we use the indexing convention $(i,j,k)$ with $1\leq i,j,k\leq n$ and set
+\[
+\phi(\iota((i-1,j-1,k-1)))=i+n(j-1)+n^2(k-1).
+\]
+These choices turn the geometric actions of $G_n$ on cells and local configurations into permutation representations $\Phi:G_n\to \mathrm{S}_{n^3}$ and $\Theta:G_n\to \mathrm{S}_8.
+$
+For reference, the induced permutation groups for $n=3$ are written out explicitly in Appendix~\ref{app:n3-permutation-actions}.
+
+With the above definitions, the images of the rotation and translation parts in the permutation group on the cells are
+$R:=\Phi(\Rot(C))$ and $T_n:=\Phi(\mathbb{Z}_n^3)$.
+The following proposition shows that, for $n>2$, the permutation group induced by $G_n$ forms a semi-direct product.
+
+\begin{proposition}
+For every $n>2$, the groups $R$ and $T_n$ satisfy $R\cap T_n=\{1\}$.
+\end{proposition}
+\begin{proof}
+
+We first show that no non-trivial translation can act like a rotation on the cells of $C$. Since $C$ is centred at the origin, we identify its cells with their centres in $\widehat{\Delta}_n$. Recall that $\mathbb Z_n^3$ acts on the cell indices $\Delta_n$ by addition modulo $n$. Via the identification
+\[
+\iota:\Delta_n\to\widehat{\Delta}_n,\qquad \iota(u)=u-c_n,
+\]
+this also gives an action on the cells of the centred cube $C$. Thus, if $a\in\mathbb Z_n^3$, the corresponding translation sends the cell with index $u\in \Delta_n$ to the cell with index $u+a$, where the sum is taken modulo $n$ in each coordinate. In terms of cell centres, this means
+$\iota(u)\mapsto \iota(u+a).$
+
+Now consider the corner cells of $C$. Their centres are precisely
+$E:=\left\{-\frac{n-1}{2},\frac{n-1}{2}\right\}^3\subseteq \widehat{\Delta}_n.$
+Under $\iota$, this set corresponds to
+$
+E_0:=\{0,n-1\}^3\subseteq\Delta_n.$
+Every rotation of the cube maps corner cells to corner cells, so every element of $R$ preserves $E$ setwise. Suppose that a translation $t_a\in T_n$ also preserves $E$ setwise. Applying $\iota^{-1}$, this is equivalent to
+\[
+E_0+a=E_0
+\]
+with addition modulo $n$ in each coordinate. Let $p_i:\Delta_n\to \mathbb{Z}_n$ be the projection onto the $i$-th coordinate. Applying $p_i$ to the above equality gives
+\[
+\{0,n-1\}+a_i=\{0,n-1\}
+\]
+in $\mathbb{Z}_n$
+for each $i=1,2,3$. Since $0\in \{0,n-1\}$, we obtain $a_i\in \{0,n-1\}$. If $a_i=n-1$, then $(n-1)+a_i\equiv n-2\pmod n$, which is not contained in $\{0,n-1\}$ because $n>2$. Hence $a_i=0$ for all $i$, and therefore $a=(0,0,0)$. Thus $t_a$ is the identity translation.
+
+This implies that if there exists $g\in R\cap T_n$, then $g$ has to be the identity in $\Phi(G_n).$
+
+\end{proof}
+
+Since $T_n$ is normal in $\Phi(G_n)$ and $\Phi(G_n)=R\cdot T_n$, the proposition implies
+\[
+\Phi(G_n)=R\ltimes T_n
+\qquad\text{and}\qquad
+|\Phi(G_n)|=|R|\,|T_n|=24n^3
+\]
+for $n>2$. The case $n=2$ is exceptional: in that case a non-trivial translation may interchange the two boundary positions in a coordinate direction, and a GAP computation gives $|\Phi(G_2)|=48<24\cdot 2^3$. We therefore treat $n=2$ separately.
+
+
+It remains to describe the induced action on the eight local configurations of a cube forming a Voronoi cell. A pure translation $(1,\tau)\in G_n$ only changes the position of a cell and does not change the local configuration type. Consequently, the permutation $\Theta((\sigma,\tau))$ depends only on the rotation component $\sigma$, that is,
+\[
+\Theta((\sigma,\tau))=\Theta((\sigma,1))
+\]
+for all $\sigma\in \Rot(C)$ and $\tau\in \mathbb Z_n^3$. For instance, if $\sigma$ is an element of the conjugacy class $4^a$ whose action on the cube is given by a rotation whose axis is perpendicular to the $x$-$y$-plane, then for every $\tau\in \mathbb{Z}_n^3$ we obtain
+\[
+\Theta((\sigma,\tau))=(1,5,3,7)(2,8,4,6)\in \mathrm{S}_8.
+\]
+We derive this permutation by observing how $(\sigma,1)$ acts on every configuration. 
+This action is illustrated in Figure~\ref{fig:rotation_example_single}.
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{\linewidth}
+        \begin{tikzpicture}[node distance=2.5mm]
+        \node (c1) [align=center, on grid]{1\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c1.png}};
+        \node (c2)[align=center, on grid, right=20mm of c1]{2\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c2.png}};
+        \node (c3)[align=center, on grid, right=20mm of c2]{3\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c3.png}};
+        \node (c4)[align=center, on grid, right=20mm of c3]{4\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c4.png}};
+        \node (c5)[align=center, on grid, right=20mm of c4]{5\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c5.png}};
+        \node (c6)[align=center, on grid, right=20mm of c5]{6\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c6.png}};
+        \node (c7)[align=center, on grid, right=20mm of c6]{7\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c7.png}};
+        \node (c8)[align=center, on grid, right=20mm of c7]{8\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c8.png}};
+
+        \node (rc1) [align=center, on grid, below=34mm of c1]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c5.png}\\5};
+        \node (rc2)[align=center, on grid, right=20mm of rc1]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c8.png}\\8};
+        \node (rc3)[align=center, on grid, right=20mm of rc2]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c7.png}\\7};
+        \node (rc4)[align=center, on grid, right=20mm of rc3]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c6.png}\\6};
+        \node (rc5)[align=center, on grid, right=20mm of rc4]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c3.png}\\3};
+        \node (rc6)[align=center, on grid, right=20mm of rc5]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c2.png}\\2};
+        \node (rc7)[align=center, on grid, right=20mm of rc6]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c1.png}\\1};
+        \node (rc8)[align=center, on grid, right=20mm of rc7]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c4.png}\\4};
+
+        \draw[->, thick] (c1) edge (rc1);
+        \draw[->, thick] (c2) edge (rc2);
+        \draw[->, thick] (c3) edge (rc3);
+        \draw[->, thick] (c4) edge (rc4);
+        \draw[->, thick] (c5) edge (rc5);
+        \draw[->, thick] (c6) edge (rc6);
+        \draw[->, thick] (c7) edge (rc7);
+        \draw[->, thick] (c8) edge (rc8);
+
+        \node (text) [draw, rectangle, fill=white, on grid, below right=17mm and 10mm of c4]{90$^o$ degree rotation in Z axis};
+    \end{tikzpicture}
+    \caption{Action of an element of the conjugacy class $4^a$ from the cube symmetry group on a local weave element, mapping it to another configuration in the same group orbit.}
+    \end{subfigure}
+
+    \begin{subfigure}{\linewidth}
+    \begin{tikzpicture}[node distance=2.5mm]
+        \node (c1) [align=center, on grid]{1\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c1.png}};
+        \node (c2)[align=center, on grid, right=20mm of c1]{2\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c2.png}};
+        \node (c3)[align=center, on grid, right=20mm of c2]{3\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c3.png}};
+        \node (c4)[align=center, on grid, right=20mm of c3]{4\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c4.png}};
+        \node (c5)[align=center, on grid, right=20mm of c4]{5\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c5.png}};
+        \node (c6)[align=center, on grid, right=20mm of c5]{6\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c6.png}};
+        \node (c7)[align=center, on grid, right=20mm of c6]{7\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c7.png}};
+        \node (c8)[align=center, on grid, right=20mm of c7]{8\\\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c8.png}};
+
+        \node (rc1) [align=center, on grid, below=34mm of c1]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c7.png}\\7};
+        \node (rc2)[align=center, on grid, right=20mm of rc1]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c6.png}\\6};
+        \node (rc3)[align=center, on grid, right=20mm of rc2]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c3.png}\\3};
+        \node (rc4)[align=center, on grid, right=20mm of rc3]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c2.png}\\2};
+        \node (rc5)[align=center, on grid, right=20mm of rc4]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c1.png}\\1};
+        \node (rc6)[align=center, on grid, right=20mm of rc5]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c4.png}\\4};
+        \node (rc7)[align=center, on grid, right=20mm of rc6]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c5.png}\\5};
+        \node (rc8)[align=center, on grid, right=20mm of rc7]{\includegraphics[width=0.11\linewidth]{Figures/cP_weaves/configs/c8.png}\\8};
+
+        \draw[->, thick] (c1) edge (rc1);
+        \draw[->, thick] (c2) edge (rc2);
+        \draw[->, thick] (c3) edge (rc3);
+        \draw[->, thick] (c4) edge (rc4);
+        \draw[->, thick] (c5) edge (rc5);
+        \draw[->, thick] (c6) edge (rc6);
+        \draw[->, thick] (c7) edge (rc7);
+        \draw[->, thick] (c8) edge (rc8);
+
+        \node (text) [draw, rectangle, fill=white, on grid, below right=17mm and 10mm of c4]{120$^o$ degree rotation in V2V axis};
+    \end{tikzpicture}
+    \caption{Action of an element of the conjugacy class $3^a$ from the cube symmetry group on a local weave element, mapping it to another configuration in the same group orbit. Here you can see there are configurations that does not change under this action.}
+    \end{subfigure}
+    
+    \caption{Action of an element of different conjugacy classes from the cube symmetry group on a local weave element, mapping it to another configuration in the same group orbit.}
+    \label{fig:rotation_example_single}
+\end{figure}
+
+With GAP and Remark~\ref{rem:mat}, the cycle structure of $\Theta((\sigma,\tau))$ is therefore determined by the conjugacy class of $\sigma$ in $\Rot(C)$:
+\[
+\begin{array}{c|c}
+\text{class of }\sigma & \text{cycle structure of }\Theta((\sigma,\tau))\\
+\hline
+1^a & 1^8\\
+2^a & 1^4 2^2\\
+3^a & 1^2 3^2\\
+2^b & 2^4\\
+4^a & 4^2
+\end{array}
+\]
+Together with the action of $\Phi(G_n)$ on the $n^3$ cells, this gives the two permutation representations required in Theorem~\ref{thm:brujin}. We can now count inequivalent partial $n\times n\times n$ cubic primitive weaves by determining the cycle structures of the permutations $\Phi(g)$ and $\Theta(g)$, for $g\in G_n$, and inserting these data into the fixed-point formula.
+
+
+
+
+\section{Counting cubic primitive weaves}
+\label{counting}
+
+\begin{comment}
+\begin{remark}
+Note, for $n=2$ the intersection $R\cap T$ is non-empty. With GAP we have verified that for $n=2$ $\vert G\vert=\vert R:T\vert=48 < 192=24\cdot 2^3$ Hence we discuss the case separately.
+\end{remark}
+
+  The  group of rigid symmetries of a cube, denoted by $R,$ contains the following elements,
+\begin{itemize}
+    \item $1_R$ denotes the identity
+    \item $r_{d}^v$ denotes a rotation around two opposite vertices of $d$ degrees, $d\in \{0, 120, 240\}$
+    \item $r_{d}^e$ denotes a rotation around two opposite edges of $d$ degrees, $d\in \{0, 180 \}$
+    %\Tolga{Should it be \{0,180\}?} YES! Thank you.
+    \item $r_{d}^f$ denotes a rotation around two opposite faces of $d$ degrees, $d\in \{0, 90, 180, 270\}$
+\end{itemize}
+\rey{change}
+Now suppose that  $C$ is an $n\times n {\times} n$ cube.
+Let $\Delta$ denote the set of the $n^3$ cells of the cube.
+We can embed $C$ into $\R^3$
+such that the centre of the cube lies at the origin and the centres of the cells lie in a cubic Bravais lattice $\mathcal{B}$. Note though that when $n$ is even, not every point in the Bravais lattice is also a centre of a cell. The symmetry group
+of $\mathcal{B}$ is isomorphic to $\hat{G}:= R:\hat{T}=\{ \sigma \tau \mid \sigma \in R, \tau \in \hat{T}\}$, where $\hat{T}$ is the translation normal subgroup.
+The group $R$ naturally induces an action on $\Delta$
+by letting an element $\sigma\in R$
+act on $C$ as a single cube, thereby mapping each  cell of $C$ to another. Moreover, $\hat{T}$ also induces an action on $C$ generated by  the translations along the basis vectors of the Bravais lattice taken modulo $n$. The image is a finite group $T$ isomorphic to
+$C_n^3,$ where $C_n$ denotes the cyclic group of order $n$.
+Let $G:= R:T.$ Then $\vertG\vert=24\cdot n^3.$
+Thereby group $G$ acts on $\Delta$
+as follows:
+$$\Delta \times G \to \Delta: (C_{ij}, \sigma \tau) \mapsto
+{\left(C_{ij}^{\sigma}\right)}^{\tau}.$$
+
+\end{comment}
+
+In order to apply Theorem~\ref{thm:brujin}, we need information about the fixed points and cycle structures of the elements of $\Phi(G_n)$ acting on the cell set $\Delta$. Throughout this section we assume $n>2$ and use the notation of the previous section. Thus
+\[
+R:=\Phi(\Rot(C)), \qquad T_n:=\Phi(\mathbb Z_n^3),
+\]
+and $\Phi(G_n)=R\ltimes T_n$. In this section, we work in the induced permutation group $\Phi(G_n)=R\ltimes T_n$. Thus, we write its elements as products $\sigma\tau$, with $\sigma\in R$ and $\tau\in T_n$, rather than as ordered pairs. We begin with four elementary lemmas about the interaction between the subgroups $R$ and $T_n$ of $\Phi(G_n)$. The first two lemmas explain how fixed points of an element in a coset $\sigma T_n$ are controlled by the centralizer $C_{T_n}(\sigma)$. The third lemma records the size of this centralizer for each conjugacy class of $R$. The fourth lemma relates the order of an element $\sigma\tau$ with fixed points to the order of its rotation component $\sigma$.
+
+Our first observation states that, for a fixed rotation , a cell can be fixed by at most one translation component.
+\begin{lemma}\label{lem:one}
+
+Let $\sigma\in R$. Then the following hold for the action of $\Phi(G_n)=R\ltimes T_n$ on $\Delta$:
+\begin{enumerate}
+\item[(i)] If $\tau_1,\tau_2\in T_n$ are distinct, then $\sigma\tau_1$ and $\sigma\tau_2$ have no common fixed point.
+\item[(ii)] For every $x\in\Delta$ there exists a unique element $\tau_x\in T_n$ such that $x^{\sigma\tau_x}=x$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Suppose that $x\in\Delta$ is fixed by both $\sigma\tau_1$ and $\sigma\tau_2$. Then
+\[
+x^{\sigma\tau_1}=x=x^{\sigma\tau_2}.
+\]
+Applying $\tau_2^{-1}$ to the right gives
+$x^{\sigma\tau_1\tau_2^{-1}}=x^\sigma.
+$
+Thus $x^\sigma$ is fixed by $\tau_1\tau_2^{-1}$. Since $T_n$ acts regularly on $\Delta$, no non-trivial element of $T_n$ has a fixed point. Hence $\tau_1\tau_2^{-1}=1$, and therefore $\tau_1=\tau_2$. This proves (i).
+
+For (ii), fix $x\in\Delta$. Since $T_n$ acts regularly on $\Delta$, there is a unique element $\tau_x\in T_n$ sending $x^\sigma$ to $x$. Equivalently, $x^{\sigma\tau_x}=x$.
+\end{proof}
+
+The next lemma describes the full fixed-point set once one fixed point is known.
+\begin{lemma}\label{lem:two}
+Let $\sigma\tau\in\Phi(G_n)$ and suppose that $x\in\Fix(\sigma\tau)$. Then
+$\Fix(\sigma\tau)=x^{C_{T_n}(\sigma)}.
+$ In particular,
+$|\Fix(\sigma\tau)|=|C_{T_n}(\sigma)|.$
+If, moreover, $\sigma$ has a fixed point on $\Delta$, then
+\[
+|\Fix(\sigma\tau)|=|\Fix(\sigma)|=|C_{T_n}(\sigma)|
+\]
+for every $\tau\in T_n$ such that $\sigma\tau$ has a fixed point.
+\end{lemma}
+\begin{proof}
+Let $\nu\in C_{T_n}(\sigma)$. Since $T_n$ is abelian and $\nu$ commutes with $\sigma$, we have
+\[
+(x^\nu)^{\sigma\tau}
+=x^{\nu\sigma\tau}
+=x^{\sigma\nu\tau}
+=x^{\sigma\tau\nu}
+=x^\nu.
+\]
+Hence $x^{C_{T_n}(\sigma)}\subseteq\Fix(\sigma\tau)$.
+
+Conversely, let $y\in\Fix(\sigma\tau)$. Since $T_n$ acts regularly on $\Delta$, there is a unique $\nu\in T_n$ such that $x^\nu=y$. We show that this $\nu$ centralizes $\sigma$. Since both $x$ and $y=x^\nu$ are fixed by $\sigma\tau$, we get
+\[
+x=x^{\nu\sigma\tau\nu^{-1}}.
+\]
+Because $T_n$ is normal in $\Phi(G_n)$, there is some $\mu_\nu\in T_n$ with $\nu\sigma=\sigma\mu_\nu$. Thus
+\[
+x=x^{\sigma\mu_\nu\tau\nu^{-1}}
+ =x^{\sigma\tau\mu_\nu\nu^{-1}}.
+\]
+By Lemma~\ref{lem:one}(i), within the coset $\sigma T_n$ at most one element can fix $x$. Hence $\sigma\tau\mu_\nu\nu^{-1}=\sigma\tau$, so $\mu_\nu=\nu$. Therefore $\nu\sigma=\sigma\nu$, and $\nu\in C_{T_n}(\sigma)$. This proves $\Fix(\sigma\tau)=x^{C_{T_n}(\sigma)}$.
+
+The action of $T_n$ on $\Delta$ is regular, so the orbit $x^{C_{T_n}(\sigma)}$ has size $|C_{T_n}(\sigma)|$. This gives $|\Fix(\sigma\tau)|=|C_{T_n}(\sigma)|$. If $\sigma$ itself has a fixed point, we apply the same argument to $\tau=1$ and obtain $|\Fix(\sigma)|=|C_{T_n}(\sigma)|$.
+
+ \end{proof}
+
+It remains to compute the relevant centralizers in $T_n$. The required values depend only on the conjugacy class of the rotation component.
+To describe the number of fixed points of elements in $\Phi(G_n)$ on $\Delta$,
+we need to know the number fixed points of elements in
+$R$ on $\Delta.$ This information is recorded in the following table.
+The columns are indexed by the conjugacy classes of R from Remark \ref{rem:mat}.
+
+\begin{figure}[h]
+\centering
+\begin{tabular}{cccccccc}
+\toprule
+ $\sigma$ & $1$ & $3^a$ & $2^a$ & $4^a$& $2^b$\\
+   \midrule
+   $\vert \sigma^R\vert $ & 1 &8 & 6 & 6 & 3 \\
+   \midrule
+   $\vert C_{T_n}(\sigma)\vert $ ($n$ even)  & $n^3$ & $n$ & $2n$ & $2n$ & $4n$\\
+   \midrule
+   $\vert C_{T_n}(\sigma)\vert $ ($n$ odd) & $n^3$ & $n$ & $n$ & $n$ & $n$\\
+\bottomrule
+\end{tabular}
+\caption{Orders of the centralizers $C_T(\sigma)$}\label{fig:deltafixp}
+\end{figure}
+
+
+\begin{lemma}
+If $\sigma\in R$, then the order of $C_{T_n}(\sigma)$ is as stated in Table~\ref{fig:deltafixp}.
+\end{lemma}
+\begin{proof}
+For $\sigma=1$, we have $C_{T_n}(\sigma)=T_n$, and hence $|C_{T_n}(\sigma)|=n^3$.
+
+Now suppose that $\sigma\neq 1$. An element $\tau\in T_n$ lies in $C_{T_n}(\sigma)$ if and only if
+$\sigma\tau=\tau\sigma.$
+This is equivalent to
+$\tau=\tau^\sigma$.
+Thus the centralizer is obtained by solving a system of linear congruences over $\mathbb Z_n$. In particular, if $\sigma$ is contained in the conjugacy class $2^a,2^b,3^a,4^a$, then $A:=\Phi^{-1}(\sigma)$ can be chosen as
+
+\[
+A=\begin{pmatrix}
+  -1 &   0 &   0 \\
+     0&    0&  -1 \\
+   0&  -1&   0
+\end{pmatrix},
+\begin{pmatrix} -1 & 0 & 0 \\
+0 & -1 & 0 \\
+0 & 0 & 1
+\end{pmatrix},
+\begin{pmatrix}
+  0 &   1 &   0 \\
+     0&    0&  1 \\
+   1&  0&   0
+\end{pmatrix},
+\begin{pmatrix} 0 & -1 & 0 \\
+-1 & 0 & 0 \\
+0 & 0 & 1
+\end{pmatrix},
+\]
+respectively.
+Thus, a translation $\tau=(\tau_1,\tau_2,\tau_3)\in T_n$ is sent to $\tau^\sigma=\tau A=(-\tau_1,-\tau_3,-\tau_2).$
+Thus, the condition $\tau=\tau^\sigma$ is equivalent to
+$\tau_1=-\tau_1,\tau_2=-\tau_3, \tau_3=-\tau_2.$
+Hence
+\[
+C_{T_n}(\sigma)=\{(\mu,\lambda,-\lambda)\mid \mu,\lambda\in\mathbb Z_n,\; 2\mu\equiv 0\pmod n\},
+\]
+and so $|C_{T_n}(\sigma)|=\gcd(2,n)\,n.$
+This gives $n$ for odd $n$ and $2n$ for even $n$. Solving the same equations for representatives of the classes $2^b$, $3^a$, and $4^a$ gives the remaining entries of Table~\ref{fig:deltafixp}.
+
+\end{proof}
+
+
+
+
+We are now in a position to determine the
+number of fixed points of the elements in $\Phi(G_n)$ on $\Delta$.
+Before proceeding further, we record a useful consequence for the order of elements with fixed points.
+\begin{lemma}\label{lem:five}
+Let $\sigma\in R$ have order $\ell$, and let $\tau\in T_n$. If $\sigma\tau$ has a fixed point on $\Delta$, then
+\[
+|\sigma\tau|=|\sigma|=\ell.
+\]
+\end{lemma}
+
+\begin{proof}
+We set $\nu:=(\sigma\tau)^\ell$. By using the multiplication in $\Phi(G_n),$ we see that there exists a $\tau'\in T_n$ such that $(\sigma\tau)^\ell$ can be written as $(\sigma\tau)^\ell=\sigma^\ell\tau'.$ Since  $\sigma^\ell=1$, we know that $\nu\in T_n$. If $x\in\Delta$ is fixed by $\sigma\tau$, then
+\[
+x^\nu=x^{(\sigma\tau)^\ell}=x.
+\]
+Since $T_n$ acts regularly on $\Delta$, the only element of $T_n$ with a fixed point is the identity. Hence $\nu=1$, and therefore $|\sigma\tau|$ divides $\ell$.
+
+On the other hand, the projection $\Phi(G_n)\to R$ maps $\sigma\tau$ to $\sigma$. Therefore $|\sigma|$ divides $|\sigma\tau|$. Since $|\sigma|=\ell$, we conclude that $|\sigma\tau|=\ell$.
+
+\end{proof}
+
+
+In order to determine the number of fixed points of the elements $\sigma\tau \in \Phi(G_n)$ in their action on the coloured cubes in the next section,
+we have to determine the cycle structures of the elements in $\Phi(G_n).$
+
+\subsection{Cycle Structures of $\Phi(G_n)$ on $\Delta$}
+
+We continue by examining the cycle structures of the elements in $\Phi(G_n).$
+In particular, for each $\sigma\in R$, we determine the possible cycle structures of the elements
+$\sigma\tau$, where $\tau\in T_n$.
+The first lemma records the general restriction coming from the elements in $T_n$. We then specialise this restriction to rotations of order $2$, $3$, and $4$.
+
+
+
+\bigskip
+
+\begin{lemma}\label{cycleslm}
+Let $\sigma\in R$ have order $k$, let $\tau\in T_n$, and write $\vert\sigma\tau\vert=km$.
+    Then every cycle of $\sigma\tau$ has length $\ell m$ for some divisor $\ell$ of $k$.
+    If $a_\ell$ denotes the number of cycles of length $\ell m$, then
+    \[
+    n^3=\sum_{\ell\mid k} a_\ell \cdot \ell m.
+    \]
+
+\end{lemma}
+\begin{proof}
+First, we explain why this notation is compatible with the orders. The projection
+$\Phi(G_n)\to R$ maps $\sigma\tau$ to $\sigma$. Hence the order $k$ of $\sigma$
+divides the order of $\sigma\tau$, so we may write $\vert\sigma\tau\vert=km$.
+First, we observe that $\tau':=(\sigma\tau)^k$ lies in the translation normal subgroup $T_n$. Moreover,
+\[
+\vert \tau'\vert=\vert(\sigma\tau)^k\vert
+=\frac{\vert\sigma\tau\vert}{\gcd(\vert\sigma\tau\vert,k)}
+=\frac{km}{k}=m.
+\]
+Since $T_n$ acts regularly on $\Delta$ and the order of $\tau'$ is $m$, we know that
+$\tau'$ contains only cycles of length $m.$ We can write $c^k$ as a product of $\ell$ cycles $c_1,\ldots,c_{\ell}.$ Since these $\ell$ cycles are cycles of $\tau'$, they all have length $m.$ This means that the length of the cycle $c$ is $\ell m.$ Further, $\vert \sigma\tau\vert=km$ implies that $c^{km}$ is the trivial cycle. Thus, $\ell m$ has to divide $km$ which is equivalent to $\ell \mid k.$ Since every $i\in \Delta$ has to lie in some cycle $c'$ of $\sigma\tau,$ the above identity for $n^3 =\vert \Delta\vert $ follows.
+\end{proof}
+
+We begin with the case that $\sigma$ is an element of order $2.$ Here, the following lemma shows that $\sigma\tau$ only has cycles of length $m$ and $2m$.
+
+
+\begin{lemma}\label{lem:cyclestruct2b}
+Let $\sigma\in R$ be an element of order $2$ and $\tau \in T_n$ such that $\vert \sigma\tau\vert =2m.$
+Then $m\mid n$ and the cycle structure of $\sigma\tau$ is one of the following:
+    
+\begin{enumerate}
+\item[(a)] if no cycles of length $m$ occur, then $n$ is even and
+$\sigma\tau $ has cycle structure $(2m)^{n^3/(2m)}$.
+\item[(b)]  if cycles of length $m$ occur, then $m$ is odd and $\sigma \tau$ has cycle structure  $$m^{\vert C_{T_n}(\sigma)\vert /m}(2m)^{(n^3-\vert C_{T_n}(\sigma)\vert )/(2m)}.$$
+
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\begin{comment}
+Observe
+first that $(\sigma\tau)^2 \in T_n$, whence
+$(\sigma\tau)^2$ contains only cycles of equal
+length, $m$ say, dividing $n$ and therefore has cycle structure $m^{n^3/m}.$
+ Suppose
+$\sigma \tau$ has a cycle $c$ of length $k$. Then $c^2$ has to be a cycle of  length $m$. If $k$ is odd, then $c^2$ is also a cycle of length $k$ and hence $k=m.$ Thus all odd length cycles of $\sigma\tau$ have to have length odd $m$.
+If $k$ is even, then
+$c^2$ has two cycles of length $k/2$,
+whence $k=2m$. So all even length cycles of $\sigma\tau$ have to have length $2m$.
+\end{comment}
+By \Cref{cycleslm}, there are integers $i,j\in \N$ such that $\sigma\tau$
+has cycle structure $m^{i}(2m)^j$ and $(i+2j)m = n^3.$
+As cycles of length $m$ only appear when $m$ is odd, it follows that $i=0$ if $m$ is even. On the other hand if $i=0$ then $j=n^3/(2m)$ is an integer, so $n$ has to be even.
+%Moreover, $(\sigma\tau)^m$ has order 2 and has cycle
+%structure $1^{im}2^{jm}.$
+%If $m$ is even,
+%then $(\sigma\tau)^m\in T_n$,
+%and since all non-trivial %elements in $T_n$ have no fixed points, it follows that $i=0$ and hence
+%then $j=n^3/(2m)$.
+
+If $m$ is odd, then,
+as $\vert \sigma\tau\vert $ is even,
+it follows that $j>0.$
+Now $(\sigma\tau)^m = \sigma\tau'$ is an element of order $2$
+ for some $\tau'\in T_n$
+ and $\sigma\tau'$ does not lie in $T_n.$
+Moreover, $\sigma\tau'$ has cycle structure $1^{im}2^{jm}$, and thus $im$ fixed points.
+If $i = 0$ then $2jm=n^3$, that is $j = n^3/(2m)$ is an integer. This on the other hand implies that $m$ is even, a contradiction. Hence $i > 0.$
+%If $j=0$ then $i m = n^3$ and $\sigma\tau$ has
+%cycle structure $(2m)^{\frac{n^3}{m}}.$
+As $\sigma\tau'$ has fixed points it follows by Lemma~\ref{lem:two} that,
+ \[im=\vert \Fix(\sigma\tau')\vert = \vert \C_{T_n}(\sigma)\vert .\]
+ If $\sigma\in 2^a$ then
+ $im = \vert C_{T_n}(\sigma)\vert $.
+ If $n$ is even, then $im = 2n$
+ and $2n + 2jm = n^3$. Thus
+ $i=2n/m$
+ and  $j=n(n^2-2)/(2m)$ and
+ $\sigma\tau$ has cycle structure $m^{2n/m}(2m)^{(n^3-2n)/(2m)}.$
+ If $n$ is odd, then $im = n$
+ and $n + 2jm = n^3$. Thus
+ $i =n/m$ and $j= n(n^2-1)/2m $
+$\sigma\tau$ has cycle structure $m^{n/m}(2m)^{(n^3-n)/(2m)}.$
+
+ If $\sigma\in 2^b$ then
+ $im = \vert C_{T_n}(\sigma)\vert $.
+ If $n$ is even, then $im = 4n$
+ and $4n + 2jm = n^3$. Thus
+ $i=4n/m$
+ and  $j=n(n^2-4)/(2m)$ and
+ $\sigma\tau$ has cycle structure $m^{4n/m}(2m)^{(n^3-4n)/(2m)}.$
+ If $n$ is odd, then $im = n$
+ and $n + 2jm = n^3$. Thus
+ $i =n/m$ and $j= n(n^2-1)/2m $
+$\sigma\tau$ has cycle structure $m^{n/m}(2m)^{(n^3-n)/(2m)}.$
+\end{proof}
+
+
+The case that $\sigma$ has order $3$ is handled analogously to the above case. Here, the element $\sigma\tau$ can only have cycles of length $m$ and $3m$.
+
+\bigskip
+\begin{lemma}\label{lem:cyclestructthree}
+Let $\sigma\in R$ be an element of order $3$ and $\tau \in T_n$ such that $\vert \sigma\tau\vert =3m.$
+Then $m\mid n$ and the cycle structure of $\sigma\tau$ is one of the following:
+\begin{enumerate}
+\item[(a)] if no cycles of length $m$ occur, then $3\mid n$ and
+$\sigma\tau $ has cycle structure $(3m)^{n^3/(3m)}$;
+\item[(b)] if cycles of length $m$ occur, then $3\nmid m$ and $\sigma\tau$ has cycle structure $$(m)^{\vert C_{T_n}(\sigma)\vert/m}(3m)^{(n^3-\vert C_{T_n}(\sigma)\vert )/(3m)}.$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\begin{comment}
+Observe
+first that $(\sigma\tau)^3 \in T_n$, whence
+$(\sigma\tau)^3$ contains only cycles of equal
+length, $m$ say, dividing $n$ and therefore has cycle structure $m^{n^3/m}.$
+ Suppose
+$\sigma \tau$ has a cycle $c$ of length $k$. Then $c^3$ has to be a cycle of  length $m$. If $k\not\equiv 0\pmod{3}$, then $c^3$ is also a cycle of length $k$ and hence $k=m.$ Thus all cycles of length not divisible by $3$ of $\sigma\tau$ have to have length  $m$ with $m\not\equiv 0 \pmod{3}$.
+If $k\equiv 0\pmod{3}$ then
+$c^3$ has three cycles of length $k/3$,
+whence $k=3m$. So all  cycles of length a multiple of $3$
+of $\sigma\tau$ have to have length $3m$.
+\end{comment}
+By \Cref{cycleslm}, there are integers $i,j\in \N$ such that $\sigma\tau$
+has cycle structure $m^{i}(3m)^j$ and $(i+3j)m = n^3.$
+As cycles of length $m$ only appear when $m\not\equiv 0 \pmod{3}$, it follows that $i=0$ if $m\equiv 0\pmod{3}$. On the other hand if $i=0$ then $j=n^3/(3m)$ is an integer, so $n\equiv 0\pmod{3}.$
+
+
+If $m\not\equiv 0\pmod{3}$, then,
+as $\vert \sigma\tau\vert \equiv 0\pmod{3}$,
+it follows that $j>0.$
+Now $(\sigma\tau)^m = \sigma'\tau'$  with $\sigma'\in \{\sigma, \sigma^2\}$ is an element of order $3$
+ for some $\tau'\in T_n$
+ and $\sigma'\tau'$ does not lie in $T_n.$
+Moreover, $\sigma'\tau'$ has cycle structure $1^{im}3^{jm}$, and thus $im$ fixed points.
+If $i = 0$ then $3jm=n^3$, that is $j = n^3/(3m)$ is an integer. This on the other hand implies that $n$ is divisible by $3$. Hence, we examine the case $n \not\equiv 0 \pmod 3$. This implies $i > 0.$
+%If $j=0$ then $i m = n^3$ and $\sigma\tau$ has
+%cycle structure $(2m)^{\frac{n^3}{m}}.$
+As $\sigma\tau'$ has fixed points it follows by Lemma~\ref{lem:two} that,
+ \[im=\vert \Fix(\sigma'\tau')\vert = |\C_{T_n}(\sigma')\vert =\vert \C_{T_n}(\sigma)\vert .\]
+ If $\sigma\in 3^a$ then
+ $im = |C_{T_n}(\sigma)\vert =n$. Thus
+ $i =n/m$ and $j= (n^3-n)/3m $
+$\sigma\tau$ has cycle structure $m^{n/m}(3m)^{(n^3-n)/(3m)}.$
+
+
+\end{proof}
+
+It remains to treat rotations of order $4$.
+Here the Lemma~\ref{cycleslm} allows $\sigma\tau$ to have cycles of length $m$, $2m$, and $4m$.
+In the below proof, instead of counting these directly, we square $\sigma\tau$ and use the order $2$ case for $\sigma^2\tau'$.
+
+\begin{lemma}\label{lem:cyclestructfour}
+    Let $\sigma\in R$ be an element of order $4$ and $\tau \in T_n$ such that $\vert \sigma\tau\vert =4m.$
+Then $m\mid n$ and the cycle structure of $\sigma\tau$ is one of the following:
+\begin{enumerate}
+\item if only cycles of length $4m$ occur, then $n$ is even and $\sigma\tau$ has cycle structure $(4m)^{n^3/(4m)}$;
+\item if cycles of length $2m$ and $4m$ occur, but no cycles of length $m$ occur, then $n$ is even, $m$ is odd, and $\sigma\tau$ has cycle structure
+\[
+(2m)^{\vert C_{T_n}(\sigma^2) \vert/(2m)}
+(4m)^{(n^3-\vert C_{T_n}(\sigma^2)\vert )/(4m)} ;
+\]
+\item if all three possible cycle lengths occur, then $n$ is even, $m$ is odd, and $\sigma\tau$ has cycle structure
+\[
+m^{\vert C_{T_n}(\sigma^2) \vert/m}
+(2m)^{\vert C_{T_n}(\sigma^2) \vert/(2m)}
+(4m)^{(n^3-\vert C_{T_n}(\sigma^2)\vert )/(4m)} ;
+\]
+\item if $n$ is odd, then $\sigma\tau$ has cycle structure
+\[
+m^{\vert C_{T_n}(\sigma^2) \vert/m}
+(4m)^{(n^3-\vert C_{T_n}(\sigma^2)\vert )/(4m)} .
+\]
+
+
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+%First, observe that $(\sigma\tau)^4$ is contained in the normal subgroup $T_n$. Hence, there exists an $m\in \mathbb{N}$ such that $(\sigma\tau)^4$ solely consists of cycles of length $m.$ Now, suppose $\sigma \tau$ has a cycle $c$ of length $k$. Then $c^4$ has to be a cycle of  length $m$. If $k$ is odd, then $c^4$ is also a cycle of length $k$ and hence $k=m$ has to be satisfied. If $k=2\pmod{4}$ then $c^4$ has two cycles of length $k/2$, whence $k=2m$. Furthermore, if $k=2\pmod{4}$ then $c^4$ has four cycles of of length $k/4$, whence $k=4m$.
+By \Cref{cycleslm}, there are integers $i,j,\ell\in \N$ such that $\sigma\tau$
+has cycle structure \begin{align}\label{cycstruc4}
+    m^{i}(2m)^j(4m)^\ell
+\end{align}
+and these integers satisfy $(i+2j+4\ell)m = n^3.$
+Additionally, we know that $(\sigma \tau)^2=\sigma^2\tau'$ with $\sigma^2$ being contained in $2^b$ and $\tau'$ being some translation in $T_n$. Hence, we can exploit the cycle structure of $\sigma^2\tau'$ to obtain the cycle structure of $\sigma\tau$ by the following arguments.
+From \Cref{lem:cyclestruct2b}, there are exactly two cases that can occur for the cycle type of $\sigma^2 \tau'$: (1) either $n$ is even and $\sigma^2 \tau'$ has cycle structure $(2m)^{n^3/(2m)}$ or (2)
+ $m$ is odd
+and $\sigma^2 \tau'$ has cycle structure  $m^{\vert C_{T_n}(\sigma^2)\vert /m}(2m)^{(n^3-\vert C_{T_n}(\sigma^2)\vert )/(2m)}$.
+
+So let us assume that $n$ is even and the cycle structure of $(\sigma\tau)^2$ is $(2m)^{n^3/(2m)}$. Every cycle $c$ of $\sigma\tau$ gives rise to cycles of $(\sigma \tau)^2.$ Since $\sigma\tau$ has cycle structure $m^{i}(2m)^j(4m)^\ell$ and  $(\sigma\tau)^2 $ has no cycles of length less or equal to $m,$ it follows that $i=j=0$.
+ So, we conclude that $4\ell m=n^3$. This implies that the cycle structure of $\sigma\tau$ is given by $(4m)^{n^3/(4m)}$.
+
+Next, let us assume that $m$ is an odd natural number and $(\sigma\tau)^2$ has cycle structure $m^{\vert C_{T_n}(\sigma^2)\vert /m}(2m)^{(n^3-\vert C_{T_n}(\sigma^2)\vert )/(2m)}.$ Again, we exploit \Cref{cycstruc4} to obtain the desired cycle structure of $\sigma \tau$.  Hence, we can write the cycle structure of $(\sigma\tau)^2$ as $m^{i+2j}(2m)^{2\ell}.$ If $i=0$, then $n^3/m=2j+4\ell=2(j+2\ell)$ which means that $n$ must be even. Furthermore, this results in $j=\vert C_{T_n}(\sigma^2)\vert /(2m)$ and $\ell =(n^3-\vert C_{T_n}(\sigma^2)\vert )/(4m).$ If $j=0$, then $i=\vert C_{T_n}(\sigma^2)\vert /m$ and $\ell =(n^3-\vert C_{T_n}(\sigma^2)\vert )/(4m)$.
+%We observe that $(\sigma\tau)^m=\sigma'\tau''$ with $\sigma'\in\{\sigma,\sigma^3 \}$ and $\tau''\in T_n$ has cycle structure $1^{mi}2^{mj}4^{m\ell}.$ As $\sigma'\tau''$ has fixed points, Lemma~\ref{lem:two} implies
+%\[
+%4n=\vert \Fix((\sigma\tau)^m )\vert=\vert C_{T_n}(\sigma )\vert =2n.
+%\]
+%which is a contradiction.
+Lastly, we assume that $i,j\neq 0$. We still obtain $\ell =(n^3-\vert C_{T_n}(\sigma^2)\vert )/(4m)$. We observe that $(\sigma\tau)^m=\sigma'\tau''$ with $\sigma'\in\{\sigma,\sigma^3 \}$ and $\tau''\in T_n$ has cycle structure $1^{mi}2^{mj}4^{m\ell}.$ As $\sigma'\tau''$ has fixed points, Lemma~\ref{lem:two} implies
+ \[im=\vert \Fix(\sigma'\tau'')\vert = |\C_{T_n}(\sigma')\vert =\vert \C_{T_n}(\sigma)\vert .\]
+ If $n$ is even, then
+ $im = |C_{T_n}(\sigma)\vert =2n$ and $\vert C_{T_n}(\sigma^2)\vert =4n$. Thus,
+ $i =2n/m$ and $j= (4n/m-2n/m)/2=n/m $. We have established that
+$\sigma\tau$ has cycle structure $$m^{\vert C_{T_n}(\sigma) \vert/m} (2m)^{\vert C_{T_n}(\sigma) \vert/(2m)} (4m)^{(n^3-\vert C_{T_n}(\sigma^2)\vert )/(4m)}.$$ If $n$ is odd, then $\vert C_{T_n}(\sigma)\vert =\vert C_{T_n}(\sigma^2)\vert =n.$ This results in $j$ being $0$, which is a contradiction and hence the result follows.
+
+\end{proof}
+
+\section{Orbit Enumeration}
+\label{counts}
+
+Now, we assemble the ingredients needed for the proof of \Cref{thm:orbit-formula}. In the previous section, we have determined the cycle structures of the elements in $\Phi(G_n).$
+Here, we exploit these cycle structures in the orbit formula by further determining the number of elements with a given cycle structure.
+This section carries out this enumeration.
+Before proceeding further we introduce a congruence face that will be used throughout this paper.
+\begin{lemma}\label{lem:solmodn}
+The congruence
+$$ax \equiv b \pmod{n}$$
+has a solution if and only if $\gcd(a,n)$ divides $b$. If it has a solution, then there are $\gcd(a,n) $
+incongruent solutions modulo $n$.
+\end{lemma}
+
+Now, we begin by examining the elements that are contained translation subgroup $T_n$. Since $T_n$ acts regularly on $\Delta$, a translation of order $m$ has cycle structure $m^{n^3/m}$, with $m\mid n$.
+Thus the remaining task is to count translations of each possible order, which is a standard application of the Möbius inversion.
+\begin{proposition}\label{prop:translations}
+    Let $m$ be a divisor of $n.$
+    Then there are exactly $m^3\prod_{\substack{p\in \mathbb{P}\\ p\mid m}}\left(1-\frac{1}{p^3}\right) $ translations in $T_n$ of order $m.$ Each such translation has cycle structure $m^{n^3/m}$ on $\Delta$.
+\end{proposition}
+\begin{proof}
+Since $T_n$ acts regularly on $\Delta$, every orbit of a translation
+$\tau\in T_n$ has length $\vert \tau\vert $. Hence, if $\vert \tau\vert =m$, then the cycle
+structure of $\tau$ on $\Delta$ is $m^{n^3/m}.$
+It remains to count the translations of order $m$. For this, we define
+$\mathcal A_m:=\{\tau\in T_n\mid \tau^m=1\}
+$ and $\mathcal B_m:=\{\tau\in T_n\mid |\tau\vert =m\}$.
+A translation $\tau=(\tau_1,\tau_2,\tau_3)$ lies in $\mathcal A_m$ if and
+only if
+\[
+m\tau_i\equiv 0 \pmod n
+\qquad\text{for } i=1,2,3.
+\]
+Since $m\mid n$, Lemma~\ref{lem:solmodn} gives exactly $m$ solutions for
+each coordinate. Thus $\vert \mathcal A_m\vert =m^3$.
+Moreover,
+\[
+\vert\mathcal A_m\vert =\sum_{d\mid m}|\mathcal B_d|.
+\]
+By Möbius inversion, we get
+\[
+|\mathcal B_m\vert
+=
+\sum_{d\mid m}\mu(d)\vert A_{m/d}\vert
+=\sum_{d\mid m}\mu(d)\left(\frac{m}{d}\right)^3=
+m^3\sum_{d\mid m}\frac{\mu(d)}{d^3}
+=
+J_3(m).
+\]
+Using the standard product formula for the Jordan totient function gives
+\[
+J_3(m)=m^3\prod_{p\mid m}\left(1-\frac{1}{p^3}\right).
+\]
+This proves the claim.
+\end{proof}
+
+The previous section described the possible cycle structures of the elements $\sigma\tau\in\Phi(G_n)$ on the set of cells $\Delta$.
+For our application of Burnside's lemma, however, this information is not enough.  We have to derive  how often each cycle structure occurs in $\Phi(G_n)$.
+Thus, for a fixed rotation $\sigma\in R$, the problem becomes to count the translations $\tau\in T_n$ for which the element $\sigma\tau$ has a prescribed cycle structure.
+\subsection{Counting strategy}
+Here, we use the same strategy in each non-trivial $\sigma\in R$.
+Instead of counting exact cycle structures directly, we first count translations for which all cycles have length dividing a given integer $\ell$.
+The exact multiplicities are then recovered from these cumulative counts by inclusion-exclusion, equivalently by Möbius inversion.
+\begin{remark}
+  If $\sigma\in R$ and $\tau\in T_n$ be elements. For an $\ell\in \mathbb{N}$, we define \[\mathcal{T}_\ell = \{ \tau'\in T_n \mid \sigma\tau' \textrm{ has cycles of length dividing } \ell \}.\]
+ In \Cref{prop:cycle-2a,prop:cycle-2b,prop:cycle-3a,prop:cycle-4a}, our first goal will be to determine
+$\vert \mathcal{T}_\ell\vert ,$ where $\ell$ is some divisor of $n.$
+Clearly $\mathcal{T}_\ell \subseteq \mathcal{T}_k$ whenever $\ell$ divides $k$.
+Having determined the cardinalities $\vert \mathcal{T}_\ell\vert ,$ we can then determine elements having the same cycle structure as $\sigma\tau$ by first using an inclusion-exclusion argument and then applying the well know Möbius inversion.
+\end{remark}
+
+The next remark discusses the ideas for our investigation in this section.
+It translates the condition that a point in $\Delta$ lies in a cycle of length dividing $\ell$ of an element $\sigma\tau$ into a linear congruence over $\mathbb Z_n$.
+\begin{remark}\label{rem:A}
+{\color{red}We first translate the computation of
+the cycle structure of $\sigma\tau$ into matrix notation. Suppose therefore that $A$ is the matrix corresponding to $\sigma$ acting on $\R^3$ and we identify $\tau$ with the vector in $\R^3$ with entries in $\Z_n$ effecting the translation. Moreover, the elements in $\Delta$
+correspond to vectors in $\R^3$ with entries in $\Z_n$.}
+{\color{blue}We use matrix notation to compute the sets $\mathcal T_\ell$.
+Let $A$ be the matrix corresponding to the rotation $\sigma$, and identify $\tau\in T_n$ with the vector in $\mathbb Z_n^3$ defining the translation.
+We also identify the elements of $\Delta$ with vectors in $\mathbb Z_n^3$.}
+Then $\sigma\tau$ acts on vectors $x\in \Delta$
+as
+$x\mapsto xA + \tau.$ In particular, for $\ell \in \N,$
+applying $(\sigma\tau)^\ell$ to $x$
+yields
+$x\mapsto xA^\ell + \tau(\sum_{i=0}^{\ell-1} A^i).$
+Moreover, an element $x\in \Delta$  lies in a cycle of length dividing $\ell$ of $\sigma\tau$ if
+$x^{(\sigma\tau)^\ell} = x.$
+%As $(\sigma\tau)^\ell = \sigma^\ell \tau^{\sigma^{\ell-1}} \cdots \tau^{\sigma^2} \cdot \tau^\sigma \cdot \tau$
+%this is equivalent to
+%$x^{\sigma^\ell} = x^{(\tau^{\sigma^{\ell-1}} \cdots \tau^{\sigma^2} \cdot \tau^\sigma \cdot \tau)^{-1}}.$
+Translating the latter equation into matrix notation, it reads
+\begin{equation}\label{eq:lcyc}
+x\left( A^\ell- I\right) = -\tau \left(\sum_{i=0}^{\ell-1}A^i\right).
+\end{equation}
+{\color{red}By Remark~\ref{rem:mat}, the rotation group of the centred cube can be described as a matrix group. Thus, after the translation from $C_0$ to $C$ and after fixing the bijections above, choosing a different representative in the same conjugacy class only conjugates the induced permutation action. In particular, the cycle structure and the cardinalities we compute are unchanged. Therefore, in the following proofs, if $\sigma$ is an element in the conjugacy class $2^a,2^b,3^a,4^a,$ we may choose $A$ to be given as}
+{\color{blue}By Remark~\ref{rem:mat}, the rotation group of the centred cube is described as a matrix group.
+Changing the representative inside a conjugacy class only conjugates the induced permutation action, and hence does not change the cycle structures or the cardinalities computed below.
+Thus, in the following proofs, we choose the following representatives for the classes $2^a,2^b,3^a,4^a$:}
+\[
+\begin{pmatrix}
+  -1 &   0 &   0 \\
+     0&    0&  -1 \\
+   0&  -1&   0
+\end{pmatrix},
+\begin{pmatrix} -1 & 0 & 0 \\
+0 & -1 & 0 \\
+0 & 0 & 1
+\end{pmatrix},
+\begin{pmatrix}
+  0 &   1 &   0 \\
+     0&    0&  1 \\
+   1&  0&   0
+\end{pmatrix},
+\begin{pmatrix} 0 & -1 & 0 \\
+-1 & 0 & 0 \\
+0 & 0 & 1
+\end{pmatrix},
+\]
+respectively.
+\end{remark}
+
+
+
+
+
+\subsection{Elements with rotation component of type $2^a$}
+
+We first treat the class $2^a$.
+By Lemma~\ref{lem:cyclestruct2b}, every element $\sigma\tau\in\sigma T_n$ has cycle lengths $m$ and $2m$ for some divisor $m$ of $n$.
+The proposition below counts how often each of these two possible types occurs.
+
+
+
+\begin{proposition}\label{prop:cycle-2a}
+Let $\sigma\in 2^a$ and let $\tau\in T_n$ satisfy $\vert\sigma\tau\vert=2m$.
+Then $m\mid n$, and the following hold
+\begin{enumerate}
+\item[(a)] If $n$ is even, the cycle type
+$(2m)^{n^3/(2m)}$
+occurs for exactly $\frac{n^2}{2}\varphi(2m)$ elements in $\sigma T_n$.
+\item[(b)] If $m$ is odd, the cycle type
+\[
+m^{\vert C_{T_n}(\sigma)\vert/m}
+(2m)^{(n^3-\vert C_{T_n}(\sigma)\vert)/(2m)}
+\]
+occurs for exactly $\frac{n^2}{\gcd(2,n)}\varphi(m)$ elements in $\sigma T_n$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+As described above, we start this proof by determining $\vert \mathcal{T}_\ell\vert $ for $\sigma\in 2^a$ and a natural number $\ell$.
+To do so, we consider Equation~\eqref{eq:lcyc} with $A$ as given in \Cref{rem:A}. Here,
+we analyze the mentioned equation by conducting a case distinction with respect to $\ell$ being odd or even.
+We first assume that $\ell$ is odd. Then Equation~\eqref{eq:lcyc} becomes
+\[
+x(A-I)=-\tau\!\left(\frac{\ell+1}{2}I+\frac{\ell-1}{2}A\right),
+\]
+which is equivalent to
+\[
+x
+\begin{pmatrix}
+2&0&0\\
+0&1&1\\
+0&1&1
+\end{pmatrix}
+=
+\tau
+\begin{pmatrix}
+1&0&0\\
+0&(\ell+1)/2&-(\ell-1)/2\\
+0&-(\ell-1)/2&(\ell+1)/2
+\end{pmatrix}.
+\]
+From this identity we obtain the relations, namely
+\[
+2x_1=\tau_1
+\qquad\text{and}\qquad
+\ell(\tau_2-\tau_3)=0.
+\]
+
+ If $n$ is odd, then $\gcd(2,n)=1$ and the equation $2x_1=\tau_1$ has a unique solution for every $\tau_1\in\mathbb Z_n$. If $n$ is even, then this equation has solutions only when $\tau_1$ is even. In this case, it has exactly two solutions. The second equation implies that $\tau_2-\tau_3$ must be a solution of $\ell z=0$ in $\mathbb Z_n$. The number of solutions of this congruence is $\gcd(\ell,n)$.
+
+Now suppose that $\ell$ is even. In this case Equation~\eqref{eq:lcyc} yields
+\[
+0=-\tau\!\left(\frac{\ell}{2}I+\frac{\ell}{2}A\right)
+\Longleftrightarrow
+0=
+\tau
+\frac{1}{2}\begin{pmatrix}
+0&0&0\\
+0&\ell&-\ell\\
+0&-\ell&\ell
+\end{pmatrix}.
+\]
+Consequently, we again obtain the condition
+$
+\frac{\ell}{2}(\tau_2-\tau_3)=0.
+$
+Thus, $\tau_2-\tau_3$ must be a solution of $\frac{\ell}{2} z=0$ in $\mathbb Z_n$, and the number of such solutions is $\gcd(n,\frac{\ell}{2})$. In addition, the coordinate $x_1$ can be chosen arbitrarily, giving $n$ possible choices.
+
+Combining the observations from both cases we obtain
+\[
+\mathcal{T}_\ell =
+\begin{cases}
+\{\tau=(\mu,\lambda,\lambda-z)\mid \mu,\lambda\in\mathbb Z_n,\ \frac{\ell}{2} z =0\}, &  \ell \text{ even}\\[4pt]
+\{\tau=(\mu,\lambda,\lambda-z)\mid \mu,\lambda\in\mathbb Z_n,\ \ell z=0\}, & n \text{ odd}, \ell \text{ odd}\\[4pt]
+\{\tau=(\mu,\lambda,\lambda-z)\mid \mu,\lambda\in\mathbb Z_n,\ \mu\equiv0\pmod2,\ \ell z=0\}, & n \text{ even}.
+\end{cases}
+\]
+In particular, this yields
+\[
+|\mathcal{T}_\ell\vert =\frac{n^2}{\gcd(2,n)}\gcd(\ell,n) \quad \textrm{if $\ell$ is odd and }
+\]
+\[
+|\mathcal{T}_\ell\vert =n^2\gcd(\tfrac{\ell}{2},n) \quad \textrm{if $\ell$ is even.}\]
+We observe that if $m$ is an odd divisor of $n$, then every element of $\mathcal{T}_m$ also lies in $\mathcal{T}_{2m}$, and hence $\mathcal{T}_m\subseteq\mathcal{T}_{2m}$.
+
+We now determine the number of elements in $\sigma T_n$ with a given cycle structure.
+Let therefore $c_{2m}$ denote the number of elements in $\sigma T_n$ of cycle type
+$(2m)^{n^3/(2m)},$
+and let $c_{m,2m}$ denote the number of elements in $\sigma T_n$ of cycle type $m^{\vert C_{T_n}(\sigma)\vert /m}(2m)^{(n^3-\vert C_{T_n}(\sigma)\vert )/(2m)},$
+where $m$ is a divisor of $n$. We notice that if $m$ is even then $c_{m,2m}=0$.
+
+Now, we first assume that $m$ is odd. In this case, an element whose cycles have length dividing $m$ contributes to $\mathcal{T}_m$, and therefore
+\[
+\sum_{d\mid m} c_{d,2d}=\vert \mathcal{T}_m\vert .
+\]
+Applying Möbius inversion yields
+\[
+c_{m,2m}
+=
+\sum_{d\mid m}\mu(d)\,|\mathcal{T}_{m/d}|
+=
+\frac{n^2}{\gcd(2,n)}\sum_{d\mid m}\mu(d)\gcd\!\left(\frac{m}{d},n\right).
+\]
+Since $m\mid n$, we have $\gcd(m/d,n)=m/d$, and therefore
+\begin{align}
+c_{m,2m}
+=
+\frac{n^2}{\gcd(2,n)}
+\sum_{d\mid m}\mu(d)\frac{m}{d}
+=
+\frac{n^2}{\gcd(2,n)}\varphi(m).
+\end{align}
+
+If $n$ is odd, then this already determines the number of permutations of cycle type $m^{\vert C_{T_n}(\sigma)\vert /m}(2m)^{(n^3-\vert C_{T_n}(\sigma)\vert )/(2m)}$.
+
+So, let us examine the case $n$ being even.
+Let therefore $m$ be a divisor of $n$. Since $c_{m,2m}=0$ whenever $m$ is even, we obtain
+\[
+|\mathcal{T}_{2m}|
+=
+\sum_{d\mid m}(c_{2d}+c_{d,2d})
+=
+\sum_{d\mid m}c_{2d}
++
+\sum_{\substack{d\mid m\\ d\text{ odd}}}c_{d,2d}.
+\]
+Since $\frac{2m}{d}$ is even and $\gcd(\frac{m}{d},n)=m/d$ for every divisor $d$ of $m$, the Möbius inversion gives
+\[
+c_{2m}+c_{m,2m}
+=
+\sum_{d\mid m}\mu(d)\,|\mathcal{T}_{2m/d}|
+={n^2}\sum_{d\mid m}\mu(d)\frac{m}{d}
+=
+n^2\varphi(m).
+\]
+Hence, for $n$ and $m$ being even, we know that $c_{m,2m}=0$. Thus, $c_{2m}=n^2\varphi(m)=\frac{n^2}{2}\varphi(2m).$
+Finally, if $n$ is even and $m$ is odd, then we obtain $c_{2m}=c_{2m}+c_{m,2m}-c_{m,2m}=\frac{n^2}{2}\varphi(m)=\frac{n^2}{2}\varphi(2m).$
+This completes the proof.
+
+%Hence, for $n$ even and $m$ odd we obtain $c_{m,2m}=c_{2m}={n^2}\varphi(m)$
+%If $m$ is an even divisor of $n/2$, then $c_{m,2m}=0$ and therefore
+%$c_{2m}=n^2\varphi(2m).$
+
+%Finally, suppose that $m$ does not divide $n/2$. In this case $m$ is necessarily even, and thus $c_{m,2m}=0$. Moreover, $\gcd(2m/d,n)=m/d$, so that
+%\[
+%c_{2m}
+%=
+%\sum_{d\mid m}\mu(d)\,|\mathcal{T}_{2m/d}|
+%=
+%\frac{n^2}{2}\sum_{d\mid m}\mu(d)\frac{m}{d}
+%=
+%\frac{n^2}{2}\varphi(m).
+%\]
+
+\end{proof}
+\subsection{Elements with rotation component of type $2^b$}
+
+\begin{proposition}\label{prop:cycle-2b}
+{\color{red}    Let $\sigma\in 2^b$ be an element of order $2$ and let $\tau \in T_n$. Let $\vert \sigma\tau\vert =2m.$
+Then $m$ divides $n$ and one of the following holds:
+\begin{enumerate}
+\item[(a)] $n$ even and $m$ divides $n/2$ then
+$\sigma\tau $ has cycle structure $(2m)^{n^3/(2m)}$
+and there are $n^2\cdot \varphi(m)$ such elements if $m$ is even and  divides $n/2$ and $\frac{7n^2}{4}\cdot \varphi(m)$ elements otherwise.
+\item[(b)]   $m$ odd
+and $\sigma \tau$ has cycle structure  $m^{\vert C_{T_n}(\sigma)\vert /m}(2m)^{(n^3-\vert C_{T_n}(\sigma)\vert )/(2m)}$.
+The number of elements
+of this cycle structure is
+$n^2 \cdot \varphi(m)$ if $n$ is odd and equal to $\frac{n^2}{4} \cdot \varphi(m)$
+if $n$ is even.
+\end{enumerate}
+}
+{\color{blue}Let $\sigma\in 2^b$ and let $\tau\in T_n$ satisfy $\vert\sigma\tau\vert=2m$.
+Then $m\mid n$, and the following hold:
+\begin{enumerate}
+\item[(a)] If $n$ is even, the cycle type
+$(2m)^{n^3/(2m)}$
+occurs with the following multiplicities:
+$n^2\varphi(2m)$ elements in $\sigma T_n$ if $m$ is even and $m\mid n/2$;
+$\frac{7n^2}{4}\varphi(m)$ elements in $\sigma T_n$ if $m$ is odd and $m\mid n/2$;
+and $n^2\varphi(m)$ elements in $\sigma T_n$ if $m\nmid n/2$.
+\item[(b)] If $m$ is odd, the cycle type
+\[
+m^{\vert C_{T_n}(\sigma)\vert/m}
+(2m)^{(n^3-\vert C_{T_n}(\sigma)\vert)/(2m)}
+\]
+occurs for exactly $n^2\varphi(m)$ elements in $\sigma T_n$ if $n$ is odd, and for exactly
+$\frac{n^2}{4}\varphi(m)$ elements in $\sigma T_n$ if $n$ is even.
+\end{enumerate}}
+\end{proposition}
+
+\begin{proof}
+Again, to determine $\vert \mathcal{T}_{\ell}\vert$ for $\sigma\in 2^b$ and a natural number $\ell,$ we consider Equation \eqref{eq:lcyc}.
+If $\ell$ is odd, the equation becomes
+\begin{equation}\label{eq:lcycodd}
+x\left( A- I\right) = -\tau \left(\frac{\ell+1}{2} I+ \frac{\ell -1}{2} A\right).
+%\end{equation}
+%Thus for $\ell$ odd, Equation~\eqref{eq:lcyc} is equivalent to
+%\begin{equation}\label{eq:lcycodd}
+\Leftrightarrow
+x\begin{pmatrix} 2 & 0 & 0 \\
+0 & 2 & 0 \\
+0 & 0 & 0
+\end{pmatrix}=\tau \begin{pmatrix}
+    1 & 0 & 0\\
+    0 & 1 & 0\\
+    0 & 0 &  \ell
+    \\
+\end{pmatrix}.
+\end{equation}
+%\begin{align*}
+%    2x_1&=\tau_1\\
+%    2x_2&=\tau_2\\
+%    \ell\tau_3&=0
+%\end{align*}
+If $n$ is odd, the equation
+$2 x_i = \tau_i$ always has a unique solution for $x_i$,
+while if $n$ is even, then it has two solutions for even $\tau_i$ and no solution for odd $\tau_i.$
+Since regardless of the parity of $n$, the equation $\ell \tau_3=0$ has exactly $\gcd(\ell,n)$ inequivalent solutions.
+
+If $\ell$ is even, Equation~\eqref{eq:lcyc} becomes
+\begin{equation}\label{eq:lcycodd}
+0 = -\tau \left(\frac{\ell}{2} I+ \frac{\ell }{2} A\right)
+%\end{equation}
+%This equation is equivalent to
+%\begin{equation}\label{eq:lcycodd}
+\Leftrightarrow
+0=\tau \begin{pmatrix}
+    0& 0 & 0\\
+    0 & 0 & 0\\
+    0 & 0 &  \ell
+    \\
+\end{pmatrix}.
+\end{equation}
+This yields
+$\ell\tau_3 = 0.$
+The number of inequivalent solutions to $\ell z =0 \pmod{n}$ is $\gcd(n,\ell).$
+Moreover, we have $n$ choices for $x_1$.
+Therefore,
+ $\vert \mathcal{T}_\ell\vert  = n^2\cdot \gcd(n,\ell).$
+
+It follows that
+\[
+\mathcal{T}_\ell = \begin{cases} \{ \tau= (\mu, \lambda, z) \mid \lambda,\mu \in \Z_n  \textrm { and } \ell z = 0 \}, & n \textrm { odd},\\
+\{ \tau= (\mu, \lambda,  z) \mid \lambda,\mu \in \Z_n \textrm{ and }
+\lambda,\mu\equiv 0\!\!\pmod{2}  \textrm { and } \ell z = 0 \}, & n \textrm{ even}.
+\end{cases}
+\]
+Hence, we obtain that (i) $\vert \mathcal{T}_\ell\vert=n^2/4\cdot \gcd(\ell,n),$ if $n$ is even and $\ell$ is odd; and (ii) $\vert \mathcal{T}_\ell\vert= n^2\cdot \gcd(\ell,n)$ otherwise.
+
+
+
+
+We now determine the number of elements with a given cycle structure.
+Then we can observe that for each odd divisor $m$ of $n$ the statement $\mathcal{T}_m \subset \mathcal{T}_{2m}$ holds.
+Define $c_{2m}$ to be the number of elements of cycle type (a) and
+${c}_{m,2m}$ to  be the number of elements of cycle type (b). Note that for $m$ even, $c_{m,2m}=0.$
+
+
+Suppose first that $m$ is odd.
+To determine
+${c}_{m,2m}$ observe
+that   $\sum_{d\mid m} c_{d,2d}= |\mathcal{T}_m\vert .$
+Thus by M\"obius inversion, we obtain $c_{m,2m}=\frac{n^2}{q}\cdot \varphi(m)$, where $q:=1$ if $n$ odd and $q:=4$ if $n$ even.
+If $n$ is odd, we have therefore determined the number of permutations of cycle type (b).
+
+Now consider the case that $n$ is even. Let $m$ be an odd divisor of $n.$ Then all elements of type (a) as well as type (b) lie in $\mathcal{T}_{2m}.$ As we defined $c_{m,2m}=0$ for $m$ even, we find for any divisor $m$ of $n$
+\[|\mathcal{T}_{2m}| = \sum_{d\mid m}( c_{2d}+ c_{d,2d}) =
+\sum_{d\mid m} c_{2d} +
+\sum_{\substack{d\mid m\\d \textrm{ odd}}}c_{d,2d}.
+\]
+Consider first the case that $m$ already divides $n/2.$
+Then $\gcd(2m/d,n) = 2m/d$ for all divisors $d$ of $m.$
+Hence, by M\"obius inversion, $c_{2m}+ c_{m,2m}=2n^2 \cdot \varphi(m).$
+Therefore, for $n$ even and $m$ odd, we find $c_{m,2m} = n^2/4\cdot\varphi(m)$ and $$c_{2m}=c_{2m}+c_{m,2m}-c_{m,2m}=(2-1/4)n^2\varphi(m)  = 7/4n^2 \cdot \varphi(m)$$ where for $n$ even
+and $m$ an even divisor of $n/2$ we find $c_{m,2m}=0$
+and hence
+$c_{2m} = 2n^2 \cdot \varphi(m).$
+
+
+Now suppose $m$ does not divide $n/2.$ Then $m$ has to be even and thus $c_{m,2m}=0$
+and  $\gcd( 2m/d, n)  = m/d.$
+Hence by M\"obius inversion, $c_{2m}= c_{2m}+ c_{m,2m}= n^2\varphi(m).$
+\end{proof}
+
+
+
+\subsection{Elements with rotation component of type $3^a$}
+\begin{proposition}\label{prop:cycle-3a}
+Let $\sigma\in 3^a$ and let $\tau\in T_n$ satisfy $\vert\sigma\tau\vert=3m$.
+Then $m\mid n$, and the following hold:
+\begin{enumerate}
+\item[(a)] If $3\mid  m,n$, the cycle type
+$(3m)^{n^3/(3m)}$
+occurs for exactly $n^2\varphi(m)$ elements in $\sigma T_n$.
+\item[(b)] If $3\nmid m$, the cycle type
+\[
+m^{\vert C_{T_n}(\sigma)\vert/m}
+(3m)^{(n^3-\vert C_{T_n}(\sigma)\vert)/(3m)}
+\]
+occurs for exactly $n^2\varphi(m)$ elements in $\sigma T_n$.
+\end{enumerate}
+\end{proposition}
+
+
+\begin{proof}
+We compute $\vert \mathcal{T}_{\ell}\vert$ for $\sigma\in 3^a$ and a natural number $\ell.$
+If $\ell = 0 \pmod 3$, then Equation \eqref{eq:lcyc} simplifies to
+\begin{equation}\label{eq:l3_0}
+0 = \tau \left(\frac{\ell}{3} I+ \frac{\ell}{3} A+\frac{\ell}{3} A^2\right)
+%\end{equation}
+% Equation~\eqref{eq:l3_0} is equivalent to
+%\begin{equation}\label{eq:lcycodd}
+\Leftrightarrow
+0=\tau \frac{\ell}{3}\begin{pmatrix}
+    1 & 1 & 1\\
+1 & 1& 1\\
+    1 & 1 &  1
+    \\
+\end{pmatrix}.
+\end{equation}
+This directly implies $
+\frac{\ell}{3}\cdot(\tau_1+\tau_2+\tau_3)=0$.
+If $\ell = 1 \pmod 3$, the equation becomes
+\begin{equation}\label{eq:l3_1}
+x\left( A- I\right) = -\tau \left(\frac{\ell+2}{3} I+ \frac{\ell -1}{3} A+ \frac{\ell -1}{3} A^2\right).
+\end{equation}
+ Equation~\eqref{eq:l3_1} is equivalent to
+\begin{equation}
+x\begin{pmatrix} 1 & -1 & 0 \\
+ 0& 1 & -1 \\
+-1 & 0 & 1
+\end{pmatrix}=\tau \begin{pmatrix}
+    \frac{\ell+2}{3} & \frac{\ell -1}{3} & \frac{\ell -1}{3}\\
+    \frac{\ell -1}{3} & \frac{\ell+2}{3} & \frac{\ell -1}{3}\\
+    \frac{\ell -1}{3} & \frac{\ell -1}{3} &  \frac{\ell+2}{3}
+    \\
+\end{pmatrix}
+\Leftrightarrow
+x\begin{pmatrix} 1 & -1 & 0 \\
+ 0& 1 & 0 \\
+-1 & 0 & 0
+\end{pmatrix}=\tau \begin{pmatrix}
+    \frac{\ell+2}{3} & \frac{\ell -1}{3} & \ell\\
+    \frac{\ell -1}{3} & \frac{\ell+2}{3} & \ell\\
+    \frac{\ell -1}{3} & \frac{\ell -1}{3} &  \ell
+    \\
+\end{pmatrix}.
+\end{equation}
+{\color{red}\[
+\ell\cdot(\tau_1+\tau_2+\tau_3)=0, \tau_3=z-\tau_1-\tau_2
+\]
+\begin{align*}
+   x_1-x_3=\frac{\ell+2}{3}\cdot\tau_1+\frac{\ell-1}{3}\cdot(\tau_2+\tau_3)=0\\
+      x_1-x_3=\frac{\ell-1}{3}\cdot z+\tau_1\\
+\end{align*}
+
+
+
+\begin{align*}
+   x_2-x_1=\frac{\ell+2}{3}\cdot\tau_2+\frac{\ell-1}{3}\cdot(\tau_1+\tau_3)\\
+   x_2-x_1=\frac{\ell-1}{3}z+\tau_2
+\end{align*}
+
+\begin{align*}
+   x_2-2x_1+x_3=\tau_2-\tau_1
+\end{align*}
+}
+{\color{blue}Solving these linear equations shows that the only condition on the translation is
+\[
+\ell(\tau_1+\tau_2+\tau_3)=0.
+\]
+Thus we may write $\tau=(\lambda,\mu,z-\lambda-\mu)$, where $z\in\mathbb Z_n$ satisfies $\ell z=0$.}
+
+
+
+If $\ell = 2 \pmod 3$, the equation becomes
+\[
+x\left( A^2- I\right) = -\tau \left(\frac{\ell+1}{3} I+ \frac{\ell +1}{3} A+ \frac{\ell -2}{3} A^2\right).
+\]
+This directly implies:
+\[
+x\begin{pmatrix} 1 & 0 & -1 \\
+-1 & 1 & 0 \\
+0 & -1 & 1
+\end{pmatrix}=\tau \begin{pmatrix}
+    \frac{\ell+1}{3} & \frac{\ell+1}{3} & \frac{\ell -2}{3}\\
+    \frac{\ell -2}{3} & \frac{\ell+1}{3} & \frac{\ell+1}{3}\\
+    \frac{\ell+1}{3} & \frac{\ell -2}{3} &  \frac{\ell+1}{3}
+    \\
+\end{pmatrix}
+%\end{equation}
+\Leftrightarrow
+%\begin{equation}
+x\begin{pmatrix} 1 & 0 & 0 \\
+ -1& 1 & 0 \\
+0 & -1 & 0
+\end{pmatrix}=\tau \begin{pmatrix}
+    \frac{\ell+1}{3} & \frac{\ell+1}{3} & \ell\\
+    \frac{\ell -2}{3} & \frac{\ell+1}{3} & \ell\\
+    \frac{\ell+1}{3} & \frac{\ell -2}{3} &\ell
+    \\
+\end{pmatrix}.
+\]
+
+Combining the three congruence classes of $\ell$ gives
+\[
+\mathcal{T}_\ell =
+\begin{cases}
+\{\tau=(\lambda,\mu,z-\lambda-\mu)\mid \lambda,\mu\in\mathbb Z_n,\ \frac{\ell}{3}z=0\}, & \ell\equiv0\pmod 3,\\[4pt]
+\{\tau=(\lambda,\mu,z-\lambda-\mu)\mid \lambda,\mu\in\mathbb Z_n,\ \ell z=0\}, & \ell\not\equiv0\pmod 3.
+\end{cases}
+\]
+Hence
+\[
+|\mathcal T_\ell|=
+\begin{cases}
+n^2\gcd(\frac{\ell}{3},n), & \ell\equiv0\pmod 3,\\
+n^2\gcd(\ell,n), & \ell\not\equiv0\pmod 3.
+\end{cases}
+\]
+
+
+
+{\color{red}We now determine the number of elements with a given cycle structure.
+Then we can observe that for each odd divisor $m$ of $n$ the statement $\mathcal{T}_m \subset \mathcal{T}_{2m}$ holds.
+Define $c_{2m}$ to be the number of elements of cycle type (a) and
+${c}_{m,2m}$ to  be the number of elements of cycle type (b). Note that for $m$ even, $c_{m,3m}=0.$
+
+Suppose first that $n \neq 0 \pmod 3$. Then $c_{3m}=0$.
+To determine
+${c}_{m,3m}$ observe
+that   \[\sum_{d\mid m} c_{d,3d}= |\mathcal{T}_m\vert .\]
+Thus, by M\"obius inversion,
+$c_{m,3m}=
+n^2\cdot \varphi(m).$
+
+
+Suppose first that $n \equiv 0 \pmod 3$ and $m \neq 0 \pmod 3$.
+To determine
+${c}_{m,3m}$ observe
+that   \[\sum_{d\mid m} c_{d,3d}= |\mathcal{T}_m\vert .\]
+Thus   by M\"obius inversion,
+$c_{m,3m}=
+n^2\cdot \varphi(m).$
+
+
+
+Suppose first that $n,m \equiv  0 \pmod 3$. Then $c_{m,3m}=0$.
+To determine
+${c}_{3m}$ observe
+that   \[\sum_{d\mid m} c_{3d}+\sum_{3\nmid d, d\mid m} c_{d,3d}=\sum_{d\mid m}( c_{3d}+ c_{d,3d})= |\mathcal{T}_m\vert .\]
+Thus   by M\"obius inversion,
+\[c_{3m} = \sum_{d\mid m} \mu(d) \cdot |\mathcal{T}_{m/d}|
+=
+\sum_{d\mid m} \mu(d) \cdot n^2\cdot \gcd\left( \frac{m}{d},n\right)
+= n^2\cdot m\cdot  \sum_{d\mid m}  \frac{\mu(d)}{d} =
+n^2\cdot \varphi(m).
+\]
+Consider first the case that $m$ already divides $n/3.$
+Then $\gcd(3m/d,n) = 3m/d$ for all divisors $d$ of $m$ with $3\nmid d$
+
+Hence by M\"obius inversion,
+\[c_{3m}=c_{3m}+ c_{m,3m} = \sum_{d\mid m} \mu(d) \cdot |\mathcal{T}_{3m/d}|
+= n^2\sum_{d\mid m} \mu(d) \cdot \gcd\left(n,\frac{m}{d}\right) = n^2\sum_{d\mid m} \mu(d) \cdot \frac{m}{d} = n^2 \cdot \varphi(m).
+\]
+Therefore, for $n,m \equiv 0 \pmod 3$ and a $m$ divisor $n/3$ we find $c_{m,3m} = n^2\cdot\varphi(m)$.
+
+Now, let $m\nmid n/3:$
+
+Then $m$ has to be even and thus $c_{m,3m}=0$
+and  $\gcd( 3m/d, n)  = m/d.$
+Hence by M\"obius inversion,
+\[c_{3m}= c_{3m}+ c_{m,3m} = \sum_{d\mid m} \mu(d) \cdot |\mathcal{T}_{2m/d}|
+= n^2\sum_{d\mid m} \mu(d) \cdot \gcd\left(n,\frac{m}{d}\right) = n^2\sum_{d\mid m} \mu(d) \cdot \frac{m}{d} = n^2\varphi(m).
+\]
+}
+{\color{blue}We now pass from the sets $\mathcal T_\ell$ to exact cycle types.
+Let $c_{3m}$ denote the number of elements in $\sigma T_n$ of cycle type $(3m)^{n^3/(3m)}$, and let $c_{m,3m}$ denote the number of elements of cycle type
+\[
+m^{\vert C_{T_n}(\sigma)\vert/m}
+(3m)^{(n^3-\vert C_{T_n}(\sigma)\vert)/(3m)}.
+\]
+If $3\nmid m$, then
+\[
+\sum_{d\mid m}c_{d,3d}=|\mathcal T_m|.
+\]
+Möbius inversion, together with $m\mid n$, gives
+\[
+c_{m,3m}
+=\sum_{d\mid m}\mu(d)|\mathcal T_{m/d}|
+=n^2\sum_{d\mid m}\mu(d)\frac{m}{d}
+=n^2\varphi(m).
+\]
+If $3\mid n$ and $3\mid m$, then the cycle type with cycles only of length $3m$ is obtained in the same way from $\mathcal T_{3m}$, and the formula for $|\mathcal T_\ell|$ above again gives
+\[
+c_{3m}=n^2\varphi(m).
+\]}
+
+\end{proof}
+\newpage
+\subsection{Elements with rotation component of type $4^a$}
+
+
+
+\begin{proposition}\label{prop:cycle-4a}
+Let $\sigma\in 4^a$ and let $\tau\in T_n$ satisfy $\vert\sigma\tau\vert=4m$.
+Then $m\mid n$, and the following hold:
+\begin{enumerate}
+\item[(a)] If $n$ is odd, the cycle type
+\[
+m^{\vert C_{T_n}(\sigma^2)\vert/m}
+(4m)^{(n^3-\vert C_{T_n}(\sigma^2)\vert)/(4m)}
+\]
+occurs for exactly $n^2\varphi(m)$ elements in $\sigma T_n$.
+\item[(b)] If $n$ is even and $m$ is odd, the cycle type
+\[
+(2m)^{\vert C_{T_n}(\sigma^2)\vert/(2m)}
+(4m)^{(n^3-\vert C_{T_n}(\sigma^2)\vert)/(4m)}
+\]
+occurs for exactly $\frac{n^2}{2}\varphi(m)$ elements in $\sigma T_n$.
+\item[(c)] If $n$ is even and $m$ is odd, the cycle type
+\[
+m^{\vert C_{T_n}(\sigma)\vert/m}
+(2m)^{(\vert C_{T_n}(\sigma^2)\vert-\vert C_{T_n}(\sigma)\vert)/(2m)}
+(4m)^{(n^3-\vert C_{T_n}(\sigma^2)\vert)/(4m)}
+\]
+occurs for exactly $\frac{n^2}{2}\varphi(m)$ elements in $\sigma T_n$.
+\item[(d)] If $n$ is even, the cycle type
+$(4m)^{n^3/(4m)}$
+occurs for exactly $\gcd(4,n)n^2\varphi(m)$ elements in $\sigma T_n$ if $m$ is even, and for exactly
+$(\gcd(4,n)-1)n^2\varphi(m)$ elements in $\sigma T_n$ if $m$ is odd.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+
+We now consider Equation \eqref{eq:lcyc}.
+%for general $\ell$.
+
+If $\ell \equiv 0 \pmod 4$, the equation becomes
+\[
+0 = -\tau \left(\frac{\ell}{4} I+ \frac{\ell}{4} A+\frac{\ell}{4} A^2+\frac{\ell}{4} A^3\right)
+%\end{equation}
+%Equation~\eqref{eq:l4_0} is equivalent to
+%\begin{equation}\label{eq}
+\Leftrightarrow
+0=\tau \begin{pmatrix}
+    0 & 0 & 0\\
+0 & 0& 0\\
+    0 & 0 &  \ell
+    \\
+\end{pmatrix}.
+\]
+
+This means $\ell\tau_3=0.$ If $\ell \equiv 1 \pmod 4$, the equation becomes
+\[
+x(A-I) = -\tau \left(\frac{\ell+3}{4} I+ \frac{\ell-1}{4} A+\frac{\ell-1}{4} A^2+\frac{\ell-1}{4} A^3\right).
+%\end{equation}
+%Equation~\eqref{eq:l4_1} is equivalent to
+%\begin{equation}\label{eq:lcycodd}
+\Leftrightarrow
+x\begin{pmatrix}
+    -1 & 1 & 0\\
+1 & 1& 0\\
+    0 & 0 &  0
+    \\
+\end{pmatrix}=\tau  \begin{pmatrix}
+    1 & 0 & 0\\
+0 & 1& 0\\
+    0 & 0 &  \ell
+    \\
+\end{pmatrix}.
+\]
+This equation in turn is equivalent to the two equations $
+-x_1 + x_2 = \tau_1, 2x_2 = \tau_1+\tau_2$ and $
+0= \ell \tau_3.$
+If $\ell \equiv 2 \pmod 4$, the equation becomes
+\[
+x(A^2-I) = -\tau \left(\frac{\ell+2}{4} I+ \frac{\ell+2}{4} A+\frac{\ell-2}{4} A^2+\frac{\ell-2}{4} A^3\right).
+%\end{equation}
+%Equation~\eqref{eq:l4_2} is equivalent to
+%\begin{equation}\label{eq:l4_22}
+\Leftrightarrow
+x\begin{pmatrix}
+    2 & 0 & 0\\
+0 & 2& 0\\
+    0 & 0 &  0
+    \\
+\end{pmatrix}=\tau  \begin{pmatrix}
+    1 & -1 & 0\\
+1 & 1& 0\\
+    0 & 0 &  \ell
+    \\
+\end{pmatrix}
+\]
+This equation in turn is equivalent to the two equations $2x_1 = \tau_1+\tau_2,2x_2 = \tau_1-\tau_2$ and $\ell\tau_3=0.$
+
+
+If $\ell \equiv 3 \pmod 4$, the equation becomes
+\[
+x(A^3-I) =- \tau \left(\frac{\ell+1}{4} I+ \frac{\ell+1}{4} A+\frac{\ell+1}{4} A^2+\frac{\ell-3}{4} A^3\right).
+%\end{equation}
+%Equation~\eqref{eq:l3_0} is equivalent to
+%\begin{equation}\label{eq:lcycodd}
+\Leftrightarrow
+x\begin{pmatrix}
+    1 & -1 & 0\\
+1 & 1& 0\\
+    0 &0 &1
+    \\
+\end{pmatrix}=\tau \begin{pmatrix}
+    0 & -1 & 0\\
+1 & 0& 0\\
+    0 & 0 &  \ell
+    \\
+\end{pmatrix}.
+\]
+
+
+
+\[
+\mathcal{T}_\ell = \begin{cases}  \{ \tau= (\lambda,\mu, z) \mid \lambda,\mu \in \Z_n  \textrm { and } \ell z = 0 \}, & \ell \equiv 0\pmod 4,\\
+\{ \tau= (\lambda,\mu, z) \mid \lambda,\mu \in \Z_n,\,  \lambda\equiv -\mu\!\!\pmod{\gcd(2,n)} \textrm { and } \ell z = 0 \} & \ell \equiv 1\pmod 4.\\
+ \{ \tau= (\lambda,\mu, z) \mid \lambda,\mu,z \in \Z_n,\ \lambda\equiv \mu\pmod{\gcd(2,n)}  \textrm { and } \ell z = 0 \} & \ell \equiv 2\pmod 4,\\
+\{ \tau= (\lambda,\mu, z) \mid \lambda,\mu,z \in \Z_n,\ \lambda\equiv \mu\pmod{\gcd(2,n)}  \textrm { and } \ell z = 0 \} & \ell \equiv 3\pmod 4,\\
+\end{cases}
+\]
+Therefore, by Lemma~\ref{lem:solmodn}, (i) $n^2 \cdot \gcd(\ell,n)$ if $\ell =0 \pmod 4$ and (ii) $\vert \mathcal{T}_\ell\vert =\frac{n^2}{\gcd(2,\ell)} \cdot \gcd(\ell,n)$ otherwise.
+
+
+
+We now introduce counting variables for the four possible cycle types.
+Let $c_{m,4m}$, $c_{2m,4m}$, $c_{m,2m,4m}$, and $c_{4m}$ denote the numbers of elements in $\sigma T_n$ with the cycle types listed in (a), (b), (c), and (d) of the above statement, respectively.
+If $n$ is odd, then only the first of these cycle types occurs.
+
+To determine
+${c}_{m,4m}$ observe
+that   $\sum_{d\mid m} c_{d,4d}= |\mathcal{T}_m\vert .$
+Thus,  by M\"obius inversion, $c_{m,4m}= n^2\cdot \varphi(m).$
+
+Now consider the case $n$ even and $m$ is odd. Hence, $m \pmod 4 \neq 0.$
+To determine
+${c}_{m,2m,4m}$ observe
+that   \[\sum_{d\mid m} c_{d,2d,4d}= |\mathcal{T}_m\vert .\]
+Thus  by M\"obius inversion, $c_{m,2m,4m}=\frac{n^2}{2}\cdot \varphi(m).$
+Now count $\mathcal{T}_{2m}$:
+
+\[\sum_{d\mid m }( c_{d,2d,4d}+c_{2d,4d})= |\mathcal{T}_{2m}|.\]
+\begin{align}
+c_{2m,4m}=&c_{2m,4m} + c_{m,2m,4m}-c_{m,2m,4m}\\ =& (\sum_{d\mid m} \mu(d) \cdot |\mathcal{T}_{2m/d}|)-\frac{n^2}{2}\varphi(m)\\
+=&
+(\sum_{d\mid m} \mu(d) \cdot \frac{n^2}{\gcd(2,n)}\cdot \gcd\left( \frac{2m}{d},n\right))-\frac{n^2}{2}\varphi(m)
+= n^2\cdot m\cdot  \sum_{d\mid m}  \frac{\mu(d)}{d} -\frac{n^2}{2}\varphi(m)=\frac{n^2}{2}\cdot \varphi(m).
+\end{align}
+
+
+Now count $\mathcal{T}_{4m}$:
+\[\sum_{d\mid m }( c_{d,2d,4d}+c_{2d,4d}+c_{4d})= |\mathcal{T}_{4m}|.\]
+If $m$ is odd then
+\begin{align}
+c_{4m}=&c_{4m} + c_{m,2m,4m}+c_{2m,4m}- c_{m,2m,4m}-c_{2m,4m}=c_{4m} + c_{m,2m,4m}+c_{2m,4m}-n^2 \varphi(m)\\ =& (\sum_{d\mid m} \mu(d) \cdot |\mathcal{T}_{4m/d}|)-n^2\varphi(m)\\
+=&
+(\sum_{d\mid m} \mu(d) \cdot n^2\cdot \gcd\left( \frac{4m}{d},n\right))-n^2\varphi(m)=n^2\gcd(4,n) (\sum_{d\mid m} \mu(d)  \cdot \frac{m}{d})-n^2\varphi(m)\\
+=& n^2\gcd(4,n)\cdot m\cdot  \sum_{d\mid m}  \frac{\mu(d)}{d} -\frac{n^2}{2}\varphi(m)=n^2\cdot \varphi(m) = (\gcd(4,n)-1)n^2 \varphi(m).
+\end{align}
+
+If $m$ is even, then $c_{m,2m,4m}=c_{2m,4m}=0.$ this implies $c_{4m}=\gcd(4,n)n^2\varphi(m).$
+
+\end{proof}
+
+
+ 
+The following corollary collects the fixed-point counts that are needed for the Burnside sum. These counts follow from the cycle structures determined above together with the induced action of $R$ on the eight local configurations.
+\begin{cor}\label{cor:fixed-point-counts}
+Let $g=\sigma\tau\in \Phi(G_n)$, where $\sigma\in R$ and $\tau\in T_n$. The number of fixed points of $g$ in its action on the coloured $n\times n\times n$ cubes is given as follows.
+\begin{enumerate}
+\item\label{cor:fix-translations} If $\sigma=1$ and $\tau$ has order $m$, then
+$
+\vert \Fix_{\Omega^\Delta}(g)\vert =8^{n^3/m}.$
+\item\label{cor:fix-4a} If $\sigma\in 4^a$ and $\vert g\vert =4m$, then $g$ has fixed points if and only if $n$ is even and $g$ has cycle structure
+$(4m)^{n^3/(4m)}$
+on $\Delta$. In this case,
+$\vert \Fix_{\Omega^\Delta}(g)\vert =8^{n^3/(4m)}.$
+
+\item\label{cor:fix-2a} If $\sigma\in 2^a$ and $\vert g\vert =2m$, then the fixed-point count is as follows. If $n$ is even and $g$ has cycle structure $(2m)^{n^3/(2m)}$, then
+$\vert \Fix_{\Omega^\Delta}(g)\vert =8^{n^3/(2m)}.
+$
+If $m$ is odd and $g$ has cycle structure
+$m^{\vert C_{T_n}(\sigma)\vert/m}(2m)^{(n^3-\vert C_{T_n}(\sigma)\vert)/(2m)}$, then
+$\vert \Fix_{\Omega^\Delta}(g)\vert =
+4^{\vert C_{T_n}(\sigma)\vert/m}8^{(n^3-\vert C_{T_n}(\sigma)\vert)/(2m)}.$
+
+\item\label{cor:fix-3a} If $\sigma\in 3^a$ and $\vert g\vert =3m$, then
+$\vert \Fix_{\Omega^\Delta}(g)\vert =2^{n^3/m}.$
+
+\item\label{cor:fix-2b} If $\sigma\in 2^b$ and $\vert g\vert =2m$, then $g$ has fixed points if and only if $n$ is even and $g$ has cycle structure
+$(2m)^{n^3/(2m)}
+$
+on $\Delta$. In this case,
+$\vert \Fix_{\Omega^\Delta}(g)\vert =8^{n^3/(2m)}.$
+\end{enumerate}
+\end{cor}
+
+We now combine these fixed-point counts with the numbers of elements of each cycle type obtained in the previous propositions. This gives the Burnside sum explicitly, and hence the desired orbit-counting formula.
+\phantomsection\label{section:numorbits}
+\begin{theorem}\label{thm:orbit-formula}
+Let $n\geq 3$, and let $\psi(n)$ denote the number of orbits of
+$G_n=\mathrm{Rot}(C)\ltimes \mathbb Z_n^3$ on $\Omega^{\Delta_n}$. Then
+$\psi(n)=\frac{1}{24n^3}\sum_{g\in G_n}
+\left|\operatorname{Fix}_{\Omega^{\Delta_n}}(g)\right|.$
+More explicitly, set $
+J_3(m):=m^3\prod_{p\mid m}\left(1-\frac{1}{p^3}\right).$
+If $n$ is odd, then
+\[
+\psi(n)
+=
+\frac{1}{24n^3}
+\left(
+\sum_{m\mid n} J_3(m)\,8^{n^3/m}
++6n^2\sum_{m\mid n}\varphi(m)\,
+2^{\,n(3n^2+1)/(2m)}
++8n^2\sum_{m\mid n}\varphi(m)\,
+2^{\,n^3/m}
+\right).
+\]
+In particular, the same expression applies whether $3\mid n$ or
+$3\nmid n$.
+
+If $n$ is even, then
+\[
+\begin{aligned}
+\psi(n)
+=\frac{1}{24n^3}\Bigg(
+\sum_{m\mid n}\Big[
+&J_3(m)\,8^{n^3/m}
++A_n(m)\,8^{n^3/(2m)}+8n^2\varphi(m)\,2^{n^3/m}
++6n^2B_n(m)\,8^{n^3/(4m)}
+\Big] \\
+&+3n^2\sum_{\substack{m\mid n\\2\nmid m}}
+\varphi(m)\,2^{\,n(3n^2+2)/(2m)}
+\Bigg).
+\end{aligned}
+\]
+where
+$A_n(m)$ is defined as follows: $A_n(m)=6n^2\varphi(2m)$ if $m$ is even
+and $m\mid n/2$; $A_n(m)=\frac{33n^2}{4}\varphi(m)$ if $m$ is odd and
+$m\mid n/2$; and
+$A_n(m)=3n^2(\varphi(2m)+\varphi(m))$ if $m\nmid n/2$. Moreover,
+$B_n(m)=\gcd(4,n)\varphi(m)$ if $m$ is even, and
+$B_n(m)=(\gcd(4,n)-1)\varphi(m)$ if $m$ is odd.
+\end{theorem}
+\begin{proof}
+For $n\geq 3$ we have
+$G_n=\mathrm{Rot}(C)\ltimes \mathbb Z_n^3$ and
+$\vert G_n\vert =24n^3.$
+By the Cauchy-Frobenius-Burnside lemma, the number of orbits of $G_n$ on
+$\Omega^{\Delta_n}$ is
+\[
+\psi(n)
+=
+\frac{1}{24n^3}
+\sum_{g\in G_n}
+\left|\operatorname{Fix}_{\Omega^{\Delta_n}}(g)\right|.
+\]
+
+It remains to evaluate this sum. We split the elements of $G_n$ according
+to the rotation component of $g=\sigma\tau$, where
+$\sigma\in \mathrm{Rot}(C)$ and $\tau\in \mathbb Z_n^3$. The identity
+rotation gives the pure translations. By Proposition~\ref{prop:translations}
+and the first case of Corollary~\ref{cor:fixed-point-counts}, the contribution of the
+translation subgroup is
+\[
+\sum_{m\mid n}J_3(m)\,8^{n^3/m}.
+\]
+
+For the nontrivial rotation classes, the possible cycle structures of
+$\sigma\tau$ on $\Delta_n$ and the number of elements in each coset
+$\sigma T_n$ are given by
+Propositions~\ref{prop:cycle-2a}, \ref{prop:cycle-2b},
+\ref{prop:cycle-3a}, and~\ref{prop:cycle-4a}. The corresponding numbers of
+fixed elements of $\Omega^{\Delta_n}$ are given by
+the remaining cases of Corollary~\ref{cor:fixed-point-counts}. Multiplying these fixed-point
+numbers by the number of elements of each cycle type, and then by the size
+of the corresponding rotation conjugacy class,
+\[
+|{(2^a)}^r\vert =6,\qquad |{(2^b)}^r\vert =3,\qquad
+|{(3^a)}^r\vert =8,\qquad |{(4^a)}^r\vert =6,
+\]
+gives the full Burnside sum.
+
+Carrying out this substitution yields the formula displayed above. In the
+case where $n$ is odd, the contributions from the classes $2^b$ and $4^a$
+vanish, while the $2^a$ and $3^a$ contributions simplify to the two sums
+appearing in the odd formula. In the case where $n$ is even, the remaining
+subcases are exactly those encoded by the coefficient functions $A_n(m)$
+and $B_n(m)$. This gives the stated expression for $\psi(n)$ in all cases.
+\end{proof}
+
+\begin{sidewaystable}
+\centering
+\small
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{c c p{0.29\linewidth} p{0.20\linewidth} p{0.18\linewidth} p{0.14\linewidth}}
+\toprule
+Rotation class
+& $\vert \sigma^r\vert $
+& Cycle structure on $\Delta$
+& Number in $\sigma T_n$
+& Fixed representations
+& Conditions \\
+\midrule
+
+$1^a$
+& $1$
+& $m^{n^3/m}$
+& $J_3(m)$
+& $8^{n^3/m}$
+& $m\mid n$ \\
+
+\midrule
+
+$2^a$
+& $6$
+& $(2m)^{n^3/(2m)}$
+& $\frac{n^2}{2}\varphi(2m)$
+& $8^{n^3/(2m)}$
+& $n$ even, $m\mid n$ \\
+
+$2^a$
+& $6$
+& $m^{2n/m}(2m)^{(n^3-2n)/(2m)}$
+& $\frac{n^2}{2}\varphi(m)$
+& $4^{2n/m}8^{(n^3-2n)/(2m)}$
+& $n$ even, $m$ odd, $m\mid n$ \\
+
+$2^a$
+& $6$
+& $m^{n/m}(2m)^{(n^3-n)/(2m)}$
+& $n^2\varphi(m)$
+& $4^{n/m}8^{(n^3-n)/(2m)}$
+& $n$ odd, $m\mid n$ \\
+
+\midrule
+
+$2^b$
+& $3$
+& $(2m)^{n^3/(2m)}$
+& $n^2\varphi(2m)$
+& $8^{n^3/(2m)}$
+& $n$ even, $m$ even, $m\mid n/2$ \\
+
+$2^b$
+& $3$
+& $(2m)^{n^3/(2m)}$
+& $\frac{7n^2}{4}\varphi(m)$
+& $8^{n^3/(2m)}$
+& $n$ even, $m$ odd, $m\mid n/2$ \\
+
+$2^b$
+& $3$
+& $(2m)^{n^3/(2m)}$
+& $n^2\varphi(m)$
+& $8^{n^3/(2m)}$
+& $n$ even, $m\mid n$, $m\nmid n/2$ \\
+
+$2^b$
+& $3$
+& $m^{4n/m}(2m)^{(n^3-4n)/(2m)}$
+& $\frac{n^2}{4}\varphi(m)$
+& $0$
+& $n$ even, $m$ odd, $m\mid n$ \\
+
+$2^b$
+& $3$
+& $m^{n/m}(2m)^{(n^3-n)/(2m)}$
+& $n^2\varphi(m)$
+& $0$
+& $n$ odd, $m\mid n$ \\
+
+\midrule
+
+$3^a$
+& $8$
+& $(3m)^{n^3/(3m)}$
+& $n^2\varphi(m)$
+& $2^{n^3/m}$
+& $3\mid n$, $3\mid m$, $m\mid n$ \\
+
+$3^a$
+& $8$
+& $m^{n/m}(3m)^{(n^3-n)/(3m)}$
+& $n^2\varphi(m)$
+& $2^{n^3/m}$
+& $3\nmid m$, $m\mid n$ \\
+
+\midrule
+
+$4^a$
+& $6$
+& $(4m)^{n^3/(4m)}$
+& $\gcd(4,n)n^2\varphi(m)$
+& $8^{n^3/(4m)}$
+& $n$ even, $m$ even, $m\mid n$ \\
+
+$4^a$
+& $6$
+& $(4m)^{n^3/(4m)}$
+& $(\gcd(4,n)-1)n^2\varphi(m)$
+& $8^{n^3/(4m)}$
+& $n$ even, $m$ odd, $m\mid n$ \\
+
+$4^a$
+& $6$
+& $(2m)^{2n/m}(4m)^{(n^3-4n)/(4m)}$
+& $\frac{n^2}{2}\varphi(m)$
+& $0$
+& $n$ even, $m$ odd, $m\mid n$ \\
+
+$4^a$
+& $6$
+& $m^{2n/m}(2m)^{n/m}(4m)^{(n^3-4n)/(4m)}$
+& $\frac{n^2}{2}\varphi(m)$
+& $0$
+& $n$ even, $m$ odd, $m\mid n$ \\
+
+$4^a$
+& $6$
+& $m^{n/m}(4m)^{(n^3-n)/(4m)}$
+& $n^2\varphi(m)$
+& $0$
+& $n$ odd, $m\mid n$ \\
+
+\bottomrule
+\end{tabular}
+\caption{Cycle structures, numbers of elements, and fixed representations. The entry ``Number in $\sigma T_n$'' is for a fixed representative $\sigma$ of the indicated rotation class. Here, $J_3(m)=m^3\prod_{p\mid m}(1-p^{-3})$ is the Jordan totient function.}
+\label{tab:cycle-summary}
+\end{sidewaystable}
+
+
+
+\clearpage
+
+\appendix
+\section{Explicit permutation actions for $n=3$}
+\label{app:n3-permutation-actions}
+
+This appendix records the explicit $n=3$ instance of the permutation actions introduced in Section~\ref{section:actioncpweaves}. If the $27$ cells are indexed by triples $(i,j,k)$ with $i,j,k\in\{1,2,3\}$, then the bijection
+\[
+\phi:\Delta\to \{1,\ldots,27\},\qquad
+\phi((i,j,k))=i+3(j-1)+9(k-1),
+\]
+identifies the geometric action on the $27$ cells with a permutation action on $\{1,\ldots,27\}$. Under this identification, the rotation group and the translation group are generated by the following permutations:
+\begin{align*}
+\Phi(\mathrm{Rot}(C))=\langle &    (2,10,4)(3,19,7)(5,11,13)(6,20,16)(8,12,22)(9,21,25)(15,23,17)\\&(18,24,26),\; (1,19)(2,22)(3,25)(4,20)(5,23)(6,26)(7,21)(8,24)\\&(9,
+    27)(11,13)(12,16)(15,17)\rangle,\\
+\Phi(\mathbb{Z}^3_3)=\langle &(1,2,3)(4,5,6)(7,8,9)(10,11,12)(13,14,15)(16,17,18)(19,20,21)\\
+&(22,23,24)(25,26,27),(1,4,7)(2,5,8)(3,6,9)(10,13,16)(11,14,
+    17)\\
+&(12,15,18)(19,22,25)(20,23,26)(21,24,27),(1,10,19)(2,11,20)\\
+&(3,12,21)(4,13,22)(5,14,23)(6,15,24)(7,16,25)(8,17,26)(9,18,
+    27)\rangle.
+\end{align*}
+
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+
+\end{document}
