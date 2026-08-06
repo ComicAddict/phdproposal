@@ -1,0 +1,76 @@
+\section{Introduction}
+
+Optical fibers
+% , integral to high-tech industries such as telecommunications and medical imaging due to their ability to guide light with minimal loss, 
+harbor potential in HCI applications beyond their traditional usage in telecommunications and medical imaging.
+% By leveraging these fibers in desktop Fused Deposition Modeling (FDM) 3D printers, we introduce a streamlined approach to integrate sophisticated technology into everyday objects. 
+% This integration not only makes cutting-edge technology accessible but also functional within the familiar confines of user-customizable objects, promising a new era of interactive devices fabricated at home or in small workshops.
+% Despite the widespread use, embedding them seamlessly and cost-effectively into 3D-printed objects presents significant challenges, especially when using accessible fabrication methods like FDM. 
+While previous works have explored light delivery through high-resolution  techniques for 3D printed transparent channels \cite{printed_optics_2012, clr_printed_optical_fibers_2014},
+% However, these methods often fall short in terms of accessibility and cost. 
+% Our research proposes a modular approach utilizing FDM, which supports uninterrupted channel printing and assembly of complex structures, 
+the use of low cost, desktop Fused Deposition Modeling (FDM) 3D printing to investigate what transparent channels can afford in interactive devices has been underexplored.
+We envision FDM-printed optical channels without specialized hardware, lowering access barriers for diverse users.
+
+% offering a solution that balances functionality with user-driven customization.
+%\ergun{Suggestion: While prior work in HCI has explored light delivery through high-resolution 3D printing techniques \cite{printed_optics_2012, clr_printed_optical_fibers_2014}, our approach achieves similar integration using accessible, low-cost desktop Fused Deposition Modeling (FDM) printers. This enables the embedding of optical fiber functionality—such as uninterrupted light channels—directly into complex structures, without requiring specialized equipment.}
+
+We present a framework that applies Voronoi-based segmentation to 3D models, enabling modular fabrication of objects with continuous transparent channels embedded within each printed segment. These channels effectively route and guide light through FDM-printed structures while maintaining optical continuity (Figure~\ref{fig:teaser}(a-d)).
+To develop this framework, we first examine the light transmission capabilities of transparent materials available for FDM, i.e., PolyLactic Acid (PLA), and Thermoplastic PolyUrethane (TPU), %, and PolyEthylene Terephthalate Glycol (PETG)), 
+focusing on how geometric parameters influence light propagation, including channel length, diameter, and curvature. 
+Additionally, we examine how printing parameters such as layer height, line width (which affect the diameter of each printed line within the channel),  and raster angle (which determines the orientation of the printed lines) affect the light transmission.
+%Building on top, we develop Voronoi-based segmentation as a modular fabrication strategy for printing objects with different functional components that can be either structural and/or light transmission-capable components as shown in .
+
+
+Finally, employing the modular fabrication approach, each segmented partition is separately printed and assembled 
+% on standard desktop FDM printers, %\ergun{
+% our modular fabrication strategy allows to fabricate objects that can 
+enabling complex interaction design around light, as a controlled signal source for communication. %, through routing and channeling.
+% the manufacturability and structural integrity of the final assembled object. 
+% By breaking down complex geometries into manageable parts, we effectively harness the capabilities of FDM to produce intricate designs that were previously challenging to achieve with traditional 3D printing methods.
+%Introducing assembly-aware segmentation of complex configurations, 
+% our method enhances both the affordability and accessibility of advanced 3D printing applications. This 
+Our modular fabrication strategy not only 
+simplifies the fabrication process on standard desktop printers but also empowers users to experiment with different materials and interaction design techniques.
+% , promoting innovation and personalization in the creation of interactive devices.
+% Our FDM-based approach uniquely facilitates a wide array of existing and new interaction primitives enabled by embedded optical channels. 
+% Moreover, because of this modular fabrication strategy, 
+Parts of the target object can be printed in different materials for extent of light transmission and mechanical properties of the desired material, 
+% for instance, by embedding channels in flexible materials like Thermoplastic Polyurethane (TPU), we can dynamically reroute these channels through end-user interactions such as 
+affording different light re-routing interactions (e.g., pushing, squeezing, or rotating). % to act as I/O blocks through dynamic rerouting and direct channeling techniques. 
+% connectors for multiple channel configurations. 
+Complex routing or multiplexing within the object %can enable different mappings of input and output, 
+can enable flexibility for smart functional design 
+% the development of smart objects that can adapt their function based on user needs, 
+such as adjusting light paths or altering the object's interactive capabilities in real-time (e.g., Figure \ref{fig:teaser}(e)). 
+% While optical fibers have a wide range of applications, embedding them seamlessly and in cost-effective ways into 3D-printed objects remains a significant challenge, particularly when using accessible fabrication methods such as Fused Deposition Modeling (FDM). While inserting optical fibers into fabricated objects is possible, it presents significant challenges due to geometric constraints and integration complexity. 
+% The difficulty lies in defining precise light paths within the object when only the endpoints are specified as inputs. Previous work \cite{printed_optics_2012,brockmeyer2013papillon, clr_printed_optical_fibers_2014} has leveraged advanced routing algorithms and high-resolution printing techniques such as PolyJet to address this issue. By routing light through light tubes within objects, Willis et al.\cite{printed_optics_2012} have achieved interactivity such as push, rotary sensing, and light relay for displays. However, FDM-based approaches are inherently limited by geometric constraints. For optical channels to be practical, they must not only enable effective light propagation but also be manufacturable within FDM’s constraints while ensuring the structural stability of the printed object. 
+% % within fabricated objects can become difficult especially 
+% % Within the personal fabrication domain, this passive ability of light transmission has been explored through creation of 
+% % While this work proves the viability of embedding optical elements in 3D prints and a domain for interesting applications, the fabrication process itself uses PolyJet 3D printing, resources and equipment for which are expensive and hence inaccessible to the general population. 
+% We propose a modular approach to achieve interactivity through optical channels using FDM that allows uninterrupted channel printing. We develop a script that enables partitioning a 3D model with complex embedded channels such that each partition can be printed separately to account for each continuous channel printed in the same plane, and then assembled to create the final object. The ability to create modular partitions not only enables fabrication on desktop FDM printers, but provides further freedom to makers to print different partitions with different materials, leveraging their properties for interactivity.
+% We are hence able to print channels with complex geometries and orientations within 3D objects easily through this modularity. We further explore these complex geometries of channels, and how their geometry affects the output light compared to the input light. To improve accessibility
+In sum, we contribute:
+
+    \begin{itemize}[noitemsep, leftmargin=*]
+        \item Systematic evaluation of characteristics of transparent filaments for FDM printing for their potential as optical channels,
+        %\item Techniques to route and channel light to allow for complex N:M input-output mapping,
+        % within an FDM printed interactive devices,
+        \item Voronoi based computational geometry processing method to partition 3D objects with embedded optical channels for in-place printing, and
+        % \item Accessible FDM techniques of embedded 3D printed optical channels within 3D printed objects through insertion as well as segmentation for in-place printing, that work with both single and multi-extruder printers.
+        \item Design space of light routing and channeling from input to output, for  sensing, and dynamic information display. % afforded by material characterization of transparent FDM filaments. 
+        % channel geometry, orientation, and modularity
+        % \item Exemplary applications demonstrating the interactivity proposed in the design space 
+
+    \end{itemize}
+
+
+% \begin{figure*}[h]
+%     \centering
+%     \includegraphics[width=\linewidth]{figures/Workflow.png}
+%     \caption{\jk{It's tedious to interpret what each block describes, each block are NOT is the same level of the idea. Redraw or just remove. }}
+%      \Description{} 
+%     \label{fig:workflow}
+%     \vspace{-2mm}
+% \end{figure*}
+ 

@@ -1,0 +1,68 @@
+\section{Discussion \& Future Work}
+
+% In this section, we reflect on the limitations of our current fabrication approach and propose directions for future development.% These include improving modular assembly through interlocking weave structures, discussing our method for single-extruder printers, and addressing geometric and material constraints that impact light transmission in FDM-printed optical channels.
+
+\subsection{Weave Design for Assembly}
+
+Currently, we assemble the partitions using external adhesive, however, the connections are not seamless.
+To address the challenge posed by the lack of physical connections between the partitions, for future work we will encapsulate a weave channel design within the workflow. This approach involves restructuring the object into interlocking weave patterns that provide spaces for the optical channels. % but also significantly enhance the structural integrity of the printed object.
+The weave design is based on volumetric Bravais weaves defined by Yildiz et. al. \cite{yildiz_volweaves2025}, which are a generalization of Grunbaum and Shephard's matrix encodings of planar weaves \cite{grunbaum1988isonemal}. We utilize the simplest form of weaves which is the plain weave due to its suitability for creating a regular, interlocking structure. To construct a plain weave, we instance two line segments that are perpendicular to each other on a 2D grid. Then we connect the neighboring weave elements to form a plain weave. A $3\times3$ plain weave structure is used in Figure \ref{fig:weavedicussion} to create light channel partitions.
+
+There are other type of weaves such as satins and twill. All the periodic weaves that hang together up to $20\times20$ repeating domain \cite{grunbaum1988catalogue} have been cataloged. This flexibility enables the creation of custom weaves tailored to specific design requirements. Importantly, because the curves used in the weave channels lie entirely within a plane, i.e. they lack out-of-plane tangents, the design process for these weaves is streamlined, making them easier to implement compared to freeform curves.
+The weave design can accommodate optical channels and address the assembly related issues of the current partitioning method.
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[node distance=2.5mm]
+    \node (a1) [align=center, on grid]{\includegraphics[width=0.33\linewidth]{figures/weavediscussion/weaveinputs.jpg}};
+    \node (a2) [align=center, on grid, right=25mm of a1]{\includegraphics[width=0.33\linewidth]{figures/weavediscussion/result.jpg}};
+    \node (a2) [align=center, on grid, right=25mm of a2]{\includegraphics[width=0.33\linewidth]{figures/weavediscussion/result_layout.jpg}};
+    \end{tikzpicture}
+    \vspace{-2mm}
+    \caption{Light channel partitioning with woven channels.}
+    \Description{A visual of light channel partitioning using a weave-based structure. A Stanford bunny is segmented into multiple interlocking regions formed by planar weaves, where horizontal and vertical bands alternate, creating slots for optical channels to pass through. The first part of the image shows the placement of the optical channels in the Stanford bunny. The second part of the image shows the partitions made in an assembled Stanford bunny. Finally, the six partitions are shown separately with the optical channels in a flat orientation.}
+    \label{fig:weavedicussion}
+    \vspace{-3mm}
+\end{figure}
+
+%Despite these improvements, we encounter challenges related to unintended holes forming in the design. These defects arise from the thin walls of the weave elements, which are misinterpreted by the slicer software as gaps during the slicing process. This highlights the need for further refinement in wall thickness and slicer configuration to prevent such issues in future implementations. Another shortcoming of using weaves as a light channel is the assembly process requires flexible material to weave the partitions into each other.
+
+Another approach to assemble the partitions is making use of smaller connector pieces distributed computationally across the partitions. % For this approach we first wanted to get explicit corner information for each partition where we can place the connector pins.
+In order to get explicit locations for placing connectors, we tried to use the channels with very few points such that Voronoi tesselation of the points creates a coarse mesh. Using this coarse mesh, we can query corners of the cells and assign connectors to each cell.
+This approach, however, presents challenges due to the low-resolution sampling of the curves, which leads to inconsistent neighboring information between curves. The ongoing exploration in creating parametric connectors would also make the assembly process more seamless.
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.4\linewidth]{figures/single_extruder.png}
+%     \vspace{-1mm}
+%     \caption{Single extruder channel embedment requires first printing a groove of the channel and then overextruding transparent material in that groove at the last layer.}
+%     \Description{Diagram illustrating the single-extruder method  A groove is printed into the shell of an object, and the extruder shows transparent material being extruded. The over-extrusion of this transparent filament fills the preformed groove, creating an embedded optical channel.}
+    
+%     \label{fig:single_extruder}
+%     \vspace{-2mm}
+% \end{figure}
+
+
+% \subsection{Printing with a Single Extruder Printer}
+
+% Our work relies on multi-extruder printing for in-place printing of channels. While multi-extruder printers are becoming easily accessible, we develop a script for using a single extruder printer where material for the shell can be swapped out with transparent filament by pausing the printing process. This technique uses the G-code of the partition to be printed, and analyses it to find the location of the channel using G-code comments. Once the location and the path of the channel is known, the script adjusts the printing process by omitting the material where the channel should be, for every layer except the last one.
+% Here, a pause command is added to the G-code to allow the user to swap out shell material with transparent filament. During the final layer (Figure \ref{fig:single_extruder}), the script increases the material extrusion output which fills the previously created groove with the transparent material, forming the channel.
+% The channel then behaves like a single channel line and does not have control parameters such as layer height or line width. Future evaluations will consider channels created by this script in considering the effect of thickness, curvature, and length on light transmission.
+
+\subsection{Geometry, Material, \& FDM Limitations}
+
+As seen from the evaluations, channels printed in FDM present some geometric and material limitations. While we test the maximum length of 100mm in the length evaluation similar to prior work \cite{printed_optics_2012}, 3D printed channels do not transmit light over large distances as optical fibers do. 
+%Further, inserting printed channels has better transmissibility than printed in-place channels (Appendix \ref{app:a}). This may be happening due to frequent material switches and faster cooling of the transparent material during that time, or even impurities in the transparent material through inconsistent purging of shell material. We plan to further evaluate the reason behind this transmission mismatch between in-place printed and inserted channels. % case\jk{do we guess why?}. 
+%However, certain pathways cannot be inserted into, and certain materials are not favorable for insertion. For example, rigid PLA cannot be inserted into a curved pathway. To enable use of different materials and different pathways, printing in-place is needed.
+Future evaluations will also look at the effect of multiple curves within the same pathway on light transmission, and the effect of printing temperature on different transparent materials. While printing, we found that PETG loses its transparency and becomes milky white at certain temperatures, printing speeds, and cooling speeds. Evaluating this effect on transparency and milkyness of material will enable more control parameters that can be utilized to transmit or block light based on material temperature and similar parameters.
+
+Although our evaluations primarily used Giantarm PLA and Overture TPU, future work will extend to other transparent materials. Leveraging a luminance meter (lux meter) \cite{gandhi20173d}, we aim to systematically characterize additional filaments to expand the material options for optical channel fabrication.
+
+
+%\subsection{Resolution of Display}
+FDM brings in limitations due to its layer-by-layer printing approach. As discussed earlier, channels need to be printed as continuous strokes. Hence, we cannot print channels that have 3D curves such as a helix.
+Lastly, the resolution of printing is limited due to FDM compared to other approaches such as PolyJet printing.
+While, theoretically, we can print channels as thin as a printer's nozzle allows, we had trouble printing consistent channels thinner than 1.6mm due to changes in print bed alignment, and print speed causing channels to be pulled off the bed.
+The minimum consistent thinness we have achieved using FDM is 1.6mm. Further evaluations for print speed, temperature, and alignment consistency are warranted to print consistent thinner optical channels.
+
+%\jk{while theoretically we can 3D print the cores as fine as possible as the print nozzle's diameter allows, it is not possible because..}

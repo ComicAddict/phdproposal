@@ -1,0 +1,285 @@
+\section{Channel Design and Object Segmentation}
+
+% We explore various ways in which FDM can be used to fabricate interactive objects with optical channels. These techniques include hybrid ways, and printing-in-place ways of embedding channels within 3D objects.
+
+%This section explores how FDM can be used to fabricate interactive objects embedded with optical channels. 
+% We present two complementary strategies for incorporating light-guiding paths within FDM-printed parts: print-in-place method that integrates channels directly during printing, and hybrid fabrication approach that allows for the insertion of channels after printing.
+% To enable precise light routing, we introduce 
+%geometric modeling tools and custom algorithms that support channel creation, model segmentation, and planar alignment for efficient fabrication. Key techniques include 
+% curve-based Voronoi decomposition for segmenting complex shapes, planar channel drawing interfaces, and parametric design controls for adjusting curvature, scale, and orientation. Tools are implemented using Blender’s modeling environment \cite{blender2025} and extended with Voro++ \cite{rycroft2009voro} for volumetric decomposition.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/channelalign.png}
+        \vspace{-2mm}
+    \caption{Planar (a) and complex (b) channel alignment}
+    \Description{(a) simulation of 4 x 4 planar channels in a curved cuboid, (b) simulation of channels in random planes} 
+    \label{fig:alignment}
+    \vspace{-3mm}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/voro.png}
+        \vspace{-2mm}
+    \caption{Voronoi algorithm on 2D/3D points and curves.}
+    \Description{A grid illustrating the application of the Voronoi algorithm to 2D and 3D inputs, organized by input type (Points vs. Curves) and dimension (2D vs. 3D). The top row shows 2D examples: sparse points generating a standard Voronoi diagram, and curves generating curved Voronoi partitions. The bottom row shows 3D examples: a cube with scattered points, resulting in volumetric Voronoi cells, and curved 3D paths generating corresponding 3D Voronoi partitions visualized as colorful, semi-transparent regions.} 
+    \label{fig:voronoioverview}
+    \vspace{-2mm}
+\end{figure}
+
+
+\begin{figure*}
+    \centering
+    \begin{tikzpicture}[node distance=2.5mm]
+    \node (s1) [inner sep=-0.75mm,align=center, on grid]{\includegraphics[width=0.11\linewidth]{figures/free_form_bunny/point_select.jpg}};
+    \node (s2) [inner sep=-0.75mm,align=center, on grid, right=25mm of s1]{\includegraphics[width=0.11\linewidth]{figures/free_form_bunny/point_select_line.jpg}};
+    \node (s3) [inner sep=-0.5mm,align=center, on grid, right=25mm of s2]{\includegraphics[width=0.11\linewidth]{figures/free_form_bunny/point_select_canvas.jpg}};
+    \node (s4) [inner sep=-0.5mm,align=center, on grid, right=25mm of s3]{\includegraphics[width=0.11\linewidth]{figures/free_form_bunny/point_select_canvas_drawn.jpg}};
+    \node (s5) [inner sep=-0.5mm,align=center, on grid, right=27mm of s4]{\includegraphics[width=0.11\linewidth]{figures/free_form_bunny/bunny_first_curve.jpg}};
+    \node (s6) [align=center, on grid, right=25mm of s5,yshift=-3mm]{\includegraphics[width=0.11\linewidth]{figures/free_form_bunny/bunny_all_curves.jpg}};
+    \node (s7) [inner sep=-0.25mm, align=center, on grid, right=25mm of s6]{\includegraphics[width=0.12\linewidth]{figures/free_form_bunny/bunny_photo.jpg}};
+    \node (canvcreation) [below= of s2] {Canvas Creation};
+    \node (curvedraw) [below= of s4, xshift = 16mm] {Curve Creation};
+    \draw[->, thick] (s1) -- node[align=center, below] {Finding\\Axis} (s2);
+    \draw[->, thick] (s2) -- node[align=center, below] {Canvas\\Rotation} (s3);
+    \draw[->, thick] (s4) -- node[align=center, below] {Finalize\\Curve}  (s5);
+    \draw[->, thick] (s5) edge[bend right=25] node[above] {Next Curve Creation}  (s1);
+    \node (canvas) [draw,inner sep=0mm,rounded corners=1mm, fit=(s1)(s3)(canvcreation)]{};
+    \node (curves) [draw,inner sep=0mm,rounded corners=1mm, fit=(s4)(s5)(curvedraw)]{};
+    \draw[->, thick] (canvas) -- node[align=center, below] {Drawing\\Curve} (curves);
+    \node (loop) [draw,inner sep=1mm,rounded corners=1mm, fit=(s1)(s5)(canvas)(curves)]{};
+    \node (looplabel) [below= of loop] {Design Iteration};
+    \node (res) [draw,inner sep=1mm,rounded corners=1mm, fit=(s6)]{};
+    \node (reslabel) [below= of res,yshift=-2mm]{Resulting Channels};
+    \node (res1) [draw,inner sep=1mm,rounded corners=1mm, fit=(s7)]{};
+    \node (reslabel1) [align=center,below= of res1,yshift=-1mm]{3D Printed\\and Assembled};
+    \end{tikzpicture}
+    \vspace{-3mm}
+    \caption{Overview of manual channel creation}
+    \Description{A four-part figure illustrating the workflow for manually drawing and embedding optical channels using Blender. First part of the figure shows Canvas Placement: a 3D model—specifically a low-polygon bunny—with two points selected on its surface: one at the base of the bunny and another at the head. A 2D canvas is placed between these two points, having a single axis defined by the selected two points, it can rotate around this axis. Once the rotation is defined the canvas is placed. The canvas acts as a drawing plane for the light path. The second part of the figure shows Curve Drawing: a user-defined curve drawn on the 2D canvas. The curve represents the intended optical path, with visible control points and a smooth Bézier trajectory arching through the bunny’s body.The third part of the figure shows Channel Path Visualization: how the drawn curves are transformed into 3D optical channels. The curves are embedded within the bunny model’s geometry, showing translucent tubes routed internally from the base to the head. The channels are visualized using semi-transparent material, making the path clearly visible inside the solid body. The last part of the figure shows the printed bunny with optical channels placed on top of a light source, showing the various ends of the channels from the bunny lit up.}
+    \label{fig:manual_channel}
+    \vspace{-3mm}
+\end{figure*}
+%Together, these methods allow for the creation of printable parts that embed custom light paths either during or after fabrication, supporting a wide range of interactive optical designs.
+
+% \begin{figure}[btp]
+%     \centering
+%     \begin{tikzpicture}[node distance=2.5mm]
+%     \node (s1) [align=center, on grid]{\includegraphics[width=0.18\linewidth]{figures/voronoi/2dpoints.jpg}};
+%     \node (s2) [align=center, on grid, right=16mm of s1]{\includegraphics[width=0.18\linewidth]{figures/voronoi/2dvoronoi.jpg}};
+%     \node (s3) [align=center, on grid, right =18mm of s2]{\includegraphics[width=0.18\linewidth]{figures/voronoi/2dcurve.jpg}};
+%     \node (s4) [align=center, on grid, right=16mm of s3]{\includegraphics[width=0.18\linewidth]{figures/voronoi/2dvoronoicurve.jpg}};
+%     \node (s5) [align=center, on grid, right=16mm of s4]{\includegraphics[width=0.18\linewidth]{figures/voronoi/2dvoronoicurvemergedsolid.jpg}};
+%     \node (2dpoints) [draw,inner sep=0mm,rounded corners=1mm, fit=(s1)(s2)]{};
+%     \node (2dcurve) [draw,inner sep=0mm,rounded corners=1mm, fit=(s3)(s5)]{};
+%     \node (d1) [align=center, on grid, below= 18mm of s1]{\includegraphics[width=0.18\linewidth]{figures/voronoi/3dpoints.jpg}};
+%     \node (d2) [align=center, on grid, right=16mm of d1]{\includegraphics[width=0.18\linewidth]{figures/voronoi/3dvoronoitransparent.jpg}};
+%     \node (d3) [align=center, on grid, below =18mm of s3]{\includegraphics[width=0.18\linewidth]{figures/voronoi/3dcurve.jpg}};
+%     \node (d4) [align=center, on grid, right=16mm of d3]{\includegraphics[width=0.18\linewidth]{figures/voronoi/3dvoronoicurve.jpg}};
+%     \node (d5) [align=center, on grid, right=16mm of d4]{\includegraphics[width=0.18\linewidth]{figures/voronoi/3dvoronoicurvesolid.jpg}};
+%     \node (3dpoints) [draw,inner sep=0mm,rounded corners=1mm, fit=(d1)(d2)]{};
+%     \node (3dcurve) [draw,inner sep=0mm,rounded corners=1mm, fit=(d3)(d5)]{};
+%     \path  node (l1) [anchor=south west, draw,align=center,on grid,rotate=90,rounded corners=1mm, left=11mm of s1, minimum width=17mm]{2D};
+%     \path  node (l3) [anchor=south west, draw,align=center,on grid,rotate=90,rounded corners=1mm, left=11mm of d1, minimum width=17mm]{3D};
+%     \node (c1) at ($(s1)!0.5!(s2)$) [yshift=11mm,draw,rounded 
+%     corners=1mm, minimum width=33mm]{Points};
+%     \node (c2) at (s4) [yshift=11mm,draw,rounded corners=1mm, minimum width=49mm]{Curves};
+%     \end{tikzpicture}
+%     \vspace{-4mm}
+%     \caption{Voronoi algorithm on 2D/3D points and curves.}
+%     \label{fig:voronoioverview}
+%     \vspace{-3mm}
+% \end{figure}
+
+
+
+
+
+
+
+%For effective light guidance through complex internal geometries, it is ideal to fabricate optical channels simultaneously with the object. However, 
+FDM printing cannot support arbitrary continuous paths along the Z-axis. Discontinuous channels, when printed, suffer from significantly reduced light transmissibility due to misaligned and discontinuous channels (see Section \ref{sec:light_transfer}). To support complex FDM-compatible channel design and light routing, we propose a novel design and segmentation framework that adheres to the physical constraints of FDM. We restrict the design to planar channels, i.e. channels that lie entirely within a single plane. Such channels can be aligned with the XY plane of the print bed, allowing them to be printed seamlessly within a single layer using concentric infill. If all channels lie in the same plane, even with channels at different heights within the object, a single alignment of the object suffices (Figure \ref{fig:alignment}(a)). However, in more complex scenarios where channels must lie in different planes to connect desired points within the object, a single alignment becomes infeasible (Figure \ref{fig:alignment}(b)).
+
+To allow multiple alignment operations to be applied to the object we need to segment the object. Segmentation is done in a way such that each channel belongs to only one segment and each segment covers different parts of the object. To ensure that each segment can be manufactured, we have utilized a Voronoi-based segmentation algorithm by Panchal et. al. \cite{panchal2023curvedspacefillingtilesusing} that divides the object based on the spatial distribution of the channels (Figure \ref{fig:voronoioverview} (right column)). 
+Voronoi-based segmentation uses channels as input and produces a segmented model. Each channel is assigned its own segment, which can then be individually reoriented so its channel plane aligns with the XY plane. The design and segmentation workflow is implemented inside Blender using additions to the source code to enable Voronoi operation, and additional Python scripts to provide UI control elements with the built-in sketching tools. For detailed workflow, refer Appendix \ref{app:blender}.
+
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[node distance=2.5mm]
+    \node (s1) [inner sep=-0.75mm,align=center, on grid]{\includegraphics[width=0.18\linewidth]{figures/free_form_bunny/bunny_all_curves1.jpg}};
+    \node (s2) [inner sep=-0.75mm,align=center, on grid, right=23mm of s1]{\includegraphics[width=0.18\linewidth]{figures/free_form_bunny/bunny_all_curves_decomposition1.jpg}};
+    \node (s3) [inner sep=-0.75mm,align=center, on grid, right=23mm of s2]{\includegraphics[width=0.18\linewidth]{figures/free_form_bunny/bunny_all_curves_decomposition_channel_boolean1.jpg}};
+    \node (s4) [inner sep=-0.75mm,align=center, on grid, right=23mm of s3]{\includegraphics[width=0.18\linewidth]{figures/free_form_bunny/bunny_decomposed_layout_curves1.jpg}};
+    \draw[->, thick] (s1) -- node[align=center, below] {Voronoi\\Partition} (s2);
+    \draw[->, thick] (s2) -- node[align=center, below] {Channel\\Boolean} (s3);
+    \draw[->, thick] (s3) -- node[align=center, below] {Layout} (s4);
+    \node (res) [draw,inner sep=1mm,rounded corners=1mm, fit=(s1)(s4)]{};
+    \end{tikzpicture}
+    \vspace{-5mm}
+    \caption{Channels are used for partitioning the shape. Then each partition is aligned according to its ``seed'' curve such that the light channels will lie in XY plane.}
+    \Description{Shows the process of how optical channels are used to partition a 3D model into printable modules. On the left side shows a Stanford bunny with 4 optical channels. An arrow labelled Voronoi Partition points to the Stanford bunny with the channels and the regions defined around the channels. An arrow labelled Channel Boolean points to the Stanford bunny where the space for the optical channels has been removed using a boolean operation to preserve the paths. Finally, an arrow labelled layout shows the 4 partitions where each partition is based on its corresponding channel seed so that the channels lie flat in the XY plane.}
+    \label{fig:object_partitioning}
+    \vspace{-4mm}
+\end{figure}
+
+\subsection{Channel Creation} 
+Our design framework enables users to manually define channel curves through the volume of the object, as illustrated in Figure~\ref{fig:manual_channel}. The process is directly implemented in Blender, using Blender's Python API and built-in 3D sketching tools. To begin, the user first selects two endpoints on the object surface. These points define an axis, which serves as the rotation center for a temporary 2D canvas. This plane is essential for two reasons: (1) it ensures that the light path can be sketched on a single plane, making the channel geometry printable via FDM, and (2) it allows the user to route the channel through the solid parts of the object, thus avoiding holes and empty regions. User then adjusts the rotation of the canvas about this axis, allowing fine control of the channel’s orientation. 
+
+Next, the tool asks users to sketch curves using the built-in 3D sketching tools in Blender, which allow using a plane for projecting the sketches. These sketches define the desired light path. After drawing, the canvas is removed, and the drawn path is approximated using a series of Bézier curves, which offer smooth interpolation and control over curvature. This approach allows fine-tuned routing---for instance, subtly curving a channel from the bottom of the object to reach the eyes of a bunny model (Figure~\ref{fig:manual_channel}). The curve retains the orientation information from the previously defined canvas, and it is used for orienting the segments later.
+
+To ensure robust printability, channels are extended slightly beyond the object’s shell. This allows the extruded filament paths to terminate cleanly through manual cutting, minimizing scattering loss, as concentric infill at these endpoints naturally orients perpendicular to the incident light.
+
+% \jk{add pseducode of the algorithm}
+% \begin{algorithmic}
+%     \caption{Algorithm for Channel Creation}
+    
+% \end{algorithmic}
+
+\subsection{Partition Creation} 
+%\hd{need to write about feedback when partitioning is not required}
+
+To segment the object based on the designed channels, we first analyze the channel curves to determine whether partitioning is necessary. If all user-defined curves lie within a single plane, segmentation is not required. In this case, the object can simply be oriented with respect to that plane to facilitate fabrication. This planar scenario is identified and highlighted within the tool.
+
+If the channels cannot be contained in a single plane, we first sample points along each Bézier curve by arc length to ensure a consistent resolution. These points serve as seeds for a 3D Voronoi decomposition. Voronoi is used for segmenting the object because it generates convex cells which are then used to intersect with the object boundary. Assuming the object is printable, boolean operation with a convex domain does not interfere with the manufacturability of the object. Traditional Voronoi diagrams are based on discrete points (Figure \ref{fig:voronoioverview} (left column)); however, we follow the curve-based Voronoi approach introduced by Panchal et al.~\cite{panchal2023curvedspacefillingtilesusing}, where sampled points from the same curve are grouped, and their corresponding Voronoi cells are fused to form a region representing the entire curve (Figure \ref{fig:voronoioverview} (right column)).
+
+This segmentation process is implemented using Blender, where channel curves are modeled using its default curve tools. For volumetric decomposition, we integrate the Voro++ library~\cite{rycroft2009voro} into Blender’s Geometry Nodes system by implementing a C++ module that executes within the procedural workflow. Voro++ operates within a bounding box defined slightly larger than the input mesh to ensure that resulting partitions fully encapsulate the geometry and allow for robust Boolean operations.
+
+After computing the Voronoi diagram, we finalize the segmentation using Boolean intersections between the object and each partition. This results in a set of mesh segments. To integrate the channels themselves, we perform an additional Boolean subtraction using swept volumes generated from the Bézier curves. This ensures that each channel is embedded cleanly within its corresponding mesh segment (Figure~\ref{fig:object_partitioning}). To orient each segmented piece, we leverage the previously generated canvases to determine the alignment of the associated curves. We then compute the rotation that aligns each canvas with the XY plane and apply this transformation to the corresponding segment.
+The final design shown in Figure~\ref{fig:manual_channel} includes eight optical channels routed across the back of the bunny, along with two additional channels that route light from the base to the eyes, demonstrating the capability of the system to handle complex, multi-directional channel placement in a manufacturable manner. Algorithm \ref{algo_1} shows our process pseudocode.
+
+% \jk{add pseducode of the algorithm}
+
+\begin{algorithm}
+\caption{Channel-Based Object Segmentation}
+\label{algo_1}
+\begin{algorithmic}[1]
+\Require Set of Bézier curves $C = \{c_1, c_2, \dots, c_n\}$ on object mesh $M$
+\Ensure Segmented object with embedded channels
+
+\If{All curves lie in a single plane}
+    \State Orient object such that curves lie in XY plane
+    \State \Return $M$ without segmentation
+\EndIf
+
+\ForAll{$c_i \in C$}
+    \State Sample points $P_i = \{p_1, p_2, \dots\}$ along $c_i$
+\EndFor
+\State Initialize 3D bounding box around $M$
+\State Compute curve-based Voronoi diagram using grouped point sets \cite{panchal2023curvedspacefillingtilesusing}
+\State Fuse cells from same curve group $P_i$ into region $R_i$
+
+\ForAll{region $R_i$}
+    \State $S_i \gets \text{BooleanIntersect}(M, R_i)$ \Comment{Segment mesh with Voronoi cell}
+    \State $V_i \gets \text{SweepVolume}(c_i)$ \Comment{Generate channel volume}
+    \State $S_i \gets \text{BooleanSubtract}(S_i, V_i)$ \Comment{Embed channel into segment}
+    \State $S_i \gets \text{OrientSegment}(S_i, c_i)$ \Comment{Orient each segment with the associated curve $c_i$}
+\EndFor
+
+\State \Return $\{S_1, S_2, \dots, S_n\}$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \node (s1) [inner sep=-0.75mm,align=center, on grid]{\includegraphics[width=0.45\linewidth]{figures/blender_interfaces/transform.jpg}\\Transform};
+        \node (s2) [inner sep=-0.75mm,align=center, on grid, right= 45mm of s1, yshift=7mm]{\includegraphics[width=0.45\linewidth]{figures/blender_interfaces/one2many_params.jpg}\\1:Many};
+        \node (s3) [inner sep=-0.75mm,align=center, on grid, below= 20mm of s2]{\includegraphics[width=0.45\linewidth]{figures/blender_interfaces/shape2shape_params.jpg}\\Shape:Shape};
+    \end{tikzpicture}
+    \caption{Custom control parameters extracted in Blender.}
+    \Description{Blender interface showing design control blocks for transforming channel geometries. The Transform shows the value of Block Width: 0.1 m, Block Height: 0.1 m, Num Channels: 3, Z Axis Rotation: 0{\degree}, Scale: 0.400, 0.400, 1.000, Shear: 0.03 m, Curvature: 0, Translation: 0,0,0. The 1:Many block shows the values Cube Length : 0.5 m, Middle Point X, Y, Z: 0 m, Channel Gap: 0.5 m, The Shape:Shape block shows Channel Amount: 8 and and option to add 2 shapes.}
+    \label{fig:modifier_params}
+    \vspace{-2mm}
+\end{figure}
+
+
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[node distance=2.5mm]
+    \node (a1) [align=center, on grid]{\includegraphics[width=0.18\linewidth]{figures/transforms/one2one_input.jpg}};
+    \node (a2) [align=center, on grid, right=18mm of a1]{\includegraphics[width=0.18\linewidth]{figures/transforms/one2one.jpg}};
+    \node (a) [draw,inner sep=1mm,rounded corners=1mm, fit=(a1)(a2)]{};
+    \node at ($(a1)!0.5!(a2)$) [yshift=-8mm]{1:1};
+    \node (b2) [align=center, on grid, below=20mm of a1]{\includegraphics[width=0.18\linewidth]{figures/one2many/cube_init_curves.jpg}};
+    \node (b3) [align=center, on grid, right=18mm of b2]{\includegraphics[width=0.18\linewidth]{figures/one2many/cube_init_curves1.jpg}};
+    \node (b4) [align=center, on grid, right=20mm of b3]{\includegraphics[width=0.18\linewidth]{figures/one2many/cube_init_curves2.jpg}};
+    \node (b5) [align=center, on grid, right=18mm of b4]{\includegraphics[width=0.18\linewidth]{figures/one2many/cube_partitions.jpg}};
+    \node (b) [draw,inner sep=1mm,rounded corners=1mm, fit=(b2)(b5)]{};
+    \node at ($(b3)!0.5!(b4)$) [yshift=-8mm]{1:Many};
+    \node (c3) [align=center, on grid, right=20mm of a2]{\includegraphics[width=0.18\linewidth]{figures/shape2shape/input_interpolated.jpg}};
+    \node (c4) [align=center, on grid, right=17.5mm of c3]{\includegraphics[width=0.18\linewidth]{figures/shape2shape/partitioned.jpg}};
+    \node (c) [draw,inner sep=1mm,rounded corners=1mm, fit=(c3)(c4)]{};
+    \node at ($(c3)!0.5!(c4)$) [yshift=-8mm]{Shape:Shape};
+    \node (d1) [align=center, on grid, below= 20mm of b2]{\includegraphics[width=0.18\linewidth]{figures/transforms/rotation_input.jpg}};
+    \node (d2) [align=center, on grid, right= 18mm of d1]{\includegraphics[width=0.18\linewidth]{figures/transforms/rotation.jpg}};
+    \node (d) [draw,inner sep=1mm,rounded corners=1mm, fit=(d1)(d2)]{};
+    \node at ($(d1)!0.5!(d2)$) [yshift=-8mm]{Rotation};
+    \node (e1) [align=center, on grid, right= 20mm of d2]{\includegraphics[width=0.18\linewidth]{figures/transforms/scaling_input.jpg}};
+    \node (e2) [align=center, on grid, right= 18mm of e1]{\includegraphics[width=0.18\linewidth]{figures/transforms/scaling.jpg}};
+    \node (e) [draw,inner sep=1mm,rounded corners=1mm, fit=(e1)(e2)]{};
+    \node at ($(e1)!0.5!(e2)$) [yshift=-8mm]{Scaling};
+    \node (f1) [align=center, on grid, below= 20mm of d1]{\includegraphics[width=0.18\linewidth]{figures/transforms/shearing_input.jpg}};
+    \node (f2) [align=center, on grid, right= 18mm of f1]{\includegraphics[width=0.18\linewidth]{figures/transforms/shearing.jpg}};
+    \node (f) [draw,inner sep=1mm,rounded corners=1mm, fit=(f1)(f2)]{};
+    \node at ($(f1)!0.5!(f2)$) [yshift=-8mm]{Shearing};
+    \node (g1) [align=center, on grid, right= 20mm of f2]{\includegraphics[width=0.18\linewidth]{figures/transforms/tranlation_input.jpg}};
+    \node (g2) [align=center, on grid, right= 18mm of g1]{\includegraphics[width=0.18\linewidth]{figures/transforms/tranlation.jpg}};
+    \node (g) [draw,inner sep=1mm,rounded corners=1mm, fit=(g1)(g2)]{};
+    \node at ($(g1)!0.5!(g2)$) [yshift=-8mm]{Translation};
+    \end{tikzpicture}
+    \caption{Parameters for design primitives and transforms.}
+    \Description{Diagram of design parameters. The 1:1 block shows 9 channels evenly distributed on the top to the bottom of the cube in the first part of the 1:1 block, the next part of the 1:1 block shows how the cube is partitioned with the channels. The Shape:Shape block shows a 6 input channels arranged in a line at the bottom of the cube and 6 output channels arranged in a circle on top of the cube. Similar to the 1:1 block, the first part of the image shows the location of the channels in the cube while the second part of the image shows the channels and how they are partitioned in the cube. The 1:Many block shows 4 cubes, 3 of the cubes show the cube with the channels in different orientations and the last cube shows the cube with the partitions and channels. There are 5 channels, one on each side of the cube that all converge to the last side of the cube. The rotation, scaling, shearing, and translation effects are also shown with 2 images. The rotation INSERT ROTATION HERE. The scaling shows how 9 channels are evenly distributed on the bottom of the cube and all converge to a small grid on top of the cube. INSERT SHEARING AND TRANSLATION.}
+    \label{fig:blocks}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \node (s1) [inner sep=-0.75mm,align=center, on grid]{\includegraphics[width=0.2\linewidth]{figures/printedblocks/o2m1.jpg}};
+        \node (s2) [inner sep=-0.75mm,align=center, on grid, right= 20mm of s1]{\includegraphics[width=0.2\linewidth]{figures/printedblocks/o2m2.jpg}};
+        \node (s3) [inner sep=-0.75mm,align=center, on grid, right= 20mm of s2]{\includegraphics[width=0.2\linewidth]{figures/printedblocks/s2s1.jpg}};
+        \node (s4) [inner sep=-0.75mm,align=center, on grid, right= 20mm of s3]{\includegraphics[width=0.2\linewidth]{figures/printedblocks/s2s2.jpg}};
+    \end{tikzpicture}
+    \caption{Printed examples of 1 : Many and Shape : Shape routing blocks.}
+    \Description{The first part of the image shows 1 channel channel of a 1:Many block illuminated. The second part of the the image shows 3 channels on different sides of the cube of a 1:Many block illuminated. The third part of the image shows 2 out of the 7 channels arranged in a line of a Shape:Shape block illuminated. While the last part of the image shows 2 out of the 7 channels arranged in a circle of a Shape:Shape block illuminated.}
+    \label{fig:printedblocks}
+    \vspace{-5mm}
+\end{figure}
+
+\subsection{Parametric Design}
+To ease the creation of different I/O routing, we extracted parameters into a set of modifier modules, offering users control over parameters defined in the control panel in addition to manual modifications. We have implemented 3 main blocks (see Figure \ref{fig:modifier_params}) for parametric design:% Each block has different parameter space:
+
+\begin{itemize}[noitemsep, leftmargin=*]
+\item \textbf{ Transform blocks.} User can select the number of channels distributed in a square grid and change the domain size of the block. Transform blocks combine multiple transformations: Rotation, Scaling, Shearing, and Translation. These blocks can be rotated in space  for manual alignment. The rotation within the block refers to  how channel entries are rotated around the Z-axis. Scaling operation scales the endpoints of the curves. Shearing operation moves the end points of the channels on X-axis depending on the Y-position of the end points. Translation operation translates the end points in a given vector direction.
+\item \textbf{1 : Many blocks.} This block enables a channel to be split into multiple branches where the end points are located on the center of the faces of a cube. The parameters include the size of the cube, middle control point of the curves for determining curvature of the channels, and the channel gap size between different curves.
+\item \textbf{Shape : Shape block.} This is a modifier to interpolate new channels between two different input shapes, using the two shapes and the number of channels to be interpolated between them.% two shapes.
+\end{itemize}
+
+%These design parameters allow for expressive channel geometry, 
+Figure \ref{fig:blocks} highlights the parameters and effects on channel geometry. 
+The script then generates a bounding box for the channels which can be modified using external cut and extrude options. Then the Voronoi-based partitioning modifier creates the partitions of the model. Lastly, another modifier is applied to align all the partitions on a plane such that all channels are printed in the XY plane. These models can then be exported and sliced in any slicer for printing, and assembled with an adhesive as shown in Figure ~\ref{fig:printedblocks}.
+
+
+
+
+
+
+
+
+% \subsection{Hybrid Fabrication for Embedding}
+% Hybrid fabrication combines in-place printing of complex routes with casings that have built-in spaces for channels. Flexible materials like TPU make manual insertion of channels easier.
+% % In addition to computational geometry segments for printing complex routes in-place, hybrid fabrication involves printing the casing with spaces for channels in the 3D space, and inserting the channels within the object, easier with TPU by its flexible nature.
+% Channels can be printed based on the required length and thickness, then manually inserted into the object afterward (Figure \ref{fig:hybridinsertion}). In this case, the filaments themselves can also be utilized as channels, removing the need for special printing of channels. This technique leverages the modularity of already created partitions enabling parallel printing on different machines, especially when multi-extruder printers are not available. However, this technique requires careful planning of pathways as the channels cannot be inserted through extremely convoluted paths, requiring in-place printing.
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=\linewidth]{figures/hybridinsertion.png}
+%     \caption{By creating internal channel geometries, transparent flexible filaments (left), or channels printed with them (right) can be directly inserted}
+%      \Description{Hybrid fabrication illustration showing insertion of transparent filament and a printed channel. The left part of the image shows a holder that has a curved path and a flexible filament is inserted to act as a channel. The right part of the image shows a straight printed channel being inserted to a holder with a straight path. } 
+%     \label{fig:hybridinsertion}
+%     \vspace{-2mm}
+% \end{figure}

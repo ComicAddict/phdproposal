@@ -1,0 +1,1154 @@
+\documentclass[times,twocolumn,final]{elsarticle}
+
+
+%% Stylefile to load CAG template
+\usepackage{cag}
+\usepackage{framed,multirow}
+\usepackage{array}
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amsthm}
+%\usepackage{amsthm}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+
+% \newenvironment{definition}{$\;$\newline \noindent {\bf Definition}$\;$}{$\;$\newline}
+% \def\boxit#1{\vbox{\hrule\hbox{\vrule\kern4pt
+%   \vbox{\kern1pt#1\kern1pt}
+% \kern2pt\vrule}\hrule}}
+
+% Following three lines are needed for this document.
+% If you are not loading colors or url, then these are
+% not required.
+\usepackage{url}
+%\usepackage{xcolor}
+\definecolor{newcolor}{rgb}{.8,.349,.1}
+\newcommand{\ergun}[1]{{\color{red} #1}}
+\newcommand{\tolga}[1]{{\color{green} #1}}
+\newcommand{\vinayak}[1]{{\color{blue} #1}}
+
+\usepackage{hyperref}
+
+\usepackage[switch,pagewise]{lineno} %Required by command \linenumbers below
+
+\usepackage{tikz}
+\usetikzlibrary{calc,fit,positioning}
+
+\journal{Computers \& Graphics}
+
+\begin{document}
+
+% \verso{T. Yildiz and E. Akleman}
+\verso{Anonymous}
+
+\begin{frontmatter}
+
+
+\title{Primal-Dual Polycatenanes: Modular Design and Construction of Catenated 3D Graphs from Labeled 3-Honeycombs and Their Duals}
+%\shorttitle{Primal-Dual Polycatenanes}
+% \author[1]{Tolga Yildiz}
+
+% \author[2]{Ergun Akleman \corref{cor1}}
+% \cortext[cor1]{Corresponding author: 
+%   Tel.: +1-979-739-0094; }
+% \emailauthor{ergun.akleman@gmail.com}{Ergun Akleman}
+%\ead{example@email.com}
+
+% \address[1]{Department of Computer Science and Engineering, Texas A\&M University, College Station, TX, 77840, USA}
+% \address[2]{Visual Computing and Computational Media Section, School of Performance, Visualization and Fine Arts, Joint with Department of Computer Science and Engineering, Texas A\&M University, College Station, TX, 77840, USA}
+
+
+%\received{1 February 2017}
+\received{\today}
+%%%% Do not use the below for submitted manuscripts
+%\finalform{28 March 2017}
+%\accepted{2 April 2017}
+%\availableonline{15 May 2017}
+%\communicated{S. Sarkar}
+
+\begin{abstract}
+\textcolor{red}{In this paper, we present a methodology for the design and construction of fully connected catenated 3D graphs. The central idea is to use labeled cell-transitive 3-honeycombs as geometric and combinatorial scaffolds for generating mechanically interlocked graph embeddings. Starting from a labeled honeycomb, we derive corresponding primal and dual spatial graphs whose embeddings are inherited from the underlying honeycomb structure. The primal--dual relationship provides a combinatorial scaffold from which mechanically interlocked structures can be systematically constructed while reducing the design problem to the construction and labeling of periodic honeycombs. A key feature of the methodology is the introduction of periodic domains as modular building blocks. Different labeling schemes generate different periodic domains, allowing the systematic creation of distinct polycatenane assemblies while preserving the underlying crystallographic structure. Since the framework is based on cell-transitive 3-honeycombs, it can be applied uniformly to broad families of crystallographic structures. We demonstrate the approach on several examples and present additive-manufacturing results that confirm the physical realizability of the generated polycatenanes.}
+\end{abstract}
+
+
+\begin{keyword}
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
+%\MSC 41A05\sep 41A10\sep 65D05\sep 65D17
+%% Keywords
+\KWD Links \sep 3-Manifold Meshes \sep Triply Periodic Structures \sep Shape Modeling and Design 
+\end{keyword}
+
+\end{frontmatter}
+
+\begin{figure*}[htpb]
+    \centering
+    % \includegraphics[width=0.90\textwidth]{images/teaser}
+    \begin{tikzpicture}[node distance=0mm]
+    
+    % \node (a1) [inner sep=0mm, below= 2mm of c1] {\includegraphics[width=0.17\linewidth]{images/ws/CP_WS.jpg}};
+    % \node (a2) [inner sep=0mm, right= of a1] {\includegraphics[width=0.17\linewidth]{images/ws/HP_WS.jpg}};
+    % \node (a3) [inner sep=0mm, right= of a2] {\includegraphics[width=0.17\linewidth]{images/ws/CF_WS.jpg}};
+    % \node (a4) [inner sep=0mm, right= of a3] {\includegraphics[width=0.17\linewidth]{images/ws/OF_WS.jpg}};
+    % \node (a5) [inner sep=0mm, right= of a4] {\includegraphics[width=0.17\linewidth]{images/ws/CI_WS.jpg}};
+    \node (b1) [inner sep=0mm] {\includegraphics[width=0.17\linewidth]{images/teaser/cp.jpg}};
+    \node (b2) [inner sep=0mm, right= of b1] {\includegraphics[width=0.17\linewidth]{images/teaser/hp.jpg}};
+    \node (b3) [inner sep=0mm, right= of b2] {\includegraphics[width=0.17\linewidth]{images/teaser/cf.jpg}};
+    \node (b4) [inner sep=0mm, right= of b3] {\includegraphics[width=0.17\linewidth]{images/teaser/of.jpg}};
+    \node (b5) [inner sep=0mm, right= of b4] {\includegraphics[width=0.17\linewidth]{images/teaser/ci.jpg}};
+    \node (c1) [inner sep=0mm, below= 2mm of b1] {\includegraphics[width=0.17\linewidth]{images/teaser/cp_dual.jpg}};
+    \node (c2) [inner sep=0mm, right= of c1] {\includegraphics[width=0.17\linewidth]{images/teaser/hp_dual.jpg}};
+    \node (c3) [inner sep=0mm, right= of c2] {\includegraphics[width=0.17\linewidth]{images/teaser/cf_dual.jpg}};
+    \node (c4) [inner sep=0mm, right= of c3] {\includegraphics[width=0.17\linewidth]{images/teaser/of_dual.jpg}};
+    \node (c5) [inner sep=0mm, right= of c4] {\includegraphics[width=0.17\linewidth]{images/teaser/ci_dual.jpg}};
+    \node (d1) [inner sep=0mm, below= 2mm of c1] {\includegraphics[width=0.17\linewidth]{images/teaser/cp_unit.jpg}};
+    \node (d2) [inner sep=0mm, right= of d1] {\includegraphics[width=0.17\linewidth]{images/teaser/hp_unit.jpg}};
+    \node (d3) [inner sep=0mm, right= of d2] {\includegraphics[width=0.17\linewidth]{images/teaser/cf_unit.jpg}};
+    \node (d4) [inner sep=0mm, right= of d3] {\includegraphics[width=0.17\linewidth]{images/teaser/of_unit.jpg}};
+    \node (d5) [inner sep=0mm, right= of d4] {\includegraphics[width=0.17\linewidth]{images/teaser/ci_unit.jpg}};
+    \node (e1) [inner sep=0mm, below= 2mm of d1] {\includegraphics[width=0.17\linewidth]{images/teaser/cp_unique.jpg}};
+    \node (e2) [inner sep=0mm, right= of e1] {\includegraphics[width=0.17\linewidth]{images/teaser/hp_unique.jpg}};
+    \node (e3) [inner sep=0mm, right= of e2] {\includegraphics[width=0.17\linewidth]{images/teaser/cf_unique.jpg}};
+    \node (e4) [inner sep=0mm, right= of e3] {\includegraphics[width=0.17\linewidth]{images/teaser/of_unique.jpg}};
+    \node (e5) [inner sep=0mm, right= of e4] {\includegraphics[width=0.17\linewidth]{images/teaser/ci_unique.jpg}};
+    \node (f1) [inner sep=0mm, below= 2mm of e1] {\includegraphics[width=0.17\linewidth]{images/teaser/cp_assembly.jpg}};
+    \node (f2) [inner sep=0mm, right= of f1] {\includegraphics[width=0.17\linewidth]{images/teaser/hp_assembly.jpg}};
+    \node (f3) [inner sep=0mm, right= of f2] {\includegraphics[width=0.17\linewidth]{images/teaser/cf_assembly.jpg}};
+    \node (f4) [inner sep=0mm, right= of f3] {\includegraphics[width=0.17\linewidth]{images/teaser/of_assembly.jpg}};
+    \node (f5) [inner sep=0mm, right= of f4] {\includegraphics[width=0.17\linewidth]{images/teaser/ci_assembly.jpg}};
+    \node (g1) [inner sep=0mm, below= 2mm of f1] {\includegraphics[width=0.17\linewidth]{images/teaser/cp_partial.jpg}};
+    \node (g2) [inner sep=0mm, right= of g1] {\includegraphics[width=0.17\linewidth]{images/teaser/hp_partial.jpg}};
+    \node (g3) [inner sep=0mm, right= of g2] {\includegraphics[width=0.17\linewidth]{images/teaser/cf_partial.jpg}};
+    \node (g4) [inner sep=0mm, right= of g3] {\includegraphics[width=0.17\linewidth]{images/teaser/of_partial.jpg}};
+    \node (g5) [inner sep=0mm, right= of g4] {\includegraphics[width=0.17\linewidth]{images/teaser/ci_partial.jpg}};
+
+    
+    \node[on grid, align=center, inner sep=1mm,draw, rounded corners=1mm,text height=18pt, minimum width=31mm, above=24mm of b1](c1_l){Primitive\\Cubic (cP)};
+    \node[on grid, align=center, inner sep=1mm,draw, rounded corners=1mm,text height=18pt, minimum width=31mm, above=24mm of b2](c2_l){Primitive\\Hexagonal (hP)};
+    \node[on grid, align=center, inner sep=1mm,draw, rounded corners=1mm,text height=18pt, minimum width=31mm, above=24mm of b3](c3_l){Face-Centered\\Cubic (cF)};
+    \node[on grid, align=center, inner sep=1mm,draw, rounded corners=1mm,text height=18pt, minimum width=31mm, above=24mm of b4](c4_l){Face-Centered\\Orthorhombic (oF)};
+    \node[on grid, align=center, inner sep=1mm,draw, rounded corners=1mm,text height=18pt, minimum width=31mm, above=24mm of b5](c5_l){Body-Centered\\Cubic (cI)};
+    
+    \path node (l1) [draw,align=center,on grid,rotate=90,rounded corners, left=22mm of c1, minimum width=31mm, minimum height=6mm]{DUAL\\TESSELATION};
+    % \path node (l2) [draw,align=center,on grid,rotate=90,rounded corners, left=22mm of a1, minimum width=31mm, minimum height=6mm]{TESSELATION};
+    \path node (l3) [draw,align=center,on grid,rotate=90,rounded corners, left=22mm of b1, minimum width=31mm, minimum height=6mm]{WS CELL};
+    \path node (l4) [draw,align=center,on grid,rotate=90,rounded corners, left=22mm of d1, minimum width=31mm, minimum height=6mm]{CATENATED\\SETS};
+    \path node (l5) [draw,align=center,on grid,rotate=90,rounded corners, left=22mm of e1, minimum width=31mm, minimum height=6mm]{UNIQUE\\CATENANES};
+    \path node (l6) [draw,align=center,on grid,rotate=90,rounded corners, left=22mm of f1, minimum width=31mm, minimum height=6mm]{FULLY\\CATENATED};
+    \path node (l7) [draw,align=center,on grid,rotate=90,rounded corners, left=22mm of g1, minimum width=31mm, minimum height=6mm]{PARTIALLY\\CATENATED};
+
+    % \node[draw, fit=(a1)(a5), rounded corners=1mm, inner sep=0mm]{};
+    \node[draw, fit=(b1)(b5), rounded corners=1mm, inner sep=0mm]{};
+    \node[draw, fit=(c1)(c5), rounded corners=1mm, inner sep=0mm]{};
+    \node[draw, fit=(d1)(d5), rounded corners=1mm, inner sep=0mm]{};
+    \node[draw, fit=(e1)(e5), rounded corners=1mm, inner sep=0mm]{};
+    \node[draw, fit=(f1)(f5), rounded corners=1mm, inner sep=0mm]{};
+    \node[draw, fit=(g1)(g5), rounded corners=1mm, inner sep=0mm]{};
+    \end{tikzpicture}
+\caption{Overview of polycatenanes obtained from 3-honeycombs generated by the five primitive Bravais lattices, along with those derived from their corresponding dual honeycombs.
+Top row: Voronoi tessellations of lattice points showing Wigner–Seitz (WS) cells (left to right: cube, hexagonal prism, rhombic dodecahedron, elongated dodecahedron, truncated octahedron).
+Second row: Cells of the corresponding dual honeycombs.
+Third row: Polycatenanes formed from individual WS cells together with their dual structures using all spatial graphs.
+Fourth row: Unique catenanes representing a fundamental domain for fully catenated configurations.
+Fifth row: Fully catenated configurations.
+Bottom row: \textcolor{red}{Periodic} domains for partially catenated configurations.
+ }
+\label{fig_teaser}
+\end{figure*}
+
+%\linenumbers
+
+
+\section{Introduction}
+
+A recurring theme across mathematics, chemistry, and engineering is the emergence of functionality through \emph{entanglement without fusion}. Structures whose components remain individually distinct yet inseparably connected form a remarkable category of spatial systems. Rather than relying on bonding or welding, these systems derive integrity from geometry and topology. Such \emph{interlocked architectures}, including mathematical links and chainmail-inspired assemblies, are increasingly recognized for their unusual combination of compliance, robustness, and programmable mechanical response \cite{carlucci2003polycatenation,zhou20253d,cheng20253d,zhang2025recognizing,tang2023chainmail}.
+
+At the molecular scale, related phenomena are studied under the umbrella of \emph{mechanically interlocked molecular architectures}. These include \emph{catenanes}, \emph{rotaxanes}, \emph{molecular knots}, and \emph{links}, where connectivity arises from topological constraint rather than covalent bonding. Progress in electrochemical switching systems \cite{electrochem2024} and molecular ``handcuff'' configurations \cite{handcuffs2022} demonstrates how controlled interlocking can enable responsive molecular machines and adaptive functional materials.
+
+At larger scales, similar principles underpin architected materials whose mechanical behavior is governed more by arrangement than by substance. In metamaterials, geometry dictates stiffness, flexibility, and energy absorption characteristics. Chainmail-inspired lattices, for example, have enabled lightweight yet impact-resistant systems for protective technologies \cite{nature2016interlocked,iass2024parametric} and deployable biomedical devices \cite{pmc2024deployable}. Recent demonstrations of 3D-printed polycatenated architected materials (PAMs) reveal extreme energy dissipation and semi-fluid mechanical responses arising directly from their interlocking topology \cite{popularmechanics2025}.
+
+Engineering disciplines such as mechanical and aerospace engineering increasingly exploit interwoven mesh systems for controlled deformation and stress redistribution \cite{pmc2024deployable}. Because these systems can bend, stretch, and compress without losing global connectivity, they are natural candidates for soft robotics, adaptive skins, prosthetic systems, and morphing structures \cite{arxiv2024chainmail}. At the nanoscale, DNA-based chainmail assemblies further illustrate how topological interlocking can be programmed into molecular frameworks \cite{arxiv2024chainmail}.
+
+Yet despite the breadth of applications, the theoretical foundation for designing such systems remains underdeveloped. Existing approaches typically prioritize fabrication workflows or experimental performance, offering limited guidance for systematic exploration of the underlying design space. In particular, there is currently no widely adopted geometric framework that enables principled generation, classification, and analysis of mechanically interlocked architectures.
+
+The central idea of this work is to interpret a special class of mechanically interlocked structures, polycatenanes, as spatial graph embeddings induced by periodic 3-honeycombs. In this interpretation, polyhedral cells of 3-honeycombs are transformed into spatial graphs embedded inside those cells, while additional linking graphs arise from the dual of 3-honeycombs through their vertices. This primal-dual relationship provides a natural mechanism for creating distributed catenations across a periodic structure. As a result, polycatenanes can be systematically generated from the combinatorial structure of honeycombs rather than constructed as isolated geometric examples as shown in Figure~\ref{fig_teaser}.
+
+\subsection{Mechanically Interlocked Structures}
+
+% \begin{figure}[htpb]
+% \centering
+% \includegraphics[width=0.99\columnwidth]{images/MIS}
+%     \caption{\it Examples of mechanically interlocked architectures. From left to right: A catenane (interlocked graph), a rotaxane (graph with a geometric barrier), a link (set of closed, interlinked curves embedded in 3D).}
+% \label{fig_MIS}
+% \end{figure}
+
+Mechanically interlocked architectures can be formalized using the language of spatial graph theory. From a mathematical perspective, these systems arise from \emph{embedding disconnected graphs into three-dimensional Euclidean space}, $\mathbb{R}^3$, in such a way that spatial arrangement creates nontrivial entanglement. The combinatorial structure of the graph remains unchanged, yet its geometric embedding introduces topological constraints that prevent separation without intersection.
+
+When the embedded graph consists of a single closed cycle, the resulting spatial object is a \emph{knot}. If several disjoint cycles are embedded simultaneously, the configuration forms a \emph{link}. In cases where one or more of the constituent cycles are themselves knotted prior to interlinking, the structure becomes a \emph{knotted link} (or equivalently, linked knots). This broader category encompasses woven constructions~\cite{akleman2009cyclic,akleman2011cyclic,xing2010single,akleman2020topologically,akleman2015extended} as well as knitted systems~\cite{knittel2020modelling,wadekar2021geometric,niu2025geometric}, both of which can be interpreted as structured assemblies of spatially entangled cycles.
+
+In contrast to isolated knots and links, \emph{polycatenane} structures consist of many interlocked 3D graphs arranged into extended chains, networks, or periodic assemblies. Typically, each component is a topologically trivial 3D graph, yet the collective embedding produces a mechanically inseparable system. Unlike classical links, which are usually studied as finite configurations of a few components, polycatenanes may involve large numbers of repeating elements whose behavior emerges from global connectivity patterns rather than pairwise linking alone. Their defining feature is large-scale entanglement distributed across the structure.
+
+Despite their importance in chemistry and materials science, polycatenane structures have received remarkably limited attention in mathematics. Knot and link theory provide powerful invariants and classification tools for small-component systems, but there is no comparable general theory addressing extended or periodic catenated networks of graphs. In particular, questions of systematic generation, symmetry classification, and design-space exploration for polycatenated graph embeddings remain largely open. This gap highlights the need for constructive mathematical frameworks that can generate and organize broad families of such interlocked configurations.
+
+The goal of this work is to move beyond isolated constructions toward a \emph{constructive and extensible design space} for catenated graph structures. Specifically, we develop a methodology for generating a structured family of periodic interlocked systems, which we term \emph{triply periodic catenated graph structures}. Our approach derives these architectures by transforming triply periodic Wigner–Seitz cells into spatial graph configurations whose embeddings enforce catenation (Figure~\ref{fig_teaser}). This formulation provides a systematic bridge between lattice symmetry, discrete geometry, and topological interlocking.
+
+\subsection{Catenanes and Polycatenanes}
+
+% Classical knot theory studies knots, links, and linked knots, whose components are embedded circles. A knot consists of a single embedded circle, a link consists of several embedded circles, and a linked knot is a link in which one or more components are themselves knotted.
+
+% Unlike knots and links, there is no universally accepted mathematical definition of a catenane. In this paper, we extend these notions from circles to spatial graphs. We therefore define a catenane as a finite collection of mechanically interlocked spatial graphs. Under this definition, links and linked knots can all be viewed as special cases of catenanes in which every component is homeomorphic to a circle.
+
+% \begin{definition}[\textbf{Catenane}]
+%  Let $G_1,\ldots,G_n$ be pairwise disjoint connected graphs, and let
+% \[
+% \Gamma_i : G_i \hookrightarrow M
+% \]
+% be embeddings of these graphs into a $3$-manifold $M$, typically
+% $\mathbb{R}^3$ or $S^3$.
+
+% The collection
+% \[
+% \mathcal{C}
+% =
+% \{\Gamma_1(G_1),\ldots,\Gamma_n(G_n)\}
+% \]
+% is called a \emph{catenane} if the embedded graph components are mechanically interlocked, that is, they cannot be separated by an ambient isotopy of $M$ without allowing intersections between distinct components.
+
+% \noindent \textbf{Polycatenane:} A \textit{polycatenane} is simply a catenane consisting of many components, typically arranged into an extended chain, network, or periodic structure.
+% \end{definition}
+
+% \noindent \textbf{Remark.}
+% When every graph $G_i$ is homeomorphic to a circle $S^1$, the above definition reduces to a classical link. Thus, links can be viewed as a special case of catenanes. From this perspective, catenanes provide a natural generalization of links in which the components are arbitrary spatial graphs rather than simple closed curves.
+
+\textcolor{red}{Classical knot theory studies knots, links, and linked knots, whose components are embedded circles. A knot consists of a single embedded circle, a link consists of several embedded circles, and a linked knot is a link in which one or more components are themselves knotted. Unlike knots and links, there is no universally accepted mathematical definition of a catenane. In this paper, we extend these notions from circles to spatial graphs. We therefore define a catenane as a finite collection of mechanically interlocked spatial graphs. Under this definition, links and linked knots can be viewed as special cases of catenanes in which every component is homeomorphic to a circle.}
+
+\begin{definition}[Catenane:]
+\textcolor{red}{Let $G_1,\ldots,G_n$ be pairwise disjoint connected graphs, and let $\Gamma_i: G_i \hookrightarrow M$ be embeddings of these graphs into a $3$-manifold $M$, typically $\mathbb{R}^3$ or $S^3$. The collection
+\[
+\mathcal{C}=\{\Gamma_1(G_1),\ldots,\Gamma_n(G_n)\}
+\]
+is called a \emph{catenane} if the embedded graph components are mechanically interlocked; that is, they cannot be separated by an ambient isotopy of $M$ without allowing intersections between distinct components.}
+\end{definition}
+
+\textcolor{red}{A \emph{polycatenane} is a catenane consisting of many components, typically arranged into an extended chain, network, or periodic structure. When every graph $G_i$ is homeomorphic to a circle $S^1$, the above definition reduces to a classical link. Thus, links can be viewed as a special case of catenanes. From this perspective, catenanes provide a natural generalization of links in which the components are arbitrary spatial graphs rather than simple closed curves. This distinction also separates graph-theoretic adjacency within each component from topological or mechanical interlocking between distinct embedded components.}
+
+\textcolor{red}{\paragraph{Remark.}
+Mechanical interlocking should not be confused with geometric interlocking \cite{estrin2021design}. In mechanically interlocked structures, components may retain relative mobility while remaining inseparable without topological modification. In geometrically interlocked structures, the geometry of neighboring components constrains or prevents relative motion \cite{estrin2021design}.} 
+% The catenated structures considered in this work are mechanically interlocked by construction through the underlying primal--dual scaffold, although additional geometric constraints may also produce geometrically interlocked configurations.
+
+\subsection{Motivation of the Development of Design Spaces for Polycatenanes}
+
+Polycatenanes are mechanically interlocked 3D graphs, or spatial graphs, i.e., graphs embedded in $\mathbb{R}^3$, as shown in Figure~\ref{fig_polycatenane}. 
+Note that when comparing spatial graphs, geometry matters. For instance, for two graphs $G_0$ and $G_1$ to be isomorphic, it is sufficient to have a bijection between their vertices that preserves adjacency. On the other hand, two spatial graphs are congruent if and only if there exists a rigid motion of $\mathbb{R}^3$ that maps one embedding onto the other. Note that in all three examples shown in Figure~\ref{fig_polycatenane}, the polycatenanes consist of congruent graphs.
+
+\begin{figure}[htpb]
+\centering
+\begin{subfigure}[t]{0.32\columnwidth}
+\includegraphics[width=0.99\textwidth]{images/fig2_examples/tet_1.jpg}
+\hfill
+\includegraphics[width=0.99\textwidth]{images/fig2_examples/tet_2.jpg}
+\hfill
+        \caption{\it Vertex-linked regular tetrahedral graphs.  }
+        \label{fig_tetrahedron}
+    \end{subfigure}
+    \hfill
+\begin{subfigure}[t]{0.32\columnwidth}
+\includegraphics[width=0.99\textwidth]{images/fig2_examples/tri_1.jpg}
+\hfill
+\includegraphics[width=0.99\textwidth]{images/fig2_examples/tri_2.jpg}
+\hfill
+        \caption{\it Vertex-linked triangular prism graphs.  }
+        \label{fig_triangular_prism}
+    \end{subfigure}
+    \hfill
+\begin{subfigure}[t]{0.32\columnwidth}
+\includegraphics[width=0.99\textwidth]{images/fig2_examples/tets_1.jpg}
+\hfill
+\includegraphics[width=0.99\textwidth]{images/fig2_examples/tets_2.jpg}
+\hfill
+        \caption{\it Edge-linked non-regular tetrahedral graphs.  }
+\label{fig_edgelinkedtetrahedra}
+    \end{subfigure}
+    \hfill
+    \caption{\it Three examples of polycatenanes that appear in chemistry literature.}
+\label{fig_polycatenane}
+\end{figure}
+
+Examples of such polycatenanes in the chemical literature are notable; however, they are difficult to generalize. They appear to be highly creative and therefore isolated examples of mechanically interlocked 3D graphs. As a result, it is difficult to develop a principled approach to generalizing these polycatenane or catenane structures.
+
+To develop a general design space, we first point out that it is somewhat more intuitive to view the spatial graphs in Figure~\ref{fig_polycatenane} as graphs embedded in 2-manifold shapes that are themselves embedded in $\mathbb{R}^3$. In this view, these graphs can simply be represented as the edges and vertices of a 2-manifold mesh.
+
+Now consider the 3D graphs in Figure~\ref{fig_tetrahedron}. These can be viewed as tetrahedral graphs, i.e., four-vertex and six-edge graphs embedded in regular tetrahedra of the same size. Note that these tetrahedral graphs are linked at their vertices. One difficulty with generalizing this interpretation is that regular tetrahedra cannot fill 3D space. To understand this structure, we must also consider the space left between the tetrahedra. A careful examination suggests that this structure actually arises from a tetrahedral-octahedral 3-honeycomb, which is also called the tetroctahedrille \cite{conway2013sphere}.
+
+
+\begin{figure}[htpb]
+\centering
+\includegraphics[width=0.48\columnwidth]{images/fig3/cube_1.jpg}
+\hfill
+\includegraphics[width=0.48\columnwidth]{images/fig3/cube_2.jpg}
+\caption{\it The cubical primal-dual polycatenane that appears in chemistry literature. On the right, the first type of 3D graphs that is associated with cells is shown in yellow, while the second type corresponds to the connectivity of vertices, equivalently, the cells of the dual (primal-dual) $c_p$ honeycomb, shown in orange.}
+\label{fig_polycatenanecube}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{figure}[htpb!]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+   \includegraphics[width=\linewidth]{images/fig4_primal_dual/primal.jpg}
+    \caption{Triply periodic primal honeycomb structure}
+\end{subfigure}
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{images/fig4_primal_dual/dual.jpg}
+    \caption{Dual of the honeycomb structure}
+\end{subfigure}\\
+\begin{subfigure}[t]{0.49\linewidth}    \includegraphics[width=\linewidth]{images/fig4_primal_dual/primal_dual_catenated.jpg}
+    \caption{Unit catenated structure generated from primal and dual structures}
+\end{subfigure}
+\begin{subfigure}[t]{0.49\linewidth}
+   \includegraphics[width=\linewidth]{images/fig4_primal_dual/primal_dual_catenated_periodic.jpg}
+    \caption{Triply periodic catenated structure.}
+\end{subfigure}
+    \caption{\it Conceptual illustration of the design space for primal–dual polycatenanes.
+(a) A triply periodic 3-honeycomb and (b) its dual.
+(c) Spatial graphs embedded in the cells of the primal honeycomb and in the vertex-cells of the dual.
+(d) A detailed view of the resulting catenated structure.
+Periodic repetition of these embeddings produces a distributed network of catenations, forming families of polycatenane structures across the design space.}
+\label{fig1_4}
+\end{figure}
+
+To develop more intuition, consider also the 3D graphs in Figure~\ref{fig_triangular_prism}. In this case, the 3D graphs can be viewed as triangular prism graphs, i.e., six-vertex and nine-edge graphs embedded in regular triangular prisms of the same size. Note that these graphs are also linked at their vertices. In this case, regular triangular prisms can fill 3D space. To understand this structure, we must also consider the space that is not occupied by the existing graphs. A careful examination suggests that this structure actually comes from a 3-honeycomb consisting entirely of regular triangular prisms; however, some of these prisms are not used.
+
+These observations provide a more formal understanding of the two structures. We start with a 3-honeycomb consisting of one or two types of cells. We then select a subset of cells that are connected only at their vertices. Next, we turn each selected polyhedron into a graph and link these graphs at the vertices, ``if we are really lucky.'' We use the term ``luck'' because, in most cases, the vertices will not link as nicely as shown in these examples due to geometric and topological inconsistencies between vertex neighborhoods; for instance, valences may not match, or the edge directions may not allow the creation of a catenation. In other words, this observation is difficult to generalize.
+
+As an alternative approach, consider the 3D graphs in Figure~\ref{fig_edgelinkedtetrahedra}. At first glance this example appears more complicated; however, note that all linkages occur at valence-two vertices. Such vertices can simply be considered part of a piecewise straight edge. The linkage can be viewed to occur along edges, which can be simpler to handle. Moreover, if we treat the piecewise straight edge as a single edge, these shapes are simply tetrahedra with curved faces. These tetrahedra are isohedral, i.e., each face is both congruent and transitive \cite{kaplan2022isohedral}. In conclusion, the linkage in this case is easy to construct; however, the underlying 3-honeycomb can be difficult to generalize.
+
+
+\subsection{Primal-Dual Polycatenanes}
+
+Fortunately, there exists another catenane structure that can be generalized in a straightforward manner. Consider the polycatenane shown in Figure~\ref{fig_polycatenanecube}. Our approach generalizes this structure, which is constructed from cube-shaped 3D graphs. We observe that this configuration can be interpreted as a geometric embedding of an infinite family of graphs (each with six vertices, twelve edges, and uniform valence three) into a cell-transitive 3-honeycomb, denoted by $c_p$, in which all cells are cubes and every vertex has valence six. This embedding produces a polycatenane structure consisting of two types of linked cube-shaped 3D graphs, as illustrated in Figure~\ref{fig_polycatenanecube}.
+
+In this configuration, the cubical 3D graph in the center connects all eight surrounding cubical graphs. To clarify the structure, the edges of the central cube are drawn in a different color in the right image to distinguish the two types of graphs. Note that the vertices of the central cube coincide with the centers of the eight surrounding cubes. The central cube arises naturally from the dual of the cubical 3-honeycomb; in particular, it represents the vertex cell of the dual 3-honeycomb. Once this relationship is recognized, the structure becomes easy to generalize.
+
+The general construction proceeds as follows (see Figure~\ref{fig1_4}). Start with any 3-honeycomb. Each cell of the honeycomb gives rise to one 3D graph. These graphs are then linked together by a second set of graphs obtained from the dual of the original honeycomb. In this interpretation, the cubical 3-honeycomb is not special; rather, it simply provides the most symmetric and visually intuitive example of the construction.
+
+Despite the power of this idea, it is interesting to note that this appears to be the only primal-dual polycatenane structure reported in the literature. One possible reason is that $c_p$ is the only cell-transitive 3-honeycomb that is also self-dual. Because of this, it is natural to assume that this configuration is unique. However, once the restriction that all 3D graphs must be congruent is removed, a much larger design space becomes available.
+
+\subsection{Design Spaces for Primal-Dual Polycatenanes}
+
+The observations in the previous subsection suggest a general
+principle for constructing families of polycatenanes. Instead of
+viewing individual examples as isolated geometric curiosities,
+they can be interpreted as arising from the interaction between a 3-honeycomb and its dual. In particular, the example in Figure~\ref{fig_polycatenanecube} shows that a polycatenane structure may naturally emerge when spatial graphs derived from cells of a honeycomb are interlinked with graphs derived from the vertices of the dual honeycomb.
+
+This viewpoint provides a conceptual bridge between spatial
+graph embeddings and the well-developed theory of periodic
+honeycombs. A 3-honeycomb defines a structured decomposition
+of space into polyhedral cells together with a well-defined
+connectivity between cells, faces, edges, and vertices. Because
+these relationships are purely combinatorial, they provide a
+natural scaffold for constructing families of linked spatial
+graphs. In particular, the primal-dual relationship between a
+honeycomb and its dual ensures that the resulting graphs can be
+systematically paired and interlocked.
+
+From this perspective, polycatenane structures can be viewed as
+geometric realizations of graph families derived from
+combinatorial structures already present in periodic
+honeycombs. The primal honeycomb contributes one family of
+graphs obtained from its cells, while the dual honeycomb
+provides a second family associated with its vertices. The
+interaction between these two families creates a distributed
+network of catenations across the entire structure.
+
+This interpretation immediately suggests a much broader design
+space than previously explored examples. While the cubic
+honeycomb provides a particularly symmetric instance, the same
+principle can be applied to many other 3-honeycombs. In each
+case, the combinatorial structure of the honeycomb determines
+how spatial graphs can be embedded and linked. By varying the
+underlying honeycomb and the choice of graph embeddings, it
+becomes possible to generate large families of polycatenane
+structures with different geometric and topological properties.
+
+To explore this design space systematically, we introduce a
+formal representation of honeycombs that allows vertices and
+cells to be selectively associated with graph elements. This representation enables the controlled construction of catenated graph configurations while preserving the periodic structure of the
+underlying honeycomb. In the following sections, we develop a
+framework for labeling 3-honeycombs and show how these labels
+can be used to generate families of primal-dual polycatenane
+structures.
+
+This work shows that families of polycatenane structures can be
+systematically constructed by embedding spatial graphs into
+periodic honeycombs and linking them through the primal-dual
+relationship between cells and vertices.
+
+
+\subsection{Contributions}
+
+\textcolor{red}{This paper introduces a framework for the design and construction of fully connected catenated 3D graphs based on labeled cell-transitive 3-honeycombs and their duals. Rather than constructing mechanically interlocked graph embeddings directly, we use primal and dual honeycomb structures as geometric and combinatorial scaffolds that determine the interlocking relationships. This viewpoint transforms the design of catenated structures into a problem of constructing and labeling periodic honeycombs. The principal contributions of this work are summarized as follows:}
+
+\begin{itemize}
+\item \textcolor{red}{Honeycomb-based scaffold framework. We introduce a methodology that uses labeled cell-transitive 3-honeycombs and their duals as geometric and combinatorial scaffolds for constructing families of catenated 3D graphs. The resulting structures inherit the periodic organization and symmetry of the underlying honeycombs.}
+\item \textcolor{red}{Primal--dual construction of mechanically interlocked graph embeddings. We show that the primal--dual relationship of a honeycomb directly determines the mechanical interlocking structure of the resulting catenated graphs. Consequently, interlocking is inherited from the scaffold itself rather than introduced through the explicit design of interlocked graph embeddings.}
+\item \textcolor{red}{Periodic domains as modular design units. We introduce a labeling framework in which labels define periodic domains that act as modular building blocks of the construction. Different labeling schemes generate different periodic domains and therefore different catenated structures, providing a systematic design space while preserving the underlying crystallographic organization.}
+\end{itemize}
+
+\section{Conceptual Framework}
+
+Our conceptual framework for primal-dual polycatenanes is based on triply periodic 3-honeycombs. In this section, we first provide the definitions leading to triply periodic 3-honeycombs. We then explain how to construct them. 
+
+\subsection{Mathematical Background on 3-Honeycombs}
+
+The definitions used in this section follow standard terminology in the literature on tilings, polyhedra, and crystallographic symmetry.
+A comprehensive treatment of tilings and honeycombs, including face-to-face tessellations and transitivity properties, can be found in the classical text by Gr\"unbaum and Shephard~\cite{grunbaum1969convex,grunbaum1987tilings,grunbaum1994uniform}. Foundational concepts related to symmetry and regular structures are also discussed in Coxeter's work on regular polytopes~\cite{coxeter1973regular,williams1979geometrical}.
+
+The classification and terminology of crystallographic symmetry groups, which underlie notions such as vertex-, edge-, face-, and cell-transitivity, are standard in crystallography and are documented in the \emph{International Tables for Crystallography}~\cite{hahn2005international}.
+Additional discussions on space-filling polyhedra and honeycombs appear in works such as Wells~\cite{wells1963geometrical,wells1977three} and Olshevsky's catalog of uniform honeycombs~\cite{binnendyk2026uniform}.
+These sources collectively provide the standard definitions and terminology adopted in this section.
+
+\subsection{Preliminaries: 3-Honeycombs}
+
+A face-to-face \textbf{3-honeycomb} (also called a space-filling honeycomb) is a tessellation of $\mathbb{R}^3$, i.e., Euclidean three-dimensional space, by polyhedral cells that fit together without gaps or overlaps \cite{grunbaum1969convex,grunbaum1987tilings}. A 3-honeycomb is called face-to-face if the intersection of any two cells is either empty or a common face, edge, or vertex of both cells. 
+
+In this paper, we consider only face-to-face 3-honeycombs; unless stated otherwise, all 3-honeycombs are assumed to be face-to-face. Such structures can be viewed as three-dimensional analogues of planar tilings and naturally induce both primal and dual cellular complexes. 
+
+\noindent \textbf{Cell-transitive (isochoric) honeycomb.}
+A 3-honeycomb is called \emph{cell-transitive}, or \emph{isochoric}, if its symmetry group acts transitively on the set of cells (see Figure~\ref{fig2_1a}). Equivalently, for any two cells in the honeycomb, there exists a symmetry of the structure that maps one cell onto the other. In such structures, all cells are congruent and occupy equivalent positions in the tessellation.
+
+\noindent \textbf{Vertex-transitive (isogonal) honeycomb.}
+A 3-honeycomb is called \emph{vertex-transitive}, or \emph{isogonal}, if its symmetry group acts transitively on the set of vertices (see Figure~\ref{fig2_1b}). Equivalently, any vertex can be mapped to any other vertex by a symmetry of the honeycomb. Consequently, all vertices share identical local neighborhoods.
+
+\noindent \textbf{Face-transitive (isohedral) honeycomb.}
+A 3-honeycomb is called \emph{face-transitive}, or \emph{isohedral}, if its symmetry group acts transitively on the set of faces. This means that every face can be mapped to any other face by a symmetry of the structure, implying that all faces play equivalent geometric and combinatorial roles.
+
+\begin{figure}[htpb]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{images/fig5_transitive/gyrobifastigium_cell_transitive_colored.jpg}
+    \caption{Cell-transitive gyrobifastigium honeycomb.}
+    \label{fig2_1a}
+\end{subfigure}
+\begin{subfigure}[t]{0.49\linewidth}    \includegraphics[width=\linewidth]{images/fig5_transitive/rect_cubic_vertex_transitive.jpg}
+    \caption{Vertex-transitive rectified cubic honeycomb, it is not cell-transitive.}
+    \label{fig2_1b}
+\end{subfigure}
+    \caption{\it Examples of a cell-transitive (isochoric) and a vertex-transitive (isogonal) 3-honeycomb.}
+\label{fig2_1}
+\end{figure}
+
+\noindent \textbf{Edge-transitive (isotoxal) honeycomb.}
+A 3-honeycomb is called \emph{edge-transitive}, or \emph{isotoxal}, if its symmetry group acts transitively on the set of edges. This means that every edge can be mapped to any other edge by a symmetry of the structure, implying that all edges play equivalent geometric and combinatorial roles.
+
+\noindent \textbf{Noble honeycomb.}
+A 3-honeycomb is called \emph{Noble} if it is both cell-transitive (isochoric) and vertex-transitive (isogonal).
+In such structures, all cells are congruent, and all vertices are equivalent under the symmetry group, resulting in a highly symmetric space-filling tessellation.
+
+\noindent \textbf{Uniform honeycomb.}
+A 3-honeycomb is called \emph{uniform} if it is vertex-transitive (isogonal) and its cells are uniform polyhedra, i.e., polyhedra whose faces are regular polygons and whose vertex figures are identical. Uniform honeycombs generalize the concept of uniform tilings from the plane to three-dimensional space.
+
+\noindent \textbf{Dual honeycomb.}
+These honeycombs are obtained by placing vertices at the centers of the primal cells and connecting the centers of adjacent cells (see Figure~\ref{fig2_1c}). Note that the dual of the dual of a honeycomb is the original honeycomb.
+
+The cubic honeycomb is special because it is isochoric, isohedral, isogonal, and isotoxal, and its cells are regular polyhedra (cubes). Moreover, it is self-dual, meaning that its dual honeycomb is combinatorially and geometrically identical to itself. Among 3D honeycombs, the cubic honeycomb is essentially the only one with regular polyhedral cells and full face/edge/vertex/cell transitivity.
+
+\begin{figure}[htpb]
+\centering
+\includegraphics[width=0.45\linewidth]{images/fig6_rhombic/oct_tet.jpg}
+\includegraphics[width=0.45\linewidth]{images/fig6_rhombic/rhombic.jpg}
+    \caption{\it An example of a primal-dual pair of triply periodic honeycombs. 
+Left: the tetrahedron-octahedron honeycomb consisting of alternating tetrahedral and octahedral cells. 
+Right: its dual honeycomb, the rhombic dodecahedral honeycomb, obtained by placing vertices at the centers of the primal cells and connecting centers of adjacent cells. 
+This example illustrates the relationship between a honeycomb and its dual, in which the cells of one correspond to the vertices of the other.}
+\label{fig2_1c}
+\end{figure}
+
+In Euclidean three-dimensional space, cell-transitivity also implies triply periodicity, since the symmetry group of a cell-transitive honeycomb is crystallographic and therefore contains translations along three linearly independent directions. This idea can be extended further to obtain even more general triply periodic 3-honeycombs.
+
+
+{\color{red}We extend the classical notions of isochoric, isohedral, isotoxal, and isogonal honeycombs by allowing multiple symmetry orbits. A $K_i$-prefix indicates the number of orbit classes of $i$-dimensional elements under the symmetry group. Thus, a $K_3$-isochoric honeycomb has $K_3$ distinct cell orbits, a $K_2$-isohedral honeycomb has $K_2$ distinct face orbits, a $K_1$-isotoxal honeycomb has $K_1$ distinct edge orbits, and a $K_0$-isogonal honeycomb has $K_0$ distinct vertex orbits.}
+
+\subsection{Triply Periodic 3-Honeycombs}
+
+An important concept is that multiple symmetry orbits may be allowed, leading to $K_3$-isochoric, $K_2$-isohedral, $K_1$-isotoxal, and $K_0$-isogonal honeycombs, where $K_3$, $K_2$, $K_1$, and $K_0$ denote the numbers of distinct cell, face, edge, and vertex orbits, respectively.
+
+\begin{lemma}
+Let $\mathcal{H}$ be a locally finite face-to-face 3-honeycomb in $\mathbb{R}^3$. Assume that, under the full symmetry group of $\mathcal{H}$, the numbers of orbits of 3-cells, faces, edges, and vertices are finite. Equivalently, suppose that $\mathcal{H}$ is $K_3$-isochoric, $K_2$-isohedral, $K_1$-isotoxal, and $K_0$-isogonal for some integers $K_3$, $K_2$, $K_1$, and $K_0$.
+
+\textcolor{red}{Then $\mathcal{H}$ admits a finite set of representative cells, faces, edges, and vertices under symmetry. Consequently, $\mathcal{H}$ is triply periodic.}
+\end{lemma}
+
+\begin{proof}
+Since $\mathcal{H}$ is locally finite and face-to-face, its full symmetry group $G$ acts discretely on $\mathbb{R}^3$. By assumption, $G$ has only finitely many orbits on the 3-cells, faces, edges, and vertices of $\mathcal{H}$.
+
+\textcolor{red}{The finiteness of these orbit classes implies that every cell, face, edge, and vertex of $\mathcal{H}$ is represented by one of finitely many symmetry-equivalent representatives. Therefore, a finite collection of representatives captures the entire combinatorial structure of the honeycomb up to symmetry.}
+
+In particular, the action is cocompact (i.e. the symmetry group admits a finite fundamental domain) in the sense that a finite portion of the honeycomb serves as a fundamental domain up to symmetry. Hence $G$ is a discrete cocompact subgroup of the Euclidean isometry group $\mathrm{Isom}(\mathbb{R}^3)$.
+
+By the crystallographic theorem, every discrete cocompact subgroup of $\mathrm{Isom}(\mathbb{R}^3)$ is a 3-dimensional crystallographic group \cite{conway2008symmetries,julian2014foundations}. Therefore, $G$ contains a translation subgroup of finite index isomorphic to $\mathbb{Z}^3$. In particular, $\mathcal{H}$ admits three linearly independent translational symmetries.
+
+\textcolor{red}{Thus, the assumed finite orbit structure implies the existence of a finite set of representative modules together with triply periodic translational symmetry. This finite representative structure forms the basis of the modular construction framework developed in the remainder of the paper.}
+
+Thus, $\mathcal{H}$ is triply periodic.
+\end{proof}
+
+\begin{figure}[htpb]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{images/fig7_isochoric/oct_prism_cube.jpg}
+    \caption{2-isochoric honeycombs, where there are two sets of equivalent cells under the symmetry group of the structure.}
+    \label{fig2_2a}
+\end{subfigure}
+\begin{subfigure}[t]{0.49\linewidth}    \includegraphics[width=\linewidth]{images/fig7_isochoric/triangular_2isogonal.jpg}
+    \caption{2-isogonal honeycombs, where there are two sets of equivalent vertices under the symmetry group.}
+    \label{fig2_2b}
+\end{subfigure}
+    \caption{\it Another example of a primal--dual pair of triply periodic honeycombs.}
+\label{fig2_2}
+\end{figure}
+
+
+This is useful since a $K_3$-isochoric and $K_0$-isogonal 3-honeycomb turns into a triply periodic polycatenane that consists of $K_3+K_0$ number of distinct spatial graphs based on our construction process. This is particularly useful for the modular design of triply periodic polycatenanes, as we can limit the number of distinct elements required by appropriately choosing 3-honeycombs (See Figures~\ref{fig2_1c} and~\ref{fig2_2}). 
+
+Another useful property of 3-honeycombs is that the dual of a cell-transitive honeycomb is vertex-transitive, and the dual of an edge-transitive honeycomb is face-transitive. This correspondence also holds when multiple isomorphism classes are present. In particular, the dual of a $K_3$-isochoric 3-honeycomb is a $K_3$-isogonal 3-honeycomb, and the dual of a $K_2$-isohedral 3-honeycomb is a $K_2$-isotoxal 3-honeycomb as shown in Figures~\ref{fig2_1c} and~\ref{fig2_2}.
+
+This property can be used to identify interesting honeycombs. For example, the tetrahedral-octahedral 3-honeycomb is a $2$-isochoric and $1$-isogonal structure. The dual of this structure is the rhombic dodecahedral honeycomb, which is cell-transitive ($1$-isochoric) and $2$-isogonal. Consequently, the tetrahedral-octahedral 3-honeycomb is vertex-transitive, and each of its vertex neighborhoods can be represented as a rhombic dodecahedral graph as shown in Figure~\ref{fig2_1c}. 
+
+\subsection{Crystallographic Groups}\label{sec:CGs}
+
+Despite the long-standing artistic use of symmetric patterns \cite{montesinos2012classical, grunbaum2006symmetry, bodner2013planar}, their mathematical formulation developed much later. A key step toward this formalization was the introduction of the Bravais lattice in the nineteenth century \cite{bravais1850systemes,mois2006historical}, which provided a systematic framework for describing periodic spatial arrangements. The systematic classification of crystallographic symmetry groups followed soon after. In 1880, Sohncke enumerated 65 space groups in three-dimensional Euclidean space \cite{sohncke1879entwickelung}. Shortly thereafter, Fedorov and Schoenflies independently completed the classification of all 230 three-dimensional space groups by 1892 \cite{vonfedorow1892, schoenflies1892, paufler2020fedorov,senechal1984introduction}. The complete list of the 17 wallpaper groups in the plane was identified by Fedorov in 1891 and later rediscovered independently by Pólya in 1924 \cite{fedorov1891symmetry,polya1924on}. 
+
+\begin{figure}[htpb]
+\centering
+\begin{subfigure}[t]{0.32\linewidth}
+  \includegraphics[width=\linewidth]{images/fig8/lattice.jpg}
+    \caption{A translation lattice.}
+    \label{fig2_3a}
+\end{subfigure}
+\begin{subfigure}[t]{0.32\linewidth}    \includegraphics[width=\linewidth]{images/fig8/rot_ref.jpg}
+    \caption{Symmetry operations.}
+    \label{fig2_3b}
+\end{subfigure}
+\begin{subfigure}[t]{0.32\linewidth}    \includegraphics[width=\linewidth]{images/fig8/graph.jpg}
+    \caption{A periodic structure. }
+    \label{fig2_3c}
+\end{subfigure}
+\caption{\it Conceptual illustration of crystallographic symmetry and periodic structures. (a) A translation lattice generated by three independent translation vectors $t_1, t_2, t_3$. (b) Symmetry operations of a crystallographic group applied to a motif, producing symmetry-related copies. (c) A periodic spatial structure obtained by combining lattice translations with symmetry operations, resulting in a repeating arrangement throughout space.}
+\label{fig2_3}
+\end{figure}
+
+Over time, several notation systems have been developed to describe crystallographic symmetries, including the Schoenflies notation \cite{schoenflies1892}, the Hermann-Mauguin notation widely used in crystallography \cite{mauguin1931symbolisme}, and more recent descriptive systems such as orbifold and fibrifold notations \cite{conway1999three, conway2016symmetries}. 
+
+Today, crystallographic groups are extensively documented in numerous mathematical and crystallographic references \cite{hahn1983international,barnes2024hypertext,ramsden2009three}. At first glance, this rich body of classification results might suggest that constructing Triply Periodic 3-Honeycombs by applying crystallographic groups should be straightforward. However, most of the literature concentrates on the enumeration and structural characterization of symmetry groups rather than on constructive procedures for generating symmetric spatial arrangements. In this work, we present a construction methodology for triply periodic 3-honeycombs based on Delone sets.
+
+\subsection{Delone Sets}
+
+A convenient approach for generating cell-transitive honeycombs is to employ \textit{plesiohedra}. These are space-filling prototiles obtained as Voronoi cells of symmetric Delone (Delaunay) point sets. Such constructions naturally yield tilings by congruent polyhedral cells and therefore provide a direct mechanism for producing transitive honeycomb structures \cite{ebert2024handlebody}.
+
+% \begin{figure}[htpb]
+% \centering
+% \includegraphics[width=0.99\columnwidth]
+% {images/PlaceHolders/Fig2_4}
+% \caption{\it \ergun{Placeholder:} Examples of Delone sets in the plane.
+% (a) A random Delone set satisfying the $(r,R)$ conditions: every open disk of radius $r$ contains at most one point, and every disk of radius $R$ contains at least one point.
+% (b) A symmetric Delone set generated by a crystallographic symmetry group. 
+% Such symmetric point sets often arise as orbits of lattice points under symmetry operations and can be used to generate periodic Voronoi tilings whose cells are plesiohedra.}
+% \label{fig2_4}
+% \end{figure}
+
+The theory underlying plesiohedra is closely related to the concept of Delone sets, introduced by Boris Delone (Delaunay). Informally, a Delone set describes a configuration of points that is neither too sparse nor too crowded; the points are \textit{well distributed} throughout space. Let $S$ be a set of points in the $n$-dimensional Euclidean space $\mathbb{R}^{n}$. The set $S$ is called a Delone set if it satisfies two conditions: uniform discreteness and relative density \cite{delone1970new}. 
+
+More precisely, let $R>r>0$ be two positive constants. The set $S$ is said to be uniformly discrete if every ball of radius $r$ contains at most one point of $S$. It is relatively dense if every ball of radius $R$ contains at least one point of $S$ \cite{delone1976local}. These two conditions guarantee that the points are separated from one another while still covering the space in a controlled manner.
+
+When the points of a Delone set $S \subset \mathbb{R}^{3}$ are used as sites of a Voronoi decomposition, the resulting structure forms a $3$-dimensional honeycomb whose cells are convex polyhedra. Because of this regularity, Delone sets—and their generalizations such as Meyer sets—play an important role in the mathematical description of quasicrystals and aperiodic order \cite{lagarias1999geometricI, lagarias1999geometricII, lagarias2003repetitive, lagarias1996meyer}.
+
+\subsection{Symmetric Delone Sets}\label{sec:SDS}
+
+A Delone set $S$ is called \textit{symmetric} if for any two points $\mathbf{p},\mathbf{q} \in S$ there exists a rigid motion of the Euclidean space that maps the set $S$ onto itself while sending $\mathbf{p}$ to $\mathbf{q}$. In other words, the symmetry group of the set acts transitively on its points.
+
+Symmetric Delone sets play an important role in the mathematical description of ideal crystal structures. In particular, the standard model of an ideal crystal can be formulated using Delone sets that possess such global symmetry properties \cite{dolbilin2015delone,dolbilin2021regularity}. 
+
+These sets are invariant under the action of crystallographic groups of Euclidean isometries \cite{dolbilin2015delone}. Consequently, an ideal crystal can be represented by a Delone set in $n$-dimensional Euclidean space together with a crystallographic group that acts on this set through rigid motions \cite{delaunay1961}. 
+This symmetry has a direct geometric consequence: the Voronoi decomposition of a symmetric Delone set yields a honeycomb whose cells are congruent polyhedra arranged in a cell-transitive structure.
+
+\subsection{Design and Construction of $K_3$-isochoric 3-Honeycombs}
+
+The principle underlying plesiohedra is that if the spatial arrangement of Voronoi sites forms a symmetric Delone set in $\mathbb{R}^3$, then the resulting Voronoi decomposition produces congruent polyhedral cells. In such cases, the symmetry of the underlying point set acts transitively on the sites and therefore also on the corresponding Voronoi cells. As a consequence, the tessellation consists of copies of a single polyhedral prototile that repeats throughout space without gaps or overlaps. 
+
+This property implies that the resulting structure is a \textit{cell-transitive} 3-honeycomb. Since all cells are congruent and form a single orbit under the symmetry group, the honeycomb can equivalently be called 1-isochoric.
+In this sense, generalized plesiohedra provide a natural mechanism for constructing periodic space-filling structures whose geometry is determined by the symmetry of the underlying Delone set. 
+
+% \begin{figure}[htpb]
+% \centering
+% \includegraphics[width=0.99\columnwidth]
+% {images/PlaceHolders/Fig2_6}
+% \caption{\it \ergun{Placeholder:} Illustration of the construction of $K_3$-isochoric honeycombs using a two-dimensional example.
+% (a) A symmetric Delone set generated by a crystallographic symmetry group.
+% (b) The Voronoi partition of the plane induced by the Delone set. 
+% The symmetry of the underlying point set ensures that only a finite number of distinct Voronoi tiles occur up to symmetry.
+% These distinct tiles form a finite set of prototiles whose periodic repetition generates the tiling.
+% This planar example illustrates the same principle used in three dimensions to construct $K_3$-isochoric $3$-honeycombs.}
+% \label{fig2_6}
+% \end{figure}
+
+We can extend this idea to design and construct $K_3$-isochoric 3-Honeycombs. Now, let there exist a rigid motion of space that takes  Delone set $S$ to  Delone set $S$ and $\mathbf{P}$ to $\mathbf{Q}$, where $\mathbf{P}$ and $\mathbf{Q}$ are two sets of points that consist of $C$ number of arbitrarily located points. {\color{red}To describe Delone sets with multiple symmetry classes, we introduce the notion of a $K$-orbit Delone set. A Delone set is called a $K$-orbit Delone set if its symmetry group partitions the points into $K$ distinct point orbits. Equivalently, the symmetry group acts transitively within each orbit, but not necessarily between different orbits. This terminology parallels the orbit-based classification used later for honeycombs while avoiding vertex-based notions such as isogonality, which apply to cellular structures rather than to point sets. Using the points of a $K$-orbit Delone set as Voronoi sites, we obtain a triply periodic 3-honeycomb with at most $K$ distinct cell orbits. Thus, such Delone sets provide a systematic way to construct $K_3$-isochoric honeycombs with $K_3 \leq K$. Note that the cell-orbit structure of the resulting honeycomb is induced by the point-orbit structure of the underlying Delone set. In particular, Delone sets with multiple-point orbits provide a systematic way to generate honeycombs with multiple-cell orbits, thereby extending the class of cell-transitive constructions considered in this work.} 
+
+Note that this is a special case of using higher-dimensional entities, such as curves and surfaces in 3D space, as Voronoi sites. With this in view, the main objectives of this conceptual framework are to (a) define an operator that produces an arrangement of Voronoi sites based on a given symmetry group and (b) enumerate and characterize the conditions under which the arrangement will be symmetric Delone.
+
+To achieve this, we present a general approach for systematic exploration of tiling in $\mathbb{R}^3$ (i.e., 3-honeycombs) using Voronoi decomposition of high-dimensional sites. This approach may appear to work with any of the $230$ spatial symmetries widely available in the literature \cite{fedorov1891symmetry,hahn1983international,barnes2024hypertext}. However, it should be noted that many of the $230$ space groups cannot be used in our approach since mirror operators do not produce the appropriate spatial arrangements to produce topologically interlocking solids with Voronoi decomposition \cite{panchal2023curved}.
+
+\subsection{Orbit Generation for Triply Periodic Point Sets}
+
+For constructive purposes, the relevant issue is not the abstract classification of points under a crystallographic group, but the explicit generation of all sites in a triply periodic structure. In our setting, we must enumerate all points obtained from a set of generators under the triply periodic symmetries of the structure and do so in a way that each point is created exactly once.
+
+Let $G$ be a triply periodic symmetry group acting on $\mathbb{R}^3$, and let $p$ be a generator point. In principle, the points associated with $p$ are obtained by applying all symmetry operations of $G$ to $p$. This collection is the orbit of $p$ under $G$,
+\[
+\mathrm{Orb}(p)=\{g(p)\mid g\in G\}.
+\]
+\cite{engel1986geometric,dolbilin2004delone,conway2008symmetries,hahn2005international}. {\color{red}Here the orbit should be understood as the set of distinct geometric points generated from the same generator point under the action of the symmetry group. It is not a list of symmetry operations. Several different symmetry operations may map the generator point to the same geometric point, particularly when the generator lies on a symmetry element or when periodicity identifies equivalent positions. Therefore, for construction, the goal is to enumerate the distinct points of the orbit rather than blindly applying all group operations.} 
+
+However, for construction, this set-theoretic description is not sufficient. Different symmetry operations may produce the same geometric point, and due to floating-point errors, repeated evaluations of the same point may yield slightly different numerical coordinates. As a result, a naive implementation based on collecting points into a union is unreliable.
+
+Instead, the symmetry operations must be organized so that every periodic copy is generated through a unique representative operation. In other words, orbit generation must be performed through an enumeration scheme that avoids duplicate creation rather than through a posteriori merging of nearly identical points. This is particularly important for Voronoi construction, since even small numerical discrepancies between repeated sites can lead to degenerate cells, overlapping regions, or unstable adjacency relations.
+
+% \begin{figure}[htpb]
+% \centering
+% \includegraphics[width=0.99\columnwidth]
+% {images/PlaceHolders/Fig2_7}
+% \caption{\it \ergun{Placeholder:} Illustration of orbit generation under crystallographic symmetries.
+% Starting from a single seed point, symmetry operations generate its orbit,
+% producing a symmetric Delone set.
+% (a) Orbit generated by lattice translations.
+% (b) Orbit generated by space-group operations combining translations and rotations.
+% (c) Orbit generated by point-group symmetries acting within a unit cell.
+% In practice, orbit generation must ensure that each symmetric copy of the point
+% is created exactly once to avoid duplicate points that may arise from numerical
+% rounding errors.}
+% \label{fig2_7}
+% \end{figure}
+
+Therefore, in the construction of triply periodic Voronoi structures, the main task is to identify the symmetry operations of the group and canonically apply them so that each orbit point is produced exactly once within the chosen periodic domain. This orbit-based generation is essential for robust geometric construction, even though it is not needed for the classification of the symmetry group itself.
+
+Thus, the problem is not merely to describe the orbit abstractly, but to enumerate its points algorithmically without duplication \cite{ebert2024handlebody}.
+
+\subsection{Periodic Replication for Voronoi Construction}
+
+Since the structures considered in this work are triply periodic, translation symmetries can be used to generate neighboring copies of the fundamental region. This observation allows us to construct Voronoi cells robustly without explicitly considering the entire infinite point set.
+
+Let $L$ denote the translation lattice of the symmetry group. For a set of generator points $S$ contained in a fundamental region of $L$, the full triply periodic point set is obtained by applying lattice translations to $S$. Instead of generating the entire infinite set, it is sufficient to replicate the points in the neighboring lattice cells.
+
+In practice, we construct a $3\times3\times3$ block of translated copies of the generator points. This produces the points in the central cell together with their nearest periodic neighbors. The resulting configuration contains $27$ translated copies of the orbit points.
+
+
+
+
+
+
+
+
+
+\begin{figure}[htpb!]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+   \includegraphics[width=\linewidth]{images/fig10/base.jpg}
+    \caption{Generator points inside a fundamental domain.}
+\end{subfigure}
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{images/fig10/repeated_points.jpg}
+    \caption{The enlarged set of points.}
+\end{subfigure}\\
+\begin{subfigure}[t]{0.49\linewidth}    
+   \includegraphics[width=\linewidth]{images/fig10/repeated_tesselation.jpg}
+    \caption{The Voronoi decomposition.}
+\end{subfigure}
+\begin{subfigure}[t]{0.49\linewidth}
+   \includegraphics[width=\linewidth]{images/fig10/unit.jpg}
+    \caption{Final Voronoi cells.}
+\end{subfigure}
+\caption{\it Periodic replication used for Voronoi construction in triply periodic structures. (a) Generator points inside a fundamental cell. (b) The points are repeated using lattice translations; the central cell corresponds to the original fundamental domain. (c) The Voronoi decomposition is computed for the enlarged set of points. (d) Only the Voronoi cells of the central region are retained, while boundary cells are discarded.}
+\label{fig2_8}
+\end{figure}
+
+
+
+The Voronoi decomposition is then computed for this enlarged set of points. Because the neighborhood information required for Voronoi construction is now present, the Voronoi cells associated with the sites in the central region are computed correctly. Cells near the outer boundary of the replicated block may be incomplete since their neighbors outside the block are missing. Therefore, after computing the Voronoi diagram, we retain only the cells corresponding to the points in the central region and discard those near the boundary.
+
+
+
+This periodic replication strategy provides a simple and robust method for computing Voronoi structures in triply periodic settings. By ensuring that each point in the central region has all relevant periodic neighbors present, the resulting Voronoi cells are identical to those obtained from the infinite periodic point set.
+
+\subsection{Dual of 3-Honeycombs}
+
+{\color{red}For a face-to-face 3-honeycomb, the dual honeycomb is defined by the standard cellular duality of three-dimensional cell complexes. Each cell of the primal honeycomb corresponds to a vertex of the dual honeycomb, and each shared face between two adjacent primal cells corresponds to an edge connecting the associated dual vertices. More generally, every $k$-cell corresponds to a dual $(3-k)$-cell while preserving incidence relations. In particular, primal cells correspond to dual vertices, primal faces correspond to dual edges, primal edges correspond to dual faces, and primal vertices correspond to dual cells. The duality used throughout this paper is combinatorial (cellular) duality. The geometric realization employed in our implementation is obtained by placing a dual vertex at the center of each primal cell and connecting dual vertices corresponding to adjacent cells through their shared faces.}
+
+\subsection{Construction of Dual Triply Periodic 3-Honeycombs}
+
+Given a face-to-face triply periodic $3$-honeycomb, its dual can be constructed in the usual manner by placing a vertex at the center of each cell and connecting vertices of adjacent cells. Two cells are considered adjacent if they share a face. For each shared face, an edge of the dual structure connects the centers of the two cells.
+
+In principle, the dual edges could be constructed as straight segments between the centers of adjacent cells. However, in Voronoi-based honeycombs, the segment connecting two cell centers does not necessarily pass through the center of the shared face. In such cases, a straight edge may intersect other parts of the structure or may not respect the geometric symmetry of the honeycomb.
+
+To obtain a robust construction, we instead route the dual edges through the centers of the shared faces. Let $C_1$ and $C_2$ denote the centers of two adjacent cells, and let $F$ denote the center of their shared face. The dual edge between the corresponding dual vertices is constructed as a smooth curve passing through these three points.
+
+Specifically, we construct the edge as two cubic Bézier curves. The first curve connects $C_1$ to $F$, and the second connects $F$ to $C_2$. To ensure geometric consistency, the control points are chosen along the normal direction of the shared face. Let $n$ denote the unit normal of the face at $F$. Two control points are placed along the line passing through $F$ in the direction of $n$. These control points guide the curves so that the edge approaches the face center orthogonally.
+
+
+This construction ensures that dual edges meet the shared face perpendicularly and pass through its center, producing a well-behaved geometric realization of the dual honeycomb. Because the procedure is defined locally for each pair of adjacent cells, it extends naturally to the triply periodic case. The resulting network of curved edges forms the dual triply periodic $3$-honeycomb.
+
+
+\section{Fully- and Partially-Connected Polycatenanes and Their Fundamental and \textcolor{red}{Periodic} Domains}
+
+In the previous section, we established the geometric and combinatorial framework for constructing polycatenanes based on triply periodic 3-honeycombs and their dual structures. In particular, we showed how the primal–dual relationship provides a natural mechanism for embedding and linking spatial graphs in a periodic setting.
+
+We now turn to the explicit construction of polycatenane structures within this framework. Depending on how spatial graphs derived from the primal and dual honeycombs are combined, the resulting configurations may exhibit different levels of connectivity.
+
+
+At one extreme, when all spatial graphs associated with both the primal cells and the dual vertex-cells are included, the construction yields fully-connected polycatenanes in which the interlocking structure extends uniformly throughout the entire domain. At the other extreme, selective inclusion of these graphs leads to partially-connected polycatenanes, where the density and distribution of catenations can be controlled.
+
+To formalize this process, we introduce a labeling mechanism on the cells of the honeycomb that determines which spatial graphs participate in the construction. This labeling naturally induces a periodic domain for the resulting polycatenane structure and enables systematic exploration of a large design space of catenated configurations.
+
+\begin{figure}[htpb]
+\centering
+\begin{subfigure}[t]{0.32\linewidth}
+   \includegraphics[width=\linewidth]{images/fig11/cells.jpg}
+    \caption{Primal cells.}
+\end{subfigure}
+\begin{subfigure}[t]{0.32\linewidth}
+  \includegraphics[width=\linewidth]{images/fig11/braycenters.jpg}
+    \caption{Barycenters of cells.}
+\end{subfigure}
+\begin{subfigure}[t]{0.32\linewidth}    
+   \includegraphics[width=\linewidth]{images/fig11/dual.jpg}
+    \caption{Dual honeycomb.}
+\end{subfigure}
+\caption{\it Construction of the dual honeycomb.
+(a) A portion of the primal honeycomb consisting of adjacent polyhedral cells.
+(b) Vertices of the dual structure are placed at the centers of the primal cells.
+(c) Dual edges are created between centers of adjacent cells, passing through the centers of their shared faces, producing the dual honeycomb.}
+\label{fig2_9}
+\end{figure}
+
+\textbf{Remark.}
+\textcolor{red}{Fundamental domains are not unique. If a triply periodic 3-honeycomb admits translational generators $T_1,T_2,T_3$, then any finite union of neighboring fundamental domains generated by integer multiples of these translations also defines a valid periodic domain.}
+
+\textcolor{red}{In this work, we exploit this non-uniqueness. While a minimal fundamental domain provides the smallest set of representatives under the translational symmetry group, larger periodic domains can be constructed by combining neighboring copies. These enlarged domains are particularly useful for labeling, since the labeling pattern may have a larger period than the underlying honeycomb itself. Consequently, the periodic domain used for a partially-connected polycatenane is often larger than a minimal fundamental domain of the underlying honeycomb.}
+
+
+\subsection{Fully-Connected Polycatenanes and Their Fundamental Domains}
+
+Each spatial graph associated with a cell is constructed as a scaled and embedded copy of the combinatorial structure of the original polyhedral cell. In practice, this can be obtained by applying a standard subdivision or averaging scheme (e.g., the Doo--Sabin construction~\cite{doo1998behaviour,akleman2001new}) to compute new vertex positions inside the cell while preserving its connectivity. Since the honeycombs considered in this work are generated from Voronoi decompositions of Delone sets, all cells are convex polyhedra. This convexity ensures that scaled copies of the cell can be embedded robustly within each cell, allowing consistent construction of spatial graphs even when multiple cell types are present.
+
+
+An important point is that the connectors created from the primal and dual structures can be viewed in
+two equivalent ways. Spatial graphs derived from the dual honeycomb may be
+interpreted as \emph{linkages} that bundle together graphs associated with
+cells of the primal honeycomb. Conversely, spatial graphs derived from the
+primal honeycomb may themselves serve as linking elements for neighboring
+dual graphs. Because both constructions arise from the same primal-dual
+relationship, these roles are interchangeable.
+
+Another important aspect of the construction is the definition of a fundamental domain for the resulting polycatenane. Because spatial graphs associated with neighboring cells share vertices through the primal–dual correspondence, it is not possible to include all graphs independently within a minimal repeating unit. \textcolor{red}{Instead, we begin with a fundamental domain, defined as the smallest set of non-redundant catenated components whose periodic replication generates the full structure. Larger periodic domains can then be constructed by combining neighboring copies of this fundamental domain.} In Figure~\ref{fig_teaser} (fourth row), these are called \emph{unique catenanes}, which provide a fundamental domain for these particular fully-connected polycatenanes.
+
+\subsection{Labeled 3-Honeycombs and Partially-Connected Polycatenanes}
+
+The construction introduced in the previous sections produces a pair of
+triply periodic structures: the primal 3-honeycomb and its dual. Spatial
+graphs can be embedded either inside the cells of the primal honeycomb or
+along the connectivity of the dual structure. To control which of these
+graphs are realized in the final configuration, we introduce a simple binary
+labeling scheme defined on the cells of the honeycomb.
+
+Let $H$ be a triply periodic face-to-face 3-honeycomb. We associate with
+each cell $C_i$ of $H$ a binary label
+\[
+\ell(C_i) \in \{0,1\}.
+\]
+The label determines whether the spatial graph corresponding to that cell
+is included in the construction. When $\ell(C_i)=1$, the spatial graph
+associated with the cell is generated. When $\ell(C_i)=0$, the graph is
+omitted.
+
+This labeling can also be interpreted geometrically. Assigning the label
+$\ell(C_i)=0$ is equivalent to removing the corresponding cell from the
+honeycomb. The remaining structure becomes a 3-manifold mesh with boundary,
+where the removed cells introduce boundary regions. In the graph
+construction, removing a cell also removes the associated edges in the linking
+connectors, since these connectors originate from the adjacency relations
+between cells.
+
+In practice, labels can be assigned to both the primal and the dual
+structures. Cells of the primal honeycomb determine the spatial graphs
+associated with the polyhedral cells, while the vertex-cells of the dual
+honeycomb determine the linking graphs that bundle these components
+together. By selectively labeling both structures, it is possible to remove
+entire families of spatial graphs from the construction. This decimation can
+significantly reduce the number of linking elements in the resulting
+structure. As a consequence, the resulting polycatenane may become much more
+flexible, since fewer interlocking constraints remain between neighboring
+components.
+
+\subsection{Partially-Connected Polycatenanes and Their \textcolor{red}{Periodic} Domain}
+
+When labels are introduced on the cells of the primal and dual honeycombs, the resulting polycatenane structure is no longer determined by the fundamental domain of the underlying honeycomb. Instead, the labeling induces a larger periodic pattern that governs which spatial graphs are present in the construction.
+As a consequence, the periodic domain of a partially-connected polycatenane is defined by a region that captures one full period of the labeling pattern. This region generally consists of the union of all spatial graphs corresponding to labeled cells and their associated dual structures.
+
+Unlike the fully-connected case, \textcolor{red}{this periodic domain}, depending on the labeling scheme, may take an irregular shape that reflects the spatial distribution of selected cells and their connectivity. In particular, the periodic domain is determined combinatorially by the labeling pattern rather than purely by the underlying lattice symmetry.
+
+This behavior is illustrated in Figure~\ref{fig_teaser} (bottom row), where the \textcolor{red}{periodic domains} of partially-connected configurations are not rectangular but instead follow the geometry of the selected catenated components.
+
+\begin{figure}[htpb!]
+\centering
+\begin{subfigure}[t]{0.45\linewidth}
+   \includegraphics[width=\linewidth]{images/fig13/polycat_base.jpg}
+    \caption{2-isochoric honeycomb and its dual.}
+\end{subfigure}
+\begin{subfigure}[t]{0.45\linewidth}
+  \includegraphics[width=\linewidth]{images/fig13/polycat.jpg}
+    \caption{The fully connected polycatenane.}
+\end{subfigure}\\
+\begin{subfigure}[t]{0.45\linewidth}    
+   \includegraphics[width=\linewidth]{images/fig13/polycat_partial_cell.jpg}
+    \caption{A partially connected polycatenane with some cells omitted.}
+\end{subfigure}
+\begin{subfigure}[t]{0.45\linewidth}
+   \includegraphics[width=\linewidth]{images/fig13/polycat_partial.jpg}
+    \caption{A partially connected polycatenane with some vertices omitted.}
+\end{subfigure}
+\caption{\it Polycatenation variants derived from the 2-isochoric honeycomb and its dual shown in~(a). 
+Full interlinking of all cells and vertices yields the fully connected polycatenane in~(b). 
+Partial connectivity is achieved by selectively omitting catenation at cells~(c) or vertices~(d).}
+\label{fig3_3}
+\end{figure}
+
+\subsection{Labeling Strategies}
+
+An important feature of this labeling scheme is that it can be defined
+periodically. Since the honeycombs considered in this work are triply
+periodic, the labeling pattern can be specified over a finite
+$N \times M \times K$ block of cells and then repeated throughout space by
+translation symmetries of the underlying lattice. In this sense, the labels
+define a periodic pattern over the honeycomb.
+
+This periodic labeling allows the creation of structures with different
+effective spatial frequencies. For instance, if the labeling pattern
+repeats every $N \times M \times K$ cells, the resulting polycatenane
+structure exhibits a lower-frequency periodic pattern embedded within the
+higher-frequency periodicity of the underlying honeycomb. By varying these
+binary labels, one can therefore generate a large family of structures with
+different linking densities and spatial organizations while preserving the
+global periodicity of the honeycomb.
+
+In this work we restrict labels to binary values $\{0,1\}$ for simplicity.
+Nevertheless, even this minimal labeling scheme produces a rich design
+space of polycatenane configurations due to the periodic repetition of the
+underlying honeycomb and the combinatorial choices of labeled cells.
+
+
+% \section{Related Work} 
+
+% We recently worked on designing a novel repeating link, leading to a method for filling space using Borromean links. However, this ad hoc approach lacked generalization, crucial for systematically creating new links and advancing engineering applications.
+
+% Several systematic methods exist for designing knots and links, using guiding shapes like graphs \cite{tait1877knots, tait1877links}, polyhedra \cite{roelofs2007rings,sequin2021polyhedral,lipschutz2022linkedknots,gailiunas2022tplinks}, extended graph rotation systems \cite{akleman2020topologically, akleman2015extended}, and CMM-pattern coverable meshes \cite{akleman2015block}. While effective in generating topologically diverse links and knots, these methods offer limited geometric control.
+
+% Recent advances in machine learning have introduced new computational approaches for knot recognition and generation. Transformer-based models now achieve >99\% accuracy in knot-type classification while being 4500× faster than traditional Alexander polynomial methods \cite{zhang2025recognizing}. Multiscale Gauss link integrals (mGLI) provide enhanced topological analysis of protein structures through curve segmentation and multiscale analysis \cite{shen2023knot}. These computational advances complement our geometric approach by enabling rapid verification of topological properties in generated structures.
+
+% The motivation for this work originates from the design of chainmail structures, a type of body armor historically worn by European knights during the Middle Ages \cite{grancsay1928notes}. Modern computational studies have quantified the relationship between module quantity and structural curvature in 3D chainmail systems \cite{afif2024influence}, while advances in 3D printing enable fabrication of quasi-rigid interlocking elements with remarkable flexibility-strength combinations \cite{tang2023chainmail}. Unlike traditional chainmail, which consists of interlinked trivial knots, modern chainmail structures can be formed using 1-complexes, such as the edges of a cube \cite{afif2024chain,wang2021structured,xu2023study}.
+
+% While chainmail structures inspire this study, the focus of this paper is exclusively on linked trivial knots, which have been a part of formal exploration of knots and links, which began in the 19th century with pioneering work by Lord Kelvin, Peter Guthrie Tait, and James Clerk Maxwell, who initiated efforts to classify and understand the structure of knots and links \cite{tait1877links,tait1877knots}. During the 20th century, knot theory developed into a major area within topology, with significant advances in the classification of knots \cite{conway1970enumeration,neuwirth1979theory}.
+
+% Today, knot theory extends beyond pure mathematics and finds diverse applications in fields such as biology and chemistry \cite{zhang1994dnatroctahedron,moestopo2023knots,fielden2017molecular,craik2001cystine,horner2016knot,forgan2011chemical}. It also continues to influence visual arts, sculptural design \cite{verhoeff2011chainlinkfence,holden2016braids,sequin2021polyhedral,lipschutz2022linkedknots}, and architectural structures \cite{kozlov2013structures,borhani2016emergence,borhani2016material,kozlov2018knots}.
+
+% Our method in this paper is essentially a replacement method that uses guide shapes to create knots and links \cite{roelofs2007rings,sequin2021polyhedral,gailiunas2022tplinks}. It is an extended version of the Medial Graph method introduced by Peter Guthrie Tait \cite{tait1877links,tait1877knots}, where each vertex of the medial graph is replaced by a crossing to form knots and links. However, a problem with medial graphs is that the same graph can correspond to different links, as the graph can be embedded in topologically different surfaces \cite{gross2001topological}. To resolve this ambiguity, graph rotation systems are employed \cite{gross2020enumerating,akleman1999guaranteeing}. Based on extended graph rotation systems, knots and links can be obtained as boundaries of faces of non-orientable surfaces immersed in 3D space \cite{akleman2020topologically,akleman2015extended}. The crossings are achieved by twisting the edges of orientable 2-manifold meshes. More complex knots and links can be constructed by twisting the edges of 3-manifold meshes \cite{akleman2015block}. This approach is used to create plain woven objects, single-cycle plain woven objects, and twill-woven objects \cite{akleman2009cyclic,xing2010single,akleman2011cyclic}.
+
+% Recent developments in high-quality mesh generation \cite{liu2024meshformer} have enabled new approaches for 3D structure creation using sparse-view reconstruction models with explicit 3D native structure guidance. More intricate structures can also be generated using Voronoi decompositions of space, with knotted curves and links serving as Voronoi sites \cite{krishnamurthy2020bi,krishnamurthy2021geometrically,yildiz2023modular,yildiz2024volumetric}.
+
+
+
+\section{Implementations and Results}
+
+In this section, we demonstrate how the construction framework introduced in Section~2 can be used to generate families of triply periodic polycatenane structures. The key step in the construction is the generation of a periodic point set whose Voronoi decomposition
+produces a triply periodic 3-honeycomb. Once such a honeycomb is obtained, the primal-dual construction and the labeling scheme described earlier determine the spatial graphs that form the final polycatenane structure.
+
+There are many possible strategies for generating periodic point sets. Different strategies lead to honeycombs with distinct geometric and topological characteristics, which in turn produce polycatenane structures with different linking patterns. In this work, we explore several approaches for constructing these point sets.
+We begin with classical Wigner--Seitz constructions derived from Bravais lattices, which produce cell-transitive honeycombs (Section~4.1). We then generalize this approach by placing multiple seed points within a fundamental lattice domain and generating honeycombs from their Voronoi decomposition (Section~4.2). Next, we explore symmetry-based constructions in which crystallographic symmetry operations generate structured periodic point sets from seed points (Section~4.3). Finally, we extend this approach by applying symmetry operations to multiple seed points simultaneously, producing richer spatial configurations and a wider variety of resulting structures (Section~4.4).
+
+Together, these strategies provide a flexible framework for exploring a wide design space of triply periodic polycatenane structures.
+
+\begin{figure}[htpb!]
+\centering
+\begin{subfigure}[t]{0.45\linewidth}
+   \includegraphics[width=\linewidth]{images/fig14/honeycomb_2isochoral_1isogonal.jpg}
+    \caption{Interlaced 2-isochoric honeycomb and 1-isogonal honeycomb.}
+\end{subfigure}
+\begin{subfigure}[t]{0.45\linewidth}
+  \includegraphics[width=\linewidth]{images/fig14/polycatenated_2isochoral_1isogonal.jpg}
+    \caption{The fully connected polycatenane from the honeycomb in (a).}
+\end{subfigure}
+\caption{\it Polycatenation variants derived from the 2-isochoric honeycomb with vertex transitive property. 
+All cells and vertices yields the fully connected polycatenane in~(b). There are two cell types, rectified cube and octahedron. Since the dual honeycomb is vertex transitive, the vertex connectors are only one shape which is \textcolor{red}{an isohedral octahedron whose faces are congruent isosceles triangles}.}
+\label{fig4}
+\end{figure}
+
+\subsection{$1$-Isochoric (Cell-Transitive) Wigner-Seitz 3-Honeycombs}
+
+
+As a first class of examples, we consider 1-isochoric (cell-transitive)
+triply periodic 3-honeycombs obtained from Wigner-Seitz cells of
+Bravais lattices. In these honeycombs, the symmetry group of the
+structure acts transitively on the set of cells, meaning that every
+cell is congruent and occupies an equivalent position within the
+tessellation. Consequently, the entire honeycomb can be generated by
+translating a single prototypical cell throughout the lattice.
+
+For a given Bravais lattice, the Wigner-Seitz construction produces a space-filling polyhedron defined as the Voronoi region of a lattice point. The collection of all such regions forms a face-to-face 3-honeycomb in which all cells are congruent. Classical examples include the cubic honeycomb, the truncated octahedral honeycomb, and the rhombic dodecahedral honeycomb.
+
+In our implementation, we generate these honeycombs by first
+constructing a finite periodic neighborhood of lattice points and
+computing the corresponding Voronoi decomposition. As discussed in
+Section~2.9, ensuring that the central region contains all necessary
+periodic neighbors guarantees that the Voronoi cells in the interior
+match those of the infinite periodic lattice. The resulting Voronoi
+cells form the primal honeycomb.
+
+Once the primal honeycomb is obtained, its dual is constructed
+following the procedure described in Section~2.11. A vertex is placed
+at the center of each cell, and curved edges are routed between
+centers of adjacent cells through the centers of their shared faces.
+This produces a smooth geometric realization of the dual triply
+periodic honeycomb.
+
+Applying the method described in Section~2.11, spatial graphs are embedded within the cells of the primal honeycomb while additional linking graphs arise from the vertex-cells of the dual honeycomb. Binary labeling is then used to determine which components are included in the final structure. Even with simple labeling patterns, these honeycombs generate a wide range of polycatenane structures with different densities of linking elements.
+
+Because the underlying honeycombs are cell-transitive, the resulting
+polycatenane structures inherit a high degree of spatial symmetry.
+At the same time, periodic labeling patterns allow symmetry to be intentionally reduced, producing families of related structures with different linking configurations. Figure~\ref{fig_teaser} illustrates several examples generated from Wigner-Seitz honeycombs using different labeling patterns.
+
+\subsection{Multi-Seed Bravais Honeycombs}
+
+The Wigner-Seitz construction described in the previous subsection
+produces cell-transitive honeycombs derived from a single lattice
+point per fundamental domain. A more general family of triply periodic
+3-honeycombs can be obtained by placing multiple generating points
+within each fundamental lattice cell.
+
+Let $K_3$ denote the number of seed points placed inside a single
+fundamental domain of a Bravais lattice. These points generate a
+periodic set of sites whose Voronoi decomposition produces a
+triply periodic 3-honeycomb. In contrast to the Wigner-Seitz case,
+the resulting honeycombs generally contain several distinct cell
+types, depending on the spatial configuration of the seed points.
+
+In our implementation, seed points are first defined in the canonical
+domain $[0,1]^3$. This domain represents the unit cube parameterization
+of the fundamental region of the lattice. Given a set of Bravais lattice
+vectors $\mathbf{a}_1,\mathbf{a}_2,\mathbf{a}_3$, each point
+$\mathbf{p}=(u,v,w)\in[0,1]^3$ is mapped to Euclidean space by
+$
+\mathbf{x} = u\,\mathbf{a}_1 + v\,\mathbf{a}_2 + w\,\mathbf{a}_3.
+$
+Periodic replication of these points over the lattice generates an
+infinite periodic point set. The Voronoi decomposition of this point
+set then produces a face-to-face triply periodic 3-honeycomb.
+
+\begin{figure}[htpb]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+   \includegraphics[width=\linewidth]{images/fig11/dual.jpg}
+    \caption{Triply periodic primal-dual structure.}
+\end{subfigure}
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{images/fig12/voro_catenated_1.jpg}
+    \caption{Triply periodic polycatenanes.}
+\end{subfigure}
+\caption{\it Example of triply periodic Voronoi-based primal-dual polycatenanes. 
+(a) Cells are generated using Voronoi for a point set that is periodic in $[0,1]^3$. Then primal-dual structure is formed by using adjacency information, by using these two we can get the polycatenated structure in (b).}
+\label{fig4_2}
+\end{figure}
+
+A variety of strategies can be used to generate the seed points within
+the canonical domain. The simplest approach is to sample the $K_3$
+points randomly. However, more structured configurations can also be
+used to influence the geometry of the resulting honeycomb. For example,
+points may be placed along curves or distributed over surfaces within
+the unit cube. Alternatively, a locally uniform distribution can be
+obtained using iterative relaxation methods such as Lloyd iterations.
+
+These different placement strategies produce Voronoi structures with
+distinct geometric and topological characteristics. Random placements
+often yield irregular honeycombs with varying cell shapes as shown in Figure~\ref{fig4_2}, whereas
+structured or relaxed distributions tend to produce more uniform
+polyhedral cells. Because the spatial graphs and linking elements
+introduced in Section~2 depend directly on the adjacency relations of
+the honeycomb, these differences lead to a wide variety of resulting
+polycatenane structures.
+
+After the honeycomb is constructed, the primal-dual framework
+described in Section~2 is applied. Spatial graphs are embedded inside
+cells of the primal honeycomb and within vertex-cells of the dual
+honeycomb. Binary labeling can then be used to selectively include
+or remove these components, allowing further control over the
+linking density and flexibility of the resulting periodic structures.
+
+\subsection{Symmetry-Based Seed Generation}
+
+In addition to random or structured placement strategies, seed points
+can also be generated using spatial symmetries. Three-dimensional
+crystallographic symmetry groups provide a large set of possible
+transformations that can be used to replicate a small number of
+generator points into a larger periodic configuration. By applying
+these symmetries, one can construct highly structured point sets that
+produce regular honeycombs.
+
+Although the number of possible 3D symmetry operations is large, not
+all of them are useful for generating interesting polycatenane
+structures. In particular, mirror symmetries often produce degenerate
+or overly constrained configurations that do not lead to meaningful
+linking structures. In contrast, rotational and screw symmetries tend
+to generate richer spatial arrangements and therefore lead to more
+interesting honeycomb geometries and polycatenane configurations.
+
+The central technical challenge in this approach is ensuring that the
+correct orbit of a generator point is obtained under the chosen
+symmetry group. Given a symmetry group $G$ and an initial point
+$\mathbf{p}$, the orbit of $\mathbf{p}$ is defined as the set of points
+
+\[
+\mathcal{O}(\mathbf{p}) = \{ g(\mathbf{p}) \mid g \in G \}.
+\]
+
+For crystallographic groups, the orbit must be computed carefully to ensure that each symmetry operation contributes a unique point within the fundamental domain. A naive application of all symmetry operations may generate duplicate points due to periodicity or equivalent group
+actions. In our implementation, we address this issue using a brute-force strategy to determine which symmetry operations should be applied to the generator points. By explicitly testing the resulting positions, we identify the subset of operations that produces distinct points within the domain. Once this subset is determined, only these
+operations are used in the orbit construction, ensuring that duplicate points are never generated. Although simple, this approach is robust and sufficient for the symmetry groups considered in this work.
+
+Once the orbit points are obtained, they are treated as seed sites for the Voronoi construction described in the previous subsection. The resulting Voronoi decomposition generates a triply periodic 3-honeycomb whose geometric structure reflects the symmetry of the underlying point set.
+
+After the honeycomb is constructed, the primal-dual graph generation and labeling framework introduced in Section~2 is applied in the same way as before. Consequently, symmetry-based seed generation provides another mechanism for exploring the design space of periodic polycatenane structures while maintaining controlled geometric organization.
+
+\subsection{Symmetry Acting on Multiple Seed Points}
+
+The symmetry-based construction described in the previous subsection can also be applied to a set of seed points instead of a single point. In this case, the same symmetry group acts on multiple initial points simultaneously.
+
+Let
+$P = \{\mathbf{p}_1,\mathbf{p}_2,\ldots,\mathbf{p}_m\}$
+be a set of seed points defined in the canonical domain $[0,1]^3$.
+Given a symmetry group $G$, the orbit of each point is computed by
+applying all symmetry operations in the group. The resulting seed set
+is obtained as the union of the individual orbits
+
+\[
+S = \bigcup_{i=1}^{m} \{ g(\mathbf{p}_i) \mid g \in G \}.
+\]
+
+Unlike the single-point case, where a single orbit determines the
+entire configuration, this approach allows several seed points to
+propagate through the symmetry group simultaneously. The relative
+positions of these initial points influence how the resulting orbits
+interact, often producing more diverse spatial arrangements of sites.
+
+The initial seed points can be chosen using any of the strategies
+described earlier. For example, they may be sampled randomly,
+distributed along curves or surfaces, or positioned using locally
+uniform sampling such as Lloyd relaxation. When the symmetry
+operations are applied, these local configurations are replicated
+throughout the lattice, producing structured periodic point sets.
+
+
+
+As before, care must be taken to ensure that symmetry operations do
+not produce multiple representations of the same periodic point. In
+our implementation, we identify the subset of symmetry operations that
+generate distinct points within the fundamental domain. This selection
+is determined through a brute-force evaluation of the symmetry
+operations applied to the seed points. Once the valid operations are
+identified, only these operations are used when generating the orbit,
+ensuring that each periodic site is created exactly once. The
+resulting set of sites defines the periodic point configuration used
+for the Voronoi construction.
+
+Once the seed set is obtained, the remaining steps of the pipeline
+are identical to those described in the previous subsections. The
+Voronoi decomposition generates the primal triply periodic
+3-honeycomb, its dual structure is constructed, and spatial graphs
+are embedded within both primal and dual cells. Binary labeling is
+then used to selectively include or remove spatial graphs, allowing
+control over the density and flexibility of the resulting
+polycatenane structures.
+
+\subsection{Physical Realization of Catenated Structures}
+
+% Since these polycatenanes include many linking structures, modular construction from unit polycatenanes requires multiple cuts to form catenation to the next cells/vertices. Rather an inplace construction is feasible using additive manufacturing methods. We have employed fused deposition manufacturing which constructs complex geometries layer by layer, this is achieved by slicing 3D objects(see Figure~\ref{fig:slicer_import}). One withdraw of such method is that overhangs, e.g. regions that do not have preceeding layers, needs to be supported by some extra geometry. This extra geometry is often removed in the post processing step. We are using PLA material which is rigid, this is to see the general kinematics of the polycatenane structure without any elastic deformation in the material. For manufacturing we have employed BambuLab X1C with multimaterial system AMS. In our manufacturing attempts we had the thickness of the cell and vertex catenanes very thin, which makes the postprocessing a tedious step. So we have used other methods of support structures that can be removed easily. One method is using a soluble support material that can be dissolved with a solvent. For our structures we have used PVA which dissolves in water. Figure~\ref{fig:slicer_res} shows the distribution of PLA and PVA in the slicer software. For testing the physical realization we have picked rhombic dodecahedron honeycomb which has the octahedron-tetrahedron honeycomb as the dual(see Figure~\ref{fig:prints}).
+
+Since polycatenanes consist of many interlocking structures, modular assembly from unit polycatenanes would require multiple cuts to form catenation bonds between adjacent cells and vertices. In-place construction is therefore more feasible, and additive manufacturing methods are well-suited for this purpose. We employ Fused Deposition Modeling (FDM), which fabricates complex geometries layer by layer through the slicing of 3D models (see Figure~\ref{fig:slicer_import}). A known limitation of FDM is the requirement for support structures beneath overhanging regions, which must typically be removed in a post-processing step.
+We use Polylactic Acid (PLA) as the primary material, chosen for its rigidity, which allows us to observe the kinematic behavior of the polycatenane structure without interference from elastic deformation. Manufacturing was carried out using a Bambu Lab X1C printer equipped with the Automatic Material System (AMS) for multi-material printing. During initial fabrication attempts, the cell and vertex catenanes were printed with very thin walls, making post-processing particularly tedious. To address this, we explored support strategies that allow for easier removal.
+One such approach is the use of soluble support material, which can be dissolved in an appropriate solvent after printing. We use Polyvinyl Alcohol (PVA), a water-soluble filament, as the support material. Figure~\ref{fig:slicer_res} shows the distribution of PLA and PVA regions as visualized in the slicing software. To validate the physical realization of the proposed structures, we selected the rhombic dodecahedron honeycomb, whose dual is the tetrahedral-octahedral honeycomb, as a test case (see Figure~\ref{fig:prints}).
+{\color{red}After printing, the PVA support material was dissolved in water. The resulting PLA components are geometrically separated and remain connected only through mechanical interlocking (catenation); they are not fused into a single rigid body.}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.49\linewidth}
+   \includegraphics[width=\linewidth]{images/prints/slicer_oct_tet_import.png}
+    \caption{Imported Geometry.}
+    \label{fig:slicer_import}
+\end{subfigure}
+\begin{subfigure}[t]{0.49\linewidth}
+   \includegraphics[width=\linewidth]{images/prints/slicer_oct_tet_res.png}
+    \caption{Sliced result.}
+    \label{fig:slicer_res}
+\end{subfigure}
+\begin{subfigure}[t]{\linewidth}
+   \includegraphics[width=0.49\linewidth]{images/prints/oct_tet_1.jpg}
+   \includegraphics[width=0.49\linewidth]{images/prints/oct_tet_2.jpg}
+    \caption{Two views of 3D printed polycatenane.}
+    \label{fig:prints}
+\end{subfigure}
+\caption{\textcolor{red}{An example of additive manufacturing of a polycatenane structure constructed using our approach. The structure is printed in place using PLA and PVA soluble support material. After support removal, the individual components remain geometrically separated and mechanically interlocked through catenation rather than being rigidly fused together.}}
+    \label{fig:3dprinting}
+\end{figure}
+
+
+
+\section{Conclusion, Discussion and Future Work}
+
+
+
+
+\textit{Overview:} The proposed framework reduces the design of triply periodic polycatenanes to the construction and labeling of primal-dual 3-honeycomb scaffolds. By treating geometry and topology as design parameters, the method achieves a balance between flexibility and simplicity. The transformation of cells into spatial graphs, combined with spatial graphs produced from cells of dual honeycombs as bundling elements, offers an intuitive and powerful mechanism for designing catenated structures.
+
+\textit{Physical Evaluations:} This labeling-based formulation defines a high-dimensional design space for volumetric linked structures. With $2^e$ possible configurations per cell and $M^3$ cells, even modest volumes yield combinatorially rich pattern sets. This design space can be explored algorithmically to identify linked structures with desirable properties. We are currently planning to collaborate with some engineering groups interested in evaluating the physical properties computationally.
+
+\textit{Physical Constructions:} Evaluating physical models will also be an important next step. There are three general methods for constructing these structures in practice: (1) 3D printing the entire structure as a single piece as we have done in this paper; (2) 3D printing individual 3D graphs and bundling them like chains; and (3) assembling them entirely from off-the-shelf components. Among these, method (3) becomes increasingly difficult for complex structures. Method (2) is relatively more feasible, though it still demands substantial manual effort.
+
+\textit{Labeling Strategies:} The group structure of $GF(M)^3$ can support sophisticated labeling strategies involving algebraic operations such as reflection, rotation, translation, and tensor contraction. For instance, tensorial combinations of bit patterns across neighboring cells can produce structured yet nontrivial arrangements, ideal for generating visually intricate but topologically coherent structures. These algebraic strategies are particularly effective at leveraging the symmetries inherent in these 3-honeycombs.
+
+\textit{Topology Limitations:} The current method is capable of generating only a specific class of polycatenanes and cannot represent some well-known configurations. This limitation is intentional to develop a principled approach. 
+
+% \textit{Biomimetic Hierarchical Linking.}
+% An exciting direction for future research is the extension of our single-scale linking approach to hierarchical, multiscale architectures inspired by biological systems. By implementing nested polycatenated linking across scales, it may be possible to achieve enhanced mechanical properties such as fracture resistance and crack deflection, analogous to mechanisms observed in natural materials like nacre and collagen networks~\cite{Chen2024deployable}.
+
+\bibliographystyle{cag-num-names}
+\bibliography{references,references2,voronoi}
+
+\end{document}
+

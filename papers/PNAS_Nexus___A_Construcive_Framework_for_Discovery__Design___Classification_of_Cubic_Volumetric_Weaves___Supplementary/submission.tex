@@ -1,0 +1,580 @@
+%%
+%% Copyright 2024 OXFORD UNIVERSITY PRESS
+%%
+%% v1.1 released August 2024
+%%
+%% This file is part of the 'pnas-nexus-authoring-template Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'pnas-nexus-authoring-template Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for PNAS Nexus's document class `oup-authoring-template'
+%% with bibliographic references
+%%
+%%
+%% Change log
+%%
+%% v1.0 2021
+%%    Adapted from oup_authoring_template.cls for use with pnas-nexus-authoring-template.tex
+%% v1.1 August 2024
+%%    Adjusted text of copyright statement for use with pnas-nexus-authoring-template.tex
+
+
+\documentclass[unnumsec,webpdf,contemporary,large]{oup-authoring-template}%
+
+%\usepackage{showframe}
+\usepackage{booktabs}
+\usepackage{lmodern}
+\graphicspath{{Figures/}}
+
+% line numbers
+\usepackage[mathlines, switch]{lineno}
+% \usepackage[right]{lineno}
+
+\usepackage{subfig}
+\usepackage[table]{xcolor}
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%  meant for continuous numbers
+%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
+%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\newtheorem{proposition}[theorem]{Proposition}%
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}
+\usepackage{multicol,lipsum,xparse}
+
+% \theoremstyle{thmstylethree}%
+% \newtheorem{theorem}{Theorem}[section]
+% \theoremstyle{definition}
+% \newtheorem{definition}[theorem]{Definition}
+% \theoremstyle{remark}
+% \newtheorem{remark}[theorem]{Remark}
+% \newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem{proposition}[theorem]{Proposition}
+% \newtheorem{cor}[theorem]{Corollary}
+
+\newcommand{\GF}{{\mathrm{GF}}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\N}{{\mathbb{N}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+\usepackage{listings}
+\usepackage{xcolor}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+\captionsetup[subfloat]{
+    font={footnotesize}
+}
+
+\usepackage{draftwatermark}
+\SetWatermarkText{Draft}
+
+\title[Cubic Volumeteric Weaves]{A Constructive  Framework for Discovery, Design, \& Classification of Cubic Volumetric Weaves - Supplementary Document}
+
+\author[a]{Tolga T. Yildiz}
+\author[b]{Alice C. Niemeyer}
+\author[d,a]{Vinayak R. Krishnamurthy}
+\author[c,a,1]{Ergun Akleman}
+
+\authormark{Yildiz et al.}
+
+\address[a]{\orgdiv{Department of Computer Science and Engineering}, \orgname{Texas A\&M University}, \orgaddress{\street{College Station}, \postcode{77840}, \state{TX}, \country{USA}}}
+\address[b]{\orgdiv{Chair of Algebra and Representation Theory}, \orgname{RWTH Aachen University}, \orgaddress{\street{Pontdriesch 10-16}, \postcode{52062}, \state{Aachen}, \country{Germany}}}
+\address[c]{\orgdiv{Visual Computing and Computational Media Section, School of Performance, Visualization and Fine Arts}, \orgname{Texas A\&M University}, \orgaddress{\street{College Station}, \postcode{77840}, \state{TX}, \country{USA}}}
+\address[d]{\orgdiv{J. Mike Walker'66 Department of Mechanical Engineering}, \orgname{Texas A\&M University}, \orgaddress{\street{College Station}, \postcode{77840}, \state{TX}, \country{USA}}}
+\let\multicolmulticols\multicols
+\let\endmulticolmulticols\endmulticols
+
+\RenewDocumentEnvironment{multicols}{mO{}}
+ {%
+  \ifnum#1=1
+    #2%
+  \else % More than 1 column
+    \multicolmulticols{#1}[#2]
+  \fi
+ }
+ {%
+  \ifnum#1=1
+  \else % More than 1 column
+    \endmulticolmulticols
+  \fi
+ }
+
+\maketitle
+\begin{document}
+
+\journaltitle{PNAS Nexus}
+\DOI{DOI HERE}
+\copyrightyear{YEAR}
+\pubyear{YEAR}
+\access{Advance Access Publication Date: Day Month Year}
+\appnotes{Paper}
+
+\firstpage{1}
+
+%\subtitle{Subject Section}
+% \leadauthor{Yildiz}
+\onecolumn
+\section{Representation of Two-way Two-fold Weaves as GF(2) Group on the Lattice Cells}
+
+\begin{figure}[h]\setlength{\fboxsep}{0pt}
+\centering
+\captionsetup[subfloat]{width=0.24\linewidth}%
+\subfloat[A sample of a two-way two-fold plain weave.]{\includegraphics[width=0.24\linewidth]{Figures/1_1_1_top.pdf}}%
+\captionsetup[subfloat]{width=0.24\linewidth}%
+\subfloat[Matrix encoding of plain weave.]{\includegraphics[width=0.24\linewidth]{Figures/1_1_1_matrix.pdf}}%
+\captionsetup[subfloat]{width=0.24\textwidth}%
+\subfloat[Configurations of a single volume element for two-way two-fold weaves.]{
+\label{2dweaveunits}
+    \includegraphics[width=.124\textwidth]{Figures/0.pdf}  
+    \includegraphics[width=.124\textwidth]{Figures/1.pdf}    
+    }%
+\hfill
+\captionsetup[subfloat]{width=0.3\textwidth}%
+\subfloat[Resulting representation of plain weave from the configurations.]{
+    \label{subfig_2dweavedemo}
+    \includegraphics[width=0.3\textwidth]{Figures/1_1_1.pdf}    
+}\\
+\caption{Demonstration of our framework for planar weaves. Here we can represent 2-way 2-fold fabrics as a result of a tp-lattice in 2D.\label{2dsubsume}}
+\end{figure}
+
+Symmetric two-way two-fold weaves have been formalized with crystallographic groups in \cite{periodic_geo_knots, O'Keeffe:cryst2-period} which subsumes the Bravais lattice in $\R^2$. Although two-way two-fold fabrics are studied thoroughly, the Bravais lattice based definition given in Definition~\ref{bravaisdefinition} does not have an inherent representation. In this section, we will give a methodology to represent the crossing information of local segments, i.e. the ranking order, with a cell-based representation. Doing so will enable us to derive a notation for two-way two-fold weaves and extend that notation to the volumetric weave of interest which are the cP-weaves.
+
+We re-imagine the unit cells of a two-way two-fold fabric as a volumetric element that is derived from the Voronoi Cell of a tp lattice \cite{nebe2024catalogue} in $\mathbb{R}^2$ which results in a square with edges parallel to the standard basis on $\mathbb{R}^2$ (see Figure \ref{2dweaveunits}). \ACN{To me this paragraph up to here is too repetitive and
+I would also like to move the sweeping curves to a later section. At this point we have the mathematical description and the symmetry  operations. How to translate this to a real world weave is not that obvious and deserves a longer explanation.} Note that two-way two-fold weaves can also be called tp-weaves to be consistent with cP-weaves. In $\mathbb{R}^2$ weave threads are connected from one parallel edge to the other parallel edge and then given an offset in the $z$ direction to give a rank order for the local configuration.
+
+
+Even though this appears to be a rather trivial exercise, it offers a direct pathway to cP-weave representation by providing us with a volumetric version of the matrix representation wherein each unit cell of the matrix is reinterpreted as a cube instead of a square (i.e. tp), and the ranking order is reinterpreted as a configuration of the threads, which can be encoded with matrix transformations. Note that, regardless of how we represent the threads inside a unit element (except that the threads lie in the same plane), there still exist only two distinct states (Figure ~\ref{2dweaveunits}) for two-way two-fold weaves. These two states can be transformed into one another using a transformation matrix that mirrors the assembly of the threads (about the $x-y$ plane in Figure ~\ref{2dweaveunits}). This gives us the cyclic group $GF(2)$ where each element is either the identity matrix $I$ or the mirror in $z$, $M_z$, as follows:
+\begin{equation} 
+\label{Eq:2DMatrices}
+I =
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1\\
+\end{pmatrix}
+\; \; \; 
+M_z =
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & -1\\
+\end{pmatrix}
+\end{equation}
+
+The fundamental insight from the formalization using such a cyclic group is that it allows the representation of cP-weaves in terms of algebraic operations simply by replacing the group with one of its isomorphic groups. For instance, replacing the identity matrix $I$ with $0$, and the mirror matrix $M_z$ with $1$ turns the matrix multiplication into modulo $2$ addition since $I^2 = I$, $I M_z = M_z$, $M_z I = M_z$, and $M^2_z = I$. As a result these replacements directly lead us to the fundamental cyclic group $GF(2)$ that directly corresponds to the original cyclic group of two matrices. Furthermore, isomorphism offers a convenient way to encode volumetric weaving cases without the need to explicitly maintain ranking orders of the different threads.
+
+To understand the algebraic operations through a concrete example, let us consider a periodic planar weave with a translation cell defined as an $N \times M$ grid made of squares in the plane. We can identify each square in this translation cell with two non-negative integers $(n,m)$ where $n=1,\ldots, N$; and $m=1,\ldots, M$ as $C_{(n,m)}$. Similar to matrix representation, assigning either $0$ or $1$ to each square for all $n$ and $m$ defines a weave. This can also be viewed as a discrete periodic function $V: \{1,\ldots,N\} \times \{1,\ldots,M\} \rightarrow \{0,1\}$ that can be represented as $V(n,m)$. We can further define discrete derivatives in the $x$ and $y$ directions as $\delta_x V = V(n+1,m)-V(n,m)$, and $\delta_y V = V(n,m+1)-V(n,m)$ respectively. Note that if $\delta_x=0$ or $\delta_y=0$ there is no change. But if $\delta_x=1$ or $\delta_y=1$ we take a mirror to get the orientation of the next cell, which corresponds to the rank order change in matrix representation. 
+
+Here we can deduce the rank order for two-way two-fold weaves from the transformation matrix applied to the local cell. To see the effect of rank order change in a two-way two-fold weave, consider the threads shown in Figure~\ref{2dweaveunits}. The $x$-thread is the $y=0$ and $z=z_0$ constant line, and the $y$-thread is the $x=0$ and $z=-z_0$ constant line. If there is a change in the next unit cell along $x$, the $x$-thread becomes $y=0$ and $z=-z_0$ constant line, and the $y$-thread becomes $x=0$ and $z=z_0$ constant line where $z_0\neq 0$. Assume there is a change in $x$ direction, i.e. the change is between the cells $C_{(n,m)}$ and $C_{(n+1,m)}$. In such a case, the endpoints of two $x$-thread lines will not match in their $z$ coordinates. By connecting these two endpoints one can obtain a continuous curve. The same process is applied in the $y$-direction if there is a change. 
+
+
+\section*{Computational Method for Enumeration of Regular Plain cP-Weaves}
+
+
+To enumerate all the possible $N\times M\times L$ plain cP-weaves we need to use the compact representation:
+\begin{equation}\label{eq:compactrep}
+    \mathbf{W}=[x_0\dots x_{N-1}\;:\;y_0\dots y_{M-1}\;:\;z_0\dots z_{L-1}]
+\end{equation}
+Where each $x_i,y_j,z_k\in \GF(2), i\in [0,N-1],\;j\in[0,M-1],\;k\in[0,L-1]$. Which can be further simplified as 3 integers if we treat the collection of binary variables as a binary string that denotes an integer. This further simplifies the computational enumeration since all we need to define a plain cP-weave is three integers. 
+
+Applying different isometries to the representation needs a definition on what are the operators that changes the representation. Given a $M\times M \times M$ regular plain cP-weave $\mathbf{W}_0=[x_0\dots x_{M-1}\;:\;y_0\dots y_{M-1}\;:\;z_0\dots z_{M-1}]$ we are going to define three symmetries. Note that $x_i'=1-x_i,y_j'=1-y_j, z_k'=1-z_k$.
+\subsection*{Translation}
+Translation cell of a plain cP-weave would cause negation of the entries that are not of the translation direction, i.e. an $x$-translation would cause negation of the representation of the $y$ and $z$ components and a circular shift of the $x$ component. All of these operations can be achieved with simple binary sequence operations. 
+The translation by $x,\;y$ and $z$ would generate the following weaves:
+\begin{align*}
+    \mathbf{W}_0<<1_x=[x_1\dots x_{M-1}x_0\;:\;y_0'\dots y_{M-1}'\;:\;z_0'\dots z_{M-1}']\\
+    \mathbf{W}_0<<1_y=[x_0'\dots x_{M-1}'\;:\;y_1\dots y_{M-1}y_0\;:\;z_0'\dots z_{M-1}']\\
+    \mathbf{W}_0<<1_z=[x_0'\dots x_{M-1}'\;:\;y_0'\dots y_{M-1}'\;:\;z_1\dots z_{M-1}z_0]
+\end{align*}
+\subsection*{Rotation}
+ Rotating the whole plain cP-weave would be another way to get a different geometry from the same weave topology. Particularly we can consider that all the rotations can be achieved by the combinations of rotations around the cardinal axes:
+\begin{align*}
+    \mathbf{W}_0\circ_{0,0,1:90}=[y_{M-1}'\dots y_0'\;:\;x_0'\dots x_{M-1}'\;:\;z_0\dots z_{M-1}]\\
+    \mathbf{W}_0\circ_{0,1,0:90}=[z_{0}\dots z_{M-1}\;:\;y_{0}\dots y_{M-1}\;:\;x_{M-1}\dots x_{0}]\\
+    \mathbf{W}_0\circ_{1,0,0:90}=[x_{0}\dots x_{M-1}\;:\;z_{M-1}'\dots z_{0}'\;:\;y_0'\dots y_{M-1}']\\
+\end{align*}
+\subsection*{Mirror}
+Mirroring a plain cP-weave with respect to axis constant planes would result in the following representation change:
+\begin{align*}
+    \mathbf{W}_0|_x=[x_{M-1}'\dots x_0'\;:\;y_0'\dots y_{M-1}'\;:\;z_0'\dots z_{M-1}']\\
+    \mathbf{W}_0|_y=[x_0'\dots x_{M-1}'\;:\;y_{M-1}'\dots y_0'\;:\;z_0'\dots z_{M-1}']\\
+    \mathbf{W}_0|_z=[x_0'\dots x_{M-1}' \;:\;y_0'\dots y_{M-1}'\;:\;z_{M-1}'\dots z_0']
+\end{align*}
+
+\newpage
+\section*{Python Code for Computational Method}
+
+In the Python implementation we are not using the orbit finding algorithm since it would require more resources to compute. We employ a unordered hash-table data structure equivalent, i.e. \verb|set| data structure in Python, to store the weaves and use this data structure to find specific weaves in a give space of possible weaves. This data structure has $O(1)$ search which is going to be faster the lists of orbit finding algorithm. Another remark from the computational method is we can use three integers and their bits to represent a plain cP-weave, which reduces the memory costs as we are not using list of distinct bits.
+
+\lstset{language=Python}
+\begin{lstlisting}
+# Utility functions for bit manipulations
+# Reverses the bits of the N-bit integer
+def reverseBits(n, N):
+    return int('{:0{N}b}'.format(n, N=N)[::-1], 2)
+
+# Rotates the weave w around x-axis by 90 degrees
+def rotateX(w, N, M):
+    return (w[0], M-reverseBits(w[2], N), M-w[1])
+
+# Rotates the weave w around y-axis by 90 degrees
+def rotateY(w, N, M):
+    return (w[2], w[1], reverseBits(w[0], N))
+
+# Rotates the weave w around z-axis by 90 degrees
+def rotateZ(w, N, M):
+    return (M-reverseBits(w[1], N), M-w[0], w[2])
+
+# Mirrors the weave w about YZ plane
+def mirrorX(w,N):
+    return (2**N-1-reverseBits(w[0], N), 2**N-1-w[1], 2**N-1-w[2])
+
+# Mirrors the weave w about XZ plane
+def mirrorY(w,N):
+    return ( 2**N-1-w[0], 2**N-1-reverseBits(w[1], N), 2**N-1-w[2])
+
+# Mirrors the weave w about XY plane
+def mirrorZ(w,N):
+    return (2**N-1-w[0], 2**N-1-w[1], 2**N-1-reverseBits(w[2], N))
+
+# Returns the derivative notation of weave w
+def val_to_derivative(w, N):
+    dx = ((w[0] << 1 | w[0] >> N-1)) ^ w[0]
+    dy = ((w[1] << 1 | w[1] >> N-1)) ^ w[1]
+    dz = ((w[2] << 1 | w[2] >> N-1)) ^ w[2]
+    return [[w[0] >> N-1,w[1] >> N-1,w[2] >> N-1], [dx >> i & 1 for i in range(N-1,-1,-1)], [dy >> i & 1 for i in range(N-1,-1,-1)], [dz >> i & 1 for i in range(N-1,-1,-1)]]
+
+# Calculates all the orbits for NxNxN regular plain cP Weaves
+# rot, mirror and shift flags are used to control which symmetries are applied
+def calculateTypes(N, rot=False, mirror=False, shift=False):
+    c = 0
+    num_sequences = 2**(N)
+    M = num_sequences - 1
+    type_classes = []
+    # We are using sets to uniqely define weaves in a computation
+    complete = set()
+    # Adding all possible weave configurations to the set
+    for i in range(num_sequences):
+        for j in range(num_sequences):
+            for k in range(num_sequences):
+                complete.add((i,j,k))
+    
+    c = 0 
+    # Rotation order for single pass rotation
+    rotorder = ['x','x','z','x','x','z']
+
+    # Going over the set until the set is empty
+    while complete:
+        c += 1
+
+        # Get first weave w out of the set
+        w = complete.pop()
+
+        # Create a temporary set to generate the orbit of w
+        tmp = set()
+        if shift:
+            i = w[0]
+            j = w[1]
+            k = w[2]
+
+            # Shifting arrays to precompute shifts
+            sx = list(map(lambda x: ((i << x) | (i >> N-x)) & (num_sequences-1), range(N)))
+            nsx = list(map(lambda x: num_sequences-1-x,sx))
+            sy = list(map(lambda x: ((j << x) | (j >> N-x)) & (num_sequences-1), range(N)))
+            nsy = list(map(lambda x: num_sequences-1-x,sy))
+            sz = list(map(lambda x: ((k << x) | (k >> N-x)) & (num_sequences-1), range(N)))
+            nsz = list(map(lambda x: num_sequences-1-x,sz))
+            for ii in range(N):
+                for jj in range(N):
+                    for kk in range(N):
+                        x = sx[ii] if (jj + kk) % 2 == 0 else nsx[ii]
+                        y = sy[jj] if (ii + kk) % 2 == 0 else nsy[jj]
+                        z = sz[kk] if (jj + ii) % 2 == 0 else nsz[kk]
+                        # w is shifted by ii, jj, kk in x, y, z direction respectively
+                        w = (x,y,z)
+                        tmp.add(w)
+
+                        # Applying mirror, single mirror is enough to
+                        if mirror:
+                            tmp.add(mirrorZ(w,N))
+
+                        # Applying rotations
+                        if rot:
+                            for r in rotorder:
+                                for ir in range(4):
+                                    w = rotateY(w, N, M)
+                                    tmp.add(w)
+                                    if mirror:
+                                        tmp.add(mirrorZ(w,N))
+                                if r == 'x':
+                                    w = rotateX(w, N, M)
+                                elif r == 'z':
+                                    w = rotateZ(w, N, M)
+        else:
+            tmp.add(w)
+            if mirror:
+                tmp.add(mirrorZ(w,N))
+            if rot:
+                for r in rotorder:
+                    for ir in range(4):
+                        w = rotateY(w, N, M)
+                        tmp.add(w)
+                        if mirror:
+                            tmp.add(mirrorZ(w,N))
+                    if r == 'x':
+                        w = rotateX(w, N, M)
+                    elif r == 'z':
+                        w = rotateZ(w, N, M)
+
+        # Remove the orbit list from the all configurations
+        complete -= tmp
+
+        # Store the orbit in a list
+        type_classes.append(tmp)
+
+    return type_classes, c
+\end{lstlisting}
+
+\newpage
+\section*{Tables for Enumerated Regular Plain cP-Weaves}
+
+We have enumerated the possible configurations of regular plains with the computational method above. The Tables \ref{tab:222_1},\ref{tab:222_2},\ref{tab:222_3} enumerates the $2\times2\times2$ plain cP-weaves with different symmetries allowed. The Tables \ref{tab:444_1},\ref{tab:444_2} enumerates the $4\times4\times4$ plain cP-weaves with different symmetries allowed. We omitted the table enumerating the $4\times4\times4$ plain cP-weaves with only rotations because there are 240 orbits. The tables for plain cP-weaves after $4\times 4\times 4$ increases in size significantly, we decided not to include the tables but a report of the numbers in tables $\ref{tab:num1},\ref{tab:num2},\ref{tab:num3},\ref{tab:num4}$. This shows that the even though the plain cP-weaves is defined with constraints from the cP-weaves, it is able to express a rich space of shapes.
+
+
+%%% Each figure should be on its own page
+
+\clearpage
+
+\begin{table}
+    \centering
+    \caption{Table of $2\times2\times2$ Regular Plain cP-Weaves with only rotational symmetries.}
+    \begin{tabular}{ccccc}
+    \midrule
+        & Orbit Representative &  Visualization of $W$ & $|\textrm{Aut}(W)|$  & Orbit Length\\\toprule
+         1 & $[10:10:11]$ &\includegraphics[width=1.2cm]{Figures/counting/222/223.png} & 2 & 12  \\\midrule
+         2 & $[00:10:01]$ &\includegraphics[width=1.2cm]{Figures/counting/222/021.png} & 2 & 12  \\\midrule
+         3 & $[11:11:01]$ &\includegraphics[width=1.2cm]{Figures/counting/222/331.png} & 2 & 12  \\\midrule
+         4 & $[01:10:01]$ &\includegraphics[width=1.2cm]{Figures/counting/222/121.png} & 3 & 8  \\\midrule
+         5 & $[00:11:01]$ &\includegraphics[width=1.2cm]{Figures/counting/222/031.png} & 4 & 6  \\\midrule
+         6 & $[11:10:11]$ &\includegraphics[width=1.2cm]{Figures/counting/222/323.png} & 4 & 6  \\\midrule
+         7 & $[11:11:00]$ &\includegraphics[width=1.2cm]{Figures/counting/222/330.png} & 8 & 3  \\\midrule
+         8 & $[11:00:00]$ &\includegraphics[width=1.2cm]{Figures/counting/222/300.png} & 8 & 3  \\\midrule
+         9 & $[00:11:00]$ &\includegraphics[width=1.2cm]{Figures/counting/222/030.png} & 24 & 1  \\\midrule
+         10 & $[11:00:11]$ &\includegraphics[width=1.2cm]{Figures/counting/222/303.png} & 24 & 1  \\\midrule\midrule
+          & & & Total & 64\\\bottomrule
+    \end{tabular}
+    \label{tab:222_1}
+\end{table}
+\clearpage
+\begin{table}
+    \centering
+    \caption{Table of $2\times2\times2$ Regular Plain cP-Weaves with rotational and translational symmetries.}
+    \begin{tabular}{ccccc}
+    \midrule
+         & Orbit Representative &  Visualization of $W$ & $|\textrm{Aut}(W)|$  & Orbit Length\\\toprule
+         1 & $[10:00:10]$ &\includegraphics[width=1.2cm]{Figures/counting/222/202.png} & 8 & 24  \\\midrule
+         2 & $[00:01:00]$ &\includegraphics[width=1.2cm]{Figures/counting/222/010.png} & 8 & 24  \\\midrule
+         3 & $[01:10:01]$ &\includegraphics[width=1.2cm]{Figures/counting/222/121.png} & 24 & 8  \\\midrule
+         4 & $[11:00:00]$ &\includegraphics[width=1.2cm]{Figures/counting/222/300.png} & 48 & 4  \\\midrule
+         5 & $[11:11:00]$ &\includegraphics[width=1.2cm]{Figures/counting/222/330.png} & 48 & 4  \\\midrule\midrule
+          & & & Total & 64\\\bottomrule
+    \end{tabular}
+    \label{tab:222_2}
+\end{table}
+\clearpage
+\begin{table}
+    \centering
+    \caption{Table of $2\times2\times2$ Regular Plain cP-Weaves modulo rotational, mirror and translational symmetries.}
+    \begin{tabular}{ccccc}
+    \midrule
+        & Orbit Representative &  Visualization of $W$ & $|\textrm{Aut}(W)|$  & Orbit Length\\\toprule
+         1 & $[10:00:10]$ &\includegraphics[width=1.2cm]{Figures/counting/222/202.png} & 16 & 24  \\\midrule
+         2 & $[00:01:00]$ &\includegraphics[width=1.2cm]{Figures/counting/222/010.png} & 16 & 24  \\\midrule
+         3 & $[01:10:01]$ &\includegraphics[width=1.2cm]{Figures/counting/222/121.png} & 24 & 8  \\\midrule
+         4 & $[11:11:00]$ &\includegraphics[width=1.2cm]{Figures/counting/222/330.png} & 24 & 8  \\\midrule\midrule
+          & & & Total & 64\\\bottomrule
+    \end{tabular}
+    \label{tab:222_3}
+\end{table}
+\clearpage
+\begin{table}
+    \centering
+    \caption{Table of $4\times4\times4$ Regular Plain cP-Weaves with rotational and translational symmetries. Red rows indicate that these cP-weaves can be obtained with repeating $2\times2\times2$ plain cP-weaves. Green rows indicate that these cP-weaves can be constructed from repeating $4\times4\times2$ plain cP-weaves. Blue rows indicate that these cP-weaves can be constructed from $4\times2\times2$ plain cP-weaves.}
+    \begin{tabular}{ccccc}
+    \toprule
+        \# & Orbit Repre- &  Visualization  & $|\textrm{Aut}(W)|$  & Orbit \\
+        &  sentative $W$ &   of $W$ &  & Length \\\toprule
+         1 & $[1001:0001:0001]$ &\includegraphics[width=1.30cm]{Figures/counting/444/090101.png} & 2 & 768  \\\midrule
+         \rowcolor{lime}2 & $[0101:0001:0110]$ &\includegraphics[width=1.30cm]{Figures/counting/444/050106.png} & 4 & 384  \\\midrule
+         \rowcolor{lime}3 & $[0101:0100:0010]$ &\includegraphics[width=1.30cm]{Figures/counting/444/050402.png} & 4 & 384  \\\midrule
+         \rowcolor{lime}4 & $[1011:1001:1111]$ &\includegraphics[width=1.30cm]{Figures/counting/444/110915.png} & 4 & 384  \\\midrule
+         5 & $[1011:0001:0010]$ &\includegraphics[width=1.30cm]{Figures/counting/444/130102.png} & 6 & 256  \\\midrule
+         6 & $[1101:1101:0100]$ &\includegraphics[width=1.30cm]{Figures/counting/444/131304.png} & 6 & 256  \\\midrule
+         7 & $[1001:1100:0001]$ &\includegraphics[width=1.30cm]{Figures/counting/444/091201.png} & 8 & 192  \\\midrule
+         \rowcolor{lime}8 & $[1110:0100:1111]$ &\includegraphics[width=1.30cm]{Figures/counting/444/140415.png} & 8 & 192  \\\midrule
+         9 & $[0110:0111:0110]$ &\includegraphics[width=1.30cm]{Figures/counting/444/060706.png} & 8 & 192  \\\midrule
+         \rowcolor{cyan}10 & $[0010:1010:0000]$ &\includegraphics[width=1.30cm]{Figures/counting/444/021000.png} & 8 & 192  \\\midrule
+         \rowcolor{lime}11 & $[1000:0010:1111]$ &\includegraphics[width=1.30cm]{Figures/counting/444/080415.png} & 8 & 192  \\\midrule
+         \rowcolor{cyan}12 & $[1010:0101:1011]$ &\includegraphics[width=1.30cm]{Figures/counting/444/100511.png} & 16 & 96  \\\midrule
+         \rowcolor{cyan}13 & $[1100:1010:0000]$ &\includegraphics[width=1.30cm]{Figures/counting/444/121000.png} & 16 & 96  \\\bottomrule
+         
+    \end{tabular}
+    \begin{tabular}{ccccc}
+    \toprule
+         \# & Orbit Repre- &  Visualization  & $|\textrm{Aut}(W)|$  & Orbit \\
+         & sentative $W$ &   of $W$ &  & Length \\\toprule
+         \rowcolor{cyan}14 & $[0101:1010:0110]$ &\includegraphics[width=1.30cm]{Figures/counting/444/051206.png} & 16 & 96  \\\midrule
+         15 & $[0110:1001:0110]$ &\includegraphics[width=1.30cm]{Figures/counting/444/060906.png} & 24 & 64  \\\midrule
+         \rowcolor{lime}16 & $[1111:0011:1100]$ &\includegraphics[width=1.30cm]{Figures/counting/444/150312.png} & 32 & 48  \\\midrule
+         \rowcolor{cyan}17 & $[1100:0101:1010]$ &\includegraphics[width=1.30cm]{Figures/counting/444/120510.png} & 32 & 48  \\\midrule
+         \rowcolor{lime}18 & $[0110:1001:0000]$ &\includegraphics[width=1.30cm]{Figures/counting/444/060900.png} & 32 & 48  \\\midrule
+         \rowcolor{cyan}19 & $[1111:0011:0000]$ &\includegraphics[width=1.30cm]{Figures/counting/444/150300.png} & 32 & 48  \\\midrule
+         \rowcolor{cyan}20 & $[1000:1111:1111]$ &\includegraphics[width=1.30cm]{Figures/counting/444/081515.png} & 32 & 48  \\\midrule
+         \rowcolor{pink}21 & $[0000:0101:1010]$ &\includegraphics[width=1.30cm]{Figures/counting/444/000510.png} & 64 & 24  \\\midrule
+         \rowcolor{pink}22 & $[1111:0101:0000]$ &\includegraphics[width=1.30cm]{Figures/counting/444/150500.png} & 64 & 24  \\\midrule
+         \rowcolor{pink}23 & $[0101:1010:0101]$ &\includegraphics[width=1.30cm]{Figures/counting/444/051005.png} & 192 & 8  \\\midrule
+         24 & $[0000:1111:1000]$ &\includegraphics[width=1.30cm]{Figures/counting/444/001508.png} & 192 & 8  \\\midrule
+         \rowcolor{pink}25 & $[0000:0000:1111]$ &\includegraphics[width=1.30cm]{Figures/counting/444/000015.png} & 384 & 4  \\\midrule
+         \rowcolor{pink}26 & $[1111:0000:1111]$ &\includegraphics[width=1.30cm]{Figures/counting/444/150015.png} & 384 & 4  \\\bottomrule
+    \end{tabular}
+    \label{tab:444_1}
+\end{table}
+
+\clearpage
+\begin{table}
+    \centering
+    \caption{Table of $4\times4\times4$ Regular Plain cP-Weaves with rotational and translational symmetries. Red rows indicate that these cP-weaves can be obtained with repeating $2\times2\times2$ plain cP-weaves. Green rows indicate that these cP-weaves can be constructed from repeating $4\times4\times2$ plain cP-weaves. Blue rows indicate that these cP-weaves can be constructed from $4\times2\times2$ plain cP-weaves.}
+    \begin{tabular}{ccccc}
+    \toprule
+        \# & Orbit Repre- &  Visualization  & $|\textrm{Aut}(W)|$  & Orbit \\
+         & sentative $W$ &   of $W$ &  & Length \\\toprule
+         1 & $[1001:0001:0001]$ &\includegraphics[width=1.5cm]{Figures/counting/444/090101.png} & 4 & 768  \\\midrule
+         2 & $[1101:0001:0010]$ &\includegraphics[width=1.5cm]{Figures/counting/444/130102.png} & 6 & 512  \\\midrule
+         \rowcolor{lime}3 & $[0101:0001:0110]$ &\includegraphics[width=1.5cm]{Figures/counting/444/050106.png} & 8 & 384  \\\midrule
+         4 & $[1001:1100:0001]$ &\includegraphics[width=1.5cm]{Figures/counting/444/091201.png} & 8 & 384  \\\midrule
+         \rowcolor{lime}5 & $[0101:0100:0010]$ &\includegraphics[width=1.5cm]{Figures/counting/444/050402.png} & 8 & 384  \\\midrule
+         \rowcolor{lime}6 & $[0001:1111:1000]$ &\includegraphics[width=1.5cm]{Figures/counting/444/011508.png} & 8 & 384  \\\midrule
+        \rowcolor{lime}7 & $[1011:1001:1111]$ &\includegraphics[width=1.5cm]{Figures/counting/444/110915.png} & 8 & 384  \\\midrule
+         \rowcolor{cyan}8 & $[0010:1010:0000]$ &\includegraphics[width=1.5cm]{Figures/counting/444/021000.png} & 16 & 192 \\\midrule
+         \rowcolor{cyan}9 & $[1010:0101:1011]$ &\includegraphics[width=1.5cm]{Figures/counting/444/100511.png} & 32 & 96  \\\midrule
+         \rowcolor{cyan}10 & $[1100:1010:0000]$ &\includegraphics[width=1.5cm]{Figures/counting/444/121000.png} & 32 & 96  \\\bottomrule
+     \end{tabular}
+     \begin{tabular}{ccccc}
+         \toprule
+         \# & Orbit Repre- &  Visualization  & $|\textrm{Aut}(W)|$  & Orbit \\
+         & sentative $W$ &   of $W$ &  & Length \\\toprule
+         \rowcolor{lime}11 & $[1111:0011:1100]$ &\includegraphics[width=1.5cm]{Figures/counting/444/150312.png} & 32 & 96  \\\midrule
+         \rowcolor{lime}12 & $[0101:1100:0110]$ &\includegraphics[width=1.5cm]{Figures/counting/444/051206.png} & 32 & 96  \\\midrule
+         \rowcolor{cyan}13 & $[1111:0000:1101]$ &\includegraphics[width=1.5cm]{Figures/counting/444/150013.png} & 32 & 96 \\\midrule
+         14 & $[0110:1001:0110]$ &\includegraphics[width=1.5cm]{Figures/counting/444/060906.png} & 48 & 64  \\\midrule
+         \rowcolor{cyan}15 & $[1100:0101:1010]$ &\includegraphics[width=1.5cm]{Figures/counting/444/120510.png} & 64 & 48  \\\midrule
+         \rowcolor{cyan}16 & $[1111:0011:0000]$ &\includegraphics[width=1.5cm]{Figures/counting/444/150300.png} & 64 & 48  \\\midrule
+         \rowcolor{pink}17 & $[0000:0101:1010]$ &\includegraphics[width=1.5cm]{Figures/counting/444/000510.png} & 128 & 24  \\\midrule
+         \rowcolor{pink}18 & $[1111:0101:0000]$ &\includegraphics[width=1.5cm]{Figures/counting/444/150500.png} & 128 & 24  \\\midrule
+         \rowcolor{pink}19 & $[1111:0000:0000]$ &\includegraphics[width=1.5cm]{Figures/counting/444/150000.png} & 384 & 8  \\\midrule
+         \rowcolor{pink}20 & $[0101:1010:0101]$ &\includegraphics[width=1.5cm]{Figures/counting/444/051005.png} & 384 & 8  \\\bottomrule
+    \end{tabular}
+    \label{tab:444_2}
+\end{table}
+
+\clearpage
+\begin{table}
+    \centering
+    \caption{Number of Orbits for Regular Plain cP-Weaves with only rotational symmetries.}
+    \begin{tabular}{cc}
+    \midrule
+        Weave Type & Number of Orbits \\\toprule
+         $2\times2\times2$ & 10  \\\midrule
+         $4\times4\times4$ & 240  \\\midrule
+         $6\times6\times6$ & 11712  \\\midrule
+         $8\times8\times8$ & 709376  \\\bottomrule
+    \end{tabular}
+    \label{tab:num1}
+\end{table}
+\clearpage
+
+\begin{table}
+    \centering
+    \caption{Number of Orbits for Regular Plain cP-Weaves with rotational and mirror symmetries.}
+    \begin{tabular}{cc}
+    \midrule
+        Weave Type & Number of Orbits \\\toprule
+         $2\times2\times2$ & 6  \\\midrule
+         $4\times4\times4$ & 124  \\\midrule
+         $6\times6\times6$ & 5876  \\\midrule
+         $8\times8\times8$ & 354808  \\\bottomrule
+    \end{tabular}
+    \label{tab:num2}
+\end{table}
+\clearpage
+\begin{table}
+    \centering
+    \caption{Number of Orbits for Regular Plain cP-Weaves with rotational and translational symmetries.}
+    \begin{tabular}{cc}
+    \midrule
+        Weave Type & Number of Orbits \\\toprule
+         $2\times2\times2$ & 5  \\\midrule
+         $4\times4\times4$ & 26  \\\midrule
+         $6\times6\times6$ & 179  \\\midrule
+         $8\times8\times8$ & 2504  \\\bottomrule
+    \end{tabular}
+    \label{tab:num3}
+\end{table}
+\clearpage
+\begin{table}
+    \centering
+    \caption{Table of $4\times4\times4$ Regular Plain cP-Weaves with rotational, mirror and translational symmetries.}
+    \begin{tabular}{cc}
+    \midrule
+        Weave Type & Number of Orbits \\\toprule
+         $2\times2\times2$ & 4  \\\midrule
+         $4\times4\times4$ & 20  \\\midrule
+         $6\times6\times6$ & 129  \\\midrule
+         $8\times8\times8$ & 1468  \\\bottomrule
+    \end{tabular}
+    \label{tab:num4}
+\end{table}
+
+
+\end{document}

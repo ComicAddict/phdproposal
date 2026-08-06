@@ -1,0 +1,50 @@
+\section{Background}
+
+% We review technologies at the intersection of developing optics devices and the fabrication of interactivity within HCI that inform our approach towards FDM printed optical devices. %. We explore prior methods to develop optical devices for sensing and dynamic display.
+% , particularly in contexts such as textiles, interactive surfaces, and 3D printed interfaces. 
+%We also highlight how prior research has enabled interactivity in passive 3D printed objects through optical encoding, material properties, and embedded geometries. These insights inform our approach to designing low-cost, multi-input/output systems using FDM. Finally, we examine various fabrication strategies for multi-component and modular objects, focusing on embedding optical and electronic components during or after printing. 
+
+\subsection{Optical Devices in HCI}
+Optical elements have been used extensively in Computational Fabrication for HCI research to enable sensing and information transmission. Examples include optical fiber touch sensors 
+for interactive tables \cite{go2012object} and touch screens \cite{holz2013fiberio}, room-scale displays \cite{swaminathan2020optistructures}, textiles \cite{olwal2018braid, hashimoto2013lightcloth}, and grasp-sensitive surfaces \cite{wimmer2010flyeye}. To enhance flexibility, novel methods such as cellulose-based applications \cite{guridi2023light} and transparent elastomers \cite{yao2014integrating} have been explored. In the 3D printing domain, \textit{Printed Optics} \cite{printed_optics_2012} demonstrated the creation of optical channels through PolyJet printing for sensing and simple to advanced, curved displays \cite{brockmeyer2013papillon}, AR mapping \cite{fibar_2020}, and optimized routing \cite{clr_printed_optical_fibers_2014} of printed channels.
+Although PolyJet printing provides significant advantages in creating arbitrarily shaped optical channels for assembly-free interactive device fabrication,
+% easy component embedding, it is expensive and less accessible. In contrast, FDM is low-cost and accessible for desktop 3D printing, enabling makers and designers to design and develop their custom optical devices. 
+% In this work, 
+we demonstrate how FDM can be used to create optical channels for display and sensing. Furthermore, due to the fine-grained control over printing parameters and channel geometry, we show how light channeling can be varied through parameter changes. %, as shown by the material characterization.
+
+
+\subsection{Optical Interactivity in Passive 3D Objects}
+% Beyond creating optical pathways for light, 
+% Researchers have explored methods for embedding interactivity into 3D printed objects—enabling input and output behaviors without relying on traditional electronics. 
+% Prior work has incorporated photochromic \cite{jin2020photo} and thermochromic \cite{moon20243d} materials into 3D printed surfaces, allowing them to change color in response to light or heat. %These effects have also been combined in shape memory polymers to create context-aware visuals, such as QR codes that become visible only under specific conditions. Additionally, 
+Interactivity is embedded through geometric or material encodings, only detectable by machines such as subsurface air cavities readable via structured light \cite{li2017aircode}, layered barcodes %using alternating material patterns 
+\cite{maia2019layercode}, and infrared-fluorescent inlays for markerless tracking \cite{dogan2023brightmarker}. %Recent work has also used 
+Lenticular structures have been used to produce view-dependent images %that shift displayed information based on the user’s perspective 
+\cite{zeng2021lenticular}.
+Surface anisotropy enables directional optical patterns (e.g., barcodes or icons) that are visible under specific lighting angles \cite{ma2023anisotag, Lu2025LumosX}.
+% Internal channel design has enabled passive mechanical computation in 3D printed objects. Researchers have printed 
+Embedded pipes act as light guides, or housings for post-processing elements \cite{series_of_tubes_2014}. %Air-driven logic gates \cite{airlogic_2022}, fabricated entirely from 3D printed geometries, can process user input and trigger physical or auditory outputs.
+% Touch input has also been explored by embedding grid patterns beneath curved surfaces, allowing for high-resolution, multi-touch interactions directly on the object’s shell \cite{capacitive_touch_2024}.
+While these prior works demonstrate approaches for embedding interactivity into 3D printed objects utilizing optics theory, most focus on isolated optical effects or tagging mechanisms. 
+% Either the optical input and output are in one plane for almost parallel mapping\cite{printed_optics_2012}, or input to output mapping resolution is limited to 1:1 or 1:N \cite{series_of_tubes_2014}. In this work, we reframe optical channel routing as a design and interaction space, providing low cost ways of fabricating complex N:M input-output mapping.
+
+In this work, we reframe optical channel routing as a design and interaction space, providing low cost ways of fabricating complex N:M input-output mappings.
+Unlike previous methods where optical I/O is arranged in a single plane for nearly parallel mapping \cite{printed_optics_2012}, or limited to 1:1 or 1:N through auto-routing algorithms \cite{series_of_tubes_2014}, our approach uses the generated channels to segment the entire object into discrete and printable modules which allows users the flexibility for post-print modifications and reconfiguration. %To support FDM printing, channels must lie in-plane to create partitions.
+
+
+\subsection{Fabricating Multi-Component Objects}
+Printing optical channels for sensing and display within FDM 3D objects requires multi-part fabrication. 
+Modular fabrication is an approach for enabling multi-component 3D printing,
+% enhances design flexibility by 
+decomposing a design into smaller 3D printed parts that are later assembled (e.g., \cite{series_of_tubes_2014}). 
+In this way, integration of materials with various properties becomes relatively affordable,
+compared to 
+% technique enables designs that would be challenging  with 
+conventional fabrication methods due to %. By dividing designs into smaller modules, designers can bypass 
+printer size limitations and complexity constraints, making it possible to build large-scale or highly detailed objects through incremental assembly \cite{sun2021flextruss, huang20233d,moya2024single}. 
+Modularity simplifies creating complex moving structures, separating functional and aesthetic sub-parts \cite{faruqi2023style2fab}, enabling interactive behaviors \cite{chen2021pneuseries}, %Additionally, modularity 
+and accelerating prototyping by allowing parallel fabrication \cite{yildiz2024modular}, %when designs are divided into independent components, these parts can be produced simultaneously on multiple machines, 
+significantly shortening overall build time \cite{nisser2021laserfactory, noodleprint2025}, while also producing structurally robust prints that topologically interlock the pieces \cite{voronoodle2022}. Modularity also allows multiple printers to print the object at the same time--- Voronoi-based schemes have been employed to divide and schedule printing work between different printers \cite{safezone2024, safezonestar2025}. Our work adopts modular FDM fabrication for optical devices to iteratively build complex objects, precisely place materials, and embed optical components during printing.
+% , we utilize the modular design approach combined with hybrid assembly processes to ease the 
+
+

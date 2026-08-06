@@ -1,0 +1,169 @@
+
+
+
+
+\section{Working Principles}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/tir.png}
+    \caption{Light incident in a denser medium at an angle greater than the critical angle reflects within the medium.}
+     \Description{A conceptual diagram of TIR. y} 
+    \label{fig:tir}
+    \vspace{-2mm}
+\end{figure}
+%This section outlines the principles behind light transmission in FDM-printed optical channels.
+% While we do not introduce new optical physics, we identify unique fabrication constraints and affordances in FDM that influence light routing and channeling. %We detail how factors like printing orientation, channel geometry, and material choice affect light behavior in transparent filaments. We also introduce the distinction between routing (path of light) and channeling (intensity control), and present our experimental setup and findings that inform how design parameters impact optical performance in modular, interactive 3D-printed systems.
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/orientation.png}
+    \caption{Light transmitted when the raster is parallel, while blocked when raster is perpendicular. To ensure printing channels such that the channel raster is horizontal and continuous, we need to print each channel in one plane.}
+     \Description{A visual comparison showing how the orientation of the printed raster lines affects light transmission. On the left, light passes through the channel when the raster is aligned parallel to the light path. On the middle, light is blocked when the raster is perpendicular to the light path, no light is visible through the output side. On the right shows the FDM process of printing optical channels in layers on a horizontal print bed. } 
+    \label{fig:printing_orientation}
+    \vspace{-2mm}
+\end{figure*}
+
+
+\subsection{Light Transfer in Optical Fibers \& FDM Transparent Channels}
+\label{sec:light_transfer}
+% \jk{what are novel theories and principles that we newly identified, compared to existing optics principles and knowledge known from 3D printed optics?} \hd{in terms of physics principles, we do not have anything than what exists, I suppose the novelty is in the modular parts that can be used for interaction with the embedded channels, but I don't think that fits in this section.}
+% Optical fibers consist of an inner core and an outer cladding. The core is made of a material with a higher refractive index than the cladding. Optical fibers function based on the phenomenon of \textit{total internal reflection} (see Figure
+% \ref{fig:tir}). In this phenomenon, when light enters the channel at angles greater than a certain angle known as the critical angle (i.e. the angle at which light is refracted at 90\degree), the difference in the refractive indices of the two materials causes the light to bounce back into the channel. This phenomenon repeats at all core-cladding interfaces enabling light transmission. %through internal reflection.
+%\hd{add graphic of total internal reflection}
+Traditional optical fibers guide light via \textit{total internal reflection} (see Figure \ref{fig:tir}) at the boundary between a higher refractive index inner core and a lower-index outer cladding. 
+
+
+
+
+% \hd{try to achieve the same length as printed optics - they seem to only have tested upto 100mm}
+Our empirical findings indicate that light can be visibly transmitted through a filament or transparent 3D printed channel over short distances typical in desktop 3D printing. However, the angle of light incidence to the `raster' of the channel i.e. the direction of the extruder movement, affects how much light passes through the printed channel. When the raster lines are perpendicular to the incident light, reflection loses most of the light while traveling (Figure \ref{fig:printing_orientation} (middle)). However, if the raster aligns parallel with the incident light, most of the light transmits (Figure \ref{fig:printing_orientation} (left)).
+
+
+To be able to transmit light through FDM printed channels, the channel needs to be printed in continuous strokes (see Figure \ref{fig:printing_orientation} (right (3))), i.e. the channel needs to lie in the XY plane. If the channel is in any other orientation, the channel is disrupted while printing layer by layer (see Figure \ref{fig:printing_orientation} right (1-2)). %due to the print strokes are disrupted due to layera channel lies vertically within a model, FDM process prints those lines layer by layer, creating interfaces every layer that reflect incident light.
+This planar routing motivates our Voronoi-based segmentation method, which decomposes complex objects into planar modules. While less appealing than PolyJet, that continuously cures tiny liquid droplets blurring the layer boundaries,
+% solidify layers are continuous, in that, the channels do not have layers formed due to the nature of FDM printing, and hence come close to the actual optical fiber behavior, 
+the layers introduced in the channels through FDM present interesting parameters for light transfer which can enable controlled transmission and blocking for binary signaling (0 and 1) using one material.
+%\hd{need an example of controlled transmission and blocking: print}
+In that sense, a single transparent filament can print both the channel and the shell (Figure \ref{fig:blocking}).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/blocking.png}
+        \vspace{-2mm}
+    \caption{Object printed in same transparent material only transmits light where the raster aligns with the incident light direction and not where the raster is perpendicular. }
+    \Description{Photograph of an object illuminated by an external light source. Light travels visibly through the central portion of the object where the raster direction is parallel to the light. Everywhere else, light is blocked and the output is dark except for the central portion of the object.} 
+    \label{fig:blocking}
+    \vspace{-4mm}
+\end{figure}
+
+
+
+% \subsection{Light Routing vs. Channeling}
+% %Within fiber optics,
+% \textbf{Routing} determines \textit{where} the signal travels, and \textbf{Channeling} determines \textit{how} the signal travels. %\cite{singh2008minimum}. 
+% %For example, Palma et. al. \cite{capacitive_touch_2024} use capacitance as the signal and \textit{route} wires across the 3D volume. 
+% In this work, we consider routing as the paths followed by the embedded optical channels between the designated input and the output sides of an object. \textit{Routing} involves control parameters such as the path of a continuous channel, as well as interactions that can connect or multiplex different channels for light transmission. 
+% We consider channeling as ways in which we can control the light transmitted through the channel. \textit{Channeling} involves controlling the amount of light that will be transmitted which is based on channel geometry parameters, and light wavelength, as well as its movement while being input. We present various routing and channeling techniques for static and dynamic interactivity, forming the design space for modular fabrication of optics in FDM.  
+
+\subsection{Material Considerations and Evaluations}
+\label{sec:eval}
+As one of our motivations is to lower the barrier in creating 3D printed channels to afford various interaction spaces, we consider off-the-shelf transparent materials that are commonly used in FDM printing at the time of this work: PLA, PETG, and TPU. Although PETG showed promising clarity under the lux meter, its sensitivity to temperature and cooling speed led to unpredictable and mostly milky channels. Thus, we focus on PLA and TPU. 
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/eval_setting.png}
+        \vspace{-3mm}
+    \caption{ (Top and middle-left) Sample holders and measurement setup. For testing length (20mm to 100mm), thickness (1.6mm to 4.0mm), and curvature (15mm to 95mm). (Middle-right) Process of printing curved channels. (Bottom) Neopixel RGB LED and photodiode on each end.}
+     \Description{Three printed channel samples designed to isolate parameters: (top left) a holder with straight channels of increasing length, (top right) a holder with identical channels of increasing channel thickness, and (middle left) a holder with constant-length channels but increasing curvature. (middle right) Slicing and sample preparation overview. (Bottom) The RGB Neopixel LEDs and photodiodes were also shown. And the setup showing the neopixel and photodiode at opposite ends of a thickness holder allow measurement of light transmission.} 
+    \label{fig:eval_setting}
+    \vspace{-4mm}
+\end{figure}
+
+\begin{figure*}[h]
+
+    \centering
+    \includegraphics[width=0.89\linewidth]{figures/PLA_inplace_eval.pdf}
+        \vspace{-2mm}
+    \caption{Light transmission through PLA in-place printed channels. Each subfigure shows the photodiode readings for red and blue light across varying parameters (a) length, (b) curvature, and (c) thickness. PLA channels show significant loss, particularly for blue light, with increasing length, tighter bend, and smaller thickness. }
+     \Description{Candle stick charts showing the light transmission levels for different geometric features of in-place printed PLA channels. Each plot chart has readings for red and blue light, red light produces more response than the blue light in all readings. First plot chart shows the effect of channel length (with 2mm channel thickness, no curvature), for channel lengths of under 50mm light transmission stays mostly the same, then follows a downward trend for 50mm and longer channels. Second plot shows the effect of channel curvature radius (2mm channel thickness, 50mm length), readings increase as the curvature radius increases. Third plot shows Channel thicknesses (with 50mm channel length, no curvature), readings for thickness 1.6 mm shows a significant loss in transmission while 2mm or more than 2mm thickness values have similar light transmission values.} 
+    \label{fig:pla_inplace}
+    \vspace{-2mm}
+\end{figure*}
+
+\begin{figure*}[h]
+
+    \centering
+    \includegraphics[width=0.89\linewidth]{figures/TPU_inplace_eval.pdf}
+        \vspace{-2mm}
+    \caption{Light transmission through TPU in-place printed channels. Each subfigure shows the photodiode readings for red and blue light across varying parameters (a) length, (b) curvature, and (c) thickness. Like PLA, TPU channels show sharp declines in transmission, particularly for blue light, with increasing length, tighter bend, and smaller thickness. }
+     \Description{Candle stick plots showing the light transmission levels for different geometric features of in-place printed TPU channels. Each chart has readings for red and blue light. First  plot shows the effect of channel length (with 2mm channel thickness, no curvature), red light produces similar readings for all tested channel length where blue light readings stays the same for channel lengths of under 60mm, then follows a downward trend for 60mm and longer channels. Second plot shows the effect of channel curvature radius(2mm channel thickness, 50mm length), readings show variance in lower curvature radius setting and transmits less light on average. Readings increase as the curvature radius increases. Third plot shows Channel thicknesses(with 50mm channel length, no curvature), readings with blue lights for thickness 1.6 mm shows a significant loss in transmission while 2mm or more than 2mm thickness values have similar light transmission values.  Red light readings are higher than blue light readings and mostly unaffected by the channel thickness.} 
+    \label{fig:tpu_inplace}
+    \vspace{-2mm}
+\end{figure*}
+
+
+\begin{figure}[h]
+
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/layerheight.pdf}
+    \vspace{-2mm}
+    \caption{Light transmission through in-place printed channels with varying layer heights and line widths, various materials. Note the Y-axis starts from 500. %\hd{replace with eval of inplace printed samples with different layer heights and line widths}
+    % Each material is consistent in high photodiode readings by both red and blue lights regardless of their cross-sectional dimensions.
+    % There is minimal impact of resolution on light transmission. 
+    }
+     \Description{Grouped candle stick chart showing photodiode readings for in place channels with varying layer heights (0.2, 0.3, 0.4mm). Each group includes red and blue bars. The y-axis starts at 500.  The red line is typically higher than the blue line. There is an upward trend from 0.2 to 0.4 in both materials.} 
+    \label{fig:layerheight}
+    \vspace{-4mm}
+\end{figure}
+
+
+% ABS is excluded due to its harmful fumes and the availability of safer and more sustainable alternatives. 
+% Since we anticipated multimaterial and modular printing, 
+% We selected them based on their different material properties, such as flexibility and clarity of material, as tested with a lux meter.
+% While PETG showed promising clarity under the lux meter, we found that printing temperature and cooling speed had an effect on the transparency, and multi-material printing resulted in mostly milky channels. 
+
+
+%Evaluations for printed and inserted PETG channels can be found in Appendix \ref{app:a}. 
+% Hence, for the rest of the evaluations we only focus on PLA and TPU.
+
+% As compared to PolyJet printing, FDM printing of transparent filaments typically results in lower clarity. However, this can be leveraged as a control parameter because 
+% While transparent filaments present lower clarity compared to photopolymer for PolyJet as in prior works, FDM allows precise control over the thickness of each line printed in the channel, the degree of light transmission can be tuned to create embedded thresholds for sensing applications. For example, by changing the geometric parameters for channels within a single object, the amount of light transmitted by each channel can be controlled. % a proximity sensor could be designed so that light only reaches when the user pushes or bends the optical channel slightly.  \hd{give examples madelein: like this??? or do you want an actual example i should cite?}
+
+
+% We conducted experiments by using both in-place printed channels and separately printed, inserted channels to test the effect of different geometrical parameters on light transmission. % which is $0.4$mm, provides the most amount of light transfer when compared to other layer heights, although the difference is minimal. 
+% Therefore, we have maintained this configuration, and 
+% We varied the length, thickness, and curvature of the channel to assess its limitation and used $0.4$mm layer height i.e. the maximum afforded by commonly available FDM extruder nozzle diameter. Lastly, because FDM printing provides fine-grained control over each individual line in a channel, we evaluated the effect of layer height and line width (i.e. the cross section of each line). 
+
+\subsubsection{Experiment Settings.}
+
+To understand how design affects performance, we tested several geometric parameters: channel length, curvature, thickness, and layer resolution (layer height and line width). For each parameter, we printed sample holders with in-place printed channels, as seen in Figure \ref{fig:eval_setting}. 
+The length holder tests channel lengths from 20mm to 100mm in 10mm increments (thickness constant at 2mm). The thickness holder tests channel thickness (diameter) from 1.6mm to 4mm in 0.4mm increments (length constant at 50mm). The curvature holder tests the channel curve radii from 15mm to 95mm in 10mm increments (length and thickness constant at 50mm and 2mm, respectively). Finally the layer height/line width tests 0.2mm, 0.3mm, 0.4mm layer heights with 0.21mm, 0.31mm, 0.41mm line widths respectively\footnote{Bambu Studio gives an error if the line width is less than or equal to the layer height}, with overall length and thickness set to 50mm and 2mm respectively. 
+
+We used Bambu P1S with AMS for printing with just PLA (both shell and channel) and Flashforge Creator Pro for all samples involving TPU. We used Overture transparent TPU and Giantarm transparent PLA for printing the optical channels. For the printing of all channels, we used concentric 100\% infill, an option available on most slicing softwares (we used Ultimaker Cura for Flashforge and BambuStudio). By extending the channels out of the holders, we manually cut off the edges (shown in red dashed lines in Figure \ref{fig:eval_setting} (middle-right)) with printed paths perpendicular to the direction of light. Detailed printing parameters can be found in Appendix \ref{app:params}
+
+\subsubsection{Procedure and Apparatus.}
+Each printed channel was evaluated by projecting light from a programmable RGB LED (Neopixel / WS2812B) and measuring output with a photodiode (BPW34) on the other end (Figure \ref{fig:eval_setting} (bottom)). For circuit diagram, see Appendix \ref{app:ckt}. Light intensities for red (255,0,0) and blue (0,0,255) were tested separately at maximum brightness, and photodiode readings range from 0-1023, corresponding to 0-5V. Green was ommitted because it has a broader emission spectrum that overlaps the red and blue ends of the visible light spectrum. 5 analog values for both red and blue lights were noted for each channel in the samples, measuring a total of 3 samples for each experiment. The  charts are created using the final total of 15 data points for each test variable with the whisker ends pointing to the maximum and minimum values.
+
+
+\subsubsection{Results.} Following are the findings from the evaluations:
+\label{sec:results}
+
+\begin{enumerate}[noitemsep, leftmargin=*]
+    \item\textbf{ As the length increased, channels exhibited a noticeable decline in transmission.}
+As the length increased from 20mm to 100mm, the photodiode readings decreased sharply, especially for blue light which dropped to near zero at longer lengths (Figure \ref{fig:pla_inplace}(a) and Figure \ref{fig:tpu_inplace}(a)). However, for the red light, TPU channels did not show much difference in transmission.
+
+\item \textbf{Channels with tighter curves or smaller bend radii showed a reduction in transmitted light.}
+The drop was most significant between 15mm and 35mm radii, beyond 35mm the transmission stabilized (Figure \ref{fig:pla_inplace}(b) and Figure \ref{fig:tpu_inplace}(b)). 
+
+\item \textbf{Channel thickness had less impact on light transmission.} 
+The channel with 1.6 mm thickness transmitted much less light than the thicker ones, particularly in the blue spectrum (Figure \ref{fig:pla_inplace}(c) and Figure \ref{fig:tpu_inplace}(c)). Blue light was affected more than red, likely due to its shorter wavelength.
+
+\item \textbf{Increasing layer height and line width resulted in increased transmission.} At 0.2mm, both PLA and TPU showed high variability and lower transmission (Figure~\ref{fig:layerheight}). By 0.4mm, both exhibited improved transmission and tighter error bars, suggesting reduced scattering due to fewer layer transitions.
+
+\end{enumerate}
+
+
+Overall, the evaluations can help us determine the geometrical and printing, as well as light wavelength parameters to control based on the desired effect.
+
+

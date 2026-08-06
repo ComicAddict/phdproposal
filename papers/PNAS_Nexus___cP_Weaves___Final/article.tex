@@ -1,0 +1,772 @@
+%%
+%% Copyright 2024 OXFORD UNIVERSITY PRESS
+%%
+%% v1.1 released August 2024
+%%
+%% This file is part of the 'pnas-nexus-authoring-template Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'pnas-nexus-authoring-template Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for PNAS Nexus's document class `oup-authoring-template'
+%% with bibliographic references
+%%
+%%
+%% Change log
+%%
+%% v1.0 2021
+%%    Adapted from oup_authoring_template.cls for use with pnas-nexus-authoring-template.tex
+%% v1.1 August 2024
+%%    Adjusted text of copyright statement for use with pnas-nexus-authoring-template.tex
+
+
+\documentclass[unnumsec,webpdf,contemporary,large]{oup-authoring-template}%
+
+%\usepackage{showframe}
+\usepackage{booktabs}
+\usepackage{lmodern}
+\usepackage{anyfontsize}
+\usepackage[dvipsnames]{xcolor}
+
+% line numbers
+\usepackage[mathlines, switch]{lineno}
+% \usepackage[right]{lineno}
+
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%  meant for continuous numbers
+%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
+%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\newtheorem{proposition}[theorem]{Proposition}%
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}
+
+
+% \theoremstyle{thmstylethree}%
+% \newtheorem{theorem}{Theorem}[section]
+% \theoremstyle{definition}
+% \newtheorem{definition}[theorem]{Definition}
+% \theoremstyle{remark}
+% \newtheorem{remark}[theorem]{Remark}
+% \newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem{proposition}[theorem]{Proposition}
+% \newtheorem{cor}[theorem]{Corollary}
+
+\newcommand{\GF}{{\mathrm{GF}}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\N}{{\mathbb{N}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+% \newcommand{\ACN}[1]{{\color{purple} #1}}
+% \newcommand{\tolga}[1]{{\color{ForestGreen} #1}}
+% \newcommand{\ergun}[1]{{\color{blue} #1}}
+
+\newcommand{\NC}[1]{{\color{black} #1}}
+\newcommand{\ACN}[1]{{\color{black} #1}}
+\newcommand{\tolga}[1]{{\color{black} #1}}
+\newcommand{\ergun}[1]{{\color{black} #1}}
+\newcommand{\VRK}[1]{{\color{black} #1}}
+
+%\usepackage{draftwatermark}
+%\SetWatermarkText{Draft}
+
+\title[Volumeteric Bravais  Weaves]{A Constructive  Framework for Discovery, Design, \& Classification of Volumetric Bravais Weaves}
+
+\author[a]{Tolga T. Yildiz}
+\author[b]{Alice C. Niemeyer}
+\author[d,a]{Vinayak R. Krishnamurthy}
+\author[c,a,1]{Ergun Akleman}
+
+\authormark{Yildiz et al.}
+
+\address[a]{\orgdiv{Department of Computer Science and Engineering}, \orgname{Texas A\&M University}, \orgaddress{\street{College Station}, \postcode{77840}, \state{TX}, \country{USA}}}
+\address[b]{\orgdiv{Chair of Algebra and Representation Theory}, \orgname{RWTH Aachen University}, \orgaddress{\street{Pontdriesch 10-16}, \postcode{52062}, \state{Aachen}, \country{Germany}}}
+\address[c]{\orgdiv{Visual Computing and Computational Media Section, School of Performance, Visualization and Fine Arts}, \orgname{Texas A\&M University}, \orgaddress{\street{College Station}, \postcode{77840}, \state{TX}, \country{USA}}}
+\address[d]{\orgdiv{J. Mike Walker'66 Department of Mechanical Engineering}, \orgname{Texas A\&M University}, \orgaddress{\street{College Station}, \postcode{77840}, \state{TX}, \country{USA}}}
+
+
+\begin{document}
+
+\journaltitle{PNAS Nexus}
+\DOI{DOI HERE}
+\copyrightyear{YEAR}
+\pubyear{YEAR}
+\access{Advance Access Publication Date: Day Month Year}
+\appnotes{Paper}
+
+\firstpage{1}
+
+%\subtitle{Subject Section}
+
+
+% \leadauthor{Yildiz}
+
+
+\corresp[$\ast$]{To whom correspondence should be addressed: \href{email:ergun.akleman@gmail.com}{ergun.akleman@gmail.com}}
+
+\received{Date}{0}{Year}
+\accepted{Date}{0}{Year}
+
+%\editor{Associate Editor: Name}
+
+\abstract{
+Woven fabrics have a long history of study across the fields of art, mathematics, and mechanics. While weaves with symmetries in \(\mathbb{R}^2\) have been extensively formalized, classified, and characterized, a systematic framework for representing and designing weaves in \(\mathbb{R}^3\) remains absent. Despite their relevance to engineering applications—particularly in composite materials—volumetric weaves are often designed in an ad hoc manner, typically by stacking planar weaves and introducing trivial thread connections along the stacking axis. In this paper, we establish a formal framework for volumetric weaves by defining them through the isometries of Bravais lattices and their corresponding Voronoi cells in \(\mathbb{R}^3\). This approach provides a structured description of the design space for 
+ \ergun{a specific family of} volumetric weaves, \ergun{which we call Volumetric Bravais Weaves}. %extending beyond planar weave symmetries. 
+ As \ergun{an example of Volumetric Bravais Weaves, we analyze}, \textit{cubic primitive weaves} (cP-weaves) \ergun{in detail} as the simplest example within \ergun{the Volumetric Bravais Weave} framework. \ergun{This example demonstrates}  how volumetric \ergun{Bravais}  Weave structures naturally emerge from 3D lattice isometries. Furthermore, we show that all possible cP-weaves can be systematically generated using a set of cP lattice isometries and cube isometries. Our findings reveal that \ergun{even just} the space of cP-weaves is at least one order of magnitude larger than that of conventional two-way two-fold weaves, highlighting the potential of our approach for expanding the design space of volumetric weaves.}
+\keywords{
+Volumetric Weaves, cP-Weaves, Woven Fabrics, Material Design
+}
+\boxedtext{
+%Woven fabrics provide unique advantages in engineering applications, including composite structures, layered filters, and structural reinforcement, due to their interlocking geometry. However, existing three-dimensional (3D) woven structures are typically defined through ad hoc stacking of planar weaves, limiting the exploration of their full design potential. This work introduces a mathematical framework for defining and representing volumetric weaves systematically. By generalizing the well-established geometric characterization of 2D weaves, our approach not only encompasses existing planar weaves but also enables the discovery of entirely new volumetric weave structures, even under simple weaving constraints. This formalism opens a vast, previously unexplored design space, with potential implications for the development of novel material systems in future applications.
+\ergun{Volumetric weaves offer exceptional structural versatility, making them promising candidates for lightweight, high-strength materials in aerospace, architecture, and advanced manufacturing. However, their systematic design and classification have remained an open challenge. This work introduces a mathematical framework that enables the precise representation, enumeration, and discovery of a specific class of volumetric weaves, which we call Volumetric Bravais Weaves. By providing a structured methodology, our approach significantly expands the design space of volumetric weaves and unlocks new opportunities for engineered materials, offering pathways for tailored mechanical properties, optimized manufacturing, and novel structural applications.}
+}
+\maketitle
+\section{Introduction}
+%Weaving has a rich history as one of the primary techniques for producing textiles and designed artifacts across civilizations for millennia. The uniquely interwoven geometry of woven structures has enabled a wide range of material applications, from textile manufacturing \cite{hu2004structure} to engineering composites and tissue engineering \cite{moutos2007biomimetic}. Although there is extensive literature on the mechanical properties of planar weaves, significant attention has also been directed toward volumetric weaves (or 3D weaves) since the 1990s due to their potential for high-impact resistance and other desirable qualities \cite{ren20213d,perera2021evolution,wu2020weavecraft,takahashi20193d,el20183d,bilisik2012multiaxis,mohamed2009comparative,kuo2007effect,khokar20013d,khokar19963d,cox1994failure,mohamed1990three,guenon1989toughness,mishra2015modelling, derck3dpatent}.
+
+\ergun{Volumetric fabrics have been widely explored in engineering and material sciences, particularly in the context of fabric-reinforced composites, where woven or knitted binding threads secure structural elements such as rigid bars or fiber reinforcements. The uniquely interwoven geometry of these structures has enabled a wide range of material applications, from textile manufacturing \cite{hu2004structure} to engineering composites and tissue engineering \cite{moutos2007biomimetic}. These studies often rely on numerical simulations to analyze mechanical properties and manufacturability constraints \cite{ren20213d,perera2021evolution,wu2020weavecraft,takahashi20193d,el20183d,bilisik2012multiaxis,mohamed2009comparative,kuo2007effect,khokar20013d,khokar19963d,cox1994failure,mohamed1990three,guenon1989toughness,mishra2015modelling, derck3dpatent}. For a recent comprehensive review, see Hasan, Horváth, and Alpár \cite{hasan2021potential}.}
+
+\VRK{A critical knowledge gap in the utilization of volumetric woven geometries for architected materials and composites comes from the lack of principled approaches for the design of such geometries. As a result, the current state of the art, by and large, uses ad hoc design principles to design volumetric woven structures and primarily focuses on the physical realization and mechanical characterization of volumetric fabrics. In contrast, our work takes a complementary perspective by examining volumetric weaves through the lens of discrete mathematics and symmetry and focuses on developing a framework to systematically classify these weaves using a subset of 3D lattice symmetries. This symmetry-based perspective enables us to identify structural patterns that may not be immediately evident through purely physical or numerical approaches.}
+
+\ergun{The primary contribution of this paper is the development of a systematic and versatile representation for volumetric weaves, which we call Volumetric Bravais Weaves (Figure~\ref{fig_teaser}). 
+% Unlike prior studies that emphasize specific weave constructions or mechanical properties, 
+This representation facilitates a broad range of applications, including the discovery of novel weave structures and the formalization of periodic volumetric weaving using combinatorial and algebraic principles. Our approach provides a unified framework for classifying, designing, and exploring volumetric weaving patterns in a structured manner.}
+
+\ergun{As a demonstration of the framework’s expressiveness, we enumerate specific volumetric weaves with minimal periodicity constraints and establish lower bounds on the number of possible volumetric weave structures. While these results are not the central focus of our work, they serve as evidence of the generality and scalability of our methodology. By leveraging this representation, we show that volumetric weaves can be systematically generated and classified, significantly expanding the scope of possible weave architectures.
+Beyond a mathematically grounded design methodology, this framework has broader implications for fields such as fiber arts, textile engineering, and computational design.}
+% \ergun{The historical connection between weaving and mathematics presents exciting opportunities for interdisciplinary research, linking mathematical formalism with physical realization in innovative ways.}
+
+\begin{figure*}[hptb!]
+\centering
+\includegraphics[width=0.95\linewidth]{fig1-teaser.pdf}
+\caption{\ergun{\textbf{Examples of Volumetric Bravais Weaves:} (a) Five topologically distinct Wigner-Seitz cells serve as the fundamental building blocks of volumetric weaves, allowing for variations in both cell types and thread counts. (b) Demonstrates different possible arrangements of threads within each cell, defining local thread configuration. (c) Presents the pre-assembly configurations of local structures for each cell, while (d) illustrates the process of assembling these local threads. Finally, (e) showcases large-domain examples, highlighting how threads aligned in the same direction are interconnected and smoothed.}\label{fig_teaser}}
+\end{figure*}
+
+\begin{figure}[hbpt]
+\centering
+\includegraphics[width=\linewidth]{fig2-rod-vs-weave.pdf}
+    \caption{Our Volumetric Bravais Weaves encompass rod packings as a special case, as shown in (a), while maintaining full local control over individual thread configurations, as shown in (b). This approach enables a significantly expanded design space for Volumetric Weaves, allowing for diverse and customizable local configurations, as shown in (c).\label{fig:rod_packing}}
+\end{figure}
+
+\ergun{
+\subsection{Background on Volumetric Weaves}
+
+% Despite the increasing interest in volumetric weaves, a formal and systematic framework for describing their structure and design space remains absent. - REPETITION 
+Much of the earlier work on volumetric weaves implicitly relies on mathematical frameworks originally developed for planar weaves, such as isonemal fabrics \cite{Grunbaum80,Grunbaum85,Grunbaum86,grunbaum1988isonemal}. Consequently, existing approaches often extend planar weave symmetries by layering or stacking them in three dimensions, without establishing an independent formalism for volumetric weaves \cite{STIG20121495}. While recent studies have acknowledged the role of space groups and crystallographic lattices in describing periodic entanglements \cite{O'Keeffe:cryst2-period, periodic_geo_knots} and their embeddings in hyperbolic spaces \cite{periodic_entanglement_2, ideal_geometry_periodic_entanglement_2}, explicit representations that allow different local thread configurations (see Figure \ref{fig_teaser}b) for volumetric weaves remain absent. Additionally, modular design strategies have been explored \cite{derck3dpatent, Lord2006}, yet a comprehensive mathematical framework for representing the full weave configuration and design space is still lacking.
+
+Mathematical studies of knots have long been well-developed, while weaving, despite its structural complexity, has received comparatively less formal mathematical attention. One possible reason for this is the historical perception of weaving as a craft rather than a rigorous mathematical subject. However, recently, there has been strong interest in the crystallography community in the formalization of volumetric weaves, aiming to bridge this gap by providing a structured and systematic approach. For instance, there has been some exploration of the rod packing problem \cite{rosi2005rodpacking, okeefe1977rodpacking} and the symmetries of rod packings \cite{okeeffe2001invariant_cubic_rod_packing}, which bear similarities to volumetric weaves (see Figure \ref{fig:rod_packing}). However, rod packings by definition do not consider local configurations, as the rod unit that tiles the space does not have different configurations. 
+
+% Another recent discovery on \textbf{periodic entanglements} \cite{periodic_entanglement_1, periodic_entanglement_2, periodic_entanglement_3, ideal_geometry_periodic_entanglement_2, 3periodicentanglement} proposes embedding weave strands in \textbf{triply periodic surfaces and hyperbolic planes}. In these works, the local embedding is determined by mapping the \textbf{hyperbolic plane} ($\mathbb{H}^2$) to the \textbf{triply periodic surface} ($\mathbb{E}^3$), defining the path that the strand follows. These structures, called \textbf{entanglements}, generate different classes of periodic volumetric structures, including \textbf{invariant rod packings, intersecting filament axes, tangled weaves, and looped filaments}. These structures explore remarkable periodic entanglements and provide a way to parametrize periodic structures with a single hyperbolic plane. However, these works, primarily focus on creating repeating unit structures. In fact, we observe that these resulting structures are derivable within design space of our volumetric Bravais weaves, specifically cP weaves  (see Figure \ref{fig:rod_packing}b) and a \textbf{rich design space} (see Figure \ref{fig:rod_packing}c). Not only that, these structures span a rather limited subspace of what is possible within the larger space. This is because they do not consider \textbf{the local configuration of each thread} and use the same unit structure generated by the mapping to define the geometry. In contrast, assigning each unit cell  \textbf{different thread structures} and allowing all Wigner-Seitz cells as unit cells, we extend the design space significantly.
+
+Another recent discovery on periodic entanglements \cite{periodic_entanglement_1, periodic_entanglement_2, periodic_entanglement_3, ideal_geometry_periodic_entanglement_2, 3periodicentanglement} proposes embedding weave strands in triply periodic surfaces and hyperbolic planes. In these works, the local embedding is determined by mapping the hyperbolic plane ($\mathbb{H}^2$) to the triply periodic surface ($\mathbb{E}^3$), which defines the path that the strand follows. These structures, called entanglements, generate different classes of periodic volumetric structures, including invariant rod packings, intersecting filament axes, tangled weaves, and looped filaments. These structures explore remarkable periodic entanglements and provide a way to parametrize periodic structures using a single hyperbolic plane. However, these works primarily focus on creating repeating unit structures. In fact, we observe that these resulting structures are derivable within the design space of our volumetric Bravais weaves, specifically cP weaves (see Figure \ref{fig:rod_packing}b) and have a rich design space (see Figure \ref{fig:rod_packing}c). Moreover, these structures span only a limited subspace of what is possible within the larger design space. This is because they do not consider the local configuration of each thread and instead use the same unit structure generated by the mapping to define the geometry. In contrast, by assigning each unit cell different thread structures and allowing all Wigner-Seitz cells as unit cells, we significantly extend the design space.
+
+
+\subsection{Volumetric Bravais Weaves}
+
+In this paper, we introduce Volumetric Bravais Weaves, a systematic and formal approach to defining a specific family of volumetric weaves using 3D lattice structures. By formulating these weaves intrinsically within three-dimensional crystallographic lattices, we provide a rigorous framework that enables a structured exploration of their mathematical properties. Our primary focus is on establishing the fundamental formalisms that describe the design space of volumetric weaves, rather than exhaustively characterizing their mechanical behavior. This framework enables us to use different 3D tessellations to construct volumetric weaves (see Figure \ref{fig_teaser}d and \ref{fig_teaser}e). To illustrate the power of this approach, we investigate cubic primitive weaves (cP-weaves) as the simplest example within this formalism. By doing so, we reveal a broad and previously underexplored design space, laying the groundwork for future investigations into the mathematical and physical properties of volumetric weaves. Our key contributions can be as follows:
+
+\begin{enumerate}
+    \item \textbf{Lattice-based mathematical framework}: We introduce a mathematically constructive framework for defining volumetric weaves based on \textbf{3D Bravais lattices} and \textbf{Wigner-Seitz cells}. 
+    \item Using this framework, we analyze a specific subset of Volumetric Bravais Weaves, namely, \textbf{cP-weaves} and \textbf{plain cP-weaves}, to demonstrate the power of overall framework.
+    \item \textbf{Generality of framework}: Our mathematical approach \textbf{subsumes} the space of \textbf{2D weaves} and rod packings (Figure~\ref{fig:rod_packing}), demonstrating its generality.
+    \item \textbf{Bounds for the space of cP-weaves}: We provide \textbf{lower bounds} for the number of possible \textbf{cP-weave} configurations given a defined number of elements in a domain.
+    \item \textbf{Enumeration}: We enumerate \textbf{plain cP-weaves} up to an $8\times8\times8$ domain.
+    \item \textbf{Enumeration algorithm for plain cP-weaves}: We develop a formal \textbf{algorithm} to enumerate plain cP-weaves efficiently.
+    \item \textbf{Algorithms for designing cP-weaves}: We present new computational \textbf{design strategies} for constructing cP-weaves.
+\end{enumerate}
+}
+
+% \subsection{Context and Motivation}
+
+% Despite the increasing interest in volumetric weaves, a formal and systematic framework for describing their structure and design space remains absent. Much of the earlier work on volumetric weaves implicitly relies on mathematical frameworks originally developed for planar weaves, such as isonemal fabrics \cite{Grunbaum80,Grunbaum85,Grunbaum86,grunbaum1988isonemal}. Consequently, existing approaches often extend planar weave symmetries by layering or stacking them in three dimensions, without establishing an independent formalism for volumetric weaves \cite{STIG20121495}. While recent studies have acknowledged the role of space groups and crystallographic lattices in describing periodic entanglements \cite{O'Keeffe:cryst2-period, periodic_geo_knots} and their embeddings in hyperbolic spaces \cite{periodic_entanglement_2, ideal_geometry_periodic_entanglement_2}, explicit representations that allow different local thread configurations(see Figure \ref{fig_teaser}b) for volumetric weaves remain absent. Additionally, modular design strategies have been explored \cite{derck3dpatent, Lord2006}, yet a comprehensive mathematical framework for representing the full weave configuration and design space is still lacking.
+
+% \subsection{Basis and Rationale}
+
+% In this paper, we introduce a systematic and formal approach to defining volumetric weaves using 3D lattice structures. By formulating these weaves intrinsically within three-dimensional crystallographic lattices, we provide a rigorous framework that enables a structured exploration of their mathematical properties. Our primary focus is on establishing the fundamental formalisms that describe the design space of volumetric weaves, rather than exhaustively characterizing their mechanical behavior. This framork enables us to use different 3D tesselations to construct volumetric weaves(see Figure \ref{fig_teaser}d and \ref{fig_teaser}e). To illustrate the power of this approach, we present cubic primitive weaves (cP-weaves) as the simplest example within this formalism. By doing so, we reveal a broad and previously underexplored design space, laying the groundwork for future investigations into the mathematical and physical properties of volumetric weaves.
+
+% \section{Volumetric Weave Representation: A Background}
+
+% \ergun{Mathematical studies of knots have long been well-developed, while weaving, despite its structural complexity, has received comparatively less formal mathematical attention. One possible reason for this is the historical perception of weaving as a craft rather than a rigorous mathematical subject. However, recently there is a strong interest in crystallography community for formalization of volumetric weaves, which aims to bridge this gap by providing a structured and systematic approach. In particular, }
+% %Formalization of volumetric weaves has been one of the interests of the crystallography community, 
+% there has been some exploration on the rod packing problem\cite{rosi2005rodpacking, okeefe1977rodpacking} and the symmetries of the rod packings\cite{okeeffe2001invariant_cubic_rod_packing} which resembles similarity to volumetric weaves (see Figure \ref{fig:rod_packing}). However the rod packings by definition does not consider local configuration of the rod since rod unit that tiles the space does not have different configurations. Another recent discovery on periodic entanglements that is proposed in \cite{periodic_entanglement_1, periodic_entanglement_2, periodic_entanglement_3, ideal_geometry_periodic_entanglement_2, 3periodicentanglement} a specific geometric space is chosen to embed weave strands which is based on triply periodic surfaces and hyperbolic planes. In these works the local embedding is given by the mapping of hyperbolic plane ($\mathbb{H}^2$) to the triply periodic surface ($\mathbb{E}^3$) and the hyperbolic plane defines the path the strand is following. These are called entanglements in general because it can generate different classes of periodic volumetric structures: Invariant Rod Packings, intersecting filament axes, tangled weaves and looped filaments. These works remarkably show the different possibilities of periodic entanglements and gives a way to parametrize periodic structure with a single hyperbolic plane, however these works do not consider the local configuration of each thread and uses the same tile generated by the mapping to define the geometry. In contrast, we introduce locally controllable threads (see Figure \ref{fig:rod_packing}b) and very rich design space (see Figure \ref{fig:rod_packing}c).
+
+% Our contributions are as follows:
+% \begin{enumerate}
+%     \item Lattice-Based mathematical framework: A mathematically constructive framework for defining volumetric weaves based on 3D Bravais Lattices and resulting Wigner-Seitz cells. Using this framework we define cP-weaves, plain cP-weaves. 
+%     \item General framework: our mathematical framework subsumes the space of 2D weaves.
+%     \item Bounds for the space of cP-weaves: We provide upper bounds for the different possible cP-weave configurations given the number of elements in a domain
+%     \item Enumeration: plain cP-weaves up to $8\times8\times8$ domain are enumerated.
+%     \item Enumeration algorithm for plain cP-weaves
+%     \item Algorithms for designing cP-weaves.
+% \end{enumerate}
+
+
+\section{Definition of Volumetric Bravais Weaves}
+
+A \emph{thread} is the image of an embedding of $\R$ into $\R^3$. An \emph{entanglement} is a disjoint union of possibly infinitely many threads and loops in $\R^3$.
+There is rich literature on entanglements; see \cite{periodic_entanglement_1,periodic_entanglement_2,3periodicentanglement,ideal_geometry_periodic_entanglement_2}.
+In this paper, we consider very special entanglements, called \emph{weaves}, as defined below.
+
+% Recall that a two-way two-fold  weave can be represented by a map $\Z\times \Z \to \{0,1\}$,
+% where the weft and warp threads are understood to meet at the points
+% of the lattice $\Z\times \Z$ and the map represents the ranking order,
+% where a ``zero" indicates that the weft thread passes under the warp thread
+% and a ``one" that the warp thread passes under the weft thread.
+% We generalize this idea to define volumetric weaves. 
+Although it is possible to define volumetric weaves even more generally, here we focus on weaves in which the points where the  threads meet (crossing points) are evenly spaced in $\R^3$, and at each ``crossing point" the number of threads meeting at this point is constant.
+Let $B:=\{v_1, v_2, v_3\}$ be the basis for $\R^3.$
+Define ${\mathcal L}(\{v_1,v_2, v_3\}) = \{ iv_1+jv_2+kv_3\mid i,j,k\in \Z\}$.
+Then  ${\mathcal L}(B)$ is a full Bravais lattice in $\R^3$
+and, as usual, we denote a vector $iv_1+jv_2+kv_3\in
+{\mathcal L}(\{v_1,v_2, v_3\}) $ by $(i,j,k)$.  Given a lattice ${\mathcal L}(B)$, a cell containing exactly one lattice point, called the \emph{Wigner-Seitz cell} or the \emph{Voronoi cell}, can be defined by considering all points in $\R^3$ closest to the lattice point. The translated copies of these cells fill the entire space.
+
+\begin{definition}\label{bravaisdefinition}
+ Let  $B=\{v_1, v_2, v_3\}$  be the basis for $\R^3$. Suppose that $C$ is a Voronoi cell of ${\mathcal L}(B)$, and let $\ell \in \Z$ be the number of configurations of $n$ skew lines, %\cite{viro2006configurations} \ACN{no citation here}
+ where $n$ is equal to the number of faces of $C$. 
+  A  \emph{volumetric \ergun{Bravais} weave } with basis $B$ is
+  a map $V: {\mathcal L}(B) \to \{1,\ldots, \ell\}$.
+For $(i,j,k) \in {\mathcal L}(B)$ the value 
+$V(i,j,k)$ is called the
+\emph{configuration of the  threads} meeting in $(i,j,k)$.
+\end{definition}
+
+\begin{remark}
+Skew lines are a set of lines that do not intersect and are not parallel to each other \cite{viro2006configurations}. For example, the two lines through opposite edges of a regular tetrahedron are skew lines. Similarly, three non-touching edges of a cube define three skew lines.  
+\end{remark}
+
+\begin{remark}
+\textrm{
+A volumetric \ergun{Bravais} weave with basis $B$ can be thought of as an entanglement of threads obtained from lines that meet at lattice points by diverting the lines around the intersection point. 
+\begin{enumerate}
+    \item Any line is parallel to a vector from the center of the Voronoi cell to the nearest lattice point. A line passes through exactly two faces of the Voronoi cell.
+    \item Any two different lines can only meet at a point in ${\mathcal L}(B)$.
+    \item For each $(i,j,k) \in {\mathcal L}(B)$ the number $n$ of pairwise non-parallel lines meeting in  $(i,j,k)$ is equal to half of the number of faces of the Voronoi cell.
+    \item Observe that the Voronoi cell has the same symmetries as the lattice.
+    \item In a woven structure the lines are replaced by threads, and at the intersection points of lines the threads are diverted to be locally an arrangement of skew lines.
+     The value $V(i,j,k)$ allows us to arrange the $n$ threads around $(i,j,k)$ in a well-defined entanglement, see Proposition~\ref{prop:representation} for details.
+\end{enumerate}
+}
+\end{remark}
+
+\subsection{Representation of cP-weaves as GF(2)\texorpdfstring{\textsuperscript{3}}{} Group on Lattice Cells}
+
+\ACN{This definition is very general and allows us to define very interesting volumetric \ergun{Bravais} weaves. In this paper, we focus on one particular Wiegner-Seitz cell, namely the cube. The reason for this focus is that this cell is easy to understand, allowing us to highlight the difference between volumetric
+and plane weaves. Already with this example, we are able to demonstrate the vast potential volumetric \ergun{Bravais} weaves posess. We will consider other Wiegner-Seitz cells in a forthcoming publication. }
+%
+%Although this definition is very general and allows us to define very interesting volumetric weaves, we focus in this paper on the case where 
+Suppose henceforth that the basis $B$ consists of the 3 unit vectors of $\R^3$ and thus our lattice is $\Z^3$ and a Voronoi cell $C$ is a cube. This lattice corresponds to the primitive cubic lattice in the crystallography context and we call these weaves \emph{primitive cubic weaves} (cP-weaves). 
+%In particular, we consider %volumetric weaves where each %thread is parallel to either %the $x$, the $y$ or the $z$ %axis .
+In this case, the configurations of skew lines passing through two faces of $C$ each can be parameterized by choosing three edges of $C$ such that no two have a common vertex \cite{viro2006configurations}. We can therefore identify  $V(i,j,k)$ with a cube $C$ with three distinguished edges. These configuration of skew lines are closely related to the invariant cubic rod packings \cite{okeeffe2001invariant_cubic_rod_packing} in a sense that the tiling of these skew lines in the space would create a basis for rod packings  as can be seen in Figure \ref{fig:rod_packing}a. This formulation of the volumetric weaves subsumes the rod packing definition and create different structures from the initial rod packing (see Figure \ref{fig:rod_packing}).
+
+\ACN{We are particularly interested in weaves that display some non-trivial symmetry.}
+When considering different \ACN{symmetric} weaves that can be obtained by Definition~\ref{bravaisdefinition}, we need to \ACN{distinguish}
+%consider 
+two different types of symmetry, the first type of symmetry is the \ACN{group of isometries} of the unit cell, as 
+%which comes from the underlying bravais %lattice and resulting Wigner-Seitz cell,
+the cell geometry helps us to identify the local configurations %(see Figure \ref{fig:rot_isotopy}). 
+(see Figures~\ref{cpconfs} and~\ref{fig:rot_isotopy}). 
+The second type of symmetry is the %translational \ACN{Can have more than just translations} 
+\ACN{symmetry group} of  the Bravais lattice,
+ which supports the translation of the weave to obtain itself again.
+
+
+\NC{A cP-weave consists} \tolga{of skew lines arranged in a cP lattice(Figure \ref{fig_teaser}a) where \NC{each group of skew line segments} defines the local configuration of the threads (Figure \ref{fig_teaser}b1) within the Voronoi cell, i.e. cube}. Each pair of threads in the \NC{cube has an order}. When \NC{all the rank orders are combined}, \NC{we get a \emph{configuration}} of the cell. \tolga{From the definition of cP-weave, the configurations of a cell can be identified with three distinguished edges no two of which share a vertex, which leads to 8 different cell configurations(see \ref{cpconfs}).}
+
+\begin{figure}[hb!]
+\centering
+\includegraphics[width=\linewidth]{fig3-cp-confs.pdf}
+\caption{\tolga{Using the thread configurations in (a) and (b) we can construct a variety of cP-weaves as can be seen from Figures ~\ref{fig_teaser}d and ~\ref{fig_teaser}e. Configurations can be separated into two groups where each group only consists of thread configurations that can be obtained with rotations from one configuration of the same group. Take group (a) as an example, each of the configurations are just a rotation of other thread configurations from group (a).}}
+\label{cpconfs}
+\end{figure}
+
+% Moreover, we also extend the concept of discrete derivatives to represent cP-weaves. 
+% \tolga{To represent a Volumetric Bravais weave there are three challenges: (1) an initial rank order representation of threads in the unit cell, (2) an encoding of all configurations of the threads in the unit cell, (3) and a lattice system to encode define local configurations for each cell. If the encoding in (2) is consistent with the symmetry operations of the unit cell it allows us to determine elegant methods to embody the line configurations for a given unit cell. In the case of cP-weaves mirror symmetries of the cube produce all the line configurations.
+% }
+\ergun{Representing a Volumetric Bravais weave involves three steps: (1) Establishing an initial rank-order representation of threads within the unit cell. (2) Encoding all possible configurations of the threads in the unit cell. (3) Defining a lattice system to encode and represent local configurations for each cell. If the encoding in (2) is consistent with the symmetry operations of the unit cell, it enables the development of a simple and elegant method for representing line configurations within a given unit cell. 
+
+\begin{figure}[htpb!]
+\centering 
+\includegraphics[width=0.98\linewidth]{fig7-cube-automorphism.pdf}
+\caption{One of the Voronoi cell from the eight fundamental cubes in Figure \ref{cpconfs} is given in (a). After a rotation operation along the principal axes in $\R^3$, each cell is transformed into the cells in (b) which corresponds to another configuration in Figure \ref{cpconfs} that is shown in (c). Using this property we can map a configuration in regular cP-weave $V_1$ to the rotated $V_1$ and find an isometry between the weaves.}
+\label{fig:rot_isotopy}
+\end{figure}
+
+In the case of cP-weaves, the mirror symmetries of the cube naturally generate all possible line configurations.}
+% Then the existence of a group is key for constructing the thread configuration in a cell and consequentially a single thread.
+\ergun{
+Mirror operations can be represented using mirror matrices of the following form:
+
+\begin{equation} 
+\label{Eq:MirrorMatrix}
+M_{(x,y,z)} =
+\begin{pmatrix}
+(-1)^x & 0 & 0\\
+0 & (-1)^y & 0\\
+0 & 0 & (-1)^z
+\end{pmatrix},
+\end{equation}
+where $x, y, z \in \{0, 1\}$
+%Note that $M_{(0,0,0)}$ corresponds to the identity matrix %. Additionally, every mirror matrix is its own inverse, 
+and the multiplication of two mirror matrices can be expressed as:
+%an operation over their indices:
+\begin{align} 
+\label{Eq:MatrixInverse}
+M_{(x_1,y_1,z_1)} M_{(x_2,y_2,z_2)} =
+M_{(x_1+x_2, y_1+y_2, z_1+z_2)},
+\end{align}
+where $+$ is modulo $2$ addition. %This formulation ensures that mirror operations follow a structured and predictable pattern.
+\NC{Notably, this set of matrices forms a group with identity $M_{(0,0,0)}$ that is isomorphic to the additive group $\GF(2)^3$, where matrix multiplication corresponds to element-wise addition modulo $2$.}
+
+We assume that the initial thread configuration is chosen arbitrarily and corresponds to the identity matrix $M_{(0,0,0)}$. The other configurations, obtained by applying the mirror matrix $M_{(x,y,z)}$ to this initial configuration, can be labeled accordingly, as illustrated in Figure \ref{cpconfs}. By exploiting
+the group isomorphism mentioned above, we can thus represent the possible thread configurations of a cP-weave using the elements of $\GF(2)^3$.   
+
+%Notably, this set of matrices forms a group that is isomorphic to the additive group $\GF(2)^3$, where matrix multiplication corresponds to element-wise addition modulo $2$. Consequently, we can represent the possible thread configurations of a cP-weave using the elements of $\GF(2)^3$.  
+
+Since each Bravais lattice point can be assigned a distinct configuration, a general cP-weave can be viewed as a mapping from lattice points to elements of $\GF(2)^3$, formally expressed as:
+$V: \mathbb{Z}^3 \to \GF(2)^3.$ 
+}
+
+\subsection{Construction of cP-Weaves in Translation Cells}
+
+\ergun{The key idea in the construction of cP-weaves is to identify configuration changes from one cell to another in all three directions. This approach is fundamentally different from planar weaves, where such changes do not need to be explicitly identified. To facilitate this, we introduce the concept of a discrete derivative.}
+Given a cP-weave $V:\Z^3\to \GF(2)^3$, we can now define discrete derivatives in all three, i.e. $x$, $y$, and $z$, directions as $\delta_x V = V(n+1,m,k)-V(n,m,k)$, $\delta_y V = V(n,m+1,k)-V(n,m,k)$, and $\delta_z V = V(n,m,k+1)-V(n,m,k),$ respectively. The discrete derivatives for the derivatives in the $x$ direction are shown in Figure \ref{fig:derivatives}.
+
+ % Note that our description of a cP-weaves yields the two-way two-fold weaves as a projection: The two-way two-fold weave constructed from the $y,z$-threads of the cP-weave $V$ for $x=i$ is described by the binary-valued matrix $M$ with $M_{jk}= a$ given $V(i,j,k)= (a,b,c)$.
+
+\begin{figure}[t!]
+\centering
+\includegraphics[width=\linewidth]{fig5-dx-discrete.pdf}
+\caption{All possible $\delta_xV$ values for a neighbourhood visualized with the single initial configuration $V(0,0,0)=(0,0,0)$ (leftmost cell in each cell pair) and $V(1,0,0)=V(0,0,0)+\delta_xV$(rightmost cell in each cell pair). Note that the connections here are not post-processed to show the initial geometry of local weaves and how connections are formed between cells. These connections ensure that the threads do not intersect each other.}
+\label{fig:derivatives}
+\end{figure}
+
+% Given a cP-weave $V:\Z^3\to \GF(2)^3$, we can also construct weaves describing its translation cells. The threads in the translation cells can be constructed from local skew lines. Note that we refer to the entries of $W$ as $W(i,j,k)$, where $i,j,k\in \{1,\ldots,M\}$ and view $W(i,j,k)$ as a vector in $\GF(2)^3$.
+
+\begin{proposition}\label{prop:representation}
+Let there be a cP-weave $V$ with $N\times M\times K$ a translation cell $W$. Then the geometry of the $V$, i.e.\ the configuration of the skew lines, can be constructed from an $N\times M\times K$ cubic array with entries in the vector space $\GF(2)^3$.  
+\end{proposition}
+
+\noindent\textit{Proof}
+Each cell of $W$ encodes a unit cube with 3 distinct skew line segments that lie parallel to the principal axis of the cubic primitive Bravais lattice; these 3 skew lines are treated as a local portion of the threads in $W$. We may assume that the specific embeddings of these skew lines are the following:
+\begin{enumerate}
+    \item $x=\overline{\rm X_0X_1}$, $X_0=(-0.5, -y_0, -z_0),X_1=(0.5, -y_0, -z_0)$
+    \item $y=\overline{\rm Y_0Y_1}$, $Y_0=(-x_0, -0.5, z_0),Y_1=(-x_0, 0.5, z_0)$
+    \item $z=\overline{\rm Z_0Z_1}$, $Z_0=(x_0, y_0, -0.5),Z_1=(x_0, y_0, 0.5).$
+\end{enumerate}
+
+This constitutes the base configuration of threads where the pairwise rank orders are given as $r_{(x,y)}=1$ denoting that the $x$ thread has a higher rank than $y$ within the $xy$ plane projection, $r_{(y,z)}=1$ denoting that the $y$ thread has a higher rank than $z$ within the $yz$ plane projection and $r_{(x,z)}=1$ denoting that the $x$ thread has the higher rank than $z$ within $xz$ plane projection.
+
+As shown in \cite{viro2006configurations}, there are 2 distinct configurations of these 3 skew line segments if we only have one set of 3 skew lines. But in our cP-weaves we use different sets of 3 skew lines at different places in space, e.g. lattice points, which distinguishes the orientation of the threads and results in 8 different configurations, since each $r_{(i,j)}\in GF(2)$ giving $2\times2\times2=8$.
+
+Then in each cell $C=W(i,j,k)$ we can use a binary triplet $(r_{(y,z)}(i,j,k),r_{(x,z)}(i,j,k),r_{(x,y)}(i,j,k))\in  GF(2)^3$ to represent the the pairwise ranking orders which span the entire configuration space for the local thread configuration. This rank order representation can be realized with the mirror matrix applied to the base configuration as discussed before. Thus creating a unique representation of the cP-weave as the collection of all $W(i,j,k)=(r_{yz}(i,j,k),r_{(xz)}(i,j,k),r_{(xy)}(i,j,k))$ resulting in a $GF(2)^3$ valued cubic array.
+
+
+Remark 3 
+\textit{The resulting virtual construction consists of piecewise linear curves, as shown in Figures~\ref{fig:derivatives} and \ref{fig_teaser}c. Any two line segments between two neighboring cubes are connected with short line segments at the interface of the two neighboring cubes. These short line segments do not intersect with other skew lines, since the others do not intersect with the face separating the two cubes. This guarantees that the resulting threads do not intersect with each other.}
+
+Remark 4 
+\textit{There is still a caveat, since we smooth these piecewise linear curves for virtual construction as shown in Figure~\ref{fig:smoothedderivatives}. For smoothing, it is better to use a parametric formula that satisfies partition of unity such as B-splines and Bezier curves \cite{bartels1995introduction,cohen2001geometric}, then we can use piecewise linear curves as control points of this parametric system. Since the resulting smooth curves always stay in the convex hull of local control points, it is easy to avoid intersections. In our implementations, we used Non-Uniform Rational B-Spline (NURBS) curves \cite{piegl1996nurbs}. }
+% We also thicken these curves by sweeping a circle along the curve \cite{piegl1999computing} (see Figure~\ref{fig:smoothedderivatives}). To avoid collisions, the radius of the cylinder must be less than half of the minimum distance between the sweeping curves, which can be estimated using existing methods such as \cite{elber2001geometric}. 
+
+
+\begin{figure}[hpbt!]
+\centering 
+\includegraphics[width=0.98\linewidth]{fig6-dx-cont.pdf}
+\caption{Smoother versions of threads in Figure~\ref{fig:derivatives} with all possible $\delta_xV$ values for a neighborhood visualized with a single initial configuration $V(0,0,0)=(0,0,0)$ (leftmost cell in each cell pair) and $V(1,0,0)=V(0,0,0)+\delta_xV$(rightmost cell in each cell pair). Note that the connections are smoothed to show how the final connections are formed between the cells. These smoothed curves do not intersect since we become sure that the convex hulls of the local control points do not intersect.}
+\label{fig:smoothedderivatives}
+\end{figure}
+
+\begin{figure*}[hptb!]
+\centering
+\includegraphics[width=\linewidth]{fig4-222-plain-enum.pdf}
+\caption{One interesting subset of cP-weaves is textit{regular plain} cP-weaves (see Definition \ref{def:cP_plain}). In these weaves, threads are always changing their rank orders from one cell to the other. The number of different regular plain cP-weaves depends on the size of the domain(see Proposition \ref{prop:numbercubicplain}). In (a1,a2,a3,a4) we show all possible regular plain cP-weaves for $2\times2\times2$ cellular domain. (b1,b2,b3,b4) are extended version of the (a1,a2,a3,a4) respectively, i.e. $2\times2\times2$ domain is repeated to get $4\times4\times4$ cP-weave. Note that counting different weaves depends on the allowed symmetry operations as well. Here we grouped the weaves based on cellular translation, rotation and mirror operations which allows for 4 different $2\times2\times2$ regular plain cP-weave. If we remove mirror operation then the group (a4) separates into two groups(right and left images), this means that all weaves in (a1,a2,a3) are self-chiral.}
+\label{fig_plain_weave}
+\end{figure*}
+
+\section{Design Space of cP-weaves}
+
+Recall that the group of isometries that leave a Bravais lattice invariant is a crystallographic group $G$ and as such is a discrete subgroup of the Euclidean group $E(3)$. The Voronoi cell is a translation cell of the lattice and is mapped by elements of $G$ to another translation cell. The symmetry group of the orthogonal lattice with standard basis(i.e. the cubic primitive lattice) and cubic Voronoi cell $C$ is $\Z^3 \rtimes O(C),$ where $O(C)$ denotes the symmetry group of the cube and has order 24.
+\begin{definition}
+Let $V$ be a cP-weave with lattice ${\mathcal L}(B)$. 
+An automorphism of $V$ is
+a lattice isometry  $\alpha$ of ${\mathcal L}(B)$ such that 
+$V(\alpha(i,j,k))=\alpha(V(i,j,k))$ for all $(i,j,k)\in {\mathcal L}(B),$
+where $\alpha(V(i,j,k))$ is the image of the cube $V(i,j,k)$ under $\alpha$. We denote the
+group of automorphisms of $V$ by $\textrm{Aut}(V).$
+\end{definition}
+
+
+
+
+
+\subsection{Isometric Properties of cP-Weaves}
+
+To study the isometric properties of cP-weaves, we used a specific subset, which we call regular cP-weaves. 
+
+\begin{definition}
+A \emph{regular cP-weave} is a  cP-weave such that there is a $M\times M \times M$ cubic translation cell $W$ such that $V$ is generated from $W$ by translations along vectors of length $M$ along the standard basis.
+In this case, $\textrm{Aut}(W)$ denotes the set of lattice isometries fixing $W$ and $\textrm{Aut}(W)\le \textrm{Aut}(V).$
+\label{regular_cP-weave}
+\end{definition}
+
+The most important property of the regular cP weaves for our purposes is that they can be rotated in all three directions, which makes it easier to study isometry properties. 
+
+\begin{definition}\label{def:cP_plain}
+  A \emph{regular plain cP-weave} is a regular cP-weave for which any two-way two-fold weave in a plane orthogonal to any of the coordinate axes is a plain weave with respect to the remaining two coordinates (See Figure~\ref{fig_plain_weave}).
+\end{definition}
+
+We are also interested in regular plain cP-weaves and their representations. Our aim is to show that volumetric weaves facilitate a far larger design space than two-way two-fold weaves. Although two-way two-fold weaves only admit one type of plain weave, we show that the number of regular plain cP-weaves grows exponentially in the size of a cubic translation cell.
+
+We begin by introducing a very convenient and compact way of representing regular plain cP-weaves.
+
+\begin{proposition}\label{prop:representationplain}
+Let $W$ be an 
+$M\times M\times M$  translation cell for a regular plain cP-weave $V$. Let $v_0 = (x_0, y_0, z_0)= W(1,1,1)$. Then there are vectors $d_x, d_y, d_z \in \GF(2)^{M}$ such that $W$, and thus also $V$, is uniquely determined by $(v_0,d_x,d_y,d_z)$.
+\end{proposition}
+
+\noindent\textit{Proof}
+Note that a regular plain cP-weave has to satisfy that in transitioning from  $W(i,j,k)$ to a neighbouring cube, say to $W(i+1,j,k)$, the two pairs of threads in the $x,y$-plane as well as in the $x,z$-plane change ranking order. In other words,  $\delta_x W(i,j,k) = W(i+1,j,k) - W(i,j,k) = (a,1,1)$ for some $a\in \GF(2)$. This means for the derivatives and $i,j,k\in \{1,\ldots, M-1\}$
+\begin{equation}\label{eq:plainconstraint}
+\begin{split}
+\delta_x W(i,j,k) &= W(i+1,j,k))- W(i,j,k) = (a_{ijk},1,1),\\
+\delta_y W(i,j,k) &= W(i,j+1,k) - W(i,j,k) = (1,b_{ijk},1),\\
+\delta_z W(i,j,k) &= W(i,j,k+1) - W(i,j,k) = (1,1,c_{ijk}),    
+\end{split}
+\end{equation}
+for $a_{ijk},b_{ijk},c_{ijk} \in \GF(2).$
+
+We now show that $a_{ijk} = a_{ij'k'}$ for all $i,j,k,j',k'\in\{1,\ldots,M\}$. In other words, the derivative $\delta_x W(i,j,k)$ only depends on $i$, the derivative $\delta_y W(i,j,k)$ only depends on $j$, and the derivative $\delta_z W(i,j,k)$ only depends on $k$.
+
+Let $i,j,k\in\{1,\ldots, M\}$. We compare two ways of reaching  $W(i+1,j+1,k)$  from $W(i,j,k)$, namely
+\begin{eqnarray*}
+\lefteqn{W(i,j,k) + (a_{i,j,k},1,1)+ 1,b_{i+1,j,k},1) }\\
+&= W(i+1,j,k) + (1,b_{i+1,j,k},1) = W(i+1,j+1,k),\\
+\lefteqn{W(i,j,k) + (1,b_{i,j,k},1)+ (a_{i,j+1,k},1,1)}\\
+&= W(i,j+1,k)+  (a_{i,j+1,k},1,1) = W(i+1,j+1,k).
+\end{eqnarray*}
+Subtracting these two equations we obtain 
+$$(a_{i,j,k},1,1)+ (1,b_{i+1,j,k},1)  = 
+(1,b_{i,j,k},1)+ (a_{i,j+1,k},1,1)$$
+or $(a_{i,j,k},b_{i+1,j,k},1)  = (a_{i,j+1,k},b_{i,j,k},1).$
+This shows that $a_{i,j,k}=a_{i,j+1,k}$ and $b_{i+1,j,k}=b_{i,j,k}.$ An analogous argument shows that the same holds for $c_{i,j,k}$.
+Therefore, we denote $a_{i,j,k}$ simply by $a_i$
+and the derivatives are  $\delta_x W(i,j,k) = (a_{i},1,1),$ $\delta_y W(i,j,k) = (1,b_{j},1),$ and $\delta_z W(i,j,k) = (1,1,c_{k})$, where $i,j,k\in \{1,\ldots, M-1\}$ and $a_i,b_j,c_k\in \GF(2)$. Furthermore, define $a_M$, $b_M$ and $c_M$ in $\GF(2)$ by $W(M,j,k) - W(1,j,k)= (a_M,1,1),$ and $W(i,M,k) - W(i,1,k)= (1,b_M,1),$ $W(i,j,M) - W(i,j,1)= (1,1,c_M).$ 
+
+
+Since the cP-weaves are regular, translating $V$ along any of the axes $M$ steps leaves $V$ invariant. A translation of $V$ along the $x$-axis by one step corresponds to applying the cyclic permutation $(1,\ldots,M)$ to $d_xW$. This shows that $\sum_{i=1}^{M-1} a_i = a_M$, $\sum_{i=1}^{M-1} b_i = b_M$, $\sum_{i=1}^{M-1} c_i = c_M$, since $W(M,j,k) + d_xW(a_M,1,1) = W(1,j,k)$.
+
+The cP-weave $V$ is therefore uniquely determined by $v_0:= W(1,1,1)$ and the three vectors $d_x=(a_1,\ldots,a_M)$, $d_y=(a_1,\ldots,a_M)$, $d_z=(a_1,\ldots,a_M)$.
+
+
+\subsection{Design Space for Repeating GF(2)\texorpdfstring{\textsuperscript{3}}{} Vector Space}
+
+The following propositions shows that volumetric weaves open up a huge design space. Considering regular cP-weaves with an $M\times M\times M$ translation cell, allows to design a number of different weaves that grow exponentially in $M$. This is true even for regular plain cP-weaves, where in the 2D case we have only one weave up to automorphisms.  The following propositions provide a lower bound for the design space. To obtain a lower bound, we consider the threads of different kinds in cP-weaves (three orthognal threads) to be same such that we can use the automorphisms of the cube to map one kind of  thread to another.
+
+\begin{proposition}\label{prop:numbercubic}
+The number of regular cP-weaves generated by
+an $M\times M \times M$ translation cell is at least  $\frac{1}{48}2^{3(M^3-\log_2(M))}$.
+\end{proposition}
+
+\noindent\textit{Proof}
+Observe first that the full automorphism group of the primitive cubic lattice is $\Z^3 \rtimes O_h$, where $O_h$ denotes the full octahedral group, which is also the group of isometries of a cube. Now suppose that $W$ is an $M\times M\times M$ translation cell and define $G=(C_M \times C_M \times C_M)\rtimes O_h $,
+where $C_M$ denotes the cyclic group of order $M$.
+Then the automorphism group of the weave generated by $W$ is the subgroup $\textrm{Aut}(W)$ of $G$ consisting of all weave automorphisms.
+ The action of an element in $C_M\times C_M\times C_M$ on
+$W$ corresponds to a translation of the translation cell $W$.
+Let $\Omega$ denote the set of all possible configurations in $\GF(2)^3$ that $W$  can take. In the case of a regular cP-weave $|\Omega|=8^{M^3}$.
+
+Given two such configurations, the weaves they generate
+might lie in the same orbit under $G$.  In fact,  
+the different weaves are in bijection to the orbits of $G$ on $\Omega$.
+The action of an element of $O_h$ on $W$ corresponds to applying a
+cube symmetry to $W$.
+%Note that we can
+%either take $H$ to be the group of rotational symmetries of the cube,
+%whence $H$ has order 24, or the group of all symmetries, whence $H$
+%has order $48$.  Taking $H$ to be the group of order $48$ ensures that
+%a weave and its chiral lie in the same orbit.
+
+We obtain the lower bound for the number of regular  cP-weaves
+by dividing $|\Omega|$ by the length of the longest orbit of $G$ on $\Omega$. Since the length of any orbit divides $|G|,$ it is less than $ |G|$, whence a lower bound for the number of different weaves is
+$ \frac{|\Omega|}{|G|}.$
+For regular cP-weaves this yields the lower bound
+$ \frac{8^{M^3}}{M^3\cdot 48} = \frac{1}{48}2^{3(M^3-\log_2(M))}$.
+
+\ergun{
+\begin{proposition}\label{prop:numbercubicplain}
+The number of regular plain cP-weaves generated by
+an $M\times M \times M$ translation cell is at least $\frac{1}{48}2^{3(M-\log_2(M))}$.
+\end{proposition}
+
+\noindent\textit{Proof}
+The proof is similar to the one provided for Proposition 3. We will utilize the full automorphism groups of cubic primitive lattice and the full octahedral group.
+By Proposition~\ref{prop:representationplain} a regular plain cP-weave with translation cell $W$  is uniquely described
+by a tuple $(v_0, d_x, d_y, d_z)$ where $v_0\in \GF(2)^3$ and
+$d_x, d_y, d_z\in \GF(2)^M$ such that 
+$\sum_{i=1}^{M-1} a_i = a_M$, 
+$\sum_{i=1}^{M-1} b_i = b_M$, 
+$\sum_{i=1}^{M-1} c_i = c_M$,
+hence in this case $|\Omega| = 8 \cdot 2^{3(M-1)} = 2^{3M}. $
+}
+
+ Given two such configurations, the weaves they generate
+might lie in the same orbit under $G$ and different weaves are in bijection to the orbits of $G$ on $\Omega$.
+%Note that we can
+%either take $H$ to be the group of rotational symmetries of the cube,
+%whence $H$ has order 24, or the group of all symmetries, whence $H$
+%has order $48$.  Taking $H$ to be the group of order $48$ ensures that
+%a weave and its chiral lie in the same orbit.
+
+We obtain the lower bound for the number of regular plain cP-weaves
+by dividing $|\Omega|$ by the length of the longest orbit of $G$ on $\Omega$. Since the length of any orbit divides $|G|$ it is less than $ |G|$, whence a lower bound for the number of different weaves is
+$ \frac{|\Omega|}{|G|}.$
+For regular plain cP-weaves it yields
+$\frac{2^{3M}}{M^3 \cdot 48} = \frac{1}{48}2^{3(M-\log_2(M))}.$
+
+
+\begin{table}[h!]
+    \centering
+    \caption{Representatives of  orbits on $2\times2\times2$ Regular Plain\\ cP-Weaves  under full lattice isometry group $\Z^3\rtimes O_h$}
+    \includegraphics[width=0.75\linewidth]{tab1-enum.pdf}
+    \label{tab:222_table}
+\end{table}
+
+\ergun{Our enumeration of periodic volumetric weaves and the derived lower bounds should be understood as applications of our representation rather than as standalone results. These findings validate the expressiveness of our framework, demonstrating its ability to systematically encode a vast number of volumetric weaves within a structured combinatorial space.}
+
+\ergun{The lower bound we establish on the number of possible volumetric weaves confirms that our representation provides access to a significantly larger design space than previously considered. By applying our systematic encoding, we illustrate how the classification and discovery of volumetric weaves become more structured and computationally feasible.}
+
+
+
+
+
+
+
+\section{Designing Weaves Based on Primitive Cubic Lattices}
+
+A weave based on primitive Cubic Lattices (cP-weave) with an $M\times N\times K$ translation cell can be represented by $8^{MNK}$ values in $GF(2)$. The design space of these cP-weaves increases exponentially with each number increase in the domain size as shown in Proposition \ref{prop:numbercubic}. With this many number of parameters it is not feasible to determine each configuration of the cell in the lattice with manual entries. In this section we will provide different strategies that can be employed to design cP-weaves such that configurations can be generated with an algorithm. 
+
+\subsection{Design of the cP-weaves with Constraints}
+
+For some weave types, we can further constrain the representation. Constraints can be introduced with a neighborhood definition which could be expressed in terms of derivative definitions as shown in \ref{eq:plainconstraint}. The constraint given in Equation \ref{eq:plainconstraint} results in a plain cP-weave and the simple representation of a regular plain cP-weave has been proved in Proposition \ref{prop:representationplain}. Note that each cell in this representation has a triplet of values which can be treated as a binary number. Also note that each variable in this array(not the entries), determines whether the layer of fabric is mirrored in the direction of the variable, i.e. $x_1$ is controlling the $y$-$z$ mirror of 2nd $y$-$z$ planar weave in the structure. Then a compact representation of an $M\times N\times K$ plain cP-weave is the following collection of binary variables:
+
+% to get the following representation:
+% \begin{align}
+% \label{eq:generalplain}
+%     \mathbf{W}=\begin{bmatrix}
+%     \begin{bmatrix}
+%     x_0'y_{n-1}z_0' & x_1'y_n'z_0 & \dots & x_{m-1}'y_{n-1}'z_0 \\
+%     \vdots & \ddots &  & \vdots \\
+%     x_0'y_1z_0' &  & \ddots & \vdots \\
+%     x_0y_0z_0 & x_1y_0'z_0' & \dots & x_{m-1}y_0'z_0' 
+%     \end{bmatrix}\\
+%     \begin{bmatrix}
+%     \dots 
+%     \end{bmatrix}\\
+%     \begin{bmatrix}
+%     x_0y_{n-1}'z_{k-1}' & x_1y_{n-1}z_{k-1} & \dots & x_3y_3'z_{k-1}'  \\
+%     \vdots & \ddots &  &  \\
+%     x_0y_1'z_{k-1}' &  & \ddots &   \\
+%     x_0'y_0'z_{k-1} & x_1'y_0z_{k-1}' & \dots & x_{m-1}'y_0z_{k-1}' 
+%     \end{bmatrix}
+%     \end{bmatrix}
+% \end{align}
+
+% Where each $x_i,y_j,z_k\in \GF(2), i\in [0,n-1],\;j\in[0,m-1],\;k\in[0,k-1]$. 
+
+\begin{equation}\label{eq:compactrep}
+    \mathbf{W}=[x_0\dots x_{M-1}\;:\;y_0\dots y_{N-1}\;:\;z_0\dots z_{K-1}]
+\end{equation}
+
+This reduces the number of parameters from $3(M*N*K)$ to $M+N+K$ for plain cP-weaves. Similar constraint definitions can be used to define different cP-weaves such as twills, this approach can be empowered with cellular automata\cite{bays1988classification} by defining a behavior for a neighborhood of $p\times q\times t$ and this domain can generate different configurations to define the cP-weaves. 
+
+% How to enumerate regular plain cP-weaves is described in the supplemental document. Enumeration of the regular plain cP-weaves up to $4\times4\times4$ with different symmetry groups has been tabulated in the supplemental document. 
+In Table~\ref{tab:222_table} we show one representative $W$ for each orbit of the group $\Z^3\rtimes O_h$ of lattice isometries on the set of $2\times 2\times 2$ translation cells of regular plain cP-weaves with together with the order of the automorphism group $\textrm{Aut}(W)$ of $W$.
+
+% \subsection{Shifting Strategy for two-way two-fold Weaves}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.98\linewidth]{fig8-abc-weave.pdf}
+\caption{$a/b/c$ notation(1) is one of the simplest representation for biaxial weaves. Satins(2) and Twills(3) can be represented by this notation.}
+\label{fig_abcfabrics}
+\end{figure}
+
+% The shifting strategy is widely used in designing two-way two-fold fabrics. These weaves can be viewed as a set of rows with horizontal periodical patterns that are shifted. In most cases, the initial pattern can be expressed by two integers $a, b \in \mathbb{N}$, where $a$ is the number of up-crossings, and $b$ is the number of down-crossings (Figure~\ref{fig_abcfabrics}). An additional parameter $c \in \mathbb{N}$ denotes the shift introduced in adjacent rows. Any such weaving pattern can be expressed by a triplet $a/b/c$. The function that represents the weave structure $W$ is the following:
+
+% \begin{equation}
+%     W(i,j)=\begin{cases}
+%         0 & i + j * c\; \text{mod}(a+b) < a \\
+%         1 & i + j * c\; \text{mod}(a+b) \geq a
+%     \end{cases}
+% \end{equation}
+% This can be generalized further as in Gr\"{u}nbaum and Shephard's $(n, s)$ notation, where $n$ corresponds to an array of length $n$ of $0$'s and $1$'s; and $s$ corresponds to shift. Note that $a/b/c$ notation is a special case of $(n,s)$, where $n=a+b$ and $s=c$. Figure~\ref{fig_abcfabrics} shows a fundamental block of bi-axial weaving structures showing the role of the three integers, $a >0 $, $b > 0$, and $c$ in $a/b/c$  notation. The value of $c$ can be any integer, but, $a/b/c$ and $a/b/c+ k(a+b)$ are equivalent since $c+k(a+b)\equiv c \;mod(a+b)$. Therefore, we can assume that the value of $c$ is between two numbers as $0 \leq c \leq a+b-1$. Figures~\ref{fig_2D/Grid},\ref{fig_7_1_3.pdf},~\ref{fig_3_2_4.pdf} shows examples of biaxial weaves that can be described by the $a/b/c$ notation. 
+
+% In the context of the $a/b/c$ parametrization, two-way two-fold fabric structures hang together under the condition where $a+b$ and $c$ are relatively prime \cite{Griswold2004a,chen2010designing}. 
+% Note that the simplest two cases are $c=1$ and $c=a+b-1$. These two are guaranteed to have the greatest common divider of $1$ and this set of fabrics is called Twill weaving, which is widely used in fabrics such as denim or gabardine \cite{Grunbaum80}. Since twill weaving uses fewer crossings than plain weaving, the strands in twill woven fabrics can move more freely than the strands in plain woven fabrics \cite{ng1998numerical,dixit2015investigation}. This property makes twill weaving softer, more pliable, and better draped than plain weaving. Twill fabrics also recover better from wrinkles than plain woven fabrics. In addition, strands in twill weaving can be packed closer because there are fewer crossings. This property makes twill woven fabrics more durable and water-resistant, which is the reason why twill fabrics are often used for sturdy work clothing or durable upholstery \cite{oelsner1915handbook,ng2001progressive}.
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.98\linewidth]{fig9-abcd-weave.pdf}
+\caption{Volumetric fabrics can be designed with $a/b/c/d$ notation. We have used volumes that are larger than the fundamental region to visually demonstrate differences in periodic structures.}
+\label{fig_3D/a_b_c_notation}
+\end{figure}
+
+% Satin weaving is distinguished from plain and twill weaving by its silky appearance, which is obtained by creating long rows of parallel weft strands. To create long parallel weft strands, the goal is to minimize the number of crossings where the warp is up and to maximize the distances between such crossings. Minimizing the number of warp-up crossings reduces the amount of scattering that is caused by alternating crossing. As a result, the satin structure allows strong light reflection by creating a silky appearance and feeling. Therefore, in true satin fabrics, there should be no more than $1$ crossings where the warp is up. Therefore, a satin weave must always be in the form of $a/1/c$. The goal is to define $c$ in such a way that the distance between warp-up positions is maximized. It has been identified that the best solution is to choose $c$ as $c^2 \equiv \pm 1 \;mod(a+1)$ \cite{Grunbaum80,chen2010designing}, which gives us a large set of fabrics such as $7/1/3 $,$9/1/3$, $23/1/5$, and $25/1/5$. 
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.98\linewidth]{fig10-isonemal-shift.pdf}
+\caption{This figure provides some volumetric fabrics that can be given in $(N,s_0) \times (M,s_1)$ notation. We have used volumes that are larger than the fundamental region to visually demonstrate differences in periodic structures.}
+\label{fig_3D/NxM_s_notation}
+\end{figure}
+
+
+
+\subsection{Shifting Strategy}
+
+The shifting strategy has been used for designing 2D weaves before(see Figure \ref{fig_abcfabrics}), which requires a binary local configuration encoding and three parameters to generate entries for the representation. $a/b/c$ notation for 2D weaves consists of a binary representation of the local rank order (0 or 1) and three parameters $a,b,c$. Then the planar weave is given by the following equation:
+
+\begin{equation}
+    W(i,j)=\begin{cases}
+        0 & i + j * c\; \text{mod}(a+b) < a \\
+        1 & i + j * c\; \text{mod}(a+b) \geq a
+    \end{cases}
+\end{equation}
+
+To apply the same shifting strategy to cP-weaves, we reduce the number of configurations from 8 to 2 by choosing two configurations such that $c_1-c_2=(1,1,1)$ where $c_1,c_2\in \GF(2)^3$. This enables us to use the shifting strategy to determine the crossings as this strategy uses only two configurations and it ensures that the crossing happens in every direction at the location specified by the shifting strategy. $a/b/c$ can define only a single layer; however, to be able to define multiple layers we need to add another shift variable for the layer index, let that shift variable be $d$. Then we can populate the $M\times N\times K$ array that represents the cP-weave $W$ with the following equation:
+
+\begin{equation}
+    W(i,j,k)=\begin{cases}
+    c_1& i + j * c + k * d \;\text{mod} (a+b) < a\\
+    c_2& i + j * c + k * d \;\text{mod} (a+b) \geq a
+    \end{cases}
+    \label{eq:abcd}
+\end{equation}
+
+which uses two independent shifts in $y$ and $z$ directions. This enable us to design weaves that has different type of planar weaves in three different constant planes of the cP-weave (see Figure~\ref{fig_3D/a_b_c_notation}). 
+% To ensure that this process will create the  $x-constant$, $y-constant$, and $z-constant$ planes that will hang together, both $c$ and $d$ should be relatively prime to $a+b$\cite{Grunbaum85, Grunbaum86} (see "Discussion" Section).
+
+\subsubsection{Generalization of Shifting Strategy for Volumetric Weaves}
+Now, let us assume that a square $N \times M$ two-way two-fold weave is given. %It is known all isonemal weaves that hang together up to $N=17$ and $M=17$ based on existing catalogs of isonemal fabrics \cite{Grunbaum85,Grunbaum86,Clapham80,Enns84,Clapham85,Delaney84}. 
+Now, note that this two-way two-fold fabric is given by a matrix of ones and zeros. Let us assume that this matrix is in the $z=0$ plane. To obtain the $z=k$ plane we cyclically shift this matrix in $x$-direction $ks_0$ amount and $y$-direction $ks_1$ amount. Our corollary is that If two number pairs are relatively prime then the cP-weave will consist of $x-constant$, $y-constant$, and $z-constant$ planes. These two number-pairs are (1) $N$ and $s_0+s_1$; and (2) $M$ and $s_0+s_1$. For such types of fabrics, we can use the notation $(N,s_0) \times (M,s_1)$ following  Grunbaum and Shephard's notation of $(n,s)$ (See Figures~\ref{fig_3D/NxM_s_notation} and~\ref{fig_3D/internal_structures}). 
+
+\begin{figure*}[htpb!]
+\centering
+\includegraphics[width=0.98\linewidth]{fig11-internal.pdf}
+\caption{This figure shows the internal structure of these 3D volumetric fabrics. (a,b,c) are slices for ABC notated fabrics and (d) is the slicing for shift constructed volumetric Fabric 8-5-2 in (8,2)$\times$(8,3) configuration.}
+\label{fig_3D/internal_structures}
+\end{figure*}
+
+\ergun{
+\subsection{Pattern Generation for other volumetric Bravais weaves Using Cubic Arrays of Configurations}
+
+% cubic array with entries in the vector space $\GF(2)^3$
+
+We represent $M \times N \times K$ translation cells of cP-weaves using a cubic array with entries. This digital representation with a cubic array of configurations allows for a structured approach to modeling any volumetric Bravais weaves. In other words, this representation extends beyond cP-weaves. Any of the other four distinct cases of volumetric Bravais weaves (i.e., hP, cI, cF, and oF) can also be effectively described using cubic arrays of configurations, where the cubic arrays still correspond to translational $M \times N \times K$ cells.  
+This capability comes directly from the core strength of the Bravais-based framework, as every lattice point in a Bravais lattice can be expressed—by definition—through a set of discrete translation operations in three-dimensional space:
+$
+\mathbf{p} = a_{0} \vec{v}_{0} + a_{1} \vec{v}_{1} + a_{2} \vec{v}_{2},$
+where the $a_i$'s are arbitrary integers and $\vec{v}_0$, $\vec{v}_1$, and $\vec{v}_2$ are three linearly independent vector in $\R^3$.  
+
+The only distinction with cP-weaves is that for the four other Wigner-Seitz cases, the configurations will not be represented by $GF(2)^3$. Nevertheless, shifting strategies remain applicable to all cases, regardless of the specific nature of the mathematical representations of configurations. In other words, shift operations can be universally employed to generate repeating patterns that correspond to any volumetric Bravais weave.  
+
+An additional advantage of shift operations is that they establish connections with familiar planar weave structures, such as plain, twill, and satin. However, it is crucial to recognize that this connection is not a necessity. For volumetric weaves, there is no fourth dimension into which they could ``fall off," meaning that 2D patterns hold no fundamental significance beyond their historical legacy and familiarity. In reality, the choice of patterns can be entirely arbitrary.  
+
+Furthermore, we anticipate that statistical distributions of configuration variations will have a direct impact on the physical properties of these weaves, making this an important avenue for future investigation.  
+}
+
+
+\section{Discussion}
+
+\ergun{A fundamental question in volumetric weaving is why 2D weaving is universally present across cultures, while 3D weaving remains largely absent in traditional practices. This asymmetry likely stems from human dexterity constraints, as weaving in two dimensions allows for the use of the third dimension to manipulate threads, whereas full-3D weaving requires simultaneous interlacing in a way that exceeds manual coordination. However, modern fabrication technologies, can provide an alternative means of constructing volumetric woven structures without the need for direct thread manipulation. This perspective highlights the relevance of our approach, which formalizes 3D weaving as a mathematical framework, independent of fabrication constraints, offering new opportunities for computational fabrication, composite materials, and advanced manufacturing techniques.
+
+A key advantage of our approach is that it introduces a generalized representation that makes the classification, design, and discovery of volumetric weaves significantly more accessible. Unlike previous methods that rely on manually defined weave types, our methodology provides a formal structure for analyzing volumetric weaves as combinatorial objects. This structured representation not only offers an improved way to study existing volumetric weaves but also provides a systematic approach for identifying previously unknown configurations.
+
+We would like to emphasize that our approach provides a new algebraic alternative to the well-established representation of 2D fabrics introduced by Grünbaum and Shephard \cite{Grunbaum80,Grunbaum85, Grunbaum86,grunbaum1988isonemal}. Our formulation allows for a structured and mathematically rigorous treatment of woven structures.
+Specifically, our method enables the representation of 2-way 2-fold and 3-way 3-fold weaves by utilizing 2D Bravais lattices. These weaves can be classified based on their underlying symmetry properties, where tetragonal primitive (tp) lattices correspond to 2-way 2-fold weaves, while hexagonal primitive (hp) lattices are used to define 3-way 3-fold weaves. This distinction highlights the fundamental role that lattice structures play in the mathematical characterization of fabric patterns.
+By leveraging algebraic techniques, our approach not only provides an alternative perspective but also extends the applicability of lattice-based fabric representations. This allows for a more systematic exploration of fabric designs while maintaining consistency with classical textile classifications.
+
+We also want to point out that there still exist a significant difference in 2D and 3D woven structures. One of the main contributions of Gr\"unbaum and Shephard was to observe that weaving patterns that appear to be perfectly linked by visual inspection may not produce links that can make the woven structure hang together \cite{Grunbaum80,Grunbaum85, Grunbaum86, grunbaum1988isonemal, Griswold2004a, Griswold2004b, Griswold2004c}. In other words, the resulting structures could come apart in pieces. They called a weaving structure a fabric only if it is hanging together. We want to point out that the concept of “hanging together” is not relevant for volumetric weaves since there is no fourth dimension into which it could fall off. While it is intuitively observed that removing a thread from a volumetric weave requires pulling it lengthwise, we do not formally claim that volumetric weaves “hang together” in the same sense as 2D fabrics. Instead, we limit our discussion of this property to cases where it applies within 2D slices of volumetric structures.
+
+The interplay between weaving and mathematical structures extends beyond volumetric weaves. Related work on fiber arts, such as hyperbolic crochet pioneered by Daina Taimina, highlights how topological principles can be physically realized through structured materials \cite{taimina2018crocheting}. Similar to hyperbolic crochet, volumetric weaves provide a tangible way to explore mathematical properties through textile structures, reinforcing the deep and often overlooked connection between mathematics and fiber arts.}
+
+
+% \label{Sec_discussion}
+
+% Our investigation demonstrates that parametrizing woven systems based on spatial crystallographic groups requires a reconceptualization of the fundamental notions associated with weaves. Specifically, the extension of weaves from 2-space to 3-space demands a redefinition of ranking, as originally envisioned by Gr\"unbaum and Shephard, to spatial configurations of threads. The effect of this extension can be seen for a case as simple as a plain weave, which has only one unique instance in 2D-space, but has an exponentially increasing design space when extended to its volumetric counterpart. As a result, many other notions defined for weaves in 2-space require reinterpretation or even redefinition. 
+
+% We turn our attention to the property of "\textit{hanging-together}" which was introduced by Gr\"unbaum and Shephard. Hanging together of a weave, simply put, means that an entire woven system is equivalent to a singly connected component in a broader sense, i.e. it cannot be separated into more than one disconnected collection of threads. In fact, Gr\"unbaum and Shephard call a weaving structure a fabric only if it is hanging together. They showed that weaving patterns that appear to be perfectly linked by visual inspection may not produce links that can make the woven structure hang together \cite{Grunbaum85, Grunbaum86, Griswold2004a, Griswold2004b, Griswold2004c}. In other words, in two-way two-fold weave structures, threads may not necessarily be linked with each other, and the resulting structures would come apart in pieces. 
+
+% Given this context, we realize that the very idea of hanging together needs a reiteration in the sense that the visual inspection that Gr\"unbaum and Shephard speak of happens for planar fabrics in 3D space. By the same logic, the idea of handing together for volumetric weaves would need their inspection to be in 4-space. To better understand this, we invoke the notion of geometric interlocking which was defined by Krishnamurthy et al. \cite{krishnamurthy2021geometrically} as a scenario wherein it is impossible to either assemble or disassemble an assembly of space-filling tiles without either cutting a tile, deforming a tile, or moving to a space with a dimension higher than that of the embedding space of the assembly. We note that in this sense, the concept of hanging-together is closely related to geometric interlocking \cite{estrin2021design}. In our case, since the weaves already fill the entire 3D space, the test of whether they hang together can only be done if we attempt to lift them to 4D space. However, doing so naturally may result in the weaves falling apart, since there can be no knots and links in 4D given that weaves are composed of 1-manifolds (i.e. curves). As a result, it is not so straightforward to even define the idea of hanging-together in volumetric weaves as they are constructed in this work. 
+
+% We can, however, attempt to develop some preliminary ideas on other possible interpretations of hanging together for cP-weaves if we view them one plane at a time. Note that any $N \times M \times K$ translation cell  of a regular cP-weave consists of $N$ times $x$-constant, $M$ times $y$-constant, and $K$ times $z$-constant planes. If we remove threads in the $x$ direction in the $x$ constant planes, we obtain the $N$ two-way two-fold fabrics stacked on top of each other in the $x$ direction as the $x$-constant planes. A similar operation can be performed by pulling threads along the $y$ and $z$ directions. Based on this construction, one can now analyze the hanging together property on each planar stack that contains a two-way two-fold weave. We can then introduce a compositional view in which a given cP weave may contain planar fabrics in one or more directions. This may be a useful insight for practical applications in which structural properties can be analyzed, at least individually along planar subdomains. By composition, such analysis may offer important and interesting predictions regarding the overall volumetric structures enabled by cP-weaves in different directions. For instance, we have already discovered a cP-weave that gives satin fabrics in two planes and twill fabric in the third plane(Figure \ref{fig_3D/satintwill}). We expect that such mixed structures could provide controlled anisotropic behaviors that could be composited from the individual behaviors of twills and satins. Note that it is also possible to obtain satin in all three directions (Figure \ref{fig_3D/satin}). Such structures, on the other hand, may provide isotropic behavior. Of course, a deeper physical analysis is necessary to test such hypotheses. However, if true, these insights may lead to a new set of research directions for the design, development, and testing of physical structures based on cP-weaves.
+
+
+\section{Conclusion and Future Work}
+% \setcounter{section}{7}
+% In this paper, we present a constructive mathematical framework for the effective representation of volumetric weaves. We focus on a special type of volumetric weaves, which we call cP-weaves whose design space is induced by cubic tessellations of 3-space. We note that this work barely scratches the surface of a rich design space for volumetric Bravais weaves, and we envision several potential areas of investigation. 
+
+In this paper, we present a constructive mathematical framework for the effective representation of a special class of volumetric weaves. Our framework provides access to a vast and scalable design space, enabling algorithmic exploration and potential optimizations for various engineering applications. The enumeration and lower bounds presented in this paper demonstrate the versatility of our approach, showcasing its applicability beyond established weave families. Future research can build upon this representation to facilitate automated design, classification, and refinement of all volumetric Bravais weaves, with significant potential in computational design and materials science.
+
+% First and foremost, the characterization and classification of other types of known weaves (twill, satin, etc.) itself is an interesting direction. Given that even plain weave offers a rich design space, finding lower bounds for twills, satins, and their combination is, in itself, a challenging task. Having said this, what intrigues us the most is the observation that since our framework is based on Bravais lattices, it is possible to develop extensions based on other Wigner–Seitz cells, such as a truncated octahedron, a rhombic dodecahedron, or a hexagonal prism. This may further lead to constructions wherein it may be possible to interpolate across different weave patterns.
+
+In practical applications, this work has the potential to contribute to various engineering fields. We envision applications in engineered structures such as convective heat exchangers \cite{avila2017}, composites \cite{Li2009, GEREKE2019}, and lattice materials \cite{salari2018}. Another promising research direction is exploring alternative methods beyond enumerating topologically distinct cases to achieve desired properties. For instance, coloring threads can generate a wide range of patterns. In twill alone, patterns such as herringbone, houndstooth, serge, sharkskin, flannel, cavalry, chino, covert, denim, drill, and gabardine can be obtained \cite{feijs2012houndstooth}. This approach can also be leveraged to create diverse textures \cite{Windeknecht1980, Windeknecht1994, feijs2012houndstooth} (see Figure~\ref{fig_3D/ColoredFabrics} for examples of planar and volumetric weaves).
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.98\linewidth]{fig12-material.pdf}
+\caption{This figure demonstrates the effect of coloring for the same weave. In this case, we used a relatively simple, $3/3/1$ twill, and corresponding $3/3/1/1$ cP-weave just to demonstrate how the number of possibilities increases by using different materials.}
+\label{fig_3D/ColoredFabrics}
+\end{figure}
+
+
+\ergun{ %Reviewer 2
+Volumetric fabrics have been explored in various engineering applications to enhance the strength and mechanical performance of composite materials. For example, volumetric weaves can be embedded as reinforcements in concrete structures, acting as a rebar-like framework to improve load distribution and fracture resistance. Similarly, volumetric fabrics are used in aerospace and wind energy applications, where their lightweight yet strong properties contribute to structural efficiency in aircraft components and wind turbine blades. While this paper primarily focuses on the geometric construction and classification of volumetric weaves, the presented framework has the potential to be extended for engineering applications where mechanical properties play a critical role.
+}
+
+\ergun{%Reviewer 1
+By establishing a formalized approach to volumetric weaves, this research not only contributes to mathematical and computational design but also opens avenues for broader engagement in material sciences, engineering, and textile arts. The mathematical study of woven structures holds significant potential for public engagement, bridging abstract mathematical principles with real-world applications in an intuitive and visually compelling way.}
+
+% On the other hand, there is potential for the development of formal methods for geometric and topological characterization. However, there is potential for advances in engineering applications. In conclusion, our framework can serve as a starting point for systematically exploring and investigating this wide and rich space of volumetric weaves in a multitude of disciplinary directions. 
+
+\section{Acknowledgments}
+
+The research presented in this manuscript is based upon work partially supported by the National Science Foundation under Grant No. 2048182. Any opinions, findings, conclusions, or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.
+ 
+The second author acknowledges a grant from the  Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) -- SFB/TRR280, Project-ID 417002380.
+
+\section{Conflict of Interest Statement}
+
+Vinayak Krishnamurthy and Ergun Akleman serve as President and Secretary of Partitive LLC, a startup on generative design that is currently in the process of being registered. Some of the algorithms presented in this work are related to the intellectual property behind the startup.
+
+Vinayak Krishnamurthy and Ergun Akleman own 50\% (each) stock in Partitive LLC, a startup in generative design that is currently in the process of being registered. Some of the algorithms presented in this work are related to the intellectual property behind the startup.
+
+Vinayak Krishnamurthy and Ergun Akleman are also co-authors in a patent disclosure titled: METHODS FOR GENERATING THREE DIMENSIONAL STRUCTURES (Application number: 62944910, filed: December 2020). The algorithm presented in this paper is not exactly related to the intellectual property disclosed in that patent. However, the research presented in this paper is also disclosed, and it can become a patent in the near future.
+
+\section{Author contributions statement}
+
+Author contributions: T.Y. implemented the system and created all images, A.N. provided formal proofs and definitions for cP-weaves and uniqueness of a regular cP-weave, E.A. conceived the initial idea and its formalism, wrote the initial draft of the paper, V.K. identified $GF(2)^3$ fundamental group and its operations. All authors reviewed the manuscript.
+
+
+\section{Data Availability}
+
+There are no data underlying this work.
+
+\bibliographystyle{plain}
+\bibliography{reference}
+
+\end{document}
+

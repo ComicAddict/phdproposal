@@ -1,0 +1,1001 @@
+\documentclass[times,twocolumn,final]{elsarticle}
+
+
+%% Stylefile to load CAG template
+\usepackage{cag}
+\usepackage{framed,multirow}
+\usepackage{array}
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+
+% Following three lines are needed for this document.
+% If you are not loading colors or url, then these are
+% not required.
+\usepackage{url}
+%\usepackage{xcolor}
+\definecolor{newcolor}{rgb}{.8,.349,.1}
+
+\usepackage{hyperref}
+
+\usepackage[switch,pagewise]{lineno} %Required by command \linenumbers below
+
+\journal{Computers \& Graphics}
+
+\begin{document}
+
+\verso{T. Yildiz and E. Akleman}
+
+\begin{frontmatter}
+
+
+\title{Volumetric Nonwoven Structures: An Algebraic Framework for Systematic Design of Infinite Polyhedral Frames Using NonWoven Fabric Patterns}
+
+
+\author[1]{Tolga Yildiz}
+
+    
+\author[2]{Ergun Akleman \corref{cor1}}
+\cortext[cor1]{Corresponding author: 
+  Tel.: +1-979-739-0094; }
+\emailauthor{ergun.akleman@gmail.com}{Ergun Akleman}
+%\ead{example@email.com}
+
+\address[1]{Department of Computer Science and Engineering, Texas A\&M University, College Station, TX, 77840, USA}
+\address[2]{Visual Computing and Computational Media Section, School of Performance, Visualization and Fine Arts, Joint with Department of Computer Science and Engineering, Texas A\&M University, College Station, TX, 77840, USA}
+
+
+%\received{1 February 2017}
+\received{\today}
+%%%% Do not use the below for submitted manuscripts
+%\finalform{28 March 2017}
+%\accepted{2 April 2017}
+%\availableonline{15 May 2017}
+%\communicated{S. Sarkar}
+
+
+\begin{abstract}
+%%%
+In this paper, we present an algebraic framework that can be used to construct a large class of 3D shapes and structures that can potentially provide unusual material properties. We formalized this framework as a 3D generalization of planar nonwoven textile structures that are used to mimic the woven structures. Our extension is based on the fact that it is straightforward to extend planar nonwoven textile structures into volumetric nonwoven textile structures, which we also call nonwoven volumetric fabrics. This property is essential because such an extension is impossible with planar woven structures. In other words, using this approach, it can be possible to easily produce volumetric structures that mimic the fabric behavior as if they were planar nonwoven textile structures, which is impossible to produce. These volumetric structures also correspond to regular \& semiregular frame structures and are capable of representing previously unknown infinite regular polyhedra and flexible wood structures.  
+\end{abstract}
+
+\begin{keyword}
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
+%\MSC 41A05\sep 41A10\sep 65D05\sep 65D17
+%% Keywords
+\KWD Volumetric Nonwoven Structures \sep Shape Algebra \sep Shape Modeling and Design \sep P-adic Numbers 
+\end{keyword}
+
+\end{frontmatter}
+
+%\linenumbers
+
+
+\section{Introduction and Motivation}
+
+In this paper, we extend the planar (two-way two-layer)\footnote{For the definition of two-way two-layer textile structures, see Section \ref{Sec_Previous_Work}.} nonwoven textile structures (see Figure~\ref{fig_woven_vs_nonwoven}) to 3D by adding an arbitrary number of layers to obtain new classes of 3D shapes and structures. The main advantage of planar nonwoven textile structures is the ability to mimic woven structures with attachments or connections\footnote{Attachments or connections are essentially local binds that can physically be achieved using a wide variety of ways such as adhesive joints, gluing, nailing, screwing, soldering, welding or chemical bonding} instead of crossings, which would require simpler manufacturing processes. In other words, while woven structures can be represented as knots and links, nonwoven structures can be considered frame structures that can be represented as 3D graphs. The 3D thickened versions of nonwoven structures can provide infinite-genus structures, some of which correspond to regular maps and meshes. 
+
+\setkeys{Gin}{draft=false}
+\begin{figure*}[htpb]
+    \centering 
+    \begin{subfigure}[t]{0.24\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/nonwoven_woven_explanation/7-1-3-woven-2d-top-v2.png}
+        \caption{Top view of a satin woven structure.}
+        \label{fig_images/w0}
+    \end{subfigure}
+    \hfill   
+    \begin{subfigure}[t]{0.24\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/nonwoven_woven_explanation/7-1-3-woven-2d-side-v2.png}
+        \caption{Detailed perspective view of a satin woven structure.}
+        \label{fig_images/w1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.24\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/nonwoven_woven_explanation/7-1-3-nonwoven-2d-top-v2.png}
+        \caption{Perspective view of a satin nonwoven structure from above the structure.}
+        \label{fig_images/nw0}
+    \end{subfigure}
+    \hfill   
+    \begin{subfigure}[t]{0.24\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/nonwoven_woven_explanation/7-1-3-nonwoven-2d-side-top-v2.png}
+        \caption{Perspective view of a satin nonwoven structure from below the structure.}
+        \label{fig_images/nw1}
+    \end{subfigure}
+    \hfill
+\caption{Visual comparison of two-way two-fold woven vs two-way two-layer nonwoven structures. Here, we use the term \textit{layer} as a term that corresponds to the term \textit{fold} in woven structures. There are similarities and differences. Both structures consist of warp and weft threads that are perpendicular to each other. In woven structures, warp and weft threads are tied together through crossings. Neither of the threads is always on top or bottom. However, in nonwoven structures, the warp and weft threads are on top of each other and bind together through attachments (or connections). The dark spheres in Figure~\ref{fig_images/nw0} show the attachments (or connections) that bind the warp threads in the upper layer to the weft threads in the lower layer. Note that the crossings appear to correspond to the attachments (or connections) in the first impression. However, they are not the same. Unlike attachments (or connections), crossings must come in pairs. Therefore, nonwoven structures can be more flexible as shown in Figure~\ref{fig_images/nw1}. Moreover, it is straightforward to add new layers to nonwoven structures.}   
+\label{fig_woven_vs_nonwoven}
+\end{figure*}
+
+Planar nonwoven textile structures have been around since the 1930s through a series of manufacturing patents \cite{brewster1934,powel1947,clayton1955,graham1956,dupre1960,allison1967}. For a comparative analysis of early work on nonwoven fabrics, see \cite{casper1975,purdy1983}. They have recently been one of the fastest growing and most exciting sectors of the textiles market \cite{chapman2010applications}. These two-way two-layer nonwoven fabrics have been replacing two-way two-fold woven materials in a wide range of applications, from medical products to interior textiles, as they are more reliable and can provide better behavior for industrial applications \cite{curtis1987,balogh2015}. Here, the term \textit{layer} corresponds to the term \textit{ times} in woven structures. Two-way two-layer non-woven textile structures have been formalized in \cite{zarrinmehr2023satin} for the design of breathable structures. First, we extend this formalization to two-way nonwoven textile structures with any number of layers. 
+
+\begin{figure}[thpb!]
+    \centering    \includegraphics[width=0.35\textwidth]{images/matrix_figures/2-2-1-1-1-3d-nonwoven-single.png}
+\caption{Multi layer nonwoven structure with 2/2/1/3 configuration.}
+\label{fig_images/multilayer_after}
+\end{figure}
+
+Our next extension comes from the fact that we can view the region between pieces that are not attached as cuts. By cutting warp and weft threads, it is possible to break these layers to construct more general structures. This particular conceptual extension allows us to generalize a certain type of cut to obtain flexible wood. We observe that this particular cut conceptually corresponds to plain weaving structures. Using this extension, we can represent more general cuts that can correspond to weaving patterns beyond a plain weaving pattern, such as twill or satin. We want to point out that it is physically impossible to cut wood with most of the weaving patterns, other than plain. This is probably why carpenters do not attempt to create such unusual cuts. On the other hand, these structures can be printed using additive manufacturing with cuts embedded in 3D space. 
+
+Our last extension is to allow for more general attachments and cuts in 3D that combine pieces of threads in three different directions. For this case, we develop a simple notation to define regular frame structures that can represent all possible cases. These cases also include truly three-way nonwoven structures that use threads that form infinite lines in all three directions. It is important to note that we define all these shapes inside of rectangular prisms which are homeomorphic to the three-toroids. Therefore, the resulting structures automatically repeat all three perpendicular directions. 
+
+\subsection{Context and Motivation}
+\label{Sec_ContextandMotivation}
+
+There exist structures such as regular infinite polyhedra\cite{coxeter1938regular}, semi-regular infinite polyhedra\cite{wachman1974infinitepolyhedra, grunbaum1993infinite}, and flexible wood that can be further generalized to obtain 3-way multi-layer nonwoven structures. There are also modular approaches such as polycubes \cite{gambini2012polycubenonlattice, hochberg20002nothcedtiling} that can identify the symmetrical arrangement of tiles, but they are not capable of giving a controllable design space for the symmetric structures. Our framework can be used to utilize these structures to define new types of composite materials. However, we realized that there exists no conceptual framework to describe them. A formal framework to design these structures would be helpful in generalizing these structures and exploring the space of solutions for the desired properties. It is necessary to develop \textit{new conceptual frameworks} to define these structures so that it is possible to discover new structures. In this paper, we present a conceptual framework that can be used to discover a wide variety of structures that are related to regular and semi-regular infinite polyhedra and frame structures (see Figures~\ref{fig_images/multilayer_after} and~\ref{pipe_explanation}).
+
+\begin{figure*}[htpb]
+    \centering 
+    \begin{subfigure}[t]{0.225\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/pipe_introduction/7-1-3-nailed-nonwoven-side-top.png}
+        \caption{$[7/1/3]$ nonwoven with nail connection.}
+        \label{fig_images/nailed_nonwoven}
+    \end{subfigure}
+    \hfill   
+    \begin{subfigure}[t]{0.225\textwidth}     \includegraphics[width=1.0\textwidth]{images/pipe_introduction/7-1-3-nonwoven-side-top-1.png}
+        \caption{$[7/1/3]$ nonwoven structure with attachments used instead of nails.}
+        \label{fig_images/piped_nonwoven_slim}
+    \end{subfigure}
+    \hfill   
+    \begin{subfigure}[t]{0.225\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/pipe_introduction/7-1-3-nonwoven-side-top-2.png}
+        \caption{$[7/1/3]$ nonwoven structure with thickened attachments.}
+        \label{fig_images/piped_nonwoven}
+    \end{subfigure}
+    \hfill   
+    \begin{subfigure}[t]{0.225\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/pipe_introduction/7-1-3-nonwoven-side-top-3.png}
+        \caption{$[7/1/3]$ nonwoven structure with thickened attachments.}
+        \label{fig_images/piped_nonwoven_thick}
+    \end{subfigure}
+\caption{These nonwoven structures represented with a nail connection in \ref{fig_images/nailed_nonwoven} could be represented as a connected network of edges as in \ref{fig_images/piped_nonwoven_slim} rather than using artificial nails or glues to hold different strands together. This network of connections could be thickened to fill more space as shown in \ref{fig_images/piped_nonwoven}}
+% make 0.025, 0.05, 0.075 thickened
+\label{pipe_explanation}
+\end{figure*}
+
+
+Our framework is essentially an algebraic structure that is a generalization and formalization of Grunbaum and Shephard's approach to the representation of two-fold, two-way weaving structures. \cite{grunbaum1980satins, grunbaum1985catalogue, grunbaum1986extension, grunbaum1988isonemal}. This framework is formulated as an algebra on a special subset of $2^K$-adic numbers, which we call $2^K$-adic zeros. The idea is inspired by (1) multiplicative cyclic subgroups of finite fields \cite{nicholson2015finite, garonzi2018number}, and (2) $p$-adic integers and numbers \cite{mahler1973introduction,gouvea1997p-addic}. 
+
+There are similarities and some slight differences between our framework and both of these approaches to tailor an algebra to generate symmetric nonwoven structures that fill the 3D space (see Section~\ref{Sec_Representation_of_NWS} for details). This framework of $2^K$-adic zeros helps develop methods to obtain symmetric structures with algebraic operations. In particular, it now becomes possible to obtain fundamental domains for volumetric nonwoven structures such as rectangular prisms that are homeomorphic to three-toroids. In other words, we can cover the 3D space with congruent volumetric woven structures by translated versions of these rectangular prism domains. 
+
+\subsection{Basis and Rationale}
+\label{Sec_BasisAndRationale}
+
+It is important to produce the desired symmetric or asymmetric structures in all three orthogonal directions of the 3D space to obtain the suitable properties of isotropic or anisotropic material \cite{kumar2013axisymmetric}. Symmetrically connected structures have been shown to create a basis for the discovery of structurally optimal protein configurations \cite{Ramakrishnan1995latticechain, istrail2009combinatorial}. In this paper, we present an algebraic framework for producing a wide range of symmetric or asymmetric structures through algebraic operations. The main advantage of this framework for engineers and material scientists is that they can discover new structures that can provide the desired properties by manipulating algebraic processes. In this paper, we also demonstrate the power of this framework by providing the range of potential structures that can be produced by such algebraic processes. 
+
+The key idea behind the $2^K$-adic zeros is that infinitely periodic $2^K$-adic numbers are different representations of zero. Certain operations such as addition to zero and multiplication with a nonzero number do not change the fact that the resulting forms still correspond to zero. However, one curious fact is that none of these operations produces an infinite number of zeros, which corresponds to having no connection. This is very useful for our purposes, since we want to guarantee that we will always have some connections in our structures regardless of the algebraic operations we use. Moreover, we can still identify the identity element for addition and the inverse element for addition, with which we can construct complex operations. Furthermore, multiplication with $2^s$ corresponds to a shift operation, which is also useful for obtaining periodic structures. A certain subset of $2^K$-adic zero numbers that correspond to Mersenne primes can support cyclic multiplication with random numbers. 
+
+\subsection{Contributions}
+\label{Sec_Contributions}
+
+Our contributions to this work can be listed as follows. 
+(1) We develop a tensor-based binary numbering scheme to uniquely describe connections between layers in nonwoven structures to describe layered woven structures. 
+(2) We generalize this tensor-based representation to general volumetric nonwoven structures by using octal numbers to describe connections in the positive $x$, positive $y$, and positive $z$ directions. 
+(3) To construct tensors that correspond to symmetric nonwoven structures, we develop an algebraic framework by introducing $2^K$-adic and $8^{K}$-adic zeros (binary and octal). 
+(4) We identified algebraic properties of $2^K$-adic and $8^{K}$-adic zeros and demonstrated how to use these properties to produce symmetric nonwoven structures. A special subset of $2^K$-adic zeros that correspond to Mersenne primes can potentially support field properties. 
+
+
+\section{Preliminaries and Related Works}
+\label{Sec_Previous_Work}
+
+Despite such a significant amount of engineering work, there is not much work on the formalization of nonwoven fabrics as mathematical/combinatorial structures \cite{zarrinmehr2023satin}. This is not surprising because it creates a parallel with the theory of woven fabrics \cite{akleman2015extended,akleman2020topologically}. Although two-way, two-fold woven fabrics such as plain \cite{akleman2009cyclic}, twill \cite{akleman2011cyclic}, or satin have been around for at least five millenniums \cite{horrocks2000}, the first combinatorial formalization of woven fabrics was not introduced until the 1980s \cite{grunbaum1980satins}. Grunbaum and Shephard's seminal work on cataloging fabric weaves led to the discovery of previously unknown two-way, two-fold weaving patterns~\cite{grunbaum1980satins, grunbaum1985catalogue, grunbaum1986extension, grunbaum1988isonemal, roth1993symmetry}. 
+
+Grunbaum and Shephard introduced an encoding of two-way two-fold fabrics with a matrix of 0 and 1, which encodes the information for which thread has a higher rank at a crossing between a pair of threads (see Figure~\ref{fig_woven_vs_nonwoven}) \cite{grunbaum1980satins}.
+In their terminology, ``\textit{two-way}'' means that these fabrics are manufactured using two sets of interlacing strands, called warp and weft, at right angles to each other (see Figures~\ref{fig_images/w0}, and~\ref{fig_images/w1}). The word ``\textit{two-fold}'' means that there are never more than two strands crossing each other \cite{grunbaum1980satins, akleman2009cyclic}. They also
+introduced the concept of `\textit{ hanging together}'' to call a woven pattern given a matrix a fabric. The classification of a random matrix pattern as fabric by the hang-together property has been studied extensively \cite{griswold2004when, griswold2004from, clapham1980when, enns84efficient, delaney1984when}.
+
+Grunbaum and Shephard also introduced an approach to fill matrices with symmetric patterns. In their approach, all rows of a matrix are produced by the circular shift operation \cite{arveson1984circular} over an initial row pattern \cite{grunbaum1980satins}. 
+
+For example, the three most well-known fabrics, namely plain, twill, and satin, can be represented as a triplet $[A/B/C]$, where the initial length row $N$ consists of $A$ number of consecutive weft threads and $B$ number of consecutive warp threads, where $N=A+B$. The other rows are created by cyclically shifting this row for the amount of $C$ \cite{chen2010designing}. A matrix pattern produced by the $[A/B/C]$ notation is guaranteed to correspond to a fabric, i.e. ``\textit{hanging together},'' if $N=A+B$ and $C$ are relatively prime.
+
+In this work, we start by offering a similar formalization to describe all possible two-way, two-layer nonwoven fabrics. This initial work is reminiscent of the matrix representation provided for woven fabrics by Grunbaum and Shephard \cite{grunbaum1980satins}. Using tensors, which can be considered as layered matrices, we obtain multilayered nonwoven structures by extending operations in the $z$ direction (see Figure~\ref{fig_matrix_woven_vs_nonwoven4} as an example). Then we further generalize these tensor structures to represent connections in all three directions instead of one (see Figure~\ref{fig_tensor} as an example). 
+
+The main power of our approach is that we provide an algebraic formalism by choosing a subgroup of $2$-adic numbers, which we call $2$-adic zero numbers to fill these matrices and tensors for layered nonwoven structures. These numbers represent connections in the $z$ direction. Then, we further generalize the structures using $8$-adic zero numbers that represent connections in three perpendicular directions for generalized volumetric nonwoven structures. 
+
+\begin{table}[htbp!]
+\begin{center}
+\begin{tabular}{ | m{0.2\columnwidth} | m{0.15\columnwidth}| m{0.4\columnwidth} | } 
+  \hline
+\textbf{Pattern} &
+\textbf{$[A/B/C]$ Notation}&
+\textbf{$2^K$-adic Notation} \\ 
+  \hline
+\textbf{The Plain} &
+$[1/1/1]$&
+    $[\overline{1}_{4}, \otimes 2]$ \\ 
+  \hline
+\textbf{A Twill} &
+$[2/1/1]$&
+$[\overline{1}_{8}, \otimes 2]$ \\ 
+  \hline
+\textbf{Another Twill} &
+$[2/2/1]$&
+$[\overline{3}_{16}, \otimes 2]$ \\ 
+  \hline
+  \textbf{A Satin} &
+$[7/1/3]$&
+$[\overline{1}_{256}, \otimes 8]$  \\ 
+  \hline
+  \textbf{Unnamed} &
+$[5/2/3]$&
+$[\overline{3}_{128}, \otimes 8]$  \\ 
+  \hline
+  \textbf{Unnamed} &
+Not Possible&
+$[\overline{0100011}_{2^7}, \otimes 2^3]$  \\ 
+  \hline
+\end{tabular}
+\end{center}
+\caption{Comparison of $[a,b,c]$ notation with $2^k$-adic notation. Here $\otimes$ is a cyclical multiplication operation defined on $p$-adic numbers.}
+\label{table_comparison}
+\end{table}
+
+There exists an extensive literature on the theory and applications of $p$-adic numbers in a wide variety of fields such as physics \cite{brekke1993p, dragovich2009p}, biology \cite{dragovich2010p,dragovich2021p},  chemistry\cite{khrennikov2016reacdiffpadic}, cryptography \cite{calderbank1995modular, da2020mathematical}, exact computation \cite{dixon1982exact, krishnamurthy1975finite, caruso2017padiccomputation}, signal processing\cite{bhandari2023weavepadic} and even for shape representation \cite{cornelissen2005p}. Although there exists theoretical work showing the isomorphism between repeating structures such as special lattices of different dimensions coming from permutohedra and special types of p-adic integers \cite{kitto1991padiclattice, kitto1994padicpermutohedra} we have not seen any work on producing symmetric structures for cubical arrangement of connections and the use of infinitely periodic $p$-adic numbers that correspond to zero for encoding adjacency information. Other works explore a finite number of partitions of tiled polyhedra \cite{scott2014tricolor} and periodic surfaces that construct infinite surfaces \cite{gillispie20094IsogonalSponges, duffield2024periodic, burt2007periodic}, which fails to give a design space for all symmetric structures. Therefore, in Section ~\ref{Sec_Supplementary_Material} we provide a practical overview of the $p$-adic numbers and $p$-adic zeros with some useful general formulas in Section ~\ref{Sec_Supplementary_Material}. 
+Without loss of generality, we can represent the $2^K$-adic and $8^K$-adic zeros as follows. 
+\begin{equation}
+X = \sum_{i=\infty}^{-\infty} a 2^{iK}
+\end{equation} 
+where $a \in \{0,1,\ldots,p^K-1\}$. In the case of octal numbers, $K$ must be divisible by $3$. Note that these numbers consist of infinite repetitions of the same number, that is, $a$. Note that this formula does not strictly correspond to a $p$-adic number. The first difference is that the base is the composite number instead of the prime. This is not a problem in our approach. The second difference is that the sum range covers the axis from $-\infty$ to $\infty$ instead of limiting the range to positive numbers, as in the usual definition of $p$-adic. This is also intentional, as we want an automorphism for all regions from $-\infty$ to $\infty$. We use the following notation to represent these numbers:
+$X= \overline{a}_{2^K}$. For example, the decimal number seven defined and repeated in a five-bit binary will be written as $X= \overline{00111}_{2^5}$. Similarly, the decimal number seven defined and repeated in octal two bits will be written as $X= \overline{07}_{8^2}$.
+
+\begin{figure}[htpb!]
+    \centering 
+    \begin{subfigure}[t]{0.23\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/matrix_figures/2-2-1-1-1-3d-nonwoven-matrix-single.png}
+        \caption{2/2/1 matrix for 2-way 2-fold fabric}
+        \label{fig_images/multilayer_matrix_base}
+    \end{subfigure}
+    \hfill   
+    \begin{subfigure}[t]{0.23\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/matrix_figures/2-2-1-1-1-3d-nonwoven-matrix.png}
+        \caption{Stacked matrices that encode connection for nonwoven structure.}
+        \label{fig_images/multilayer_matrix_stack}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/matrix_figures/2-2-1-1-1-3d-nonwoven-base-matrix.png}
+        \caption{Nonwoven warp and weft threads before the connection.}
+        \label{fig_images/multilayer_before}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/matrix_figures/2-2-1-1-1-3d-nonwoven-matrix-combined.png}
+        \caption{Adding connections using the stacked matrices}
+        \label{fig_images/multilayer_after_comb}
+    \end{subfigure}
+    \hfill
+\caption{Constructing nonwoven structures from layered matrices.}
+\label{fig_matrix_woven_vs_nonwoven4}
+\end{figure}
+
+Note that multiplication with any power of $2$ (or $8$) results in a shift operation. For example, $2 \times \overline{00111}_{2^5} = \overline{01110}_{2^5}$. We can continue to multiply to obtain all shifted versions of the binary number seven as follows: 
+$$\overline{00111}_{2^5} \rightarrow \overline{01110}_{2^5} \rightarrow \overline{11100}_{2^5} \rightarrow \overline{11001}_{2^5} \rightarrow \overline{10011}_{2^5}  $$
+Similarly, if we multiply $\overline{07}_{8^2}$ with $8$, we also obtain an appropriate shift as
+$8 \times \overline{07}_{8^2} = \overline{70}_{8^2}$. If we multiply it once more by $8$, we again return the original number. 
+It is easy to see that using the $p$-adic zeros notation, it is straightforward to turn Grunbaum and Shephard's shift operation \cite{grunbaum1980satins} into a multiplication. Most isonemal fabrics can be represented by one $2^k$-adic zero number and one multiplication operation, as shown in Figure~\ref{table_comparison}.   
+
+
+
+\begin{figure*}[htpb]
+    \centering 
+    \begin{subfigure}[t]{0.12\textwidth}
+    \includegraphics[width=1.0\textwidth]
+    {images/tensor_figures/000.png}
+        \caption*{000\\No connection}
+        \label{fig_images/cell_000}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/tensor_figures/001.png}
+        \caption*{001\\Z connected cell}
+        \label{fig_images/cell_001}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/tensor_figures/010.png}
+        \caption*{010\\Y connected cell}
+        \label{fig_images/cell_010}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+      \includegraphics[width=1.0\textwidth]{images/tensor_figures/100.png}
+        \caption*{100\\X connected cell}
+        \label{fig_images/cell_100}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+    \includegraphics[width=1.0\textwidth]{images/tensor_figures/011.png}
+        \caption*{011\\YZ connected cell}
+        \label{fig_images/cell_011}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+   \includegraphics[width=1.0\textwidth]{images/tensor_figures/110.png}
+        \caption*{110\\XY connected cell}
+        \label{fig_images/cell_110}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+    \includegraphics[width=1.0\textwidth]{images/tensor_figures/101.png}
+        \caption*{101\\XZ connected cell}
+        \label{fig_images/cell_101}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+      \includegraphics[width=1.0\textwidth]{images/tensor_figures/111.png}
+        \caption*{111\\All connected cell}
+        \label{fig_images/cell_111}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+     \includegraphics[width=1.0\textwidth]{images/tensor_figures/000_color.png}
+    \includegraphics[width=1.0\textwidth]{images/tensor_figures/000_slab.png}
+        \caption*{$(r,g,b)=(0,0,0)$\\Black: No connection}
+        \label{fig_images/cell_000a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+    \includegraphics[width=1.0\textwidth]{images/tensor_figures/001_color.png}
+    \includegraphics[width=1.0\textwidth]{images/tensor_figures/001_slab.png}
+        \caption*{$(r,g,b)=(0,0,1)$\\Blue: Z connection}
+        \label{fig_images/cell_001a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+    \includegraphics[width=1.0\textwidth]{images/tensor_figures/010_color.png}
+    \includegraphics[width=1.0\textwidth]{images/tensor_figures/010_slab.png}
+       \caption*{$(r,g,b)=(0,1,0)$\\Green: Y connection}
+        \label{fig_images/cell_010a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+    \includegraphics[width=1.0\textwidth]{images/tensor_figures/100_color.png}
+    \includegraphics[width=1.0\textwidth]{images/tensor_figures/100_slab.png}
+        \caption*{$(r,g,b)=(1,0,0)$\\Red: X connection}
+        \label{fig_images/cell_100a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+    \includegraphics[width=1.0\textwidth]{images/tensor_figures/011_color.png}
+    \includegraphics[width=1.0\textwidth]{images/tensor_figures/011_slab.png}
+        \caption*{$(r,g,b)=(0,1,1)$\\Cyan: Y and Z.}
+        \label{fig_images/cell_011a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+   \includegraphics[width=1.0\textwidth]{images/tensor_figures/110_color.png}
+    \includegraphics[width=1.0\textwidth]{images/tensor_figures/110_slab.png}
+        \caption*{$(r,g,b)=(1,1,0)$\\Yellow: X and Y.}
+        \label{fig_images/cell_110a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+   \includegraphics[width=1.0\textwidth]{images/tensor_figures/101_color.png}
+    \includegraphics[width=1.0\textwidth]{images/tensor_figures/101_slab.png}
+        \caption*{$(r,g,b)=(1,0,1)$\\Purple: X and Z.}
+        \label{fig_images/cell_101a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.12\textwidth}
+  \includegraphics[width=1.0\textwidth]{images/tensor_figures/111_color.png}
+  \includegraphics[width=1.0\textwidth]{images/tensor_figures/111_slab.png}
+        \caption*{$(r,g,b)=(1,1,1)$\\White: All connection}
+        \label{fig_images/cell_111a}
+    \end{subfigure}
+    \hfill  
+\caption{Base cell connections represented by the tensor values. The top row explicitly states what the cell configuration is that corresponds to the tensor value. The two bottom rows provide two visual representations of each element of the connection tensor. }
+\label{fig_tensor}
+\end{figure*}
+
+The $(\overline{1}_{256}, \otimes 8)$, (or in binary $(\overline{00000001}_{2^8}, \otimes 2^3)$), is satin corresponds to the same satin pattern shown in Figure~\ref{fig_woven_vs_nonwoven}, which is given in the $[a,b,c]$ notation as $[7,1,3]$ in Table~\ref{table_comparison}. For simple cases, $[a,b,c]$ is compact, as shown in these examples. However, it cannot handle slightly complex cases such as $[\overline{0100011}_{2^7}, \times 2^3]$ in the $2^K$-adic notation. Note that the $[\overline{0100011}_{2^7}, \times 2^3]$ unnamed pattern can be handled using the $[N,s]$ notation \cite{grunbaum1980satins}. The main problem is that it uses cyclical shift operation, which cannot be simply generalized. The p-adic approach allows us to generalize the $[N,s]$ notation to any type of cyclical operation. 
+
+
+In other words, the real advantage of this formalization comes once we go beyond the cyclic shift operation. In particular, it allows for cyclic addition and multiplication with any number. These are useful because we can order and reorder numbers to obtain different permutations and combinations by using only algebraic operations. In Section~\ref{Sec_Representation_of_NWS} we explain how to use binary matrices and tensors to describe connections. In Section~\ref{Sec_Design_of_NWS}, we will discuss how to use p-adic algebraic operations to fill matrices and tensors to obtain periodic structures. 
+
+\section{Representation of Volumetric Nonwoven Structures}
+\label{Sec_Representation_of_NWS}
+
+We organize this section into three main parts. In the first part, we discuss how to represent two-way, two-layer nonwoven structures. In the second part, we discuss the representation of two-way multilayer nonwoven structures. Finally, in the third part, we provide the representations of volumetric nonwoven structures. 
+
+
+\subsection{Matrices for Two-Way Two-Layer Nonwovens}
+
+The first difference between woven and nonwoven structures is that the threads in nonwoven structures do not have crossing (or rank change) between threads, and nonwoven structures have connections between threads of different ranks. These connections can be realized with physical processes such as nailing, stapling, gluing, welding, etc. Representation for the nonwoven structures can be achieved with one bit per pairwise thread interaction between two layers. The information to encode is the existence of connections between orthogonal thread pairs of different layers. As a result, it is possible to use the notation that was introduced by Grunbaum and Shephard for two-layer nonwoven structures. To produce these matrices, it is also possible to see the notation $[A/B/C]$ or $[N,s]$ for the sake of explanation for two-way two-fold nonwoven structures.
+
+Note that connections in a nonwoven structure can be thought of as an edge connecting the warp and weft threads; to have a clearer visual representation of these connections, we will use connecting pipes to represent the connections between different threads as in Figure \ref{pipe_explanation}. These pipes can also be thickened or diluted to achieve a desired percentage of space cover. With the thin pipe structures in Figure \ref{fig_images/piped_nonwoven_slim}, it is easier to see the connections between the orthogonal threads. On the other hand, the thickened pipes in Figure \ref{fig_images/piped_nonwoven_thick} give an illustration of how these structures can cover the space.
+
+\begin{figure*}[htpb!]
+    \centering 
+    \begin{subfigure}[t]{0.24\textwidth}
+     \includegraphics[width=1.0\textwidth]{images/generalized_frames/3x3x3_random_tensor_spheres.png}
+        \caption{Visualization of a random tensor.}
+        \label{fig_images/tensor_sphere}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.24\textwidth}
+    \includegraphics[width=1.0\textwidth]{images/generalized_frames/3x3x3_random_tensor_slabs.png}
+        \caption{The same tensor visualized as layered matrices.}
+        \label{fig_images/tensor_slab}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.24\textwidth}
+   \includegraphics[width=1.0\textwidth]{images/generalized_frames/3x3x3_random_tensor_struct_before.png}
+        \caption{Cell connections corresponding to the tensor values.}
+        \label{fig_images/tensor_struct_before}
+    \end{subfigure}
+    \hfill
+    % \begin{subfigure}[t]{0.24\textwidth}
+    %     \includegraphics[width=1.0\textwidth]{images/generalized_frames/3x3x3_random_tensor_struct_after_only_connections.png}
+    %     \caption{Forming connections.}
+    %     \label{fig_images/tensor_struct_after_conns}
+    % \end{subfigure}
+    % \hfill
+    \begin{subfigure}[t]{0.24\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/generalized_frames/3x3x3_random_struct.png}
+        \caption{Resulting randomly connected structure.}
+        \label{fig_images/random_struct}
+    \end{subfigure}
+    \hfill
+    % \begin{subfigure}[t]{0.24\textwidth}
+    %     \includegraphics[width=1.0\textwidth]{images/generalized_frames/3x3x3_random_struct_islands_tiled.png}
+    %     \caption{Tiled version of the fundamental structure.}
+    %     \label{fig_images/struct_tile_islands}
+    % \end{subfigure}
+    % \hfill
+    % \begin{subfigure}[t]{0.24\textwidth}
+    %     \includegraphics[width=1.0\textwidth]{images/generalized_frames/3x3x3_random_struct_islands_tiled_slice_fundamental.png}
+    %     \caption{Determining connected components after tiling.}
+    %     \label{fig_images/struct_tile_islands_slice}
+    % \end{subfigure}
+    % \hfill
+    % \begin{subfigure}[t]{0.24\textwidth}
+    %     \includegraphics[width=1.0\textwidth]{images/generalized_frames/3x3x3_random_struct_correct_islands.png}
+    %     \caption{Correctly defined connected components.}
+    %     \label{fig_images/struct_island}
+    % \end{subfigure}
+    % \hfill
+\caption{Construction and component determination of the volumetric tileable polyhedra using random tensor.}
+\label{fig_tensor_construction}
+\end{figure*}
+
+\subsection{Tensors for Two-Way Multi-Layer Nonwovens}
+
+The second important difference between woven and nonwoven structures is that the threads in nonwoven structures have a static rank order, which means that their starting rank is kept the same along the thread. This property of nonwoven structures enables us to stack these layers of nonwoven thread and define connections solely based on pairwise layer connections in a multilayer nonwoven structure (see Figures~\ref{fig_tensor},~\ref{fig_tensor_construction}, and~  \ref{fig_images/multilayer_after}). To enumerate and classify these structures, we can create an encoding of pairwise layer connections using the same encoding for a single layer nonwoven structure as shown in Figure \ref{fig_images/multilayer_matrix_base} and Figure \ref{fig_images/multilayer_matrix_stack}. For this, we need $n$ number of matrices to define connections for $n$ number of thread layers. Note that in addition to the pairwise connection definition for the inner layers, we also define an additional connection matrix at the top of the structure that will define the connection to the layer above when the base domain of the tile is repeated. This connection is crucial in ensuring that the nonwoven structure is homeomorphic to a three-toroid structure. 
+
+We can view these layers of matrices as three-dimensional tensors $T(x,y,z)$ where $x \in \{0,1,\ldots,N_x\}$, $y \in \{0,1,\ldots,N_y\}$, and $z \in \{0,1,\ldots,2N_z\}$ and $T(x,y,z) \in {0,1}$. Note that here $T$ is a function in the form of $T: \{0,1,\ldots,N_x\} \times \{0,1,\ldots,N_x\} \times \{0,1,\ldots,2N_z\} \longrightarrow {0,1}$. Note that the number of layers in the $z$ direction must be divisible by two to keep the warp and weft structures alternating.  These tensors uniquely define the two-way multi-layer nonwoven structures. For a given tensor,  it is straightforward to make connections between the threads, as shown in \ref{fig_images/multilayer_after_comb}.
+
+
+It is also straightforward to extend earlier notation for woven structures to produce these staked matrices, or more appropriately tensors. Note that the structure shown in Figure \ref{fig_images/multilayer_after}, is obtained by cyclically shifting the binary pattern $(0011)_2$ in the $y$ and $z$ directions with $s_y=1$ and $s_z=3$, respectively. 
+This tensor can be obtained simply by extending the two-way two-fold woven notation, $[A/B/C]$ or $[N,s]$, simply by adding one more shift term, such as $[A/B/s_y/s_z]$ or $[N,s_x,s_z]$. Then, the initial row pattern in $x$, which was given by $A/B$ or $N$, can be shifted in both the $x$ and $y$ directions to obtain all rows of the tensor. In p-adic notation, this is the multiplication of the number $\overline{3}_{16}$
+with $2^{s_y}=2$ in the y direction and $2^{s_z}=8$ in the $z$ direction. 
+
+
+\subsection{Tensors for Volumetric Nonwovens}
+
+The next step is to break the warp and weft threads to remove the implicit requirement of having layers of perpendicular warp and weft threads. By removing this requirement, we can think of these volumetric shapes as structures that are represented by frame structures (i.e. graphs in 3D) that are constructed by edges connecting a volumetric grid of points. 
+
+To conceptualize these 3D graphs, consider a vertex in the center of each cell on the regular grid. Each vertex can only be connected to the vertices in the centers of neighboring cells.  Since this structure should be repeated in 3D space, the connections have to be consistent in the boundaries. Since the vertices can only be in grid centers, the edges can only connect neighboring vertices, and the graph repeats all three orthogonal directions, we can use a simple model to represent this graph. As a result of these three constraints, the only connections that need to be considered for a single vertex are those in the $+x$, $+y$, and $+z$ directions to avoid redundancy. This helps in enumerating the possible configurations by assigning a zero or one boolean value to each axis to denote the existence of an edge connection to the vertex in the neighboring cell in the positive direction of the axis. Since we only consider the directions $+x$, $+y$, and $+z$, there are only eight possible configurations for a single cell, which are enumerated as shown in Figure \ref{fig_tensor}. 
+
+We can represent these graphs with vertices that can only have $8$ types of connections as three-dimensional tensors, $T(x,y,z)$ where $x \in \{0,1,\ldots,N_x\}$, $y \in \{0,1,\ldots,N_y\}$, and $z \in \{0,1,\ldots,2N_z\}$ and $T(x,y,z) \in {0,1,2,\ldots,7}$. Note that here the tensor is a function in the form of $T: \{0,1,\ldots,N_x\} \times \{0,1,\ldots,N_x\} \times \{0,1,\ldots,N_z\} \longrightarrow {0,1,2,\ldots,7}$. Note that there is no longer any constraint on the number of grid sizes $N_x$, $N_y$, and $N_z$. These new tensors uniquely define volumetric nonwoven structures. For a given tensor, it is also straightforward to make connections between the threads, as shown in \ref{fig_images/multilayer_after_comb}.
+
+To create a visual representation of the connection tensors, we assign red, green, and blue colors to the connections in the x, y, and z directions, respectively. This gives us $8$ primary color as shown in Figure~\ref{fig_tensor}. Two examples of visualization of such a tensor for an instance of $3\times3\times3$ structure are shown in Figures \ref{fig_images/tensor_sphere}, and \ref{fig_images/tensor_slab}. Using these tensors, we can form tubular connections between cells, as shown in Figures~\ref{fig_images/tensor_struct_before}. 
+
+\begin{figure}[htpb]
+    \centering 
+    \begin{subfigure}[t]{0.32\columnwidth}
+        \includegraphics[width=1.0\textwidth]{images/random_fixing/random1.png}
+        \caption{Structure defined from a random tensor.}
+        \label{fig_images/random_init}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\columnwidth}
+        \includegraphics[width=1.0\textwidth]{images/random_fixing/random1_step1.png}
+        \caption{Connecting one of the floating islands to its neighbors.}
+        \label{fig_images/random_fix_step}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\columnwidth}
+        \includegraphics[width=1.0\textwidth]{images/random_fixing/random1_step2.png}
+        \caption{All connected structure.}
+        \label{fig_images/random_fix_allconnected}
+    \end{subfigure}
+    \hfill
+\caption{Connecting the disconnected islands caused by the random tensor initialization. \ref{fig_images/random_init} consists of 3 separate islands, which are fully disconnected cells. We can connect these cells to their neighbors by inserting edges to obtain a single connected graph. As can be seen in \ref{fig_images/random_fix_step}, this process eventually results in a fully connected structure as shown in \ref{fig_images/random_fix_allconnected}.}
+\label{fig_fixing_random_tensor}
+\end{figure}
+
+\section{Design of Volumetric Nonwoven Structures}
+\label{Sec_Design_of_NWS}
+
+In this section, we present methods to fill matrices and tensors with appropriate data that can produce regular and semiregular infinite polyhedral frame structures. In Section~\ref{Subsec_Design_Random}, we discuss random matrices and tensors.  In Section~\ref{Subsec_Design_ABC}, we demonstrate how to design symmetric structures with 3D extensions of the notations $[A/B/C]$ and $[N/s]$. Finally, we discuss the additional power of $2^K$ -adic zero numbers to fill these matrices and tensors in Section~\ref{Subsec_Design_2Kadic}.
+
+\subsection{Design with Random Matrices and Tensors}
+\label{Subsec_Design_Random}
+
+The simplest method to design multilayer or volumetric nonwoven structures is to fill their corresponding tensors with binary or octal random numbers. Note that since the tensor defines the fundamental domain, the resulting structures are still repeating. One problem with this design method is that it can include randomly disconnected components that would float in space, as shown in Figure ~\ref{fig_images/random_init}. Note that what these random tensors represent essentially are graphs. We can identify disconnected parts with graph search algorithms. Then we can identify the neighboring disconnected components, to do so we can use our initial lattice structure and the boundaries of the disconnected components, the neighbors are found by checking the boundaries of disconnected components and moving along the lattice. After finding neighbors we can connect them with insert edge operations until we obtain a single graph. This process removes all disconnected shapes that can act like floating islands, as illustrated in Figure \ref{fig_fixing_random_tensor}.
+
+\begin{figure*}[htpb]
+    \centering 
+    \begin{subfigure}[t]{0.23\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/disconnected_nonwovens/ABCD-1-1-1-1-nonwoven.png}
+        \caption{Nonwoven structure from $[1/1/1/1]$ configuration, 2 connected structures.}
+        \label{fig_images/2_disconnected_nonwoven}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/disconnected_nonwovens/ABCD-2-1-1-1-nonwoven.png}
+        \caption{Nonwoven structure from $[2/1/2/2]$ configuration, 3 connected structures.}
+        \label{fig_images/3_disconnected_nonwoven}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/disconnected_nonwovens/ABCD-3-1-1-1-nonwoven.png}
+        \caption{Nonwoven structure from $[3/1/3/3]$  configuration, 4 connected structures.}
+        \label{fig_images/4_disconnected_nonwoven}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \includegraphics[width=1.0\textwidth]{images/disconnected_nonwovens/ABCD-4-1-2-3-nonwoven.png}
+        \caption{Nonwoven structure from $[4/1/3/2]$  configuration, 5 connected structures.}
+        \label{fig_images/5_disconnected_nonwoven}
+    \end{subfigure}
+    \hfill
+\caption{Examples of multiple interlocked nonwoven structures. These are all simple ones defined by $[A/1/s_x/s_y]$. }
+\label{fig_matrix_woven_vs_nonwoven2}
+\end{figure*}
+
+\subsection{Design with an Extension of $[A/B/C]$ and $[N/s]$ Notations}
+\label{Subsec_Design_ABC}
+
+Frame structures that are explicitly modeled by filling three-dimensional tensors with random values create symmetry since the fundamental domain still repeats. On the other hand, if we want to produce symmetric patterns inside the fundamental domain, we need to produce tensor values with procedures that can produce symmetry. Using insights from the extended notation introduced for nonwoven structures, we can define operators that will produce additional symmetry within the fundamental domain. In woven structures, the most common of these operators are shift operations. Let $N_x(0) = {a_{K-1},\ldots a_1, a_0}$ denote an ordered 1D array of binary values in the $x$ direction. The amount of cyclical shift $s_y$ in $N_x(0)$ is defined as $ N_x(1) = N_x(0) \triangleleft s = {a_{(s+K-1)\pmod{K}},\ldots a_{s+1}, a_s}$. Using this operation, we can produce a recursive operation to produce a set of arrays as $ N_x(k) =N_x({k-1}) \triangleleft s$. If $s$ and $K$ are relatively prime, after the $K$ number of cyclical changes, we obtain the initial array, that is, $N_x(K)=N_x(0)$. Note that this set of operations creates a $K$ number of 1D arrays. If we place all of them side by side as ${N_x(0),N_x(1),\ldots N_x(K-1)}$, we obtain a matrix of binary values. To represent the matrix, the following notation is appropriate
+$ T^{<2>} = [N_x(0),s]$
+where $T^{<2>}$ is the 2D tensor, that is, a matrix. We do not particularly include $\triangleleft$, since there is only one operator. Note that since we work in 3D this matrix can be in either the $z = 0$ plane or the $y = 0$ plane. Therefore, we need to specify in which dimension shift will be made as $ T_{x,y}^{<2>} = [N_x(0),s_y]$ or $ T_{x,z}^{<2>}  = [N_x(0),s_z]$. 
+
+Now, we can extend higher-dimensional tensors as follows: $ T_{x,y,z}^{<3>} = [[N_x(0), s_y], s_z]$
+Since the shift operator is associative, we can further simplify it to
+$ T_{x,y,z}^{<3>} = [N_x(0), s_y, s_z]$
+if $K$ \& $s_x$ and $K$ \& $s_y$ are relatively prime, this tensor has size $K \times K \times K$. Note that if the initial pattern $N_x(0)$ consists of one set of consecutive zeros and another set of consecutive ones only, we can further represent $N_x(0)$ as $A/B$, where $A$ is the number of zeros and $B$ is the number of ones. This notation provides a generalization of the most common woven patterns of $[A/B/C]$ type as $[A/B/s_x/s_y]$.
+The main problem with these two notations is that the cyclical shift is the only operation that we can consider. To be able to use more complex operations, we need to use an algebraic approach with $p$-adic zero numbers. 
+
+
+\begin{figure*}[htpb]
+    \centering 
+    \begin{subfigure}[t]{0.48\columnwidth}
+        \includegraphics[width=1.0\textwidth]{images/8_adic_shifting/1443_matrix_from_mul_4.png}
+        \caption{$[\overline{1453}_{8^{4}}, \times 8^2]$, operator operates on the fundamental row to create a layer.}
+        \label{fig_images/shifting_example_1_matrix}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\columnwidth}
+        \includegraphics[width=1.0\textwidth]{images/8_adic_shifting/1443_tensor_from_y_mul_4_x_mul_2.png}
+        \caption{$[[\overline{1453}_{8^{4}}, \times 8^2], \times 8^1]$, operator operates on the fundamental layer to create a volumetric structure.}
+        \label{fig_images/shifting_example_1_tensor}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\columnwidth}
+        \includegraphics[width=1.0\textwidth]{images/8_adic_shifting/4174_matrix_from_multiply_4.png}
+        \caption{$[\overline{4174}_{8^{4}}, \times 8^2]$, operator operates on the fundamental row to create a layer.}
+        \label{fig_images/shifting_example_2_matrix}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\columnwidth}
+        \includegraphics[width=1.0\textwidth]{images/8_adic_shifting/4174_tensor_from_y_multiply_4_z_multipy2.png}
+        \caption{$[[\overline{4174}_{8^{4}}, \times 8^2], \times 8^1]$, operator operates on the fundamental layer to create a volumetric structure.}
+        \label{fig_images/shifting_example_2_tensor}
+    \end{subfigure}
+    \hfill
+\caption{Using $8$-adic numbers and cyclic operators for two-stage construction of the volumetric structures.}
+\label{fix_8adic_shifting}
+\end{figure*}
+
+
+\subsection{Design with $2^K$-adic  Symmetry Operations}
+\label{Subsec_Design_2Kadic}
+
+One problem with standard woven notation is that they are not supported by an algebra. There is only one operation, and it is defined algorithmically. 
+To discover new structures, we need the flexibility that can be provided by algebraic operations. In this section, we show how to expand the classical woven notation by using an algebra over $2^K$-adic zeros. This algebra supports cyclic addition operation and multiplication with $-1$ to obtain the inverse. 
+Moreover, the structures constructed with these operations will also be $2^K$-adic zeros. For this extension, we only need to specify the operation that we use explicitly. For example, 
+$ T_{x,y}^{<2>} = [N_x(0), \oplus A]$ means to obtain all columns by cyclically adding $A$ to the $2^K$-adic column number $N_x(0)$. Note that $N_y(n)$ is a row number (like a transpose vector). Since $N_z(n)$ is an additional row in 3D, we use subscript instead of transpose notation. It is best to explain this idea with a set of examples. Let $N^T_x(0) = \overline{(111)}_{2^3}$ and $A^T=\overline{(011)}^T_{2^3}$, now let us create the matrix by continuously adding $A$ as follows:
+$$ 
+\begin{pmatrix}1\\1\\1\end{pmatrix} \rightarrow 
+\begin{pmatrix}0\\1\\1\end{pmatrix} \rightarrow 
+\begin{pmatrix}1\\1\\0\end{pmatrix} \rightarrow 
+\begin{pmatrix}0\\1\\0\end{pmatrix} \rightarrow 
+\begin{pmatrix}1\\0\\1\end{pmatrix} \rightarrow 
+\begin{pmatrix}0\\0\\1\end{pmatrix} \rightarrow 
+\begin{pmatrix}1\\0\\0\end{pmatrix} 
+$$
+
+
+
+Note that after the iteration of $7$, we return the original number; therefore, the matrix that corresponds to the fundamental domain is $3\times7$ and it is a matrix that consists of two types of $p$-adic zeros. In the $x$ direction, that is $2^3$-adic and in the $y$ direction it is $2^7$-adic. 
+$$ 
+T_{x,y}^{<2>}= \overline{\begin{pmatrix}1&0&1&0&1&0&1\\ 1&1&1&1&0&0&0\\ 1&1&0&0&1&1&0 \end{pmatrix}}_{2^3 \times 2^7}
+$$
+Now, let us look at multiplication with $2^k$. Let $N^T_x(0) = \overline{(10110)}_{2^5}$ and $A=2^2$ and operation is cyclic multiplication $\otimes$. Note that here $A$ is not repeating, i.e. it is not a $P$-adic zero. 
+Now, let us create the matrix by continuously multiplying with $A=2^2$ as follows: 
+$$ 
+\begin{pmatrix}1\\0\\1\\1\\0 \end{pmatrix} \rightarrow 
+\begin{pmatrix}1\\1\\0\\1\\0 \end{pmatrix} \rightarrow 
+\begin{pmatrix}0\\1\\0\\1\\1 \end{pmatrix} \rightarrow 
+\begin{pmatrix}0\\1\\1\\0\\1 \end{pmatrix} \rightarrow 
+\begin{pmatrix}1\\0\\1\\0\\1 \end{pmatrix}  
+$$
+Note that after the iteration of $5$, we return the original number; therefore, the matrix that corresponds to the fundamental domain is $5\times5$ and is a matrix consisting of single types of $p$-adic zeros. The numbers are $2^5$-adic in both $x$ and $y$ directions. 
+$$ 
+T_{x,y}^{<2>}= \overline{\begin{pmatrix}
+1&1&0&0&1\\ 
+0&1&1&1&0\\ 
+1&0&0&1&1\\
+1&1&1&0&0\\
+0&0&1&1&1\\
+\end{pmatrix}}_{2^5 \times 2^5}
+$$
+Another useful operation is multiplication with $-1$. For example, in the previous case, if we choose $A=-2^2$, we obtain the following matrix. 
+Note that after the iteration of $10$, we return the original number; therefore, the matrix that corresponds to the fundamental domain is $5\times10$. 
+$$ 
+T_{x,y}^{<2>}= \overline{\begin{pmatrix}
+1&0&0&1&1&0&1&1&0&0\\ 
+0&0&1&0&0&1&1&0&1&1\\ 
+1&1&0&0&1&0&0&1&1&0\\
+1&0&1&1&0&0&1&0&0&1\\
+0&1&1&0&1&1&0&0&1&0\\
+\end{pmatrix}}_{2^5 \times 2^{10}}
+$$
+
+Obtaining tensors follows the same logic. We apply the operation to all elements of the matrix. As a result, we obtain a stack of matrices. 
+
+
+The design of nonwoven volumetric tensors is also straightforward. The only difference is that we now have to deal with $8^K$-adic zero numbers instead of $2^K$-adic zero numbers. The pattern shift is obtained by multiplication by $8^s$. Multiplying by $-1$ yields the inverse numbers. We can also add $8^K$-adic zero numbers to obtain cycles as in the cases of $2^K$-adic zeros. For some examples, see Figures~\ref{fix_8adic_shifting}, and~\ref{fix_8adic_shifting2}. 
+
+\begin{figure}[htpb!]
+\centering 
+    \begin{subfigure}[t]{0.23\textwidth}        \includegraphics[width=0.99\textwidth]{images/8_adic_shifting/2671564_shift_1.png}
+        \caption{The nonwoven structure obtained by $[[\overline{3671564}_{8^{7}}, \times 8^1], \times 8^1]$.}    \label{fix_8adic_shifting1}
+    \end{subfigure}
+    \hfill
+    \centering 
+    \begin{subfigure}[t]{0.23\textwidth}     \includegraphics[width=0.99\textwidth]{images/8_adic_shifting/2671564_shift_2.png}     \caption{The nonwoven structure obtained by $[[\overline{3671564}_{8^{7}}, \times 8^2], \times 8^2]$.}    \label{fix_8adic_shifting2}
+    \end{subfigure}
+    \hfill
+    \centering  
+    \caption{An example that demonstrates how different operators on the fundamental row to create creates tensor structures. Here, we used an initial pattern $\overline{3671564}_{8^{7}}$ to produce the whole tensor, the order of generation is the major layer, which means that the first layer is produced with the shift and the second layer continues to shift from the last layer.}
+\label{fig_fix_8adic_shifting}
+\end{figure}
+
+\section{Construction of Volumetric Nonwoven Structures}
+\label{Sec_Construction_of_NWS}
+
+The construction of these structures is also straightforward. Although the underlying structures are frames, i.e. graphs, in practice, we construct them as polyhedral meshes. For construction, we replace each vertex of the graph with a cube. We connect the faces of neighboring cubes with a handle \cite{srinivasan2002interactive} if there exists an edge connecting these two cubes. Since there is no redundancy in our representation of the structure, when we complete all connections, we can correctly obtain infinite polyhedra of a high genus, as shown in Figures~\ref{fig_images/tensor_struct_before}. 
+
+A useful property of volumetric nonwoven structures is that the resulting infinite polyhedra do not have to be connected. In other words, it can consist of multiple disconnected surfaces even for simple cases such as $[A/1/s_x/s_y]$. As shown in Figure~\ref{fig_matrix_woven_vs_nonwoven2}, it is possible to produce a wide variety of multi-interlocked nonwoven structures. The different colored structures in the figures \ref{fig_images/2_disconnected_nonwoven}, \ref{fig_images/3_disconnected_nonwoven}, \ref{fig_images/4_disconnected_nonwoven}, \ref{fig_images/5_disconnected_nonwoven} represent a single connected structure. These structures are similar to the polycontinuous patterns\cite{sakata2022polycont} and if we let the interfacing surfaces touch each other using the distance from our disconnected graphs, we get an approximation of the polycontinuous surfaces as shown in Figure \ref{polycont}.
+
+An additional advantage of nonwoven structures compared to woven structures is that computing the number of disconnected pieces is straightforward, unlike the hanging property of woven structures \cite{clapham1980when}. On the other hand, it still needs some care, since two vertices in the fundamental domain can appear to be disconnected if we do not consider connections coming from the three-toroid. 
+
+\begin{figure}[htpb!]
+    \centering 
+    \begin{subfigure}[t]{0.32\columnwidth}       \includegraphics[width=1.0\textwidth]{images/polycont/polycont_base2.png}
+        \caption{A frame structure defined by a graph consists of three disconnected parts.}    \label{fig_images/minimal_surface_base_frame}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\columnwidth}        \includegraphics[width=1.0\textwidth]{images/polycont/polycont_voronoi_with_frame2.png}
+        \caption{Constructing a surface using the three disconnected graphs as Voronoi sites.}   \label{fig_images/minimal_surface_frame}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\columnwidth}
+        \includegraphics[width=1.0\textwidth]{images/polycont/polycont_voronoi2.png}
+        \caption{Resulting handlebody decomposition without showing Voronoi sites.}       \label{fig_images/minimal_surface}
+    \end{subfigure}
+    \hfill
+\caption{Handlebody decomposition of the space using our disconnected graphs as Voronoi sites. These disconnected graphs are produced by a tensor designed using our extended shifting strategy.}
+\label{polycont}
+\end{figure}
+
+Construction algorithms were implemented in software with a fairly high-level programming pipeline, which employs the geometry nodes feature of Blender software for calculations and representations. This approach turned out to be quite convenient since the modeling and the built-in renderer with different shader options are in the same place.
+
+\section{Discussion}
+
+An advantage of volumetric nonwoven structures is that there is more than one approach to handle $8^k$-addic numbers. We can also represent and process the eight possible cases in two additional ways: (1) we view the connections as 3D binary vectors in the form of $\{0,1\}^3$, and (2) we use $2^{3K}$-adic numbers instead of $8$-adic. In the case of a 3D binary vector, the connections in each direction are considered to be given by three separate $2^K$-adic numbers. We can then apply three operations instead of one in the two-way case. This flexibility can give us additional controls for designing patterns for connections in three orthogonal directions. Viewing connections in an integrated form using $2^{3K}$-adic numbers also has some advantages. For example, we can apply a shift in the form of $2^s$ where $s$ is not a multiple of $3$. This can produce 3D rotations of the connections. Analyzing all of these cases is beyond the scope of this paper. 
+
+Now we will demonstrate a curious property of $2K$-adic zeros. It is interesting that using $p$-adic zeros is useful, but a problem arises from the nature of $p$-adic zeros when $p$ is a prime number. Consider a recursive operation $N(0)=\overline{N}_{p}$ and $\overline{A}_{p}$ and cyclic multiplication $\otimes$ where $N\neq p-1$, $N\neq 0$, $A\neq 0$ and $A\neq p-1$ . If this multiplication results in $N(1)=\overline{(p-1)}_{p}$, the next cyclic multiplication of $\overline{(p-1)}_{p}$ and $\overline{A}_{p}$ always results in $\overline{(p-1)}_{p}$ and we cannot return the original number $N(0)$. Unfortunately, this happens for every prime $p \geq 5$ in the first iteration. For example, consider the following examples with some prime numbers: (1) $\overline{3}_{7} \otimes \overline{4}_{7} = \overline{6}_{7}$, (2) $\overline{4}_{11} \otimes \overline{5}_{11} = \overline{10}_{11}$, and (3) $\overline{3}_{13} \otimes \overline{8}_{13} = \overline{12}_{13}$. 
+For $p=5$, consider the sequence: $\overline{2}_{5} \otimes \overline{3}_{5} \rightarrow \overline{1}_{5} \otimes \overline{3}_{5}  \rightarrow \overline{3}_{5} \otimes \overline{3}_{5} \rightarrow \overline{4}_{5} $. For $p=3$, we can avoid this potential demise, but there is only one sequence, and it is a repeating number: $\overline{2}_{3} \otimes  \overline{2}_{3}  \rightarrow \overline{2}_{3} $  
+
+
+Now the expectation is that the same happens also for the $P=2^K$ cases, since $2^K$ is not even prime. For example, consider the following examples of $P=2^K$: (1) $\overline{6}_{2^4} \otimes \overline{5}_{2^4} = \overline{2^4-1}_{2^4}$ and (2) $\overline{21}_{2^6} \otimes \overline{6}_{2^6} = \overline{2^5-1}_{2^6}$. These calculations may lead us to believe that the cases with $P=2^K$ also do not work. On the other hand, there is a curious fact that if $2^K-1$ is prime such as for $2^2$, $2^3$, or $2^6$, there exists no pair of zero numbers $2^K$ that can give $\overline{2^K-1}_{2^K}$. The reason behind this fact is that if the standard multiplication of $N \times A $ gives us $m (P -1)$ where $m \in {0,1,\ldots, P-1}$. If $P -1$ is a prime number, there exists $51$ of such numbers as $3, 7, 31, 127$ and $8191$, which are called Mersenne primes \cite{gillies1964three}. 
+
+This is a very good result, although it is not perfect. Since our main goal was to obtain a wide variety of combinatorial patterns algebraically, we can obtain them by using certain $K$ that corresponds to Mersenne numbers. These particular $2^K$-adic numbers can even form fields. For such $P$-adic zeros, it would be possible to use any cyclic multiplication. We may even consider cyclic multiplication with $p$-adic tensors. However, all these are beyond the scope of this paper. 
+
+We observe that the $2^K$-adic zeros approach our goal as closely as possible. $51$ of them support every multiplication. For the rest, as long as we limit ourselves to cyclical addition, negation, and cyclical multiplication with numbers of $p^K$, we can safely use other $2^K$-adic zeros. Having $2^K$-adic numbers also allows us to avoid zero patterns with cyclical addition. It can provide the main algorithmic operations used in weaving. These properties make them suitable for the design of symmetric nonwoven structures. 
+
+We also recognize that algorithmic approaches can be useful in the design of these structures. As discussed in Section~\ref{Subsec_Design_Random}, random matrices and tensors can be useful as starting structures. The patterns are then updated to obtain the desired properties, such as the number of disconnected pieces or the number of cycles in the graphs. For instance, we can remove all cycles to obtain trees that are interlocked in 3D space. If we only allow two-valence vertices in the graphs, the resulting structures will be woven. Note that the creation of woven structures is also straightforward with $8$-adic algebra by allowing only $1$, $2$, and $4$. 
+
+An important use of these graphs may be to use them as Voronoi sites to obtain complicated handlebody structures as a Voronoi decomposition of the space as shown in Figure~\ref{polycont}. As shown in this example, having multiple disconnected pieces is useful to obtain a decomposition of the space with multiple regions that can be filled with different materials. 
+
+Two-layer nonwoven structures are related to criss-crossed wooden fences. We realized even that they are the simplest 2-way 2-layer nonwovens, which will be given as $[1/0/1]$ in the $[A/B/C]$ notation and $[\overline{1}_{2}, \otimes 2]$ in the $2^K-adic$ notation where $K=1$. It is interesting to build plain, twill, and satin versions of the criss-crossed wooden fences and to evaluate their flexibility.
+
+Multi-layer nonvowen structures can represent flexible wood with double curvature. One type of such flexible wood can be obtained by creating cuts in two perpendicular directions (see a video to produce these flexible woods at \cite{smith2022unique}). This type can be represented as a volumetric structure as shown in \ref{fig_images/flexible_wood_process}. Another type of flexible wood that is obtained by spiral cuts \cite{zarrinmehr2017interlocked}. For this type, if cuts consist of perpendicular pieces, which is most common, the flexible wood can also be represented as a multi-layer structure. We think mass manufacturing with wood can be straightforward: The wooden pieces can be laser cut and assembled later. However, this is just theoretical. It requires a detailed investigation.
+
+\begin{figure}[htpb]
+    \centering 
+    \begin{subfigure}[t]{0.32\columnwidth}       
+    \frame{\includegraphics[width=1.0\textwidth]{images/flexible_wood/wood_frame2.png}}
+        \caption{The graph that shows connections that define the structure of flexible wood.}       \label{fig_images/flexible_wood_frame}
+    \end{subfigure}
+        \hfill 
+    \begin{subfigure}[t]{0.32\columnwidth}
+     \frame{\includegraphics[width=1.0\textwidth]{images/flexible_wood/wood_thin2.png}}
+        \caption{Thickest cuts that remove more materials from wood to show the structure.}
+        \label{fig_images/flexible_wood_thick0}
+    \end{subfigure}
+    \hfill 
+        \begin{subfigure}[t]{0.32\columnwidth}   \frame{\includegraphics[width=1.0\textwidth]{images/flexible_wood/wood3.png}}
+        \caption{Flexible wood geometry with thin cuts.}
+        \label{fig_images/flexible_wood}
+    \end{subfigure}
+\caption{Construction of flexible wood geometry, this process is the reverse of the actual physical process but it gives guidance on how to perform cuts on wood to change the flexibility of the wood. The graph shown in Figure~\ref{fig_images/flexible_wood_frame} defines the structure from which the shapes such as the ones shown in Figures~\ref{fig_images/flexible_wood_thick0},and~\ref{fig_images/flexible_wood} can be constructed.}
+\label{fig_images/flexible_wood_process}
+\end{figure}
+
+We realized that volumetric nonwoven structures can also support certain type of bi-axial woven tiles that are produced by 3D square waves \cite{krishnamurthy2021geometrically}. This is because the 3D square waves can be used to produce woven tiles and those curves can be produced by 3D axis-oriented graphs (see Figure~\ref{woven_tiles}). We can simply obtain woven structures by thickening these square waves. Using Voronoi decomposition can produce congruent and space-filling structures \cite{yildiz2023modular,krishnamurthy2021geometrically}. 
+
+We also want to point out that biaxial woven tiles together with these examples of wooden woven structures are geometrically interlocked \cite{estrin2021design}. In other words, the rigid material weaving process would require one to disconnect the pieces, and then reassemble and attach the disconnected pieces by some gluing or stapling to obtain the woven structures (see yellow piece in Figure~\ref{woven_tiles}, for example). In other words, these should still be considered as a type of volumetric nonwoven structure since they need to be attached.
+
+\begin{figure}[htpb!]
+ \centering 
+    \begin{subfigure}[t]{0.32\columnwidth}          \frame{\includegraphics[width=1.0\textwidth]{images/woven/pw0}}
+        \caption{A piecewise linear curve that forms a square wave in 3D.}      
+        \label{pw0}
+    \end{subfigure}
+        \hfill 
+    \begin{subfigure}[t]{0.32\columnwidth}          \frame{\includegraphics[width=1.0\textwidth]{images/woven/pw1}}
+        \caption{Two sets of square waves forming a plain weaving pattern.}       
+        \label{pw1}
+    \end{subfigure}
+        \hfill 
+    \begin{subfigure}[t]{0.32\columnwidth}          \frame{\includegraphics[width=1.0\textwidth]{images/woven/pw2}}
+        \caption{Piecewise linear yellow curve is removed to demonstrate the structure of the rest.}    
+        \label{pw2}
+    \end{subfigure}
+        \hfill 
+\caption{An example of multilayer nonwoven graph structures that can produce woven tiles. }\label{woven_tiles}.
+\end{figure}
+
+Even though the shapes presented in the figures are one way of realizing these structures, the underlying topology can be interpreted with different geometry and physical processes. For example, we can use threads and loops to construct these shapes, creating a net of threads that may have different isotropic/anisotropic stretching properties. Another way to realize these structures could be the construction of multiple metal sheets that are cut at different points to get the connections in a single layer of the volume, and these sheets can be connected with welds at the points where the nonwoven lattice connects the layers. 
+
+There has been an immediate interest in these structures among our collaborators who are expert in engineering design and architecturing materials. We now collaborate with several groups of experts for comprehensive evaluations of the physical properties of these volumetric structures. One group has already fabricated some of these structures using 3D printing to evaluate them for medical applications. We have quickly discovered that they can be printed without support material. That group has already started to evaluate physical properties. Another group is working with chain-like structures that can produce geometric interlocking. The initial investigations suggest that we can obtain a wide variety of properties such as negative poison ratio in all three directions to obtain 3D auxetics instead of 2D {\cite{ebert2024abc}} or topological interlocking in 3D instead of 2d \cite{ebert2024voronoodles}.
+
+\section{Conclusion, Limitations, and Future Work}
+
+In this work, we have demonstrated that nonwoven structures can be generalized multi-layer and volumetric structures. We can represent these structures with extensions to the fabric pattern parameters. We introduced tensor-based encoding of the volumetric structures. Furthermore, we showed that there is an algebraic set of operations and a field of numbers that enables encoding 3-way volumetric nonwoven structures which are infinite polyhedra. We defined a set of algebraic operators that gives symmetric structures.
+
+We have also demonstrated that the $2^K$-adic zeros can be useful for defining infinite repeating patterns. Starting with a single row represented by a $2^K$-adic zero number, we obtain the rest of the rows in the tensor with cyclic algebraic operations. An extension of this work could be to use the $2^K$-adic numbers to determine the matrices and tensors, which could give more structural information and symmetries.
+
+Using graphs to generate infinite polyhedra has been explored by geometers before, but most of the work has been done on symmetric lattices. In our work, we have limited the scope to cubic lattices with removed connections and the ways to remove these connections in a particular way to create symmetric structures using $p$-adic zero numbers. The use of $p$-adic numbers in geometric computing is not a explored research approach. There could be different numbering schemes for different lattices based on the lattice characteristics.
+% an instance of a tetrahedral lattice would have four edge connections per cell to determine the final structure. Note that we have enumerated all the possible connections that a cubic lattice element would have before, and this was based on the cell-like nature of the cubic lattice. Here, the tetrahedral lattice would have a different cell definition, which could be encoded with the $16$ -adic number.
+
+The main limitation of this paper is that our 3D graphs are axis-oriented. This limitation comes directly from the algebra of $8^K$-adic zeros. The advantage of this algebra is that we can obtain combinatorial operations by addition and multiplication, which can be useful for optimization problems. On the other hand, there can be significant advantages with general symmetric graphs that are closed under crystallographic groups using algorithmic instead of algebraic approaches. The development of such a general approach can be an important future direction. 
+
+\bibliographystyle{cag-num-names}
+\bibliography{references}
+
+\newpage
+
+\appendix
+
+\section*{Supplementary Material}
+\label{Sec_Supplementary_Material}
+
+In the appendix, we provide an overview of the $p$-adic numbers for the convenience of reader by providing important points related to this paper. We provide an overview of the $p$-adic numbers in Section~\ref{sec_appendix_padic_numbers}. In Section~\ref{sec_appendix_fractional_numbers}, we relate fractional numbers to $p$-adic numbers. Then combining the two, we obtain $p$-adic zero numbers as discussed in Section~\ref{sec_appendix_padic_zero}. We also provide operations over $p$-adic zero numbers, their group-theoretical properties such as identity elements, and inverse elements in Section~\ref{sec_appendix_padic_zero_operations}.
+
+\section{$p$-adic Numbers}
+\label{sec_appendix_padic_numbers}
+
+The $p$-adic numbers are introduced by Hensel \cite{hensel1897neue} as an infinite sum as follows: 
+\begin{equation}
+A = \sum_{i=0}^{\infty} a_i p^i
+\end{equation} 
+where $p$ is a prime number\footnote{It is possible to use composite numbers also, such as 10-adic numbers. However, the use of composite numbers can create some problems \cite{tanton2019serious}.} and $a_i \in \{0,1,\ldots,p-1\}$. In general, a $p$-adic number consists of a periodic part that goes to infinity and a non-periodic number as shown in the following form; 
+\begin{equation}
+A = X p^M +  \sum_{i=0}^{M-1} b_i p^i
+\end{equation} 
+where $b_i \in \{0,1,\ldots,p-1\}$ and $X$ is the periodic number that is given in the following form: 
+\begin{equation}
+X = \sum_{i=0}^{\infty} \sum_{k=0}^{K-1} (a_k p^k) p^{Ki}
+\end{equation} 
+where $a_i \in \{0,1,\ldots,p-1\}$.
+We will use the following notation (ignoring parentheses) to write this periodic number:
+$$X = \overleftarrow{(a_{K-1}\ldots a_1a_0)}_p.$$
+As a result, the whole number will be written as (again ignoring parentheses) $$ A = \overleftarrow{(a_{K-1}\ldots a_1a_0)} (b_ {M-1}\ldots b_1b_0)_p $$
+The value of $X$ satisfies the following equality resulting from the self-similarity of the infinite periodic number: 
+\begin{equation}
+p^K X +  \sum_{k=0}^{K-1} a_k p^k = X
+\end{equation}
+Using this equality, we can compute the value of $X$ as follows: 
+\begin{equation}
+X = \frac{-\displaystyle \sum_{k=0}^{K-1} a_k p^k}{p^K-1} 
+\end{equation}
+Note that the value of $A$ now can be computed as if it is written as base $p$ by standard methods if we choose $b_M = X$ as if this is a number in base $p$ as follows: 
+\begin{equation}
+A = \sum_{i=0}^{M} b_i p^i
+\end{equation}
+The only caveat here is that $X$ is not necessarily an integer and it is not in the range of $0$ and $p-1$. Using these general equations, we can quickly see some well-known results. For example: 
+\begin{eqnarray}
+\overleftarrow{(p-1)}_p &=& -1 \nonumber\\
+\overleftarrow{(1)}_p &=& -\frac{1}{p-1}
+\nonumber
+\end{eqnarray}
+Now, consider a more general $3$-adic number $ \overleftarrow{(1210)}2_3$, an example from Wikipedia \cite{wiki2024p-adic}, so that it can be easily checked. Using the formula above, $X$ can be calculated as
+$$
+\overleftarrow{(1210)}_3 =\frac{-(1\times 3^3 + 2\times 3^2 + 1\times 3^1 + 0 \times 3^0 )}{3^4-1} = \frac{-48}{80} = \frac{-3}{5}
+$$
+Now $A$ can be calculated as
+$$\overleftarrow{(1210)}2_3 = \frac{-3}{5} \times 3 1 + 2 \times 3 0 = \frac{1}{5} $$
+Now, we want to point out that any number can be considered $p$-adic by noticing that we can put an infinite number of zeros in front of any number. Note that we still have a consistent representation since
+$$
+\overleftarrow{0}_p =\frac{-0}{p-1} = 0
+$$
+Note that since one is not considered a prime number and is not used as a base, this equality always holds. 
+
+\section{Fractional Numbers as Repeating ``Decimals'' }
+\label{sec_appendix_fractional_numbers}
+
+We want to point out the similarity between $p$ -adic numbers and the repeating ``decimals''. We have placed quotation marks for decimals since the base does not have to be 10, and it is better to be a prime number $p$. Note that any fraction less than $1$ can be written as an infinite sum as follows: 
+\begin{equation}
+A = \sum_{i=-1}^{-\infty} a_i p^i
+\end{equation} 
+where $p$ is a prime number and $a_i \in \{0,1,\ldots,p-1\}$. We used a decrease of $i$ instead of an increase to show the similarity. In general, fractional numbers can also consist of a periodic part that goes to negative infinity and a non-periodic number as shown in the following form; 
+\begin{equation}
+A = X p^{-M} +  \sum_{i=-1}^{1-M} b_i p^i
+\end{equation} 
+where $b_i \in \{0,1,\ldots,p-1\}$ and $X$ is the periodic number that is given in the following form: 
+\begin{equation}
+X = \sum_{i=-1}^{-\infty} \sum_{k=0}^{K-1} (a_k p^k) p^{Ki}
+\end{equation} 
+where $a_i \in \{0,1,\ldots,p-1\}$.
+We now use a slightly different notation (by ignoring parentheses but not ignoring the dot and zero) to write this periodic number:
+$$X = 0. \overrightarrow{(a_{K-1}\ldots a_1 a_0}$$
+as a result, the whole number can again be written as (again ignoring parentheses but not ignoring the dot and zero)
+$$A = 0. b_{M-1},\ldots,b_1,b_0, \overrightarrow{a_{K-1},\ldots,a_1,a_0}$$
+The value of $X$ again satisfies an equality (a slightly different one) resulting from the self-similarity of the infinite periodic number: 
+\begin{equation}
+p^K X -  \sum_{k=0}^{K-1} a_k p^k = X
+\end{equation}
+Using this equality, we can compute the value of $X$ as follows: 
+\begin{equation}
+X = \frac{\displaystyle \sum_{k=0}^{K-1} a_k p^k}{p^K-1} 
+\end{equation}
+Note the curious relation with $p$-adic case. This number is the inverse of the related $p$-adic number. We will use this property to create $p$-adic zeros. Note that the value of $A$ can now be computed as if it is written as base $p$ by standard methods if we choose $b_M = X$ as if this is a number in base $p$ as follows: 
+\begin{equation}
+A = \sum_{i=0}^{-M} b_i p^i
+\end{equation}
+Note that this idea is also exactly the same. $X$ is not necessarily an integer and is not in the range of $0$ and $p-1$. Now, consider a repeating fractional number $ 0.2\overrightarrow{1210}_3 $. Using the formula above, $X$ can be calculated as
+$$
+0.\overleftarrow{(1210)}_3 =\frac{(1\times 3^3 + 2\times 3^2 + 1\times 3^1 + 0 \times 3^0 )}{3^4-1} = \frac{48}{80} = \frac{3}{5}
+$$
+Now $A$ can be calculated as $$ 0.2 \overleftarrow{(1210)}_3  = \frac{3}{5} \times 3 -2 + 2 \times 3 -1 = \frac{1}{15} + \frac{2}{3} = \frac{11}{15} $$
+
+Note that we do not assume that the fractional part terminates. We can always add an infinite number of zeros and consider them repeating as follows:
+$$
+\overrightarrow{0}_p =\frac{0}{p-1} = 0
+$$
+Again since $p$ cannot be one, this equation always holds. 
+
+\section{$p$-adic Zeros}
+\label{sec_appendix_padic_zero}
+
+Now, consider a mixed number (half p-adic and half ``decimal''). 
+\begin{equation}
+X = \sum_{i=\infty}^{-\infty} \sum_{k=0}^{K-1} (a_k p^k) p^{Ki} \label{Eq_padic_zero}
+\end{equation} 
+Note that these numbers are truly symmetric, repeating from minus infinity to plus infinity. Therefore, it is better to use another notation using a line instead of a directed arrow as follows: 
+\begin{equation}
+X=\overline{(a_{K-1}\ldots a_1 a_0)}_p
+\end{equation}
+It can be written as 
+\begin{eqnarray}
+\overline{(a_{K-1}\ldots a_1 a_0)}_p &=&\overleftarrow{(a_{K-1}\ldots a_1 a_0)}_p + 0. \overrightarrow{(a_{K-1}\ldots a_1 a_0)}_p \nonumber\\
+&=&  \frac{\displaystyle -\sum_{k=0}^{K-1} a_k p^k}{p^K-1}  +  \frac{\displaystyle \sum_{k=0}^{K-1} a_k p^k}{p^K-1} \nonumber \\ 
+&=& 0 \label{Eq_zero}
+\end{eqnarray}
+
+Another important property of these numbers is that they are automorphic under multiplication of the number $p^Km$, where $m$ can be any integer.  Although $p$-adic number theory requires $p$ to be a prime number, for our purposes, we can use $p^K$-adic numbers where $K$ can be a positive integer. 
+
+We can further simplify this notation by replacing $p$ with a composite number $P=p^K$. Then, the equation for $p$-adic zeros  simplifies further as follows 
+\begin{equation}
+X =  \overrightarrow{A}_P = \sum_{i=\infty}^{-\infty} \sum_{k=0}^{K-1} A P^{i}
+\end{equation} 
+where $A \in \{0,1,\ldots,P-1\}.$
+It is easier to discuss algebraic properties in this form. 
+
+
+\section{Matrices and Tensors of $P=p^K$-adic Zeros}
+\label{sec_appendix_padic_tensors}
+
+Now consider the notation
+$$[\overline{B_0}_P, \oplus A ]$$
+denote a recursive operation that is applied as follows 
+\begin{eqnarray}
+\overline{B_{1}}_P &=&\overline{B_{0}}_P \oplus A \nonumber\\
+\overline{B_{2}}_P &=&\overline{B_{1}}_P \oplus A \nonumber\\
+ &\vdots& \nonumber\\
+\overline{B_{N+1}}_P &=&\overline{B_{N}}_P + \overline{A}_P \nonumber\\
+\end{eqnarray}
+where $A$ can be any number (it does not have to $P$-adic and $\oplus$ can be any algebraic operation. Note that we are only interested in $\oplus$operations that repeat, i.e., there must be an $N$ such that $\overline{B_{N}}_P =\overline{B_{0}}_P$. If we put all these $P$-adic side by side, we now obtain $P$-adic matrices, which repeat now in two directions. Note that we can view this notation as a 2D tensor that is defined as follows: 
+$$T^{<2>}=[\overline{B_0}_P, \oplus A ]$$
+Using the same idea, we can define tensors in any dimensions as follows:  
+$$T^{<3>}=[[\overline{B_0}_P, \oplus A_0 ] \otimes A_1]$$
+$$T^{<4>}=[[[\overline{B_0}_P, \oplus A_0 ] \otimes A_1] \odot A_2$$
+where $A_0$, $A_2$, $A_3$ can be any number, and $\oplus$, $\otimes$, and $\odot$ can be any algebraic operation that can produce repeating patterns. 
+Another observation is that now our original $P$-adic numbers can be considered as 1D tensors as 
+$$T^{<2>}=\overline{B_0}_P$$
+This is a useful notation to extend $[N,s]$ notation for woven patterns. It allows going any dimension for designing any dimensional tensors. It also allows any operation other than cyclical shift. Moreover, cyclical shift operation will be replaced by algebraic multiplication as discussed in the next section.  
+
+\section{Algebraic Properties of $P=p^K$-adic Zeros}
+\label{sec_appendix_padic_zero_operations}
+
+In this section, we provide properties of the algebraic operations over $P$-adic zeros. An important property of $p$-adic zero numbers is that addition and multiplication are naturally cyclic. Therefore, they are useful to obtain matrices and tensors.  We analyze these algebraic properties using $P=p^K$-adic zero numbers where $K$ can be any positive number. The biggest advantage of this form is that any pattern can be considered as a single-digit number, and algorithms become simpler to explain. For example, consider $P=2^10$. We can imagine that there are $1024$ different digits and assume that the algebraic operations are performed with single-digit numbers.
+
+\subsection{Cyclical Addition}
+
+Now, let us consider cyclical addition. We use the symbol $\oplus$ for cyclical addition. This addition naturally obtained as an addition of two $P$-addic numbers $\overline{A}_P$ and $\overline{B}_P$ as follows: 
+\begin{table}[h]
+\begin{tabular}{cccc}
+&&$A$&  \\
+&$\oplus$&$B$& \\ 
+&\multicolumn{2}{c}{\rule{1.5cm}{0.5mm}}&\\
+$D$ &$\leftarrow$  &$C$& $\leftarrow$ $D$ \\
+&+&$D$& \\
+&\multicolumn{2}{c}{\rule{1.5cm}{0.5mm}}&\\
+&&$C+D$& \\
+\end{tabular}
+\end{table}
+where $A$, $B$, $C$, and $D$ are single digits in $P$ and $A+B = D P + C$. A significant advantage of using $P=p^K$ is that $D$ can only be zero or one, since we add only single-digit numbers, although these numbers can be large. The addition operation is guaranteed to stop in two steps. This helps us to quickly see the algebraic properties. 
+
+\subsection{Identity Patterns for Cyclical Addition}
+
+Now, consider the number $\overline{(P-1)}_P$. We will first show that this number is an identity pattern for addition. We do not call this number an identity number since strictly speaking we always add zeros to each other, and the results are always zero.  What we are really interested in is how the pattern itself affects the other patterns. $\overline{(P-1)}_P$ is an identity pattern for addition, since if we add $\overline{(P-1)}_P$ to any pattern $\overline{A}_P$, the pattern does not change as it can be seen in the following. 
+\begin{table}[h]
+\begin{tabular}{crrc}
+&&$P$&  \\
+&$\oplus$&$A$& \\ 
+&\multicolumn{2}{c}{\rule{1.5cm}{0.5mm}}&\\
+$1$ &$\leftarrow$  &$A-1$& $\leftarrow$ $1$ \\
+& + &$1$& \\
+&\multicolumn{2}{c}{\rule{1.5cm}{0.5mm}}&\\
+&&$A$& \\
+\end{tabular}
+\end{table}
+
+Note that $\overline{0}_P$ is also an identity pattern for addition. However, $\overline{0}_P$ is not really a good pattern, since it does not offer any connection. We do not want to obtain the $\overline{0}_P$ pattern. Now, consider the matrix produced by the procedure
+$$ T2 = [\overline{(P-1)}_P, +1 ]$$
+This matrix will be guaranteed to have size $K \times p^K-1$ where $P=p^K$. procedure can never produce zero. It is straightforward to see that we do not get the $\overline{0}_P$ pattern unless we choose the initial pattern. In other words, we can easily avoid the zero pattern. 
+
+\subsection{Inverse Patterns for Cyclical Addition}
+
+Another useful property is inversion. Since $\overline{(P-1)}_P$ is one of the identity patterns, the inverse pattern of $\overline{A}_P$ is $\overline{(P-A-1)}_P$. In other words, we can now define
+$$\overline{(-A)}_P = \overline{(P-A-1)}_P$$
+This can be obtained simply by digit-wise inversion. Having a meaningful algebraic inversion is useful, since weavers use bitwise inversion as an operation. Now, it can be formally included as part of the algebraic framework for patterns. 
+
+\subsection{Shift as a Cyclical Multiplication}
+
+We use the symbol $\otimes$ for cyclical multiplication. 
+In this case, it is better to return the original definition in Equation~\ref{Eq_padic_zero}. Assume that we multiply the original $p^K$-addic number with $p^s$, then, the multiplication gives the following  
+\begin{eqnarray}
+p^s \otimes  X &=& p^s \sum_{i=\infty}^{-\infty} \sum_{k=0}^{K-1} (a_k p^k) p^{Ki} \nonumber\\
+&=&  \sum_{i=\infty}^{-\infty} \sum_{k=0}^{K-1} (a_k p^k) p^{Ki+s} \nonumber\\
+&=&  \sum_{i=\infty}^{-\infty} \sum_{k=0}^{K-1} (a_{(k+s)\! \! \pmod{K}} p^k) p^{Ki} 
+\label{Eq_padic_zero_shift}
+\end{eqnarray} 
+Note that 
+$$\sum_{k=0}^{K-1} (a_{(k+s)\! \! \pmod{K}} p^k)$$
+is the $s$ amount shifted version of the original pattern 
+$$\sum_{k=0}^{K-1} (a_{k} p^k)$$
+Also note that modulo operation is natural result of the periodic nature of these zeros. 
+
+Multiplication with numbers other than $p^s$ is calculated as the cyclical addition of cyclically shifted numbers. This gives us all the ammunition needed to fill the tensors. We will not use multiplication with $P$-adic zeros. We briefly mention some of the properties. The number $\overline{1}_P$ is an identity pattern for multiplication. Multiplication with the number $\overline{P-1}_P$ always results in $\overline{P-1}_P$. 
+
+\end{document}
+

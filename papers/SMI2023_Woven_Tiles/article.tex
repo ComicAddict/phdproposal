@@ -1,0 +1,863 @@
+\documentclass[times,twocolumn,final]{elsarticle}
+
+%% Stylefile to load CAG template
+\usepackage{cag}
+\usepackage{framed,multirow}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\usepackage{color}
+
+\usepackage{amsmath}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+% Following three lines are needed for this document.
+% If you are not loading colors or url, then these are
+% not required.
+\usepackage{url}
+\usepackage{xcolor}
+\definecolor{newcolor}{rgb}{.8,.349,.1}
+
+\definecolor{myR}{rgb}{0.75, 0.0, 0.0} 
+\definecolor{myG}{rgb}{0.0, 0.75, 0.0} 
+\definecolor{myB}{rgb}{0.0, 0.0, 0.75} 
+
+\usepackage{hyperref}
+
+\usepackage[switch,pagewise]{lineno} %Required by command \linenumbers below
+
+\journal{Computers \& Graphics}
+
+\begin{document}
+
+\verso{T. Yildiz, E. Akleman and V.R. Krishnamurthy et al.}
+
+\begin{frontmatter}
+
+\title{A Modular Approach for Creation of Any Bi-Axial Woven Structure with Congruent Tiles }%
+
+% Space-Filling 
+
+\author[1]{Tolga Yildiz\corref{cor1}}
+\cortext[cor1]{Corresponding author:}
+\emailauthor{tolgayildiz@tamu.edu}{Tolga Yildiz}
+%\ead{example@email.com}
+    
+\author[1,2]{Ergun  Akleman} 
+\author[3]{Vinayak Krishnamurthy}
+\author[3]{Matthew Ebert}
+
+\address[1]{Department of Computer Science \& Engineering, Texas A\&M University, College Station, Texas, 77843}
+\address[2]{School of Performance, Visualization and Fine Arts, Texas A\&M University, College Station, Texas, 77843}
+\address[3]{J. Mike Walker '66 Department of Mechanical Engineering, Texas A\&M University, College Station, Texas, 77843}
+
+
+%\received{1 February 2017}
+% \received{\today}
+%%%% Do not use the below for submitted manuscripts
+%\finalform{28 March 2017}
+%\accepted{2 April 2017}
+%\availableonline{15 May 2017}
+%\communicated{S. Sarkar}
+
+
+\begin{abstract}
+Modularity is a fundamental and intriguing property of fabrics. Given the same set of threads, one can construct different geometries and therefore physical behavior simply by changing how those threads are linked to each other. As a result, fabrics have been been studied with great interest in engineering applications. However, most engineering applications model fabrics as composite structures reinforced with a secondary material that fills the gaps between thread elements. 
+
+In this work, we first show the existence of threads that are space-filling without the need for other materials. We then introduce a simple approach to construct such space-filling threads by using a single modular element that can be obtained by partitioning a cube into two \textit{yin-yang} type identical pieces. These \textit{yin-yang} type congruent tiles can directly be constructed by using a parametric approach. Another property of these tiles is that they are foldable, i.e., they can be constructed by folding planar materials. We show that there exist infinitely many such congruent tiles. We further demonstrate that any 2-way 2-fold woven structure can be constructed by translated and rotated versions of such congruent tiles. 
+
+\end{abstract}
+
+\begin{keyword}
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
+%\MSC 41A05\sep 41A10\sep 65D05\sep 65D17
+%% Keywords
+\KWD Spherical coordinates\sep Voronoi tessellation\sep Parametrization\sep 3D Tiling
+\end{keyword}
+
+\end{frontmatter}
+
+
+\section{Introduction and Motivation} 
+% In this paper, we introduce a parametric approach to construct a family of congruent tiles such that each one of them can be used to produce all possible weaving patterns. \textcolor{red}{An important property of these tiles is that they can be manufactured in variety of ways in a wide variety of scales. They consist of flat fol elements that can guaranteed to be unfolded to be folded later to the final shapes of the tiles. Therefore, they can be  can be manufactured by using laser cutting sheet materials such as metals. These hollow structures, which can be quite large and can still be manufactured economically. They can economically be transported as flat sheets. Once folded, the hollow tiles can be filled by other materials such as cement to be used for building large scale structures in remote locations. For medium scale, they can be fabricated by flank milling of the partitions. They can, of course, still be fabricated in smaller scale using additive manufacturing.} Because of this flexibility of economic manufacturing in a wide variety of scales, these shapes can potentially be used for construction of structures on various scales, from buildings to meso-scale meta-materials. 
+
+% \subsection{Context \& Motivation}
+
+
+\begin{figure*}[ht]
+\centering 
+ \begin{subfigure}[t]{0.40\textwidth}
+\includegraphics[width=0.50\textwidth]{photos/plain.jpg}
+\includegraphics[width=0.48\textwidth]{photos/twill.jpg}
+\caption{Two woven (plain $(10_2,1)$ and twill $(1100_2,1)$) structures constructed with our congruent tiles.}
+\label{fig:photos/table}
+ \end{subfigure}
+\hfill
+ \begin{subfigure}[t]{0.28\textwidth}
+\includegraphics[width=0.49\textwidth]{photos/plain_tea_0.jpg}
+\includegraphics[width=0.48\textwidth]{photos/twill_tea_0.jpg}
+\caption{Side view of two woven table tops with a cup of tea standing on the top.}
+\label{fig:photos/tea_0}
+ \end{subfigure}
+\hfill
+ \begin{subfigure}[t]{0.28\textwidth}
+\includegraphics[width=0.50\textwidth]{photos/plain_tea_1.jpg}
+\includegraphics[width=0.48\textwidth]{photos/twill_tea_1.jpg}
+\caption{Another view of two woven table tops with a cup of tea standing on the top.}
+\label{fig:photos/tea_1}
+ \end{subfigure}
+\hfill
+\caption{These images show two woven planar 3D-printed slab structures constructed by the same congruent tiles. These structures are assembled using magnets. We use colored tiles to show the underlying weaving structures: In this case, a plain weave on the left and a twill weave on the right. We used these planar slabs as table tops. The examples show that the assembly can support a cup of tea when connected by magnets.}
+\label{fig:photos}
+\end{figure*}
+
+Fabric provides a wide variety of material properties through different interlocking configurations of its threads. Simply by changing the interlocking configurations, one can generate an entire class of weaves (plain, twill, satin, just being among the ones known in the vernacular) with significantly varied mechanical characteristics.   
+Because of this, woven fabrics have been studied in engineering research both as flexible systems \cite{hu2004structure} as well as composites wherein the underlying fabric structure is typically reinforced with a secondary material that fills the gaps between thread elements \cite{ng1998numerical,singh2022effect,adumitroaie2012stiffness}. 
+In recent literature, we also find works that have explored woven fabrics as space-filling tiles that offer immense possibilities for designing structural systems with properties such as fracture toughness \cite{krishnamurthy2020bi,krishnamurthy2021geometrically}. 
+
+From a representational perspective, one of the most important properties of weave patterns is their modularity --- they can be represented as an spatially organized assembly of cells that represent the warp and weft directions of the woven threads \cite{Grunbaum80,Grunbaum85,Grunbaum86,grunbaum1988isonemal}. Interestingly, this powerful system of representation has not yet been translated into a cogent design methodology for generating weave-inspired space-filling tiles. 
+
+In current works on woven tiles \cite{krishnamurthy2020bi,krishnamurthy2021geometrically}, each weave pattern requires the construction of a specific type of woven tile unique to that pattern. Consequently, the physical construction of a space-filling woven pattern necessitates manufacturing new tiles for each new pattern. Another problem with woven tiles is that they could be geometrically interlocked \cite{djumas2017deformation, estrin2021design}, i.e., interlocked in a manner that either necessitates the use of flexible blocks for assembly or requires cutting tiles in multiple non-interlocking pieces \cite{krishnamurthy2020bi,krishnamurthy2021geometrically}.
+
+In this work, our goal is to cater to the need for a modular approach that enables the creation of any desired weaving pattern using a finite (preferably a singleton) set of woven tiles. We further aim for these modular tiles to be simple enough to be manufactured economically and allow for different production techniques. Previously investigated woven tiles \cite{krishnamurthy2021geometrically} are not foldable and, as a result, are impossible to manufacture through the folding of flat materials,   which is especially essential to manufacture large size building blocks economically.  Our approach seeks to create a methodology such that these tiles are guaranteed to be topologically interlocked \cite{djumas2017deformation} and can be manufactured in a variety of ways (additive, subtractive, foldable) in a wide variety of scales. For instance, guaranteeing foldability from flat to 3D tiles can be instrumental in medium and large-scale architectural and civil constructions owing to (1)  easy production through laser cutting, (2) efficient transportation as flat pieces, and (3) in-situ construction through traditional means such as concrete-filling. This may especially be useful for modular constructions in remote locations. For medium-scale applications, the ability to manufacture such tiles using subtractive processes such as flank milling is also quite useful. Finally, fabricating such tiles using additive manufacturing could be quite useful for applications involving meso-scale meta-material design akin to previous works.
+
+% To address this, we further aim that the tiles generated through our modular approach should be flat unfoldable so that they are amenable to folding-based production.  \textcolor{red}{We also want that these tiles are guaranteed to be topologically interlocked \cite{djumas2017deformation} such that they can be assembled and disassembled without a need for elastic pieces. }
+
+We present a parametric approach that is based on the decomposition of a cube into two \textit{yin-yang} type identical regions. We guarantee that the shape of these two tiles is foldable by creating a foldable interface between them. These tiles correspond to a part of warp and weft threads of 2-way 2-fold fabrics. By connecting them in $x$ and $y$ directions, we can obtain the warp and weft threads of any length. By mirroring the cubes in the $z$ direction, we can obtain any weaving patterns from plain to twill and satin. As a result, the same proto-tile can be used to generate all possible weave patterns without the need for tailoring the proto-tile for different weaving pattern. 
+
+\subsection{Basis and Rationale}\label{sec:basis}
+
+To obtain all possible weaving patterns with a single congruent tile that can be economically manufactured, the shapes of these tiles must satisfy five conditions. These conditions uniquely define the constraints of our approach.
+
+\begin{figure}[ht]
+\centering 
+\includegraphics[ width=0.95\columnwidth]{2D/koman.jpg}
+\caption{Examples of multi-panel foldable and unfoldable saddles made from planar steel surfaces sculpted by Ilhan Koman \cite{akgun2006developable}. }
+\label{fig:2D/saddle}
+\end{figure}
+
+
+\noindent \textbf{1. Yin-Yang Condition:} The first condition is to create decompositions of the unit cell (in 2-fold 2-way fabrics, the unit cell is a cube) into two congruent pieces. Based on the cube's isometries, these two congruent pieces should be closed under at least one symmetry operation. This requirement suggests that the center of the cube should be shared by the two congruent shapes. 
+
+\noindent \textbf{2. Saddle Condition:} The second condition is to create a saddle-shaped interface between the two congruent shapes. In other words, the center should be a saddle point. A saddle interface is critical to increasing the interlocking between the two pieces. 
+
+
+\noindent   \textbf{3. Foldability Condition:} To obtain a saddle surface that can be folded and unfolded to a planar surface, we need to create a foldable interface between the two congruent shapes. Such a saddle surface can be constructed by multiple developable panels, which are flat-shaped materials bent without deformation, i.e., Gaussian curvature is always zero, such as paper or thin metals. Developable panels can be inexpensively cut using laser cutters. Since cutting is just a 2D operation, it is also fast to shape developable panels.  It is also easy to transport these panels since they are just thin flat shapes. Multiple developable panels can also be easily assembled to fold into large shapes. Sculptor Ilhan Koman showed the existence of saddle shapes using multiple developable panels \cite{akgun2006developable} as shown in Figure~\ref{fig:2D/saddle}, created by connecting every point on a curve on a unit sphere to the center of the sphere with straight lines. For our purposes, to make saddle surfaces piecewise linear approximation of developable surfaces is sufficient.  
+
+\noindent \textbf{4. Assembly \& Disassembly Condition:} The saddle regions that are in the interface of two modules should allow assembly and disassembly.  In other words, they should only be topologically interlocked \cite{djumas2017deformation} and must not be geometrically interlocked \cite{estrin2021design}. It is also important to note that previous woven tiles could be geometrically interlocked, which requires use of flexible blocks for assembly \cite{krishnamurthy2020bi,krishnamurthy2021geometrically}  Examples of complicated saddle regions that do not allow assembly and disassembly are shown in Figure~\ref{fig:2D/saddle}. It should be clear that we need to avoid especially the kind of complex saddle shapes that are shown in the bottom right of Figure~\ref{fig:2D/saddle}.
+
+\noindent \textbf{5. Connectability Condition:} There should be a large area to connect the tiles that lie in the same direction, corresponding to the same warp (y-direction) or weft (x-direction) threads.
+
+Based on these five conditions, we develop a parametric approach to design a wide variety of congruent woven tiles (see Figures~\ref{fig:2Dweave} and \ref{fig:2Dweave_internal} for examples). 
+% We have developed a few methodologies to design congruent woven tiles that satisfy all these conditions. An example of such congruent woven tiles is shown in Figure~\ref{fig:2Dweave}. The interfaces between these two congruent shapes are shown in Figure~\ref{fig:2Dweave_internal}. 
+
+
+\begin{figure}[hbtp!]
+\centering 
+ \begin{subfigure}[t]{0.32\columnwidth}
+\includegraphics[width=0.99\textwidth]{2D/axis.png}
+\caption{The local coordinates in the unit cell, a cube.}
+\label{fig:coordinates}
+ \end{subfigure}
+ \hfill
+ \begin{subfigure}[t]{0.64\columnwidth}
+\includegraphics[width=0.48\textwidth]{2D/curves_0.png}
+\includegraphics[width=0.48\textwidth]{2D/curves_1.png}
+\caption{Circular warp and weft threads that work as Voronoi sites to decompose the unit cell.}
+\label{fig:2Dweave01b}
+ \end{subfigure}
+  \hfill
+ \begin{subfigure}[t]{0.48\columnwidth}
+ \includegraphics[width=0.48\textwidth]{2D/sp_0.png}
+\includegraphics[width=0.48\textwidth]{2D/sp_1.png}
+\caption{A \textit{yin-yang} type decomposition of a sphere: Tennis Balls.}
+\label{fig:tennisball}
+ \end{subfigure}
+ \hfill
+ \begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.48\textwidth]{2D/2Dweave3_3d.png}
+\includegraphics[width=0.48\textwidth]{2D/2Dweave2_3d.png}
+\caption{A \textit{yin-yang} type decomposition of the unit cell that can corresponds to 3D versions of strands \cite{Grunbaum80}.}
+\label{fig:2Dweave23}
+ \end{subfigure}
+\caption{An illustration that demonstrates an example of desired \textit{yin-yang} type decomposition of the unit cell. They can be obtained with Voronoi decomposition of the cube by using higher-dimensional shapes that are closed under symmetry operation that can take warp threads into weft threads. In this example two circular segments that are used as Voronoi sites are obtained by applying such a symmetry operation a $90^0$ rotation in $z$ followed by a mirror in $z$.}
+\label{fig:2Dweave}
+\end{figure}
+
+
+
+\subsection{Approach}
+
+Our approach stems from the decomposition of a cube using Voronoi sites that are symmetric based on symmetry structures of warp and weft threads. Starting from the conditions identified previously (Section \ref{sec:basis}), our approach stems from an conceptual experiment that seeks to partition a cube into two identical parts such that their combination respects the \textit{warp-weft relationship} --- the building block of a weave pattern. Consider a cubical volume (Figure~\ref{fig:coordinates}) that encloses two semi-circular arcs on the surface of the largest sphere inscribed in the cubical volume (Figure~\ref{fig:2Dweave01b}). Conceptually, an expansion of these arcs on the surface of the sphere can be imagined to lead to a \textit{yin-yang} partition of the sphere's surface (resembling a tennis ball as shown in Figure~\ref{fig:tennisball}). In order to realize our original goal of partitioning the cube, we simply sample points on these arcs to identify two distinct sets of Voronoi sites and perform Voronoi decomposition (Figure~\ref{fig:2Dweave23}). What is interesting about the interfacing surfaces between these two partitions is that it is composed of four semi-conical surfaces that share their apex which is both a saddle point and also lies at the center of the cube. In conjunction, these two observations mean that our partition: (1) results in congruent interlocking (\textit{yin-yang}) tiles, (2) respects the weave (warp-weft) relationship, and (3) can be folded from a flat sheet (conical). 
+
+
+\begin{figure}[hbtp!]
+\centering 
+ \begin{subfigure}[t]{0.88\columnwidth}
+\includegraphics[width=0.32\textwidth]{2D/internal_sphere_1.png}
+\includegraphics[width=0.32\textwidth]{2D/internal_sphere_2.png}
+\includegraphics[width=0.32\textwidth]{2D/internal_sphere_3.png}
+\caption{Internal Structure of the sphere decompositions. }
+\label{fig:sphere_internal}
+ \end{subfigure}
+ \hfill
+  \begin{subfigure}[t]{0.88\columnwidth}
+\includegraphics[width=0.32\textwidth]{2D/internal_cube_1.png}
+\includegraphics[width=0.32\textwidth]{2D/internal_cube_2.png}
+\includegraphics[width=0.32\textwidth]{2D/internal_cube_3.png}
+\caption{Internal Structure of the cube decompositions.}
+\label{fig:cube_internal}
+ \end{subfigure}
+ \hfill
+\caption{The internal structure of the \textit{yin-yang} type decompositions shown in Figure~\ref{fig:2Dweave} shows the internal structures for both sphere and cube are the same and developable. They can be obtained by connecting the center of the sphere with the curve on the sphere. The left images show how the interface results in Voronoi decomposition. The middle image shows how the interface can be created by connecting the space curve with the center point. The right image shows actual pieces sufficiently separated to show their overall shape. }
+\label{fig:2Dweave_internal}
+\end{figure}
+
+The key insight gained from our experiment is that the family of curves (Figure~\ref{fig:sphere_internal}, left panel) that split the spherical surface into \textit{yin-yang} shapes (Figure~\ref{fig:sphere_internal}, right panel) are the same as the \textit{boundary curves} (Figure~\ref{fig:sphere_internal}, middle panel) on partitioning interface of the cubical volume, In fact, if we connect each point on these curves with the lines emanating from the center of the cube, we guarantee to obtain the interface between two congruent woven tiles. Note that the interface is developable and consequently parameterizable. Alternately, this curve, which looks like a boundary of Pringles Potato Crisps (Figure~\ref{fig:sphere_internal}, middle panel), is the result of the Voronoi decomposition of the two half-circles shown in Figure~\ref{fig:2Dweave01b}. This observation can be extended further to go beyond the specific example shown in this experiment thereby offering a methodology to generate parameterizable and developable interfaces. 
+% In our parametric approach, we obtain conceptually similar curves. 
+This implies that we do not need to compute Voronoi decomposition. We can directly define such curves by simply creating control polygons with a large variety of design options. We have identified that these control polygons must be closed under warp-weft symmetry to satisfy five conditions given in \ref{sec:basis}. Final boundary curves are obtained from these control polygons by any spline or subdivision algorithm that can preserve the original symmetry. By connecting the final boundary curves with the sphere center, we can create the interface between two \textit{yin-yang} shapes. These interfaces are conceptually similar to saddle shapes shown in Figure~\ref{fig:2D/saddle}.
+
+\subsection{Contributions}
+
+In this paper, we have four main contributions: 
+
+\noindent \textbf{1. Parametric Approach:} We developed a parametric approach to produce a family of congruent tiles that can be used as basic modules that can be used to construct any planar slab of arbitrary size as a fabric structure that is woven with any given 2-way 2-fold pattern. 
+
+\noindent \textbf{2. Foldability:} Any basic module in this family of congruent tiles can be unfolded into a single panel and, therefore, manufactured economically using laser cutting.  
+
+\noindent \textbf{3. Modular Design:} These modular tiles can provide all possible 2-way 2-fold weaving patterns.
+
+\noindent \textbf{4. Design Power:} By creating all possible 2-way 2-fold weaving patterns, it is possible to obtain a wide variety of behaviors using the same set of tiles. 
+
+
+We also make other minor contributions by relaxing strong congruent conditions. Specifically, we demonstrate that any woven pattern on a cylindrical slab could be obtained using only three types of woven tiles. We further show the construction of height fields without a significant change in the general method. It is still possible to obtain any weaving pattern, however, based on the shape of the slabs and weaving pattern each woven tile must be different. We discuss how to cover any 2-manifold surfaces with woven tiles. For instance, we can always guarantee to obtain a plain weaving pattern for any given 2-manifold mesh surface. Finally, we develop a new notation for fabric patterns that can express the structure of the patterns more effectively.  
+
+\begin{figure}[ht]
+\centering 
+\centering 
+ \begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.32\textwidth]{2D/Grid2x2_0.png}
+\includegraphics[width=0.32\textwidth]{2D/Grid3x3_0.png}
+\includegraphics[width=0.32\textwidth]{2D/Grid4x4_0.png}
+\caption{Top view of the fundamental regions of three simplest 2D weaves, namely plain $(10_2,1)$; twill $(110_2,1)$; and twill $(1100_2,1)$.}
+\label{fig:2D/Grid0}
+ \end{subfigure}
+\hfill
+ \begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.32\textwidth]{2D/Grid2x2_1.png}
+\includegraphics[width=0.32\textwidth]{2D/Grid3x3_1.png}
+\includegraphics[width=0.32\textwidth]{2D/Grid4x4_1.png}
+\caption{Matrix representations of the fundamental regions of three simplest 2D weaves shown in Figure~\ref{fig:2D/Grid0}.}
+\label{fig:2D/Grid1}
+ \end{subfigure}
+\hfill
+\caption{Top view of three simplest 2-way 2-fold weaving structures and their matrix representations \cite{Grunbaum80}. Note that these are periodic, which means the matrix repeats in each $x$ and $y$ direction. In these three cases, we show the minimum periods. These periodic structures can be viewed either as an infinite plane that is periodically filled with these matrices as tiles; or a texture that is mapped on toroidal surface\cite{akleman2020topologically, akleman2015extended}. }
+\label{fig:2D/Grid}
+\end{figure}
+
+\section{Previous Work}
+
+2-Way 2-Fold Fabrics such as plain, twill, and satin could be considered the first composite structures in human history. There are illustrations  from ancient Egypt that show people weaving fabrics using looms \cite{baines2015history}. Large-scale woven structures such as woven bridges have also been constructed for several millennia \cite{yan2020woven,yan2019building,janssen2000designing,kieran2008architectural}. Basket weaving is another type that has been around for a long time \cite{mallos2009weave,ren20213d,georgescu2021weaving,baek2021smooth}. Despite their historical popularity, the construction of woven structures with congruent space-filling tiles was not known or explored until recently \cite{krishnamurthy2020bi,krishnamurthy2021geometrically}. The main problem with earlier woven tiles is that each weaving pattern requires its own congruent tile. Moreover, these tiles can be arbitrarily long based on the periodicity of the weaving pattern. This poses a serious challenge for physical production of these tiles, especially for cases such as satin wherein each tile is significantly long.
+% If the length become really long it cannot be possible to manufacture them as single pieces anymore. 
+Moreover, creating these tiles with common manufacturing processes such as milling or laser cutting is impossible due to their complex geometry. 
+% those modules need to be 3D printed only since all the faces and edges are curved. They cannot be trivially unfolded to manufacture from a flat piece of materials by using laser cutting. 
+
+We seek to address these issues by developing a simple method for obtaining all possible weaving patterns by using rotated and translated versions of a single congruent tile. We focus on representing 2-way, 2-fold weaving patterns that are formally represented by Grunbaum and Shephard's pioneering work in the 1980s \cite{Grunbaum80}. They developed a mathematical representation for these weaving patterns using matrices of $0$ and $1$. These matrices that can be considered as two color images as shown in Figure~\ref{fig:2D/Grid0} provided methodologies to design and discover new patterns. Using this representation, Grunbaum and Shephard also demonstrated that weaving patterns that appear to be perfectly linked by visual inspection may not produce links that can make the woven structure to be hanged-together \cite{Grunbaum85, Grunbaum86, Griswold2004a, Griswold2004b, Griswold2004c}. In other words, in such structures some threads may not be linked with the rest of the fabric and the resulting structures would come apart in pieces. Grunbaum and Shephard call a weaving structure a fabric only if it is hanging-together. After an extensive search, all hang-together fabrics that are represented up to 17x17 matrices have already been identified in the 1980s \cite{Grunbaum85, Grunbaum86, Clapham80, Enns84, Clapham85, Delaney84}. There has also been extensive work on 2-way 2-fold fabrics investigating their correspondences with 2D symmetry groups
+\cite{Zelinka1983,Zelinka1984,Roth1993,Thomas2010,Thomas2009,Thomas2009a}.
+
+
+In Grunbaum and Shephard's formalization \cite{Grunbaum80}, threads in all types of fabrics are considered as strands, which are doubly infinite open strips of constant width. These strands are considered an infinitely long strip of paper or similar material with zero or negligible thickness. They defined m-way n-fold 2D periodic fabrics, or (m,n) fabrics, as the ones that have the strands in $m$ different directions containing $n$ number of layers \cite{grunbaum1988isonemal}. An m-way n-fold fabric is periodic if contains translations of a fundamental region in at least two nonparallel directions. They showed existence of $(2,2)$, $(2,4)$, $(4,4)$, $(3,3)$, $(3,6)$ periodic 2D fabrics \cite{grunbaum1988isonemal}. In other words, in 2-Way 2-Fold fabrics, the term 2-way comes from the fact that these fabrics consist of two types of vertical or y-direction (warp) and horizontal or x-direction (weft) threads. The term 2-fold comes from the fact that any point in a 2D plane consists of two ordered strands that are on top of each other, one strand at the top and another one at the bottom. The fundamental region for 2-Way 2-Fold periodic fabrics is a square grid, which can be represented as a matrix that actually provides this order, which is also called ranking as shown in some examples in Figure~\ref{fig:2D/Grid}. 
+
+\begin{figure}[ht]
+\centering 
+\begin{subfigure}[t]{0.48\columnwidth}
+\centering
+\includegraphics[width=0.90\textwidth]{2D/twill1_3d.png}
+\caption{Thickened Voronoi sites that correspond to warp and weft threads for Twill weave.}
+\label{fig:twill0}
+ \end{subfigure}
+ \hfill
+ \begin{subfigure}[t]{0.48\columnwidth}
+ \centering
+\includegraphics[width=0.90\textwidth]{2D/twill0_3d.png}
+\caption{A twill weave that consist of \textit{yin-yang} type  woven tiles that are obtained using Voronoi sites in Figure~\ref{fig:twill0} with decomposed unit cells.}
+\label{fig:twill1}
+ \end{subfigure}
+\caption{An illustration that demonstrates how to construct twill by using two types of unit elements that are obtained by mirror operations.}
+\label{fig:twill}
+\end{figure}
+
+\section{Theoretical Foundations \& Methodology}
+
+One of the issues with Grunbaum and Shephard's formalization is that it is only useful for truly 2D weaves with zero-thickness strands. In particular, ranking order can be very complicated in higher dimensions. To develop a formalization for 3D threads with non-zero thickness, there is a need to identify the 3D correspondences of the concept of strands, and unit cells such that it is possible to provide a well-defined representation. 
+We note that a 3D version of matrix representation can be obtained by reinterpreting unit cells as cubes instead of squares and replacing strands with \textit{yin-yang} type 3D tiles, and ranking order with matrix transformations. Such \textit{yin-yang} type woven tiles can be obtained by decomposing the cubes using Voronoi decomposition using higher order Voronoi sites such as lines and curves \cite{krishnamurthy2021geometrically,krishnamurthy2020bi} (see Figure~\ref{fig:2Dweave} for an example). These \textit{yin-yang} type tiles correspond to actual warp and weft threads. Regardless of the shape of each tile, this interpretation guarantees the existence of exactly two distinct states (one for warp and another for weft). Therefore, we do not need the ranking order in contrast to earlier parametrizations of weaves. Furthermore, the two states can be transformed into each other with a matrix transformation that provides a mirror in $z$\footnote{In this case, $90^0$ rotations around $x$ or $y$ can also provide desired states. However, We prefer to choose a mirror in $z$ since it makes better sense as a general operation.}. This gives us the cyclic group $GF(2)$ where each element is either identity matrix $I$ or mirror in $z$, $M_z$, as follows: 
+\begin{equation} 
+I =
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1\\
+\end{pmatrix}
+\; \; \; 
+M_z =
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & -1\\
+\end{pmatrix}
+\label{Eq:2DMatrices}
+\end{equation}
+
+The advantage of having such a cyclic group is that we can replace the group with one of its isomorphic groups to obtain simplified operations. For instance, consider replacing identity matrix $I$ with $0$, and mirror matrix $M_z$ with $1$. As a result, the matrix multiplication turns into modulo $2$ addition since $I^2 = I$, $I M_z = M_z$, $M_z I = M_z$, and $M^2_z = I$. With these replacements, we obtain the fundamental cyclic group $GF(2)$ that directly corresponds to the original cyclic group of two matrices. This isomorphism also simplifies encoding of ranking orders. This simplification turned out to be extremely useful for the formalization of weaving tiles. 
+
+Using the group designed above, a fundamental domain for 2D weave can now be defined as 2D grids that consist of $N \times K$ cubes (or voxels). We can identify each cube in this fundamental domain with two non-negative integers $(n,m)$ where $n=0,\ldots, N-1$; and $m=0,\ldots, M-1$ as $C_{(n,m)}$. Similar to matrix representation, to define a fabric we assign either $0$ or $1$ to each cube for all $n$ and $m$. In other words, we define a discrete periodic function $F: \{0,\ldots,N-1\} \times \{0,\ldots,N-1\} \rightarrow \{0,1\}$ that can be represented as $F(n,m)$. We can also define the discrete derivative in $x$ and $y$ direction as $\delta_x F = F(n+1,m)-F(n,m)$, and $\delta_y F = F(n,m+1)-F(n,m)$ respectively. Note that if the derivative is zero there is no change. But if the derivative is one we take a mirror in order to get the orientation of the next cell, which corresponds rank order change in Matrix representation. 
+
+To present and analyze 2-way 2-fold weaving structures we also need a simple mathematical notation that captures the essence of the fundamental textile structures. It has been observed that all possible versions of the three fundamental fabric types, i.e. plain, twill, and satin, can be viewed as a set of rows with horizontal periodical patterns that are shifted and vertically stacked over each other \cite{chen2010designing}. Grunbaum and Shephard called these types of weaves genus-1 and used a $(n,s)$ notation  to classify these fabrics, where $n$ is the length of a binary pattern and $s$ is the shift operator \cite{Grunbaum80}. One problem with  the $(n, s)$ notation is that it does not define the initial row pattern. 
+
+The three simplest fabric patterns in Figure~\ref{fig:2D/Grid} in $(n,s)$ notation are $(2,1)$, $(3,1)$, and $(4,1)$. It is possible to identify the first two. However, for $(4,1)$ the initial pattern is not uniquely determined. It can be either $3$ up and $1$ down, or $2$ up and $2$ down. As a solution, another notation called  $a/b/c$ is introduced \cite{chen2010designing}. In this notation, the initial pattern is defined by two integers $a$ and $b$, where $a$ is the number of up-crossings, and $b$ is the number of down-crossings. The additional integer $c$ denotes the shift introduced in adjacent rows. Note that $a+b$ correspond to $n$ and $c$ corresponds to $s$ in $(n, s)$ notation. This notation differentiate between two $(4,1)$ patterns as $3/1/1$ and $2/2/1$. Although this notation solves the uniqueness problem for some simple cases, it has limited power to describe more complex initial patterns such as the ones that consist of several number different types of up and down crossing that are followed each other. 
+
+We observe that there is a need for a new notation that can provide group theoretical solutions to all ambiguities. To achieve this, we simply replace $n$ in $(n,s)$ with a binary number $N_2$ that represents up and down patterns. For instance, the decimal number $N_{10}=26_{10}$ corresponds to the binary number $N_2=11010_{2}$, which represent a row of weaving structure that is given as two up, one down, one up and one down. This can be written using hexadecimal numbers to save space. For instance, the three fabric patterns shown in Figure~\ref{fig:2D/Grid} can be given in $(N_{16},s)$ notation as $(2_{16},1)$, $(6_{16},1)$, and $(C_{16},1)$. We assume the binary sequence starts with $1$ to uniquely define the length $n$. We also assume $N_2$ is an even number, i.e. it ends with $0$ to guarantee the row includes at least one change from one to zero.  
+
+
+\begin{figure}[htpb!]
+\centering 
+\fbox{\includegraphics[width=0.30\columnwidth]{2D/exploration/1_006.png}}
+\fbox{\includegraphics[width=0.30\columnwidth]{2D/exploration/1_060.png}}
+\fbox{\includegraphics[width=0.30\columnwidth]{2D/exploration/1_120.png}}
+\fbox{\includegraphics[width=0.30\columnwidth]{2D/exploration/1_180.png}}
+\fbox{\includegraphics[width=0.30\columnwidth]{2D/exploration/1_240.png}}
+\fbox{\includegraphics[width=0.30\columnwidth]{2D/exploration/1_330.png}}
+\caption{Voronoi decomposition of the cube fundamental domain and resulting partitions for different arc angles $\theta$. From left to right, $\theta = 6^\circ$, $\theta = 60^\circ$, $\theta = 120^\circ$, $\theta = 180^\circ$, , $\theta = 240^\circ$, $\theta = 330^\circ$}
+\label{fig:voronoi/exploration0}
+\end{figure}
+
+\subsection{Studying Voronoi Sites Closed Under Warp-Weft Symmetry}
+
+To develop a parametric solution, we have analyzed a variety of Voronoi decomposition of the unit cube by using symmetric Voronoi sites. To identify the potentially useful symmetry operations we start with the mathematical concept of strands \cite{grunbaum1988isonemal}. The  symmetry operations that take warp strands to weft strands and vice versa can be obtained by a $90^0$ rotation in $z$ followed by a mirror in $z$ (See~\ref{fig:coordinates} for local coordinates). These two operations can be given by  the following composite matrix:
+\begin{equation} M =
+\begin{pmatrix}
+0 & -1 & 0\\
+1 & 0 & 0\\
+0 & 0 & -1\\
+\end{pmatrix}
+\label{Eq:Matrix0}
+\end{equation}
+
+
+Note that the strands are mirror symmetric in $x$ and $y$ directions. If we strictly follow the concept of strands, the Voronoi sites must also be mirror symmetric in both $x$ and $y$ directions. Note that $M$ alone does not enforce this condition. Note that $M^2$ cannot move all Voronoi sites into their original positions since  
+\begin{equation} M^2 =
+\begin{pmatrix}
+-1 & 0 & 0\\
+0 & -1 & 0\\
+0 & 0 & 1\\
+\end{pmatrix}
+\label{Eq:Matrix2}
+\end{equation}
+and it is not an identity matrix. Therefore, in order to make these Voronoi sites consistent, they should be self-mirror in $x$ and $y$. One such example of Voronoi sites is shown in Figure~\ref{fig:2Dweave01b}. This example consists of two half-circles that are closed under matrix $M$. These particular curves create a boundary on the surface of their sphere that resembles the curves on a tennis ball (See Figure~\ref{fig:tennisball}). Figure~\ref{fig:2Dweave23} shows corresponding congruent tiles that decompose the unit cell. 
+This particular case obviously is one of the most natural solutions since the same boundary curves on the sphere can also be observed on other spherical surfaces such as basketball. 
+
+
+To identify other potential solutions we systematically explored the effect of a variety of symmetric curve- and surface-type Voronoi sites on the unit sphere. Figure~\ref{fig:voronoi/exploration0} provides a generalization on tennis ball decomposition. In this case, we used two circular arcs that are closed under both $M$ and $M^2$, i.e. closed under warp-weft symmetry. Note that if the arc angle is zero, the arc turns into a point and decomposition does not produce a saddle. On the other hand, when arc length increases saddle starts to appear. for angles around $180^0$, we obtain a strong saddle. For arc angles closer to $360^0$ we still obtain saddles that can theoretically be assembled and disassembled but it is difficult because of friction.  
+We also analyzed surface patches that are closed under $M$ and  $M^2$ 
+% (See Figure~\ref{fig:voronoi/exploration1}). 
+This surface patches generally produced a useful set of tiles with a saddle interface with an exception of two half-spheres. 
+These examples suggested that being closed under $M$ and $M^2$ for Voronoi sites is useful to create desired tiles. 
+
+We have also analyzed if this condition guarantees obtaining desired tiles. Unfortunately, we observed that it is not guaranteed (1) to have the tiles that can be connected to the next one and (2) to have the interface that may not be the saddle when we use Voronoi sites that are closed under $M$ and $M^2$.  In other words, we cannot blindly apply the condition to be closure under $V=M$ and $M^2$. In conclusion, studying Voronoi sites mainly helps us conceptualize the general structures of the tiles. However, this study with Voronoi sites closed under symmetry demonstrated that warp-weft symmetry is important but neither necessary nor sufficient to obtain woven tiles. 
+Note that while Voronoi decomposition offers an elegant conceptual basis, it does not explicitly guarantee connectivity and assembly/disassembly conditions. However, Voronoi decomposition naturally guarantees foldability by providing a piecewise developable interface. That said, obtaining reasonable folding patterns may not be trivial for most resulting shapes. We need an explicit solution that can let us control parameters directly. This study of Voronoi decomposition was still useful for us since it helped to develop an intuition to identify such a robust parametric solution.
+
+
+ \begin{figure}[htpb!]
+\centering  
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/interlocking0.png}}
+\caption{Geometrically interlocked boundary}
+\label{fig:2D/interlocking0}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/interlocking1.png}}
+\caption{Topologically interlocked boundary}
+\label{fig:2D/interlocking1}
+\end{subfigure}
+\caption{Cutting an unfolded cube with a curve demonstrate that the boundaries of the interface between the congruent tiles must create topologically interlocked structures in 2D to satisfy assembly and disassembly condition. Note that the top and bottom shapes in Figure~\ref{fig:2D/interlocking1} can freely move in $y$ direction.}
+\label{fig:2D/interlocking}
+\end{figure}
+
+
+\begin{figure}[hbtp!]
+\centering 
+ \begin{subfigure}[t]{0.32\columnwidth}
+\includegraphics[width=0.99\textwidth]{2D/Parametric0.png}
+\caption{Generic piecewise linear curve that is closed under Warp-Weft Symmetry. }
+\label{fig:parametric0}
+ \end{subfigure}
+ \hfill
+ \begin{subfigure}[t]{0.32\columnwidth}
+\includegraphics[width=0.99\textwidth]{2D/Parametric1.png}
+\caption{A tetrahedral polygon that is obtained by choosing $a=1$ and $b=0$. }
+\label{fig:parametric1}
+ \end{subfigure}
+  \begin{subfigure}[t]{0.32\columnwidth}
+\includegraphics[width=0.99\textwidth]{2D/Parametric2.png}
+\caption{Another control polygon that is obtained by choosing $a=1$ and $b=1$. }
+\label{fig:parametric2}
+ \end{subfigure}
+ \hfill
+\caption{Parameterized control polygon (hexadecagon, i.e. $16_{th}$gon) and two extreme cases. Note that the polygon in \ref{fig:parametric1} is also $16$-sided since each point consists of two coincident points.}
+\label{fig:parametric}
+
+\vspace{0.5in}
+% \vfill
+% \vspace{\fill}
+
+
+\centering 
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/100_000.png}}
+\caption{The parameters $a=1.0$ and $b=0.0$}
+\label{fig:2D/AB/10_00.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/100_025.png}}
+\caption{The parameters $a=1.0$ and $b=0.25$}
+\label{fig:2D/AB/10_25.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/100_050.png}}
+\caption{The parameters $a=1.0$ and $b=0.5$}
+\label{fig:2D/AB/10_05.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/100_075.png}}
+\caption{The parameters $a=1.0$ and $b=0.75$}
+\label{fig:2D/AB/10_75.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/100_100.png}}
+\caption{The parameters $a=1.0$ and $b=1.0$}
+\label{fig:2D/AB/10_10.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/075_100.png}}
+\caption{The parameters $a=0.75$ and $b=1.0$}
+\label{fig:2D/AB/075_10.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/050_100.png}}
+\caption{The parameters $a=0.5$ and $b=1.0$}
+\label{fig:2D/AB/05_10.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/025_100.png}}
+\caption{The parameters $a=0.25$ and $b=1.0$}
+\label{fig:2D/AB/025_10.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/075_075.png}}
+\caption{The parameters $a=0.75$ and $b=0.75$}
+\label{fig:2D/AB/075_075.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/050_050.png}}
+\caption{The parameters $a=0.5$ and $b=0.5$}
+\label{fig:2D/AB/05_05.png}
+\end{subfigure}
+\hfill
+\caption{Congruent woven tiles generated with piecewise linear curves}
+\label{fig:parametric/flat}
+\end{figure}
+
+
+\subsection{Studying Unfolded Boundary of the Cube}
+
+A good parametric solution also requires studying connectivity and assembly/disassembly conditions. Based on our study of Voronoi decomposition, studying these two conditions can directly be done in the boundary of the cube. For this study, we consider an unfolded cube shown in Figure~\ref{fig:2D/interlocking}. The longer side of this unfolding consists of four side squares of the cube. The other two squares are just the top and bottom ones and we will ignore them since they do not affect the two conditions. Now consider the strip that consists of four squares. We can assign a local 2D coordinate system to them, which is shown as two arrows in Figure~\ref{fig:2D/interlocking}. Once we have a local 2D coordinate system, it is straightforward to define curves. Now consider the two curves in  Figures~\ref{fig:2D/interlocking0} and ~\ref{fig:2D/interlocking1} and assume that the shape is cut through the curve. It is clear that the two 2D shapes in Figure~\ref{fig:2D/interlocking0} cannot be separated without going to 3D, which is the definition of geometric interlocking for 2D objects \cite{estrin2021design}. On the other hand, the two 2D pieces in Figure~\ref{fig:2D/interlocking1} can be disassembled in the $y$ direction without the need for disassembly in 3D. This is because the second curve is given by a function on the form $y=f(x)$, i.e. it has only one $y$ value for every $x$. In other words, if there exists a local coordinate system such that the boundary curve can be written as a function, we guarantee to assemble and disassemble the pieces. Note that there still exist other curves that allow assembly and disassembly such as the one shown in Figure~\ref{fig:parametric2}. 
+
+Although the warp-weft symmetry is not strictly required, we still prefer to use it since it gives us a well-defined framework. If we impose warp-weft symmetry, these functions must be periodic such as a sine function shown in Figure~~\ref{fig:2D/interlocking1}. Such a sine function is appropriate since the resulting tiles can also satisfy the connectivity condition. Note that the connectivity condition suggests that the curve partition each square into unequal areas preferably providing a large common area between two consecutive tiles in the same thread.
+
+
+The discussion in the last two sections provides a qualitative framework to develop a family of parametric curves that can allow us to directly create congruent tiles using an explicit approach. In the next section, we present one approach to construct such a family of parametric curves. We need to point out that although this particular approach provides a large set of solutions, there can be others. For instance, we can also provide another family using trigonometric functions by generalizing the sine curve in Figure~~\ref{fig:2D/interlocking1}.
+
+\begin{figure}[htpb!]
+\centering 
+   \begin{subfigure}[t]{0.32\columnwidth}
+\includegraphics[width=0.99\textwidth]{2D/Parametric0_s.png}
+\caption{Polygon in \ref{fig:parametric0} after one iteration of corner cutting subdivision. }
+\label{fig:parametric0_s}
+ \end{subfigure}
+ \hfill
+    \begin{subfigure}[t]{0.32\columnwidth}
+\includegraphics[width=0.99\textwidth]{2D/Parametric1.png}
+\caption{Polygon in \ref{fig:parametric1} after one iteration of corner cutting subdivision. }
+\label{fig:parametric1_s}
+ \end{subfigure}
+ \hfill
+    \begin{subfigure}[t]{0.32\columnwidth}
+\includegraphics[width=0.99\textwidth]{2D/Parametric2_s.png}
+\caption{Polygon in \ref{fig:parametric2} after one iteration of corner cutting subdivision. }
+\label{fig:parametric2_s}
+ \end{subfigure}
+ \hfill
+\caption{Examples of smoothed control polygons after one iteration of corner cutting subdivision \cite{doo1978behaviour}. }
+\label{fig:parametric_s}
+
+ \vspace{0.5in}
+
+\centering 
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/100_000_s.png}}
+\caption{The parameters $a=1.0$ and $b=0.0$}
+\label{fig:2D/AB/10_00_s.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/100_025_s.png}}
+\caption{The parameters $a=1.0$ and $b=0.25$}
+\label{fig:2D/AB/10_025_s.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/100_050_s.png}}
+\caption{The parameters $a=1.0$ and $b=0.5$}
+\label{fig:2D/AB/10_05_s.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/100_075_s.png}}
+\caption{The parameters $a=1.0$ and $b=0.75$}
+\label{fig:2D/AB/10_55_s.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/100_100_s.png}}
+\caption{The parameters $a=1.0$ and $b=1.0$}
+\label{fig:2D/AB/10_10_s.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/075_100_s.png}}
+\caption{The parameters $a=0.75$ and $b=1.0$}
+\label{fig:2D/AB/075_10_s.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/050_100_s.png}}
+\caption{The parameters $a=0.5$ and $b=1.0$}
+\label{fig:2D/AB/05_10_s.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/025_100_s.png}}
+\caption{The parameters $a=0.25$ and $b=1.0$}
+\label{fig:2D/AB/025_10_s.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/075_075_s.png}}
+\caption{The parameters $a=0.75$ and $b=0.75$}
+\label{fig:2D/AB/075_075_s.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\fbox{\includegraphics[width=0.99\columnwidth]{2D/AB/050_050_s.png}}
+\caption{The parameters $a=0.5$ and $b=0.5$}
+\label{fig:2D/AB/05_05_s.png}
+\end{subfigure}
+\caption{Congruent woven tiles generated with piecewise linear curves that are created by vertex-insertion scheme \cite{catmull1978recursively}.}
+\label{fig:parametric/smooth}
+\end{figure}
+
+\subsection{A Family of Parametric Curves Closed Under Warp-Weft Symmetry}
+
+In this section, we present our parametric family that can guarantee to provide tiles that can satisfy all conditions, based on the intuitions developed by explorations with Voronoi decompositions and unfolded cubes. We have identified a piecewise linear curve that form an hexadecagon (16-sided polygon) that can be described by two parameters, called $a$ and $b$, as shown in  Figure~\ref{fig:parametric0}. This polygon is still closed under warp-weft symmetry. The corners of this set of parameterized polygons include vertices of both tetrahedron (Figure~\ref{fig:parametric1}) and cube (Figure~\ref{fig:parametric2}). Figure~\ref{fig:parametric/flat} shows the effect of the two parameters $a$ and $b$. To satisfy connectability condition $a$ must be bigger than for certain threshold determined by the sizes of connectors. Since the saddle shapes become more prominent for larger values of $a$ we suggest keeping $a> 0.5$. Such larger values of $a$ are also useful to increase the interface between two consecutive tiles in the same thread. 
+
+To obtain smoothed shapes, we consider these hexadecagonal polygons as control polygons that can be refined smoother versions by using subdivision schemes of B-spline curves. 
+Figure~\ref{fig:parametric_s} shows examples of smoothed control polygons in one iteration of corner-cutting subdivision, which is 2D version of Doo-Sabin subdivision \cite{doo1978behaviour}.  It is also possible to use vertex-insertion, which is 2D version of Catmull-Clark subdivision \cite{catmull1978recursively}. The application of these subdivision schemes for $k$ times creates a polygon of $16 \times 2^k$ corners. Figure~\ref{fig:parametric/smooth} shows woven tiles obtained by using polyhedra smoothed by vertex insertion. Note that in the case of $a=1$ and $b=0$ in the vertices of the tetrahedron, there are two coincident points of the polygon. Therefore, the standard corner-cutting algorithm cannot smooth this shape in the first iteration as shown in Figure~\ref{fig:parametric1_s}.
+The algorithm for the computation of the multi panel foldable interface is provided by the following algorithm. 
+
+
+\textbf{Algorithm for the Creation of Foldable Interface:}
+
+\noindent
+\textbf{(1)} Compute positions of two points in each square based on Figure~\ref{fig:parametric} $0<a \leq 1$ and $0<b \leq 1$. \textbf{Remark:} There will be 16 points and these points will be closed under $M$ and $M^2$.
+
+\noindent 
+\textbf{(2)} Apply a subdivision scheme $n$ times to obtain $16 \times 2^n$ points.
+
+\noindent
+\textbf{(3)} Shoot a ray from the center of the cube toward the computed corners of $16 \times 2^n$-gon to find the intersections with the boundary of the cube. 
+
+\noindent 
+\textbf{(4)} Construct a new polygon by connecting new positions. If two consecutive positions are in two different faces of the cube add a new (interpolated) point in the intersection of the two faces. The new polygon will have at least $16 \times 2^n$ corners.
+
+\noindent 
+\textbf{(5)} Triangulate the new polygon connecting all corners to the center of the cube. This gives us the interface that decomposes the cube into two tiles. \textbf{Remark:} The center of the cube is also the center of this polygon because of warp-weft symmetry.
+
+\begin{figure}[htpb!]
+\centering 
+\includegraphics[width=0.99\columnwidth]{2D/folding0a.png}
+\caption{Folding (and unfolding) of a woven tile. Note that although this shape can be unfolded into a single panel, this single panel actually consists of three panels that are ``merely'' connected with each other. This is a shape that is obtained from a smooth curve that approximates the control polygon that corresponds to $a=1$ and $b=1$. }
+\label{fig:folding0}
+\end{figure}
+
+\subsection{Foldable Woven Tiles}
+
+Connecting the parametric curve with the center point guarantees to obtain an foldable interface between two congruent tiles. Since the rest of the boundaries of the tiles comes from the surface of the unit cube, the resulting tiles are guaranteed to be a multi panel foldable since it consists of planar and multi panel foldable faces that approximate developable surfaces. Having this property is useful since custom-cut developable panels provide an alternative to 3D printing. Despite their advantages, there is a major problem with developable shapes. Unfolding a developable shape into a single flat surface, i.e. single panel solutions, is a computationally very hard problem. For instance, it is known that Edge-Unfolding Orthogonal Polyhedra are Strongly NP-Complete \cite{abel2011edge}. Even simple-looking sub-problem such as Packing Squares into a Square are strongly NP-complete \cite{leung1990packing}. More interestingly, whether every convex polyhedron can be cut along its edges and flattened into the plane without any overlap is still one of the classical open problems in geometry \cite{croft2012unsolved}. Despite this theoretical difficulty, there exists no known convex polyhedron that cannot be unfolded without self-intersection \cite{demaine2007geometric,polthier2012imaging}. On the other hand, it is already proven that not all convex-faced polyhedra can be unfolded into a single flat surface \cite{bern2003ununfoldable}. 
+
+\begin{figure}[htpb!]
+\centering 
+\includegraphics[width=0.99\columnwidth]{2D/folding1.png}
+\caption{Folding (and unfolding) a woven tile with planar faces that is obtained by using $a=1$ and $b=1$. }
+\label{fig:folding1}
+\end{figure}
+
+For many non-convex polyhedra finding single unfolding solutions -if they exist- can take a significant amount of work \cite{mueller2013laserorigami, demaine1999folding}. On the other hand, for many complicated non-convex polyhedra with convex faces, the solutions are known to exist. For instance, non-self-intersecting single-panel unfolding solutions are known for some genus-1 surfaces. Our shapes are similarly complicated since they all include saddle interfaces and some may include non-convex faces (See Figure~\ref{fig:folding0}). Therefore, it is expected that it can be difficult to find solutions even if the solutions exist. Fortunately, we were able to find a method to obtain non-self-intersecting single panel unfolding solutions for all our parametric congruent tiles. See Figure~\ref{fig:folding0} for one of the most difficult examples. In this case, the solution is formally a single panel, but the three pieces have very few connections. If we have a truly developable surface, they will not have any connections. Therefore, our algorithm is really a type of multi-panel solution that give loosely connected single panels.
+
+ \begin{figure}[htpb!]
+\centering 
+\includegraphics[width=0.99\columnwidth]{2D/folding2.png}
+\caption{Folding (and unfolding) a woven tile with planar faces that is obtained by using $a=1$ and $b=0$. }
+\label{fig:folding2}
+\end{figure}
+
+\noindent \textbf{Unfolding Algorithm:} 
+
+\noindent 
+\textbf{(1)} Separate the shape into two
+parts: (1) Cube boundaries, and (2) Saddle interface. \textbf{Remark:} Note that the saddle interface cannot be unfolded into a single non-overlapping flat piece since its vertex defect is negative \cite{akleman2010strip}.
+
+\noindent 
+\textbf{(2)} Decompose saddle interface into multiple pieces.
+
+\noindent 
+\textbf{(3)} Attach those pieces to the main body that is obtained by unfolding cube boundaries.
+
+Figure~\ref{fig:folding0} shows an example that uses this algorithm in which the complicated saddle region is decomposed into two pieces that can be unfolded without overlapping. Figures~\ref{fig:folding1} and~\ref{fig:folding2} provide two more examples in which the saddle regions are decomposed into multiple triangles. 
+We want to point out that the solution in Figure~\ref{fig:folding0} exists only because we do not have a smooth curve. In the limit, the connections in edges will approach zero and we cannot have a single panel solution anymore. On the other hand, we want to point out that multi-panel unfolding and origami can always be considered viable options \cite{hernandez2013towards,akleman2016construction,hernandez2016modeling}.
+
+\section{Implementation and Results}
+
+Our modular approach of obtaining any weaving pattern by using a single tile has both topological and geometric limitations. The topological limitation directly comes from a 2-way 2-fold constraint. To obtain any possible weaving pattern, the underlying mesh, regardless of its geometry, must be a quad-pattern cover-able quad mesh \cite{hu2012pattern}. In fact, any positive genus surface can be turned into a quad-pattern cover-able quad mesh \cite{hu2012pattern}. These mesh structures also include topological square grids, i.e. $(4,4)$ structures where every valence is $4$, and every face is a quadrilateral. We also need to point out that plain weaving patterns do not have this topological requirement. Any mesh can be covered with alternating knots, i.e. plain weaving, by turning their edges into quadrilaterals \cite{akleman2009cyclic,akleman2015extended,akleman2011cyclic,akleman2020topologically}. In conclusion, to obtain any 2-way, 2-fold weaving pattern, it is sufficient to start with a $(4,4)$ mesh structure. 
+
+The $(4,4)$ mesh structures are common in many places. For instance, height fields and tensor product surfaces can always be represented as $(4,4)$ mesh structures. Therefore, those surfaces can topologically be covered with 2-way 2-fold weaving patterns. On the other hand, in these cases, the geometrical constraints on the shape of surfaces play an important role. As discussed, if the shape of the slab is a plane, we can always obtain any weaving pattern using only one modular element. If the shape is a cylinder, we can obtain all weaving patterns with four modular elements.  If the shape is arbitrary, each weaving pattern requires a specific solution. To demonstrate this, we show a few select examples.
+
+\begin{figure}[htpb!]
+\centering 
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/slab1.png}
+\caption{$((10_2,1)$ Plain woven planar slab.}
+\label{fig:planarslab0}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/slab.png}
+\caption{$((1100_2,1)$ Twill woven planar slab.}
+\label{fig:planarslab1}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/slab2.png}
+\caption{$((11111110_2,3)$ Satin woven planar slab.}
+\label{fig:planarslab2}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/slab3.png}
+\caption{$((11010_2,1)$ Twill woven planar slab.}
+\label{fig:planarslab3}
+\end{subfigure}
+\hfill
+\caption{Examples of Planar slabs. }
+\label{fig:planarslabs}
+\end{figure}
+
+\subsection{Planar Slabs with 2-way 2-fold Weaving Patterns}
+
+Creation of planar slabs with any 2-way 2-fold weaving patterns is relatively easy. We can use any single tile in Figures~\ref{fig:parametric/flat} or~\ref{fig:parametric/smooth} to construct any weaving pattern. We show several virtual and printed examples in Figure~\ref{fig:planarslabs} created using the single tiles from Figure~\ref{fig:2D/AB/10_10_s.png}. We have also physically built a variety of weaving patterns using modular tiles, as shown in Figure~\ref{fig:photos}. Since it is weaving patterns creates within planar slabs, there is always a solution with our modular tiles.
+
+\subsection{Cylindrical Surfaces with Semi Congruent Tiles}
+
+An especially interesting case for our approach is cylinders. Columns, which are one of the most common building structures, are essentially cylinders. We found that any weaving pattern on a cylinder can be constructed using four unique tiles, as shown in Figure~\ref{fig:tilescylinder}. The cylinder case clearly demonstrates the structure of the different weaving patterns. To demonstrate the difference in warp and weft structures for different weaving patterns, we have provided warp and weft threads separately in Figure~\ref{fig:cylinders}. In woven cylinders shown in Figure~\ref{fig:cylinder0} and Figure~\ref{fig:cylinder1}, warp threads form circles, and weft threads are straight elements that run along horizontally in a column structure.
+
+\begin{figure}[htpb!]
+\centering 
+\includegraphics[width=0.23\columnwidth]{2D/results/cylinder_piece2.png}
+\includegraphics[width=0.23\columnwidth]{2D/results/cylinder_piece1.png}
+\includegraphics[width=0.23\columnwidth]{2D/results/cylinder_piece3.png}
+\includegraphics[width=0.23\columnwidth]{2D/results/cylinder_piece4.png}
+\caption{4 different tiles needed for constructing a cylindrical surface.}
+\label{fig:tilescylinder}
+\end{figure}
+
+\begin{figure}[htpb!]
+\centering 
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/cylinder4.png}
+\includegraphics[width=0.99\columnwidth]{2D/results/cylinder5.png}
+\includegraphics[width=0.99\columnwidth]{2D/results/cylinder6.png}
+\caption{$((10_2,1)$ Plain woven cylinder.}
+\label{fig:cylinder0}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/cylinder3.png}
+\includegraphics[width=0.99\columnwidth]{2D/results/cylinder2.png}
+\includegraphics[width=0.99\columnwidth]{2D/results/cylinder1.png}
+\caption{$((1100_2,1)$ Twill woven cylinder.}
+\label{fig:cylinder1}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/cylinder7.png}
+\includegraphics[width=0.99\columnwidth]{2D/results/cylinder8.png}
+\includegraphics[width=0.99\columnwidth]{2D/results/cylinder9.png}
+\caption{$((11111110_2,3)$ Satin woven cylinder.}
+\label{fig:cylinder2}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/cylinder10.png}
+\includegraphics[width=0.99\columnwidth]{2D/results/cylinder11.png}
+\includegraphics[width=0.99\columnwidth]{2D/results/cylinder12.png}
+\caption{$((11010_2,1)$ Twill woven cylinder.}
+\label{fig:cylinder3}
+\end{subfigure}
+\hfill
+\caption{Cylindrical surfaces constructed with semi-congruent tiles. The top row shows the complete assembly of tiles. The middle and bottom rows show warp and weft assemblies.}
+\label{fig:cylinders}
+\end{figure}
+
+\begin{figure}[htpb!]
+\centering 
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/hfield5.png}
+% \includegraphics[width=0.99\columnwidth]{2D/results/hfield4.png}
+% \includegraphics[width=0.99\columnwidth]{2D/results/hfield3.png}
+\caption{$((10_2,1)$ Plain woven height field.}
+\label{fig:heightfield0}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/hfield1.png}
+% \includegraphics[width=0.99\columnwidth]{2D/results/hfield2.png}
+% \includegraphics[width=0.99\columnwidth]{2D/results/hfield3.png}
+\caption{$((1100_2,1)$ Twill woven height field.}
+\label{fig:heightfield1}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/hfield6.png}
+% \includegraphics[width=0.99\columnwidth]{2D/results/hfield9.png}
+\caption{$((11111110_2,3)$ Satin woven height field.}
+\label{fig:heightfield2}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/hfield7.png}
+% \includegraphics[width=0.99\columnwidth]{2D/results/hfield8.png}
+\caption{$((11010_2,1)$ Twill woven height field.}
+\label{fig:heightfield3}
+\end{subfigure}
+\hfill
+\caption{An example of woven height fields constructed with non-congruent tiles.}
+\label{fig:heightfields}
+\end{figure}
+
+\subsection{Height Fields with Non-Congruent Tiles}
+
+To generalize our approach to more complicated geometries, we need to extend cubes to more general cuboids, which are six-faced solids (i.e, hexahedra) with convex and planar quadrilateral faces such as rectangular prisms, rhombohedra, parallelepipeds, or trigonal trapezohedron \cite{robertson1984polytopes}. The resulting tiles may not necessarily be congruent, but their mesh structures are homeomorphic. Moreover, they can still be unfolded. Any curved slab can be decomposed into cuboids connected with $(4,4)$ mesh structures. 
+
+Now, consider a curved slab that is defined as 
+$$z=\{ (x,y,z) | h(x,y) - T \leq z \leq h(x,y) + T\}$$
+where $2T$ is the thickness of the slab and $z=h(x,y)$ is a height field that is given by any function where $0 \geq x \geq M$ and $0 \geq y \geq N$ with $M$ and $N$ are two positive integers. Such a slab can be decomposed into desired cuboids with planar faces just sampling $x$ and $y$ in integer locations $n \in {0,\ldots, N}$ and $m \in {0,\ldots, M}$. Let $\textbf{p}_{m,n,i,j,k}$ denote the eight corners of this cuboid shape, where $(i,j,k) \in \{0,1\}^3$, the position of each corner is given by the following equation: 
+$$\textbf{p}_{m,n,i,j,k}= h(m+i,n+j) +  (2k-1) T $$
+Note that this cuboid is bounded by four planes, namely $x=m$, $x=m+1$, $y=n$, and $y=n+1$. Figure~\ref{fig:heightfields} shows two height fields constructed using four weaving patterns. In this case, we can always obtain woven tiles using these four faces to define the saddle curve described in Figure~\ref{fig:parametric0}. Note that the top and bottom faces may not be planar. Those faces must be decomposed into foldable surfaces, such as two triangles, to unfold the resulting tiles.
+
+
+
+\section{Conclusion and Future Work}
+
+In this work, we demonstrated that modular elements exist to construct all 2-way 2-fold woven planar slab structures. By decomposing cubed into two \textit{yin-yang} type identical tiles modular solutions, we have also shown that these modular solutions are not unique. There exist infinitely many interesting modular elements that can be created by using two parameters and smoothing operators. The shapes of these modular elements are naturally foldable. In other words, they all can be folded from single or multiple flat panels. 
+% We have also shown that by relaxing single tile conditions, we can obtain woven curved volumes. 
+
+These tiles can potentially cover any slab obtained from a 2-manifold surface. However, because of topological restrictions from the mesh topology, it is only possible to obtain plain weaving patterns \cite{akleman2009cyclic,akleman2015extended,akleman2020topologically}. On the other hand, it is possible to create large regions of $(4,4)$ tilings by using subdivision schemes such as vertex intersection or corner cutting. In these regions, it is possible to obtain desired patterns by moving irregularities around extraordinary vertices \cite{akleman2011cyclic}. Since this is a well-known result, we did not discuss it in the paper, and we do not think there is a need for further research in this direction. Once the pattern is known and slab geometry does not include self-intersections, it can be possible to create woven tiles. 
+
+One interesting research direction is additional connector elements and congruent tiles to obtain curved slabs. We suspect that by adding a limited number of cylindrical connectors, it could be possible to obtain curved regions with a limited number of tiles by using an organization reminiscent of quad-edge data structure \cite{akleman2016construction}. One problem with this approach is that final structures have small holes that correspond to the faces and vertices of the original meshes, which could be filled by various methods. However, these practical issues are not directly related to computer-aided geometry. 
+% Such future research problems can be addressed in more construction and engineering papers 
+
+% \textcolor{red}{Another research direction can be to use different tiles for each position to construct physical versions of free-form surfaces or polygonal meshes. These directions requires additional research to obtain tiles that can still satisfy five conditions for such generalized tile shapes. }
+
+% One problem with this approach is that final structures have small holes that correspond to the faces and vertices of the original meshes, which could be filled by various methods. However, these practical issues are not directly related to computer-aided geometry. Such future research problems can be addressed in more construction and engineering papers. Another interesting research direction is to go into the third direction. This is essentially a 2.5D approach. We have recently realized that it could be possible to use non-woven layers of 2-way 2-fold weaving structures. This can potentially allow going into the third direction by creating interlocking between consecutive layers. 
+
+ {Another interesting research direction is to use tiles of different materials to obtain a variety of architectured material structures. In fabrics, different patterns are obtained by coloring threads. For instance, just with twill, one can obtain patterns that are known to herringbone, houndstooth, serge, sharkskin, flannel cavalry, chino, covert, denim, drill, or gabardine \cite{feijs2012houndstooth, Windeknecht1980, Windeknecht1994}. In this case, we can have more flexibility since each tile (instead of the whole thread) can have different materials. In the near future, our goal is to take our method, which is currently computational and theoretical, and work with architects and engineers through physical construction as well as finite-element studies of our tiles. We believe that this work opens up new avenues to further investigate practical applications of modular woven tiled to construction science, mechanics, and other domains.}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
+
+\newpage 
+
+\appendix
+
+\subsection{Curved Slabs from Parametric Surfaces with Non-Congruent Tiles}
+
+Now, let us consider another type of curved slab that can be constructed by our woven times. Let a parametric surface be defined as 
+$$(x,y,z) = \mathbf{F}(u,v)$$
+where $(u,v) \in [0,1]^2$ and $\mathbf{F}(u,v)$ is a $C^1$ continuous function such that unit normal vector $\vec{N}(u,v)$ to the surface is defined everywhere on the surface, i.e. for all $(u,v)$ in $[0,1]^2$. Using this surface and surface normal, we can define a parametric volume that represents the curved slab as follows 
+$$\mathbf{P}(u,v,t) = \mathbf{F}(u,v) + 2T \vec{N}(u,v) (2t-1) $$
+where $2T$ is the thickness of the curved slab and $t \in [0,1]$. We assume that the volume does not self-intersect. Such a parameterized volumetric slab can also be decomposed into cuboids just sampling $u$ and $v$ in locations $x=m/M$ and $y=n/N$ with $n \in {0,\ldots, N}$ and $m \in {0,\ldots, M}$ where $M$ and $N$ are two positive integers. 
+
+\begin{figure}[htpb!]
+\centering 
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/nurbs2.png}
+\caption{$((10_2,1)$ Plain woven curved parametric slab.}
+\label{fig:nurbs0}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/nurbs3.png}
+\caption{$((1100_2,1)$ Twill woven curved parametric slab.}
+\label{fig:nurbs1}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/nurbs1.png}
+\caption{$((11111110_2,3)$ Satin woven curved parametric slab.}
+\label{fig:nurbs2}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=0.99\columnwidth]{2D/results/nurbs.png}
+\caption{$((11010_2,1)$ Twill woven curved parametric slab.}
+\label{fig:nurbs33}
+\end{subfigure}
+\hfill
+\caption{Surfaces generated through NURBS curves.}
+\label{fig:nurbs}
+\end{figure}
+
+Now, let $\textbf{p}_{m,n,i,j,k}$ denote the eight corners of the cuboid shapes, where $(i,j,k) \in \{0,1\}^3$, the position of each corner is given by the following equation: 
+$$\textbf{p}_{m,n,i,j,k}= \mathbf{F}\left(\frac{m+i}{M},\frac{n+j}{N}\right) + 2T \vec{N}\left(\frac{m+i}{M},\frac{n+j}{N}\right) (2k-1) $$
+The faces of these cuboids are not guaranteed to be planar. In fact, they will most likely be bilinear surfaces. This is computationally not a significant problem since these bilinear faces can directly be used to obtain boundary curves. We can simply attach a $(u,v)$ coordinate system to every face and we can draw the same boundary curves in this $(u,v)$ coordinate system. We can then connect these boundary curves with the center of the cuboids to obtain the two woven tiles. \textcolor{red}{ However, in this case there is no guarantee that to hold disassembly and assembly condition by considering that a generic Bilinear surface may also be concave. Therefore, such slabs requires careful design.
+Figure~\ref{fig:nurbs} shows an extremely simple example parametric slab that is created from Tensor-Product NURBS. In in such a simple cases, the weaving tiles for specific weaving patterns will be unique.} Therefore, they will need to be created separately for any given pattern. Moreover, the tiles obtained using bilinear surfaces can only be 3D printed. To obtain unfoldable tiles, the bilinear faces must first be decomposed into unfoldable surfaces, such as two triangles. Then the resulting tiles can potentially be unfolded into single flat panels.
+
+

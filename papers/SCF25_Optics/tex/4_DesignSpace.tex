@@ -1,0 +1,211 @@
+
+
+\section{Techniques to Afford Interaction with Optics}
+
+
+%Application scenarios of this approach is wide.
+% for example, one-to-one mapping of channels can be utilized as a routing display, where the input surface of the object can be placed on a conventional dynamic input display such as LCD screens, and the display surface of the 3D printed optical device would be directly mapped to the output surface. 
+% A scenario of an end user playing an active interaction is possible, navigating through a dynamic motion path, linear to rotational, and creating shadows, etc. 
+We introduce various interaction affordances and their proofs of concepts,
+% , the type and motion of input light, material properties, and human interventions. We 
+starting from a simple mapping and adding on complexities to explain the interplay of control parameters. Note that objects with channels lying in the same plane are not segmented, but printed directly (case in Figure \ref{fig:alignment}(a)). All other objects have been segmented and modularly printed.
+
+\subsection{1:1 Parallel Mapping}
+We can utilize the orientation of the channel geometry in 3D space as embedded in an object to route light from one point to another (a one-to-one mapped display routing), as shown in a toy eye reflecting changing emotions from LCD projection input \cite{printed_optics_2012}.
+% shows the use of light pipes to display the location of chess pieces, as well as light up the eyes of a printed toy using a mobile projection as the source. 
+Similarly, we consider each channel end to be one display point (i.e., one pixel), with multiple channel ends forming a display (see Figure \ref{fig:lighteffect}), which can be triggered by any light source.  % as the printed channels tend to transmit various signal types and luminance.
+%The goal is to transmit light signals without altering its spatial structure or orientation.
+%1:1 mapping technique achieves direct transmission of light source(Figure \ref{fig:lighteffect}). % to shadows when light is blocked (Figure \ref{fig:lighteffect}b) to ambient colors (Figure \ref{fig:lighteffect}c).
+
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=\linewidth]{figures/simpledisplay.png}
+%     \caption{(a,b) Sample with one-to-one channel mapping displays colors directly projected through input (c) \hd{remove}}%\jk{this figure is too large given what it tells beyond known community knowledge i.e., 3D printed optics paper}}
+%      \Description{An object with embedded optical channels aligned in a grid. (a) shows a rendered image that is stopped midway through to show the path of the channels. (b) shows a printed object with boxes to show the input and output side. (c) shows the input side facing downward onto a light source displaying discrete blocks of color. The output face shows corresponding colored dots at matched positions to verify 1:1 mapping between input and output.} 
+%     \label{fig:simpledisplay}
+%     \vspace{-2mm}
+% \end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/onetoone.png}
+    \caption{One-to-one light mapping without segmentation} 
+    \Description{In-place printed channels without segmentation with 1:1 light mapping, with left image showing a sliced model, and right showing the actual print transmitting colored light.} 
+    \label{fig:lighteffect}
+    \vspace{-3mm}
+\end{figure}
+
+
+\subsection{Non-parallel Mapping}
+Adding a layer of complexity, we introduce offsets between the input space and output planes by routing channels along paths. This enables transmitting signals to select endpoints based on the routing such as one-to-one, one-to-many, many-to-many connections, etc (e.g., Figure \ref{fig:printedblocks}). 
+
+\paragraph{Slider Mechanism.}
+A slider mechanism presents  an interaction where the channels are routed such that  a linear input is optically transformed into a semicircular output.
+ % to move the input light that can be channeled through the embedded optical channels, and 
+The physical translation motion of the slider is converted to a visual rotational motion.
+Figure \ref{fig:slider} shows how moving the slider over static lights presents a semicircle motion of colors, with colors moving to the left, with linear sliding motion to the right.%each new color being revealed with further linear sliding motion.
+%For example, Figures \ref{fig:muxing_1}a and \ref{fig:muxing_2}a show how direct routing affects what information is transmitted on the output end and in what order. In Figure \ref{fig:muxing_1}, the channels are created such that an input end point of a channel moves one space next to what it originally would have been according to Figure \ref{fig:simpledisplay}. Similarly, in Figure \ref{fig:muxing_2}, the input end points are arranged in a line while the output end points are arranged in a semicircle. Such routing results in a modified output display than what is input. % \jk{this paragraph lacks detail. fully describe what's possible in text so the reader can understand this per see not by seeing the figures or design space.}
+
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/slider.png}
+    \caption{Switch slides linearly over a light strip showing a circular output light movement.}
+    \Description{A slider body is placed on top of a horizontal strip of LED lights. As the slider is translated to the right along the light source, output light emerges in a rotational motion pattern from red to green to blue in a semicircular shape. This shows the conversion of linear motion of the input into a dynamic and rotational visual output. The figure illustrates how the slider's internal channels reveal three different colored light paths depending on the input.} 
+    \label{fig:slider}
+    \vspace{-2mm}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/orientation_sense_1col.png}
+    \caption{Many:1 channel creation with each channel having different length and curvature, affects amount of light transmitted enabling orientation sensing of the object.}
+     \Description{The process of creating a cube demonstrating object orientation sensing using Many:1 channel creation. The first part of the photo shows a rendered cube with channels with different lengths and curvatures. The next part of photo shows an assembled version of the cube with 3 optical channels. The next part of the photo shows the exported parts and the sensing setup that included a neopixel grid and the 3 sides of the cube labeled. The next parts of the photo show a setup where each side is detected facing downwards based on the value of light transmitted.} 
+    \label{fig:orient}
+    \vspace{-3mm}
+\end{figure}
+
+
+
+
+
+
+
+
+
+\paragraph{Object Orientation Sensing.}
+Using a many-to-one channel mapping, it is possible to detect which part of an object is facing a light source. By adjusting the geometric parameters---such as the length and curvature---of multiple PLA channels, we can control how much light each one transmits. When these channels converge at a single sensor, the amount of light received from each channel provides information about the object's orientation relative to the light source. Figure \ref{fig:orient} shows how three sides of a cube can be detected to be facing downwards (toward the light) by thresholding the light transmitted by each channel. Each channel is designed with a unique length and curvature to change the amount of light transmitted (refer Subsection \ref{sec:results} (\#1,2)). Similarly, blocking of light, and  wavelength can also be sensed through the evaluation data and appropriate thresholding.
+
+
+
+\subsection{Motion Steering}
+% We look at the motions in which the light movement become one type of input, and the motions in which it is output. 
+Steering of light motion reflects a logic or adaptation that governs how output elements move in relation to input light in motion.
+%For example, in Figure \ref{fig:simpledisplay}b, moving input light from left to right on one side would map to output light moving from right to left.% on the output side.
+% based on the geometry of channels within the sample and movement of light. \jk{this paragraph is also not self-descriptive}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{figures/motionsteer.png}
+    \caption{Steering light in a clockwise motion gives output light movement in anti-clockwise motion.}%\jk{This figure may benefit from drawings instead. to clearly showcase input and output mapping in abstract figure.}}
+    \Description{A printed object demonstrating non-parallel optical routing between input and output faces. (a) shows a diagram with the input as yellow, blue, red, and green in a clockwise direction and the output as red, blue, yellow, and green in the clockwise direction; (b) shows a light beam moved clockwise across the input face, the output beam shifts anticlockwise.} 
+    \label{fig:muxing_1}
+    \vspace{-2mm}
+\end{figure}
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.9\linewidth]{figures/muxing_2.png}
+%     \caption{Static routing with a line to semicircle mapping of input and output channel ends}
+%     \Description{An object with input channel arranged in a line along one face and output channel ends arranged in a semicircle on the opposite face. (a) shows a diagram, a rendered image, and a printed object with a light source connected at the end. (b) shows how the routing transforms a linear motion at the input into a curved path at the output. As a light beam travels left to right along the linear input, it sequentially lights up the channels across the arc from right to left.} 
+%     \label{fig:muxing_2}
+%     \vspace{-2mm}
+% \end{figure}
+
+Due to the way channels are routed in ~Figure \ref{fig:muxing_1}(b), when input light is moved clockwise, the output light moves anticlockwise. %(instead of right to left as would be the case for Figure \ref{fig:simpledisplay}). 
+This can also be seen from the modified color mapping from input to output (Figure \ref{fig:muxing_1}(a)). %When changed the paths of the channels, such as twisting the channel curve 90\degree, or inversing the arrangement of input channel that connects to the ends as output, linear incident light horizontally moving can present vertical movement, as seen in . 
+%As seen in Figure \ref{fig:muxing_1}a, the color mapping of each color is one space next to what it would have been if the channels were not rotated 90\degree during routing. \jk{this is hard to parse. I don't get spatial understanding of this easily.} 
+%Similarly, arranging input ends of the channels in a line, and output ends in a semicircle gives a mapping from a line to a curve (Figure \ref{fig:muxing_2}). If we add movement of input light along the line from left to right, we see the output light move in a semicircle from right to left.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/wheelalignment.png}
+    \caption{A semicircle to curve mapping enables detecting deviations from the center.}
+     \Description{A driving assistance indicator prototype is shown with 7 optical channels lined up on top. When the steering wheel is centered, the output shows a red light in the middle (4th). Turning the wheel slightly shows the light move to the third channel for slightly left and the fifth channel for slightly right. Turning the wheel further to the left lit up the second optical channel.} 
+    \label{fig:wheel}
+    \vspace{-2mm}
+\end{figure}
+
+
+\paragraph{Driving Assistance Indicator.}
+Using a mechanism to steer the light rotationally, we designed a lane alignment driving assistance indicator (see Figure~\ref{fig:wheel}) that translates a steering wheel's left and right movements into a display on the dashboard. When the indicator remains centered, it signifies that the vehicle is properly aligned within its lane. Significant or frequent deviations from the center suggest that the driver is making excessive steering corrections, indicating a need for steadier control.
+
+
+\subsection{Multiplexing and Decoupling}
+% by Dynamic Re-routing}
+By connecting  channels printed in different objects,  we can create new light paths.
+%Discontinuity of the channel with which an inserted optical channel can refract light paths.
+% We explore how the channels that have been printed or inserted can be moved to create new channeling connections. 
+These include interactions afforded through the geometry of the entire object. % and through material characteristics.
+% As seen through existing work \cite{printed_optics_2012}, 
+We show rotary switches to validate this hypothesis, with an internal channel printed in place (Figure \ref{fig:rotary}(a, c) that can connect different input and output channels \cite{printed_optics_2012}--- the output channels here are printed separately and inserted for testing purposes.
+% . In such applications, modularity can play an important role in creating 
+Plug-and-play rotary switches can be designed to afford different routing behaviors, such that one switch may have a straight channel connecting an input and output in a straight line (see Figure \ref{fig:rotary}(a, b)), while another transmits  input light at 90\degree (see Figure \ref{fig:rotary}(c, d)). While not segmented, this validates the use of FDM printed channels for plug and play interactivity. With our segmentation technique, there is potential to design non-planar switches as well.
+% By rotating the switch, different connections can be made.
+% We can connect different inputs and outputs of channels for a plug-and-play type effect similar to Legos.
+
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/rotary.png}
+    \caption{Rotating the replaceable central switch to connect different channels for light routing.}
+    \Description{A modular rotary switch mechanism consisting of a replaceable central insert and a printed base with embedded channels. (a, b) show one insert design where an internal channel routes light directly across the switch in a straight line. (a) shows just the knob with an optical channel and (b) shows the knob inserted into a base with 8 different channels with the light showing up on the opposite end of the light source. (c, d) show a different insert that redirects light at a 90° angle from the input to a perpendicular output. Similar to (a) and (b), (c) shows the insert knob while (d) shows the know inserted into the base lighting up a channel 90\degree from the input light source.} 
+    \label{fig:rotary}
+    \vspace{-3mm}
+\end{figure}
+
+
+
+
+
+
+The properties of the material can be used to encase rigid channels in a sparse space, granting some motion space for the channel.
+% , similarly observed in a push sensor in prior work \cite{printed_optics_2012}.
+% can also be utilized for rerouting the channels, 
+To test this hypothesis, we inserted a printed PLA channel in a flexible TPU casing with low infill. We can push the casing to move the embedded channel to point to a different output, creating a push button's On/Off binary signal to be captured at the receptor (Figure \ref{fig:push}). 
+Flexibility of the 3D printed materials affords a wide array of tangible interactions presented in prior fabrication research, such as shear rotation to lock and unlock a door latch~ \cite{ion2016metamaterial} , or bike handles and saddles for comfortable grip and sitting~\cite{kim2021softness}. %, where we anticipate the possibility of regenerating them while embedding sensing capabilities, to sense human interactions with physical objects using this technique.
+% As we propose a modular design, including such interactions in various parts of a single object can be possible.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/pushbutton.png}
+    \caption{Channel embedded in flexible TPU can be pushed to redirect the light towards a sensor, acting as a push button}
+    \Description{A first part of the photo shows a tactile push button fabricated in TPU with an embedded optical channel connected to a light source on one end, a photodiode could be seen on the other end. The middle part of the image shows the user pushing down on the same setup, causing the optical channel to move down. The last part of the image shows a graph where there are peaks when the push button is being pressed down and the width of each peak coresponds to the duration of the press. } 
+    \label{fig:push}
+    \vspace{-3mm}
+\end{figure}
+
+% While these geometries, channel orientations, and light movement provide new space of interaction, fabricating these channels in 3D space using FDM is not possible. We can create the same examples by fabricating separate channels, in TPU or PLA and inserting them, however to be able to print the channels in place, we need to develop a modular technique of fabrication where each channel is printed in the XY plane as required for light transfer. We will hence describe the different techniques of fabricating such objects with FDM, and present our modular splitting method for printing channels in place using multi-material printing.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/bikehandle.png}
+    \caption{Squeezing TPU printed body moves the embedded channels closer together, displaying them through openings in the cap. }
+     \Description{A four part photo depicting a bike handle application using a TPU printed body and a PLA handle and cap. (a) shows the default, unsqueezed state of the TPU part of the handle with optical channels spaced apart. (b) shows the TPU part of the handle being squeezed, mechanically deforming the TPU and bringing the optical channels closer. (c) shows the entire setup with both the TPU and PLA parts unsqueezed with light going through the handle. (d) shows the TPU squeezed which makes transmits the light through the holes in the cap.  } 
+    \label{fig:bikehandle}
+    \vspace{-2mm}
+\end{figure}
+
+
+\paragraph{Squeeze to Signal Bike Handle.}
+% By leveraging the modularity of 3D-printed parts, we can fabricate components—such as a bike handle holder—in flexible TPU material. 
+With tested hypothesis, we moved onto in-place printing of the bike handle, with the casing in TPU, allowing the in-place printed PLA channels to move closer together or further apart (Figure \ref{fig:bikehandle}(a, b)). The resulting mechanical interaction can then be transmitted through internal channels, making the signal visible to others (Figure \ref{fig:bikehandle}(c, d)).
+In this setup, different types of interactions can be mapped to distinct meanings. For instance, squeezing the handle could trigger a red light on the handlebar to signal caution. Alternatively, the design could incorporate directional input: a top press might shift a movable channel to connect with a static green-lit channel, signaling that it’s safe for others to overtake. While the channels in this example are in the same plane making segmentation  unnecessary, we can utilize the same principle for more complex routing similar to Figure \ref{fig:teaser}. %Conversely, a bottom press could engage a red-lit channel to indicate that overtaking is unsafe --- such as when the rider is preparing to turn.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/designspace_1col.png}
+    \caption[]{Design Space of Light Routing, Channeling, and User Interactions. Icons from Flaticon\footnotemark.}
+    \Description{The full design space of optical interactions enabled by embedded channels. The layout includes icons and labels for static I/O routing which is further subdivided into Basic Relay (e.g., 1:1, 1:Many, Many:1) and Transforms and Non-parallel Switching (Scale, Translate, Rotate, Shape to Shape, Shear), dynamic re-routing which is further subdivided to multiplexing (e.g.,plug-and-play, building on each block, slider, rotary switch), decoupling behaviors (e.g., push buttons, touch-based occlusion and bistable switch), and lighting control (e.g., lighting motion steering, color wavelength, and light blocking)}
+    \label{fig:dspace}
+    \vspace{-4mm}
+\end{figure}
+
+\footnotetext{Unplug by juicy\_fish; Construction by Darius Dan; Slide, Dial, Panic button by Freepik; Slider by manshagraphics; Find by howcolour, Ocean by IconBaandar.}
+
+\subsection{Design Space}
+
+Using this interplay of light, routes, and user interactions, we map out the design space for FDM optical pathways (Figure~\ref{fig:dspace}).
+% \subsubsection{Static Interactivity}
+We define static I/O mapping that stems only from the channel pathways such as displays. %. Such interactions would include displays as seen before.
+% \subsubsection{Dynamic Interactivity}
+Dynamic I/O mapping is expected when dynamic user interaction with the object or input light is present such as plugging in the switch knob, or blocking the channel by grasping a target object. Here, the end user has more control over the light that can be input and the dynamic re-routing of channels.
+Various mechanisms can enable using light motion together with dynamic re-routing. For example, in the slider mechanism (see Figure \ref{fig:slider}), moving the slider knob causes movement of output light in relation to the input light at the bottom of the slider. A user may block light from a channel to sense which channel is being blocked or transmitting light based on channel parameters, or even  
+% For example, a many-to-one mapping with channels ending on different faces of an object can be used to detect touch or blocking. A similar example of object orientation detection can be seen in Section \ref{sec:apps}.
+decouple an existing channel for dynamic interactivity (Figure \ref{fig:bikehandle}).
+
+%\hd{aligning the surface channel, depending on the surface of the object chosen as input or output}

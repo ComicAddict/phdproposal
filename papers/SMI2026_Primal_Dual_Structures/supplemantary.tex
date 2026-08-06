@@ -1,0 +1,394 @@
+\documentclass[times,twocolumn,final]{elsarticle}
+
+
+%% Stylefile to load CAG template
+\usepackage{cag}
+\usepackage{framed,multirow}
+\usepackage{array}
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+
+% Following three lines are needed for this document.
+% If you are not loading colors or url, then these are
+% not required.
+\usepackage{url}
+%\usepackage{xcolor}
+\definecolor{newcolor}{rgb}{.8,.349,.1}
+
+\usepackage{hyperref}
+
+\usepackage[switch,pagewise]{lineno} %Required by command \linenumbers below
+
+\usepackage{tikz}
+\usetikzlibrary{calc,fit,positioning}
+
+\journal{Computers \& Graphics}
+
+\begin{document}
+
+% \verso{T. Yildiz and E. Akleman}
+\verso{Anonymous}
+
+\begin{frontmatter}
+
+\title{SUPPLEMENTARY: Triply Periodic Mesh-Based Linked-Structures: Design and Construction of a Family of Periodic Links Based on Bravais Lattices and Corresponding Wigner-Seitz Cells}
+
+% \author[1]{Tolga Yildiz}
+
+% \author[2]{Ergun Akleman \corref{cor1}}
+% \cortext[cor1]{Corresponding author: 
+%   Tel.: +1-979-739-0094; }
+% \emailauthor{ergun.akleman@gmail.com}{Ergun Akleman}
+% %\ead{example@email.com}
+
+% \address[1]{Department of Computer Science and Engineering, Texas A\&M University, College Station, TX, 77840, USA}
+% \address[2]{Visual Computing and Computational Media Section, School of Performance, Visualization and Fine Arts, Joint with Department of Computer Science and Engineering, Texas A\&M University, College Station, TX, 77840, USA}
+
+
+%\received{1 February 2017}
+\received{\today}
+%%%% Do not use the below for submitted manuscripts
+%\finalform{28 March 2017}
+%\accepted{2 April 2017}
+%\availableonline{15 May 2017}
+%\communicated{S. Sarkar}
+
+\begin{abstract}
+This supplementary document provides technical implementation details, geometric formulations, and extended application discussions that support the main paper. While the main article emphasizes conceptual innovations and high-level design workflows, this supplement elaborates on mesh-to-link conversion procedures, the generation of kissing and cylindrical curves, potential variations in spline geometry, and advanced application domains such as 4D printing and quantum computing analogues. By isolating these supplementary elements, we aim to make the main paper more accessible while still offering the reader a comprehensive understanding of the proposed framework's underlying mechanics and extended implications.
+
+Our implementation demonstrates the feasibility of the proposed method through a custom software pipeline integrated into Blender. The resulting linked-structures are visually simple, topologically robust, and physically realizable, with potential applications in materials science, architecture, and visual computing.
+\end{abstract}
+
+
+\begin{keyword}
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
+%\MSC 41A05\sep 41A10\sep 65D05\sep 65D17
+%% Keywords
+\KWD Links \sep 3-Manifold Meshes \sep Triply Periodic Structures \sep Shape Modeling and Design 
+\end{keyword}
+
+\end{frontmatter}
+
+
+
+%\linenumbers
+
+
+\section{Converting Meshes into Links}
+\label{sec_converting}
+
+This section provides a detailed geometric explanation of how polygonal meshes are transformed into linked-structures. While the core transformation is described briefly in the main paper, here we formally define face-cycles, corner positions, and boundary construction logic, ensuring reproducibility and completeness.
+
+\subsection{Preliminaries}
+
+The core of our method involves converting any given mesh into a link. From a computer graphics perspective, this conversion is straightforward; however, for the sake of completeness, we present two general techniques for generating the geometry of links from a given mesh. 
+
+Let the input mesh be defined as a set of faces, edges, and vertices, as illustrated in Figure~\ref{fig_2DMesh0_0}. 
+We refer to any vertex-face pair as a \textit{corner} of that face \cite{akleman1999guaranteeing}. Let $\textit{p}_{m,n}$ denote the position of corner $m$ of face $n$ in the given mesh. Let $M_n$ be the number of corners of face $n$, where $m = 0, 1, \ldots, M_n - 1$, and let $N$ be the total number of faces, where $n = 0, 1, \ldots, N - 1$.
+
+Assume that all $M_n$ values are greater than $2$, and that the boundaries of the faces are defined by line segments connecting $\textit{p}_{m,n}$ and $\textit{p}_{m+1,n}$ cyclically. The conversion does not require the faces to be planar. On the other hand, as discussed in the introduction, we only consider planar faces.
+
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[t]{0.24\columnwidth}       \includegraphics[width=1.0\textwidth]{images/2DMesh0_0}
+        \caption{\it A random 2D mesh where control points are vertices. }
+        \label{fig_2DMesh0_0}
+    \end{subfigure}
+    \hfill
+        \begin{subfigure}[t]{0.24\columnwidth} 
+        \includegraphics[width=1.0\textwidth]{images/2DMesh0_1}
+        \caption{\it Face-cyc\-les gene\-rated with Quadratic B-spline. }
+        \label{fig_2DMesh0_1}
+    \end{subfigure}
+    \hfill
+           \begin{subfigure}[t]{0.24\columnwidth} 
+        \includegraphics[width=1.0\textwidth]{images/2DMesh0_2}
+        \caption{\it Final face-cycles with no straight regions. }
+        \label{fig_2DMesh0_2}
+            \end{subfigure}
+                \hfill
+           \begin{subfigure}[t]{0.24\columnwidth} 
+        \includegraphics[width=1.0\textwidth]{images/2DMesh0_4c}
+        \caption{\it Bundling edges with toroidal edge cycles. }
+        \label{fig_2DMesh0_3}
+            \end{subfigure}
+       \caption{\it Generation of kissing curves from face boundaries.
+(a) Random 2D mesh.
+(b) Face-cycles created using quadratic B-splines.
+(c) Final smooth curves where segments touch tangentially at edge midpoints.
+(d) Circular edge-cycles added to bundle curves without visual overlap. }
+\label{fig_2D0Meshconstruction}
+\end{figure}
+
+
+\section{Kissing Curve Generation from Face Boundaries}
+
+We explain the construction of smooth, tangentially touching face-cycles—termed ``kissing curves''—from face boundaries using quadratic B-splines. This section provides basis function formulations and discusses the geometric and visual benefits of tangential connections in link construction.
+
+Without loss of generality, we represent each face-cycle as a quadratic B-spline curve composed of $M_n$ curve segments. Each segment is defined as:
+\[
+\mathbf{c}_{m,n}(t) = \sum_{i=0}^{2} \mathbf{p}_{m+i,n} B_i(t), \quad \text{for } t \in [0,1),
+\]
+where $B_i(t)$ are quadratic B-spline basis functions \cite{bartels1995introduction}. 
+
+Although other types of curves such as higher degree non-uniform or rational B-splines may also be used, quadratic B-spline curves provide one of the simplest methods to obtain a particularly useful property: each curve segment begins at the midpoint of the line segment connecting $\mathbf{p}_{m,n}$ and $\mathbf{p}_{m+1,n}$, i.e., $(\mathbf{p}_{m,n} + \mathbf{p}_{m+1,n})/2$. At this point, the tangent vector is $\mathbf{p}_{m+1,n} - \mathbf{p}_{m,n}$, aligned with the direction of the edge. The curve segment ends at the midpoint of the next edge, with the tangent also aligned in the direction of that edge, as illustrated in Figure~\ref{fig_2DMesh0_1}.
+
+This construction results in a collection of closed curves that \textit{“kiss”} each other—i.e., \textit{touch tangentially}—at the midpoints of the edges, borrowing the term from kissing in circle packing and Apollonian geometry \cite{morita2011some}. This configuration forms a \textit{soft cell structure} \cite{domokos2024soft}, as shown in Figure~\ref{fig_2DMesh0_2}. Kissing curves are particularly desirable because they are tangent to the same line at their point of contact, allowing them to be bundled seamlessly using \textit{Point-connector-type edge-cycles}. 
+
+This type of edge cycles can be generated using any planar closed curve lying in a plane perpendicular to the direction of the associated edge. For simplicity, we use circles centered at the midpoint of the edge, lying in the plane orthogonal to the edge direction. Notably, any positive radius is theoretically sufficient, since all curves are infinitely thin and are tangent to the same line at a single common point. However, we consider thicknesses to produce 3D geometry. 
+
+\subsection{Stronger Bonding with \textit{Cylindrical Edge-Cycles}}
+
+Here we extend the kissing curve construction to produce shared linear segments between face-cycles, enabling stronger physical connections. This geometric refinement allows for bundling using cylindrical connectors, offering advantages for real-world assembly and fabrication.
+
+Using \textit{quadratic B-splines}, it is also straightforward to make neighboring curves touch at more than a single point. Suppose we subdivide each edge of a mesh by introducing a new point between every two consecutive vertices $\textit{p}_{m,n}$ and $\textit{p}_{m+1,n}$, defined as $\frac{1}{2}(\textit{p}_{m,n}+\textit{p}_{m+1,n})$. As a result, each original face, which initially consisted of $M_n$ corners, now has $2M_n$ corners, as shown in Figure~\ref{fig_2DMesh1_0}.
+
+The new midpoint introduces an additional line segment connecting two intermediate points: $\frac{3\textit{p}_{m,n}+\textit{p}_{m+1,n}}{4}$ and $\frac{\textit{p}_{m,n}+3\textit{p}_{m+1,n}}{4}$, as illustrated in Figure~\ref{fig_2DMesh1_1}. Consequently, adjacent face-cycles now touch each other \textit{along a line}, rather than just at a point. This feature allows us to \textit{bundle these face-cycles} using line-based connectors such as \textit{cylindrical shapes}. Furthermore, by adjusting the position of the newly created subdivision points, we can precisely control the length of the shared straight segment.
+
+\begin{figure}[htpb]
+    \centering
+        \begin{subfigure}[t]{0.24\columnwidth}     \includegraphics[width=1.0\textwidth]{images/2DMesh1_0}
+        \caption{\it The same mesh (in Figure~\ref{fig_2DMesh0_0} with additional control points. }
+        \label{fig_2DMesh1_0}
+    \end{subfigure}
+    \hfill
+        \begin{subfigure}[t]{0.24\columnwidth}     \includegraphics[width=1.0\textwidth]{images/2DMesh1_1}
+        \caption{\it Face-Cycles ge\-ne\-rated with Quad\-ratic B-spline. }
+        \label{fig_2DMesh1_1}
+    \end{subfigure}
+    \hfill
+            \begin{subfigure}[t]{0.24\columnwidth}      \includegraphics[width=1.0\textwidth]{images/2DMesh1_2}
+        \caption{\it Final face-cycles with straight regions. }
+        \label{fig_2DMesh1_2}
+    \end{subfigure}
+        \hfill
+            \begin{subfigure}[t]{0.24\columnwidth}      \includegraphics[width=1.0\textwidth]{images/2DMesh1_3}
+        \caption{\it Bundling edges with cylindrical edge cycles.  }
+        \label{fig_2DMesh1_3}
+    \end{subfigure}
+    \caption{\it Construction of stronger connections using straight curve segments.
+(a) Input mesh with subdivided control points.
+(b–c) Face-cycles created using B-splines now include linear segments.
+(d) These enable edge-cycles shaped as cylinders, useful for modeling physical connectors or cable wraps. }
+\label{fig_2D1Meshconstruction}
+\end{figure}
+
+\textit{Edge-connector-type edge-cycles} can also be interpreted as extruded versions of point-connectors. For simplicity, these connectors can be modeled as \textit{cylinders}—circles extruded along the edge direction. Theoretically, any \textit{positive radius} remains valid, since all curves share the same line segment. Additionally, rather than using simple cylinders, we can employ more elaborate \textit{spiral cable wraps}, which are particularly useful for bundling multiple curves in a compact and visually appealing way.
+
+Importantly, these mesh-to-link conversion algorithms apply to both 2-manifold and 3-manifold meshes. Even when more than two faces share an edge, multiple face-cycles can consistently be bundled using either type of edge-cycles.
+
+
+\subsection{Link Construction from Meshes}
+
+The proposed construction can be applied to a wide range of polygonal meshes—including 2-manifold, non-manifold, and 3-manifold topologies—by transforming each face into a closed B-spline loop. These \textit{face-cycles} serve as the fundamental building blocks of the resulting \textit{linked-structure}. A key feature of our method is the use of \textit{edge-cycles} to bundle adjacent face-cycles. Each edge-cycle is defined as a circular loop centered at the midpoint of an edge and lying in the plane perpendicular to the edge direction. By choosing the radius appropriately, all associated face-cycles remain visually distinct and non-intersecting.
+
+We refer to a structure as a \textit{fully-linked structure} when every edge of the original mesh is bundled using edge-cycles. If the original mesh consists of a single connected component, the resulting fully-linked structure is guaranteed to form a single link. In contrast, when only a subset of edges is bundled, the resulting configuration—referred to as a \textit{partially-linked structure}—may form either a single link or multiple disconnected links. Table~\ref{tab:link_types} summarizes the key differences between fully-linked, and partially-linked structures. In this paper, our primary focus is on generating and analyzing partially-linked structures with single link property.
+
+\begin{table}[h]
+\centering
+\caption{Summary of linked-structure types based on edge-cycle usage and connectivity. A fully-linked structure uses all edges for bundling, whereas a partially-linked single-link structure selectively bundles edges but can still result in a single link.}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Type of} & \textbf{All Edges} & \textbf{Guaranteeing to be}  \\
+\textbf{Structure} & \textbf{Bundled} & \textbf{Single Link}  \\
+\hline
+Fully-Linked & Yes & If mesh is connected!  \\
+\hline
+Partially-Linked & No  & No \\
+\hline
+\end{tabular}
+\label{tab:link_types}
+\end{table}
+
+\subsection{Potential Extensions} 
+
+Here, we briefly comment on limitations of standard B-splines and discuss how NURBs can be used for more precise circular geometry when needed, though standard quadratic B-splines are typically sufficient in practice.
+
+A known limitation of standard B-splines is their inability to exactly represent perfect circles~\cite{bartels1995introduction}. However, this can be easily addressed by using non-uniform rational quadratic B-splines (NURBs), which allow for the creation of precise circular and elliptical shapes. These curves can be controlled similarly to standard quadratic B-splines. In practice, however, standard B-splines are sufficient for our purposes.
+
+\section{Further Discussions of Potential Applications and Future Work}
+
+This section expands on speculative applications and long-term extensions of our framework. While not essential to the core method, these directions illustrate the broader relevance and future adaptability of the system in areas such as polycatenated link structures, machine-learned topological optimization, and sustainable fabrication workflows.
+
+\subsection{Polycatenated Links} 
+
+We explore the idea of hierarchical, multi-level link networks (polycatenated links) that extend beyond a single periodic unit. This suggests a promising avenue for multi-scale structural design.
+
+Multi-link configurations may also be extended into higher-order catenated structures. This opens an exciting research direction involving hierarchical linkage designs across multiple levels of detail.
+
+
+\subsection{Topological Optimization via Machine Learning}
+
+We outline how reinforcement learning or neural architectures could optimize edge-cycle configurations for performance-driven objectives, offering a data-driven counterpart to the current rule-based system.
+
+While our current labeling strategies are algebraic or rule-based, future work could leverage machine learning, particularly reinforcement learning, to discover optimal edge-cycle configurations for specific mechanical or topological objectives. Neural networks could explore the $GF(2)^E$ labeling space, optimizing for properties such as energy absorption, connectivity, or minimal stress concentration~\cite{zhang2025recognizing}.
+
+\subsection{4D Printing with Responsive Topologies}
+
+We speculate on the use of shape-memory materials and dynamic edge-cycle activation to create reconfigurable links for 4D printed systems.
+
+The periodicity and modularity of these structures make them promising candidates for 4D printing applications. By employing shape-memory materials and programmable labeling patterns, it may be feasible to create structures that dynamically reconfigure their topology in response to external stimuli, enabling smart and deployable architectures~\cite{tang2023chainmail}.
+
+\subsection{Non-Euclidean Bravais Frameworks}
+
+A natural theoretical extension involves adapting the framework to non-Euclidean Bravais lattices (e.g., hyperbolic or spherical spaces) to design exotic topologies and metamaterials.
+
+A natural mathematical extension is to generalize the current approach to non-Euclidean Bravais lattices, including hyperbolic and spherical frameworks. This could enable the design of metamaterials with exotic properties, such as negative Poisson's ratios, and expand the range of topologies accessible to the method~\cite{chen2025sympdesign}.
+
+\subsection{Knot Spectrum Engineering}
+
+While our current method avoids knots, controlled introduction of topological entanglements could enable the systematic design of knot spectra within periodic structures.
+
+While the present work avoids knots, future research could introduce controlled knotting by strategic edge-cycle modifications. This would allow for the programmable design of knot spectra within periodic structures, with potential applications in topological photonics and quantum matter~\cite{klug2024chainmail}.
+
+\subsection{Additive Manufacturing Resolution Limits}
+
+We identify the need to experimentally assess the minimum manufacturable feature sizes for edge-cycles, which could guide future constraints on design resolution.
+
+Another practical direction is to systematically investigate the minimum printable edge-cycle radius as a function of lattice and material parameters. Experimental validation could establish critical design thresholds for manufacturability and mechanical performance.
+
+\subsection{Quantum Computing Analogues}
+
+We observe that our GF(2)-based edge labeling may share properties with stabilizer codes in quantum error correction, suggesting possible links to topological quantum computing.
+
+The combinatorial structure of edge-cycle labeling in $GF(2)^E$ is reminiscent of surface code stabilizers in quantum error correction. Exploring this analogy could open new pathways for physical implementations of quantum memory using linked-structures~\cite{Chen2024deployable}.
+
+\subsection{Sustainable Digital-Physical Workflow}
+
+We propose a closed-loop fabrication pipeline integrating automated labeling, real-time imaging (e.g., SEM tomography), and error-correcting feedback for robust production of linked-structures.
+
+Integrating real-time imaging techniques (such as SEM tomography) with automated labeling and connectivity validation could enable closed-loop fabrication systems. This would allow for in-process error correction and robust digital-physical workflows for complex linked-structures~\cite{liu2024meshformer}.
+
+
+
+\section{Examples}
+
+In this section, we present larger versions of the linked structure examples from the paper.
+
+
+\begin{figure*}[htpb]
+    \centering    
+    %     \begin{subfigure}[t]{0.31\linewidth}
+    % \includegraphics[width=0.99\linewidth]{images/EXAMPLES/1000_1_1.jpg}
+    %         \caption{\it The twill pattern $(1000,1,1)$ in two directions produces multi-links.}
+    %     \label{fig_4x4x4twill_0}
+    % \end{subfigure}
+    %     \hfill
+       \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=0.99\linewidth]{images/EXAMPLES/1100_1_1.jpg}
+            \caption{\it The twill pattern $(1100,1,1)$ in two directions produces multi-link.}
+        \label{fig_4x4x4twill_1}
+    \end{subfigure}
+        \hfill
+         \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=0.99\linewidth]{images/EXAMPLES/1110_1_1.jpg}
+            \caption{\it The twill pattern $(1110,1,1)$ in two directions produces single-link.}
+        \label{fig_4x4x4twill_2}
+    \end{subfigure}
+\caption{\it Two examples of twill patterns for $M=4$. Note that although both weaving patterns are fabrics and hang-together, only $(1110,1,1)$ can produce a single-link.The equivalent fabric pattern $(0001,1,1)$ also does not produce a single-link. In other words, unlike fabrics in links the number of $1$'s has to be more than the number of $0$'s. }
+\label{fig_4x4x4twill}
+\end{figure*}
+
+\begin{figure*}[htpb]
+    \centering    
+    %     \begin{subfigure}[t]{0.31\linewidth}
+    % \includegraphics[width=0.99\linewidth]{images/EXAMPLES/00000001_3_3.jpg}
+    %         \caption{\it The satin pattern $(00000001,3,3)$ in two directions produces multi-links.}
+    %     \label{fig_satin_0}
+    % \end{subfigure}
+    %     \hfill
+       \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=0.99\linewidth]{images/EXAMPLES/11111110_3_3.jpg}
+            \caption{\it The satin pattern $(11111110,3,3)$ in two directions produces single-link.}
+        \label{fig_satin_1}
+    \end{subfigure}
+        \hfill
+         \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=0.99\linewidth]{images/EXAMPLES/11111110_3_5.jpg}
+            \caption{\it The satin pattern $(11111110,3,5)$ in two directions produces single-link.}
+        \label{fig_satin_2}
+    \end{subfigure}
+\caption{\it Examples of satin patterns that can produce single-links for $M=8$. Note that although $(00000001,3,3)$ and $(00000001,3,5)$ are equivalent as woven patterns, but they cannot produce single-links. In other words, although the naming the patterns comes from weaving, this is a different problem.  }
+\label{fig_satin}
+\end{figure*}
+
+\begin{figure*}[htpb!]
+    \centering        
+        \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=0.99\linewidth]{images/EXAMPLES/CP_RANDOM_0.6}
+    
+            \caption{\it Random-label single links that use only 60\% of edge-cycles.}
+        \label{fig_randomCp_0}
+    \end{subfigure}
+        \hfill
+       \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=0.99\linewidth]{images/EXAMPLES/CP_RANDOM_0.75}
+            \caption{\it Random-label single links that use 75\% of edge-cycles.}
+        \label{fig_randomCp_1}
+    \end{subfigure}
+    %     \hfill
+    %      \begin{subfigure}[t]{0.49\linewidth}
+    % \includegraphics[width=0.99\linewidth]{images/EXAMPLES/CP_RANDOM_0.9}
+    %         \caption{\it Random-label single links that use 90\% of edge-cycles.}
+    %     \label{fig_randomCp_2}
+    % \end{subfigure}
+\caption{\it Examples of random labeled single links for Cp case. }
+\label{fig_randomCp}
+\end{figure*}
+
+
+\begin{figure*}[htpb!]
+    \centering        
+        \begin{subfigure}[t]{0.49\linewidth} \includegraphics[width=0.99\linewidth]{images/EXAMPLES/HP_RANDOM_0.6}
+            \caption{\it Random-label single links that use only 60\% of edge-cycles.}
+        \label{fig_randomHp_0}
+    \end{subfigure}
+        \hfill
+       \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=0.99\linewidth]{images/EXAMPLES/HP_RANDOM_0.75}
+            \caption{\it Random-label single links that use 75\% of edge-cycles.}
+        \label{fig_randomHp_1}
+    \end{subfigure}
+    %     \hfill
+    %      \begin{subfigure}[t]{0.49\linewidth}
+    % \includegraphics[width=0.99\linewidth]{images/EXAMPLES/HP_RANDOM_0.9}
+    %         \caption{\it Random-label single links that use 90\% of edge-cycles.}
+    %     \label{fig_randomHp_2}
+    % \end{subfigure}
+\caption{\it Examples of random labeled single links for Hp case. }
+\label{fig_randomHp}
+\end{figure*}
+
+\begin{figure*}[htpb!]
+    \centering        
+       \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=0.99\linewidth]{images/EXAMPLES/CF_RANDOM_0.75}
+            \caption{\it Random-label single links that use 75\% of edge-cycles.}
+        \label{fig_randomCf_1}
+    \end{subfigure}
+        \hfill
+         \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=0.99\linewidth]{images/EXAMPLES/CF_RANDOM_0.9}
+            \caption{\it Random-label single links that use 90\% of edge-cycles.}
+        \label{fig_randomCf_2}
+    \end{subfigure}
+\caption{\it Examples of randomly labeled single links for the hR case. For hR, we were unable to achieve a single link using only 60\% of the edge-cycles.}
+\label{fig_randomCf}
+\end{figure*}
+
+\bibliographystyle{cag-num-names}
+\bibliography{references,references2}
+
+\end{document}
+
+
+
+
+
+
