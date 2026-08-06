@@ -1,0 +1,114 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  CHAPTER VII -- PROPOSED RESEARCH
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{\uppercase{Proposed Research: Manufacturing and Mechanical Characterization of Volumetric Bravais Weaves}}
+\label{cha:proposed-work}
+
+Chapters~\ref{cha:modular-planar}--\ref{cha:algebraic-calculus} establish a design-side framework: volumetric weaves, nonwovens, and interlocked structures can be represented, enumerated, and algebraically generated. This chapter proposes the remaining, physically oriented half of the dissertation: (i) manufacturing strategies that turn a designed volumetric Bravais weave into a physical, self-supporting object using additive manufacturing, and (ii) an experimental study of the mechanical behavior -- specifically, the auxetic (negative Poisson's ratio) response -- of weave-based foam structures.
+
+\section{Overview}
+
+The proposed work has two closely related components:
+\begin{enumerate}
+\item \textbf{Manufacturing volumetric Bravais weaves} using additive manufacturing, including modular scaffolds for weaving, a partitive-assembly strategy, and a proposed soluble-foam-scaffold approach (Section~\ref{sec:manufacturing}).
+\item \textbf{Mechanical characterization of weave-based structures}, in particular foam-like realizations of volumetric weaves and their compressive, auxetic response (Section~\ref{sec:mechanical}).
+\end{enumerate}
+
+\section{Manufacturing Volumetric Bravais Weaves}
+\label{sec:manufacturing}
+
+\subsection{The Finite-Design Problem}
+
+The design space developed in Chapter~\ref{cha:volumetric-bravais} is, by construction, periodic and (in principle) infinite. Any physical realization, however, is necessarily finite, so thread ends at the boundary of the fabricated domain must be resolved: since threads are not self-supporting at a free end, thread ends must be connected to one another. Any pairing of thread ends is topologically valid, but for concreteness we adopt a \emph{snake-pattern} threading convention, in which threads of the same direction are joined end-to-end in a single continuous path -- directly realizable as a unicursal (single-cycle) construction in the Hypergraph Rotation System framework of Section~\ref{sec:h-grs}.
+
+\subsection{From Single-Cycle Weaves to Modular and Partitive Weaving}
+
+A single-cycle weave, in which all threads of one direction are joined into one continuous path, gives rigidity along that direction while preserving flexibility between different thread directions -- a property well suited to fused deposition modeling (FDM) with brittle filament, since each printed thread need not be self-supporting in isolation. As the underlying cP-weave configuration becomes more complex, however, single-cycle printing requires increasing amounts of interior support material that becomes difficult or impossible to remove after printing.
+
+Two complementary manufacturing strategies address this limitation:
+
+\begin{itemize}
+\item \textbf{Modular weaving.} The cubic domain is decomposed into modular, per-cell guiding structures -- print-in-place local scaffolds through which a physical thread is subsequently woven by hand. Because a cP-weave admits chiral pairs of local configurations that cannot be obtained from one another by rigid motion alone (rotation-equivalent configurations can be generated from a base shape, but mirror-equivalent ones cannot, since mirroring is not physically realizable), exactly two distinct printed guide shapes are required, with the remaining local configurations obtained by rotating one of the two. After hand-weaving, the guide structure can be dissolved or broken away, leaving only the woven thread. This strategy is flexible but manually laborious.
+\item \textbf{Partitive weaving.} Following the partitive, space-filling tile construction used for 2D weaves in prior work~\cite{krishnamurthy2021geometrically}, the cubic domain defined by a cP-weave is instead decomposed ``by thread'': each thread is printed directly as a partitive, space-filling volumetric segment (rather than guided and hand-woven), and, if printed in a compliant material, can be bent into place to complete the assembly. This preserves the weave's geometric interlocking, though the resulting structure may not fully preserve textile-like mechanical characteristics, and some manual assembly is still required.
+\end{itemize}
+
+\subsection{Proposed: Soluble-Foam-Scaffold Weaving}
+
+Building on the partitive idea, we propose a third strategy: rather than printing a partitive \emph{thread}, print a partitive \emph{foam} -- a water-soluble scaffold whose pore structure matches the target weave geometry. After a compliant or rigid thread material is introduced into (or grown within) the scaffold, the soluble scaffold is dissolved away, leaving the finished weave without the manual-labor burden of modular or partitive weaving. Developing and validating this scaffold-based fabrication pipeline for volumetric Bravais weaves, across the shift-parametrized ($a/b/c/d$) design space of Chapter~\ref{cha:volumetric-bravais}, is a core piece of the proposed work.
+
+\section{Mechanical Characterization: Auxetic Behavior of Weave-Based Foams}
+\label{sec:mechanical}
+
+\subsection{Motivation and Prior Work}
+
+Preliminary foam-based realizations of volumetric Bravais weaves exhibit visually apparent \emph{re-entrant} features within the pore structure of the foam -- geometric motifs long associated with auxetic (negative Poisson's ratio) mechanical behavior in cellular solids and architected foams~\cite{liu2021foam,abtew2020auxetic,li2021auxetic}. This observation motivates a systematic experimental study of whether, and to what extent, the shift-parametrized weave design space of Chapter~\ref{cha:volumetric-bravais} can be used to tune auxetic response.
+
+\subsection{Hypotheses}
+
+\begin{itemize}
+\item \textbf{H1 (Geometry-driven auxeticity).} The re-entrant motifs observed in weave-derived foam structures will exhibit a negative Poisson's ratio under compression, indicating auxetic behavior.
+\item \textbf{H2 (Material influence).} A compliant material (TPU) will amplify the auxetic response relative to a brittle material (PLA), owing to its capacity for larger elastic deformation prior to yielding.
+\end{itemize}
+
+\subsection{Experimental Methodology}
+
+\textbf{Design and fabrication.} Foam geometries will be generated directly from the $a/b/c/d$ shift parameters of the cP-weave design space (Section~\ref{sec:cp-weaves}), alongside non-re-entrant baseline (control) foam geometries. Two geometric control conditions will be used to isolate the effect of the weave pattern itself from confounding geometric factors: constant wall thickness across designs, and constant volume ratio across designs. All geometries will be fabricated by additive manufacturing in both PLA (brittle) and TPU (compliant).
+
+\textbf{Mechanical testing.} Specimens will be tested in uniaxial compression on a 10~kN testing machine at a controlled loading rate (1~mm/min), recording force--displacement data.
+
+\textbf{Data analysis.} From the force--displacement data, converted to stress--strain, we will extract the elastic modulus, plateau stress, and energy absorbed up to densification (via numerical integration of the stress--strain curve), and estimate Poisson's ratio from lateral strain measured via image analysis / digital image correlation (DIC). Key indicators of auxetic behavior include a negative Poisson's ratio ($\nu < 0$), increased energy absorption relative to non-auxetic controls, and an S-shaped or delayed densification region in the stress--strain curve.
+
+\subsection{Experimental Design}
+
+Table~\ref{tab:test-matrix} summarizes the planned $2\times2$ test matrix (geometry control $\times$ material), each condition repeated for at least three samples to support statistical comparison.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Geometry Control} & \textbf{Material} & \textbf{Expected Behavior} \\ \hline
+Constant wall thickness & PLA & Brittle deformation, possible early fracture \\ \hline
+Constant wall thickness & TPU & Pronounced elastic recovery \\ \hline
+Constant volume ratio & PLA & Reduced densification stress \\ \hline
+Constant volume ratio & TPU & Enhanced recoverability, possible auxetic response \\ \hline
+\end{tabular}
+\caption{Planned test matrix: four conditions (geometry control $\times$ material), each replicated $\geq 3$ times.}
+\label{tab:test-matrix}
+\end{table}
+
+Table~\ref{tab:expected-results} summarizes the qualitative predictions used to evaluate H1 and H2.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Metric} & \textbf{Auxetic (re-entrant)} & \textbf{Non-auxetic (control)} \\ \hline
+Poisson's ratio & Negative & Positive \\ \hline
+Energy absorption & Higher & Lower \\ \hline
+Plateau stress & More gradual & Sharper \\ \hline
+Lateral strain behavior & Expansion under compression & Contraction under compression \\ \hline
+\end{tabular}
+\caption{Expected qualitative differences between auxetic (weave-derived) and non-auxetic (control) foam structures under compression.}
+\label{tab:expected-results}
+\end{table}
+
+\subsection{Design Constraints}
+
+Specimen and test geometry are constrained by the testing apparatus and printer resolution: a compression-plate radius of 56~mm; a specimen domain size of 30~mm (space diagonal 42~mm); a printing resolution and minimum wall thickness of 0.4~mm; and a minimum volume ratio of 20\%. Within these constraints, a $6\times6\times6$ cP-weave domain provides sufficient design freedom to realize a meaningful range of the $a/b/c/d$ shift-parameter space while respecting minimum wall-thickness and printability limits.
+
+\subsection{Preliminary Results}
+
+Six weave-foam designs and three control (non-re-entrant) shapes have been manufactured in both PLA and TPU, all at a constant volume ratio of 35\% and matched periodicity across shapes, and preliminary uniaxial compression tests have been performed, yielding force--displacement data for each condition. Initial comparisons across pattern families indicate that gyroid- and cubic-pattern weave-derived foams exhibit higher energy-absorbing characteristics than the tested controls, consistent with hypothesis H1; a full statistical analysis across all replicates, materials, and geometry-control conditions, together with Poisson's-ratio estimation via image analysis, remains to be completed as part of the proposed work (see Chapter~\ref{cha:summary} for the completion timeline).
+
+\section{Remaining Proposed Work}
+
+To complete this chapter's program, the following tasks are proposed:
+\begin{enumerate}
+\item Complete the manufacturing pipeline for soluble-foam-scaffold weaving (Section~\ref{sec:manufacturing}) and validate it across a broader region of the $a/b/c/d$ design space, and extend local-configuration enumeration to the remaining Wigner--Seitz cell types (hP, cF, oF, cI) begun in Chapter~\ref{cha:volumetric-bravais}.
+\item Complete the full compression-test matrix (Table~\ref{tab:test-matrix}) with $\geq 3$ replicates per condition, including Poisson's-ratio estimation via digital image correlation.
+\item Statistically evaluate hypotheses H1 and H2, and relate the resulting mechanical metrics (elastic modulus, plateau stress, energy absorption, Poisson's ratio) back to the $a/b/c/d$ shift parameters that generated each tested geometry, in order to establish a design-to-property mapping for volumetric-weave-derived foams.
+\item Synthesize the manufacturing and mechanical-characterization results with the design-space contributions of Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus} into the dissertation's concluding framework.
+\end{enumerate}

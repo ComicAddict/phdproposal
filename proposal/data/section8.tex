@@ -1,0 +1,54 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  CHAPTER VIII -- SUMMARY AND ANTICIPATED CONTRIBUTIONS
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{SUMMARY AND ANTICIPATED CONTRIBUTIONS \label{cha:summary}}
+
+\section{Summary}
+
+This proposal argues that volumetric weaving -- long treated as an ad hoc extension of planar weaving, obtained by stacking 2D patterns along a third axis -- admits a systematic, symmetry-driven, and algebraically generative design theory, and that this dissertation has already built the core of that theory. Chapter~\ref{cha:introduction} identified three specific gaps in the existing literature: the lack of a modular, local representation for volumetric weaves; the lack of a dimension-independent definition of weaving; and the lack of an algebraic configuration space for periodic designs. Chapter~\ref{cha:preliminaries} introduced the shared conceptual vocabulary -- topological labeling and cell-induced topological elements -- used to close these gaps.
+
+Chapters~\ref{cha:modular-planar}--\ref{cha:algebraic-calculus} then presented four completed contributions that close these gaps in stages: a modular, foldable, congruent-tile construction for every planar 2-way 2-fold weave~\cite{yildiz2023modular}; a lattice-based definition of volumetric Bravais weaves, with an exact enumeration of cP-weaves via Burnside's lemma and de Bruijn-style orbit counting~\cite{yildiz2025volumetric,akpanya2025enumeration}; an algebra of $2^K$-/$8^K$-adic zeros for representing and \emph{generating} periodic volumetric nonwoven (and, by the same construction, woven) designs~\cite{yildiz2024nonwoven}; and a unifying combinatorial model, Hypergraph Rotation Systems, together with a primal--dual construction for polycatenanes, that extends the same cell-induced perspective to links, knots, chainmail, and mechanically interlocked graph structures~\cite{yildiz2026hypergraph,yildiz2026polycatenane}.
+
+Chapter~\ref{cha:proposed-work} proposed the remaining work needed to connect this design-space theory back to physical material behavior: manufacturing strategies -- modular, partitive, and a proposed soluble-foam-scaffold approach -- for realizing volumetric Bravais weaves by additive manufacturing, and an experimental plan to test whether the shift-parametrized ($a/b/c/d$) cP-weave design space can be used to tune auxetic (negative Poisson's ratio) mechanical behavior in weave-derived foams. Preliminary compression testing on six weave-foam designs and three controls, in both PLA and TPU, is already consistent with the proposal's central hypothesis that re-entrant, weave-derived geometry increases energy absorption relative to non-auxetic controls.
+
+\section{Anticipated Contributions}
+
+Upon completion, this dissertation is expected to contribute:
+\begin{enumerate}
+\item a dimension-independent, cell-induced formalism for weaves, nonwovens, and interlocked (linked/catenated) structures, unifying planar and volumetric weaving under a single topological-labeling framework;
+\item an exact enumeration methodology (via lattice-symmetry group actions and Burnside/de Bruijn counting) for volumetric weave design spaces, worked out fully for cubic primitive (cP) weaves and partially for the remaining Bravais cell types;
+\item an algebraic design calculus ($2^K$-/$8^K$-adic zeros and Hypergraph Rotation Systems) that generates valid periodic and interlocked designs directly, rather than requiring exhaustive enumeration;
+\item validated additive-manufacturing strategies for physically realizing volumetric Bravais weaves, including a proposed soluble-foam-scaffold method; and
+\item an experimentally grounded design-to-property mapping between the $a/b/c/d$ shift-parameter design space and the mechanical (in particular, auxetic) behavior of weave-derived foam structures.
+\end{enumerate}
+
+\section{Challenges}
+
+The principal remaining risks are: (i) completing local-configuration enumeration for the hP, cF, oF, and cI Wigner--Seitz cells, which grows combinatorially faster than the cP case already completed (Section~\ref{sec:cp-weaves}); (ii) achieving reliable, repeatable soluble-scaffold fabrication across the full $a/b/c/d$ parameter range at the printer-resolution limits identified in Section~\ref{sec:mechanical}; and (iii) obtaining sufficient replicate mechanical-test data, including reliable Poisson's-ratio estimates via image analysis, to support statistically defensible conclusions about hypotheses H1 and H2.
+
+\section{Further Study}
+
+Beyond the scope of this dissertation, the frameworks developed here suggest several directions for future work: extending the exact Burnside/de Bruijn enumeration of Chapter~\ref{cha:volumetric-bravais} to all five Bravais cell types; using the Hypergraph Rotation System twist operator (Section~\ref{sec:h-grs}) to design articulated, compliant volumetric weaves rather than only rigid ones; and applying the auxetic-foam characterization methodology of Chapter~\ref{cha:proposed-work} to other cell types and materials beyond PLA/TPU.
+
+\section{Proposed Timeline}
+
+Table~\ref{tab:timeline} outlines the anticipated timeline to complete the proposed work described in Chapter~\ref{cha:proposed-work} and to prepare the final dissertation document. [TODO: adjust dates to match your actual defense timeline and committee's expectations.]
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|p{0.20\textwidth}|p{0.65\textwidth}|}
+\hline
+\textbf{Period} & \textbf{Milestone} \\ \hline
+[TODO: e.g., Fall 2026] & Complete local-configuration enumeration for remaining Bravais cell types (hP, cF, oF, cI). \\ \hline
+[TODO] & Finalize soluble-foam-scaffold manufacturing pipeline; fabricate full compression-test matrix. \\ \hline
+[TODO] & Complete mechanical testing (PLA/TPU, all geometry-control conditions, $\geq 3$ replicates) and DIC-based Poisson's-ratio analysis. \\ \hline
+[TODO] & Statistical evaluation of H1/H2; draft design-to-property mapping chapter. \\ \hline
+[TODO] & Submit journal manuscript(s) for manufacturing/mechanical-characterization results. \\ \hline
+[TODO] & Write and defend final dissertation. \\ \hline
+\end{tabular}
+\caption{Proposed timeline to completion.}
+\label{tab:timeline}
+\end{table}

@@ -1,0 +1,37 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  CHAPTER II -- CONCEPTUAL PRELIMINARIES
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{\uppercase{Conceptual Preliminaries}}
+\label{cha:preliminaries}
+
+This chapter introduces, through the simplest possible case, the two conceptual ingredients that recur throughout the remainder of this proposal: \emph{topological labeling} of local thread configurations, and the \emph{cell-induced topological elements} used to generalize that labeling from planar to volumetric weaves.
+
+\section{Case Study: 2-Way 2-Fold Weaves}
+\label{sec:case-study}
+
+Consider the simplest nontrivial class of woven structures: \emph{2-way, 2-fold} weaves. ``2-way'' means that weave threads follow two distinct directions (conventionally called warp and weft); ``2-fold'' means the structure consists of two interlaced layers of threads. Every unit of the weave -- the region where one warp thread crosses one weft thread -- can be in exactly one of two local states: the warp thread passes over the weft thread, or vice versa. This binary local state is the starting point for a topological, rather than purely geometric, description of the weave.
+
+\section{Topological Labeling of Local Configurations}
+\label{sec:topological-labeling}
+
+Gr\"unbaum and Shephard formalized this idea for planar fabrics in the 1980s~\cite{Grunbaum80,Grunbaum85,Grunbaum86,grunbaum1988isonemal}: each tile of the weave (each warp--weft crossing) is given a \emph{topological label} that records only its local over/under configuration, independent of the specific geometric shape of the threads. A weave is then a function from the tiles of a 2D tessellation (a square or triangular grid, depending on the pattern) to this small set of local labels, and questions about the weave's symmetry, periodicity, and classification become questions about the combinatorics of this labeling function together with the symmetry group of the underlying tessellation.
+
+The same idea of topological labeling has since been productively applied well beyond the original planar-fabric setting:
+\begin{itemize}
+\item \textbf{Stitch meshes}~\cite{niu2024knitting} generalize local labeling to yarn-level detail in knitted clothing.
+\item \textbf{Knit-purl knitting grids}~\cite{niu2024knitting} extend labeling to the stitch types used in machine knitting.
+\item \textbf{Cyclic twill-woven meshes}~\cite{akleman2011cyclic} apply topological labeling to weaves embedded on arbitrary (not necessarily planar) meshes.
+\item \textbf{WeaveCraft}~\cite{wu2020weavecraft} builds an interactive design and simulation tool directly on top of a user-specified local labeling.
+\end{itemize}
+
+What these applications share is the insight that a small, discrete, local label -- rather than a full geometric description -- is sufficient to specify a combinatorially rich family of global structures, and that the symmetry of the underlying tessellation then organizes that family into a design space.
+
+\section{Cell-Induced Topological Elements}
+\label{sec:cell-induced}
+
+The planar topological-labeling framework above is naturally tied to a 2D tessellation and a binary (over/under) label. To extend this idea to volumetric weaves, this dissertation introduces \emph{cell-induced topological elements}: one-dimensional (thread-like) elements defined relative to the elements of a 3D cell -- its center, its facets, and its edges -- rather than relative to a 2D crossing.
+
+Informally, given a cell of a space-filling 3D tessellation, a cell-induced topological element is a combinatorial description of how a thread enters and exits that cell through its boundary. Just as a planar topological label records which thread is ``on top'' at a crossing, a cell-induced topological element records, for a given cell, which pair of boundary elements (e.g., which pair of opposite facets) a straight thread segment connects. The collection of all such elements for a given cell type forms the basis for the \emph{local configurations} used throughout Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus} to build volumetric weaves out of individually well-defined, enumerable building blocks. This is the key conceptual step that allows the remainder of this proposal to treat volumetric weaving with the same combinatorial rigor that Gr\"unbaum and Shephard brought to planar weaving, while remaining dimension independent: the same construction specializes to the 2D case (Chapter~\ref{cha:modular-planar}) and generalizes to 3D lattices (Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus}).

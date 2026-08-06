@@ -1,0 +1,51 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                           APPENDIX A
+%  Computational Representation and Symmetry Operators
+%  for Regular Plain cP-Weaves
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\phantomsection
+
+\chapter{\uppercase{Computational Representation and Symmetry Operators for Regular Plain cP-Weaves}}
+\label{app:cp-symmetry}
+
+This appendix summarizes, at a level sufficient for reproducing the orbit-counting results of Section~\ref{sec:symmetry} (Chapter~\ref{cha:volumetric-bravais}), the compact algebraic representation and symmetry operators used in the supplementary material accompanying~\cite{yildiz2025volumetric} for the computational enumeration of regular plain cP-weaves. Full derivations, figures, and reference source code are given in that supplementary document.
+
+\section{GF(2) Representation of Two-Way, Two-Fold Weaves}
+
+Two-way, two-fold planar weaves admit exactly two local states per unit cell (Section~\ref{sec:case-study}), related to one another by a mirror transformation $M_z$ about the plane containing the threads. Writing the identity transformation as $I$, the pair $\{I, M_z\}$ forms a cyclic group isomorphic to $\mathrm{GF}(2)$ under the identification $I \mapsto 0$ and $M_z \mapsto 1$, so that matrix composition becomes addition modulo 2. This identification lets a planar weave's local-state assignment be represented purely combinatorially -- as a binary function on the cells of a 2D grid -- without explicitly tracking thread ranking order, and generalizes directly to the cP-weave case by reinterpreting each grid cell as a cube.
+
+\section{Compact Representation of Regular Plain cP-Weaves}
+
+A regular plain $M\times M\times M$ cP-weave is encoded compactly as three binary strings, one per axis:
+\[
+\mathbf{W}_0 = [\,x_0 \cdots x_{M-1} \;:\; y_0 \cdots y_{M-1} \;:\; z_0 \cdots z_{M-1}\,], \qquad x_i, y_j, z_k \in \mathrm{GF}(2),
+\]
+each of which can equivalently be treated as an $M$-bit binary integer, so that a regular plain cP-weave of size $M$ is specified by exactly three integers. This is the representation used to implement the orbit-finding algorithm referenced in Section~\ref{sec:cp-weaves} (yielding 5 inequivalent plain cP-weaves for $M=2$ and 20 for $M=4$).
+
+\section{Symmetry Operators}
+
+Three families of operators act on $\mathbf{W}_0$, using the notation $x_i' = 1 - x_i$ (bitwise complement):
+
+\paragraph{Translation.} A translation along one axis circularly shifts that axis's string by one position and complements the other two axes' strings, e.g.,
+\[
+\mathbf{W}_0 \ll 1_x = [\,x_1 \cdots x_{M-1} x_0 \;:\; y_0' \cdots y_{M-1}' \;:\; z_0' \cdots z_{M-1}'\,],
+\]
+with the analogous definitions for $\ll 1_y$ and $\ll 1_z$.
+
+\paragraph{Rotation.} $90^\circ$ rotations about each of the three cardinal axes permute and complement the three axis strings; e.g., rotation about the $z$-axis gives
+\[
+\mathbf{W}_0 \circ_{0,0,1:90} = [\,y_{M-1}' \cdots y_0' \;:\; x_0' \cdots x_{M-1}' \;:\; z_0 \cdots z_{M-1}\,],
+\]
+with the analogous definitions for rotation about the $x$- and $y$-axes.
+
+\paragraph{Mirror.} Reflection through an axis-constant plane reverses and complements the corresponding axis string and complements the other two, e.g.,
+\[
+\mathbf{W}_0\big|_x = [\,x_{M-1}' \cdots x_0' \;:\; y_0' \cdots y_{M-1}' \;:\; z_0' \cdots z_{M-1}'\,].
+\]
+
+\section{Use in This Proposal}
+
+These operators generate the full orbit of a given regular plain cP-weave under the group of translations, rotations, and mirrors described in Section~\ref{sec:symmetry}; counting orbits (rather than raw representations) yields the exact counts reported in Section~\ref{sec:cp-weaves} and provides the computational basis for the exact enumeration formula of Section~\ref{sec:enumeration}. [TODO: if desired, reproduce the reference Python implementation and the enumerated-weave tables from the PNAS Nexus supplementary document here, or attach them as a separate supplementary file.]
