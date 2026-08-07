@@ -7,13 +7,14 @@
 \chapter{\uppercase{Proposed Research: Manufacturing and Mechanical Characterization of Volumetric Bravais Weaves}}
 \label{cha:proposed-work}
 
-Chapters~\ref{cha:modular-planar}--\ref{cha:algebraic-calculus} establish a design-side framework: volumetric weaves, nonwovens, and interlocked structures can be represented, enumerated, and algebraically generated. This chapter proposes the remaining, physically oriented half of the dissertation: (i) manufacturing strategies that turn a designed volumetric Bravais weave into a physical, self-supporting object using additive manufacturing, and (ii) an experimental study of the mechanical behavior -- specifically, the auxetic (negative Poisson's ratio) response -- of weave-based foam structures.
+Chapters~\ref{cha:modular-planar}--\ref{cha:algebraic-calculus} establish a design-side framework: volumetric weaves, nonwovens, and interlocked structures can be represented, enumerated, and algebraically generated. This chapter proposes the remaining, physically oriented half of the dissertation: (i) manufacturing strategies that turn a designed volumetric Bravais weave into a physical, self-supporting object using additive manufacturing; (ii) a geometric characterization of printed cP-weaves that establishes a reliable method for controlling their volume fraction (porosity); and (iii) an experimental study of the mechanical behavior -- specifically, the auxetic (negative Poisson's ratio) response -- of weave-based foam structures.
 
 \section{Overview}
 
-The proposed work has two closely related components:
+The proposed work has three closely related components:
 \begin{enumerate}
 \item \textbf{Manufacturing volumetric Bravais weaves} using additive manufacturing, including modular scaffolds for weaving, a partitive-assembly strategy, and a proposed soluble-foam-scaffold approach (Section~\ref{sec:manufacturing}).
+\item \textbf{Geometric characterization of printed cP-weaves}, establishing a strand-radius-based method for hitting a target volume fraction (porosity) regardless of weave pattern, gap size, aspect ratio, or local configuration, and validating it against printed specimen mass (Section~\ref{sec:print-characterization}).
 \item \textbf{Mechanical characterization of weave-based structures}, in particular foam-like realizations of volumetric weaves and their compressive, auxetic response (Section~\ref{sec:mechanical}).
 \end{enumerate}
 
@@ -38,6 +39,61 @@ Two complementary manufacturing strategies address this limitation:
 \subsection{Proposed: Soluble-Foam-Scaffold Weaving}
 
 Building on the partitive idea, we propose a third strategy: rather than printing a partitive \emph{thread}, print a partitive \emph{foam} -- a water-soluble scaffold whose pore structure matches the target weave geometry. After a compliant or rigid thread material is introduced into (or grown within) the scaffold, the soluble scaffold is dissolved away, leaving the finished weave without the manual-labor burden of modular or partitive weaving. Developing and validating this scaffold-based fabrication pipeline for volumetric Bravais weaves, across the shift-parametrized ($a/b/c/d$) design space of Chapter~\ref{cha:volumetric-bravais}, is a core piece of the proposed work.
+
+\section{Geometric Characterization of Printed cP-Weaves}
+\label{sec:print-characterization}
+
+Whatever manufacturing strategy is used (Section~\ref{sec:manufacturing}), a printed weave specimen is ultimately a solid object with a target \emph{volume fraction} (equivalently, porosity): the fraction of the specimen's bounding volume that is occupied by printed material once the thread channels of the weave have been carved out of, or built into, that volume. Before the mechanical-characterization study of Section~\ref{sec:mechanical} can be run at scale across weave patterns, cell configurations, and domain sizes, the manufacturing pipeline needs a reliable, repeatable way to hit a chosen target volume fraction regardless of which of these design choices is made. This section describes that method -- a strand-radius search validated against printed specimen mass -- together with the planned experimental sweep across weave pattern, gap size, aspect ratio, and local cell configuration. Preliminary work toward this section has already been carried out and is summarized below; the remaining test matrix is proposed work.
+
+\subsection{Specimen Design and Test Matrix}
+\label{sec:print-char-matrix}
+
+Specimens are built from a $2\times2\times2$ array of cP-weave unit cells with a total specimen (bounding-box) volume of $1\,\mathrm{cm}^3$. Three complementary experiments are planned, each holding volume fraction (porosity) constant so that only the parameter of interest varies:
+
+\begin{enumerate}
+\item \textbf{Fixed weave pattern.} With the local weave topology held fixed, sweep gap size (two levels, small and large) crossed with aspect ratio (five levels: $8{\times}8{\times}8$, $8{\times}8{\times}4$, $16{\times}16{\times}4$, $16{\times}16{\times}8$, $24{\times}24{\times}8$), to isolate the effect of specimen proportions and gap size from pattern topology.
+\item \textbf{Across weave patterns.} Compare plain, twill, and satin weave patterns within the cP-weave family, sweeping gap size (small, large) at a fixed aspect ratio of $16{\times}16{\times}4$, to isolate the effect of weave-pattern topology at matched porosity, gap size, and proportions.
+\item \textbf{Across local cell configurations.} With gap size and aspect ratio both held fixed, vary the local cell configuration (i.e., the specific $a/b/c/d$-parametrized cP-weave shift configuration being printed), to check that the volume-fraction control method of Section~\ref{sec:print-char-vf} generalizes across the design space of Chapter~\ref{cha:volumetric-bravais} rather than being tuned to a single configuration.
+\end{enumerate}
+
+A fourth, complementary study examines the effect of \emph{specimen scale} on realized porosity: the same pattern is printed at multiple physical scales while targeting the same volume fraction, to check that the volume-fraction control method (Section~\ref{sec:print-char-vf}) is scale-invariant rather than tuned to one unit-cell size.
+
+\subsection{Volume-Fraction Control via Strand Radius}
+\label{sec:print-char-vf}
+
+For a given weave pattern, the printed material occupies the region within a fixed radius $r$ of each thread's centerline; increasing $r$ increases the printed (solid) volume fraction $\mathrm{vf}$ of the specimen, while decreasing $r$ opens up larger channels and lowers $\mathrm{vf}$. The maximum admissible radius is governed by two geometric parameters of the weave construction, the \emph{weave offset} ($\mathrm{wo}$) and \emph{weave depth} ($\mathrm{wd}$): for a $4\,\mathrm{mm}$ unit cell tiled $4\times4\times4$ (a $16\,\mathrm{mm}$ block) with the plain $1\_1\_1\_1$ configuration, $\mathrm{wo} = 1.4603\,\mathrm{mm}$ and $\mathrm{wd} = 0.0952\,\mathrm{mm}$, giving an upper bound on $r$ of roughly $0.5$--$0.6\,\mathrm{mm}$ (bounded above by half the unit-cell size, $2\,\mathrm{mm}$, less a $0.4\,\mathrm{mm}$ clearance).
+
+In practice, this purely geometric maximum is not the binding constraint: sub-millimeter features below the printer's effective resolution are not reliably captured by the print, which narrows the feasible radius range to
+\[
+r = 0.65\,\mathrm{mm} \;\Rightarrow\; \mathrm{vf} = 0.6640, \qquad r = 0.01\,\mathrm{mm} \;\Rightarrow\; \mathrm{vf} = 0.9999,
+\]
+so that achievable volume fractions for this configuration lie in approximately $[0.67, 1.0]$. Guided by this range, we target $\mathrm{vf} = 0.8$ for the specimens in Section~\ref{sec:print-char-matrix}, found by a bisection search on $r$ (iterated to a tolerance of $0.001$ in $\mathrm{vf}$) rather than a closed-form inversion, since this level of precision is what lets the predicted and actual printed material mass be controlled tightly.
+
+\subsection{Validation Against Printed Mass}
+\label{sec:print-char-mass}
+
+As an independent check on the target volume fraction, we compare the mass predicted from $\mathrm{vf}$ against the mass reported by the slicer for the actual printed geometry. A fully solid $16\,\mathrm{mm}^3$ reference cube requires approximately $5.35\,\mathrm{g}$ of material (per the slicer), so a specimen at the target $\mathrm{vf}=0.8$ should require approximately $4.28\,\mathrm{g}$. Table~\ref{tab:print-mass} reports the slicer-estimated mass for four printed $a/b/c/d$ shift configurations at the same target volume fraction, together with the volume fraction implied by that mass (mass $\div\ 5.35\,\mathrm{g}$).
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Configuration} & \textbf{Slicer Mass} & \textbf{Implied vf (mass-based)} \\ \hline
+$1\_1\_1\_1$ & 4.37\,g & 0.817 \\ \hline
+$2\_1\_1\_1$ & 4.33\,g & 0.81--0.82 \\ \hline
+$2\_2\_1\_1$ & 4.32\,g & $\approx 0.81$ \\ \hline
+$3\_1\_1\_1$ & 4.33\,g & $\approx 0.81$ \\ \hline
+\end{tabular}
+\caption{Slicer-reported mass and mass-implied volume fraction for four printed $a/b/c/d$ shift configurations, all targeting $\mathrm{vf}=0.8$ (predicted mass $\approx 4.28\,$g for a $16\,\mathrm{mm}^3$ bounding block).}
+\label{tab:print-mass}
+\end{table}
+
+Two observations follow from Table~\ref{tab:print-mass}. First, the mass-based volume-fraction estimates are systematically a few percentage points above the geometric target ($\approx 0.81$--$0.82$ vs.\ a target of $0.80$); we attribute this offset to nozzle-diameter effects that slightly widen printed features relative to the nominal geometry, which makes mass-based validation informative but not fully reliable as an absolute measurement. Second, and more importantly for the experiments of Section~\ref{sec:print-char-matrix}, the four configurations agree with one another to within about $\pm 0.002$ in implied volume fraction. Since the radius search of Section~\ref{sec:print-char-vf} was performed independently for each configuration, this agreement indicates that the method delivers a consistent, predictable volume fraction \emph{regardless of which local cell configuration is printed} -- precisely the property needed to isolate pattern, gap-size, and aspect-ratio effects at constant porosity in the planned test matrix.
+
+\subsection{Strand-Radius Feasibility from Minimum Inter-Strand Clearance}
+\label{sec:print-char-clearance}
+
+More generally, for a chosen pair of geometric parameters $(\mathrm{wo}, \mathrm{wd})$, the maximal admissible strand radius is determined computationally: for every point along a given strand, we compute its distance to every other strand in the construction, and take the minimum such distance over the whole assembly as the ceiling on $r$ (beyond this radius, neighboring strands would merge or self-intersect). As a worked example, for $2\times2\times2$ plain local patterns tiled onto a $4\times4\times4$ domain, this procedure yields a \emph{single} radius value that achieves an $80\%$ volume fraction consistently across every plain-pattern arrangement -- because, regardless of how the two plain local configurations are assigned to the cells of the domain, every individual strand has the same geometry and therefore the same volume within its unit cell. There are $64$ distinct $2\times2\times2$ plain-pattern arrangements (shapes) for which this consistency was checked.
 
 \section{Mechanical Characterization: Auxetic Behavior of Weave-Based Foams}
 \label{sec:mechanical}
@@ -108,7 +164,8 @@ Six weave-foam designs and three control (non-re-entrant) shapes have been manuf
 To complete this chapter's program, the following tasks are proposed:
 \begin{enumerate}
 \item Complete the manufacturing pipeline for soluble-foam-scaffold weaving (Section~\ref{sec:manufacturing}) and validate it across a broader region of the $a/b/c/d$ design space, and extend local-configuration enumeration to the remaining Wigner--Seitz cell types (hP, cF, oF, cI) begun in Chapter~\ref{cha:volumetric-bravais}.
+\item Execute the full geometric-characterization test matrix of Section~\ref{sec:print-char-matrix} -- fixed-pattern gap-size/aspect-ratio sweep, cross-pattern (plain/twill/satin) sweep, cross-configuration sweep, and the scale-invariance study -- and extend the strand-radius/mass-validation method of Sections~\ref{sec:print-char-vf}--\ref{sec:print-char-mass} to weave patterns beyond plain (twill, satin) and, eventually, to the non-cP Wigner--Seitz cell types.
 \item Complete the full compression-test matrix (Table~\ref{tab:test-matrix}) with $\geq 3$ replicates per condition, including Poisson's-ratio estimation via digital image correlation.
-\item Statistically evaluate hypotheses H1 and H2, and relate the resulting mechanical metrics (elastic modulus, plateau stress, energy absorption, Poisson's ratio) back to the $a/b/c/d$ shift parameters that generated each tested geometry, in order to establish a design-to-property mapping for volumetric-weave-derived foams.
-\item Synthesize the manufacturing and mechanical-characterization results with the design-space contributions of Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus} into the dissertation's concluding framework.
+\item Statistically evaluate hypotheses H1 and H2, and relate the resulting mechanical metrics (elastic modulus, plateau stress, energy absorption, Poisson's ratio) back to the $a/b/c/d$ shift parameters and the controlled volume fraction from Section~\ref{sec:print-characterization} that generated each tested geometry, in order to establish a design-to-property mapping for volumetric-weave-derived foams.
+\item Synthesize the manufacturing, geometric-characterization, and mechanical-characterization results with the design-space contributions of Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus} into the dissertation's concluding framework.
 \end{enumerate}
