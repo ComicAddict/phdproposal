@@ -32,13 +32,27 @@ A single-cycle weave, in which all threads of one direction are joined into one 
 Two complementary manufacturing strategies address this limitation:
 
 \begin{itemize}
-\item \textbf{Modular weaving.} The cubic domain is decomposed into modular, per-cell guiding structures -- print-in-place local scaffolds through which a physical thread is subsequently woven by hand. Because a cP-weave admits chiral pairs of local configurations that cannot be obtained from one another by rigid motion alone (rotation-equivalent configurations can be generated from a base shape, but mirror-equivalent ones cannot, since mirroring is not physically realizable), exactly two distinct printed guide shapes are required, with the remaining local configurations obtained by rotating one of the two. After hand-weaving, the guide structure can be dissolved or broken away, leaving only the woven thread. This strategy is flexible but manually laborious.
+\item \textbf{Modular weaving.} The cubic domain is decomposed into modular, per-cell guiding structures -- print-in-place local scaffolds through which a physical thread is subsequently woven by hand. Because a cP-weave admits chiral pairs of local configurations that cannot be obtained from one another by rigid motion alone (rotation-equivalent configurations can be generated from a base shape, but mirror-equivalent ones cannot, since mirroring is not physically realizable), exactly two distinct printed guide shapes are required, with the remaining local configurations obtained by rotating one of the two (Figure~\ref{fig:chiral-guides}). After hand-weaving, the guide structure can be dissolved or broken away, leaving only the woven thread. This strategy is flexible but manually laborious.
 \item \textbf{Partitive weaving.} Following the partitive, space-filling tile construction used for 2D weaves in prior work~\cite{krishnamurthy2021geometrically}, the cubic domain defined by a cP-weave is instead decomposed ``by thread'': each thread is printed directly as a partitive, space-filling volumetric segment (rather than guided and hand-woven), and, if printed in a compliant material, can be bent into place to complete the assembly. This preserves the weave's geometric interlocking, though the resulting structure may not fully preserve textile-like mechanical characteristics, and some manual assembly is still required.
 \end{itemize}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=4in]{ch07_fig01_chiral_guide_pair.png}
+\caption[Chiral pair of printed modular guide shapes.]{The chiral pair of printed modular guide shapes needed for modular weaving: the two shapes are mirror images of one another and cannot be obtained by rotation alone; all remaining local configurations of the cP-weave cell are obtained by rotating one of these two base shapes.}
+\label{fig:chiral-guides}
+\end{figure}
 
 \subsection{Proposed: Soluble-Foam-Scaffold Weaving}
 
 Building on the partitive idea, we propose a third strategy: rather than printing a partitive \emph{thread}, print a partitive \emph{foam} -- a water-soluble scaffold whose pore structure matches the target weave geometry. After a compliant or rigid thread material is introduced into (or grown within) the scaffold, the soluble scaffold is dissolved away, leaving the finished weave without the manual-labor burden of modular or partitive weaving. Developing and validating this scaffold-based fabrication pipeline for volumetric Bravais weaves, across the shift-parametrized ($a/b/c/d$) design space of Chapter~\ref{cha:volumetric-bravais}, is a core piece of the proposed work.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6in]{ch07_fig02_manufacturing_strategy_comparison.png}
+\caption[Comparison of the four manufacturing strategies.]{The four manufacturing strategies for volumetric Bravais weaves considered in this proposal, in increasing order of automation: (a) single-cycle snake-pattern printing, (b) modular weaving with chiral printed guides, (c) partitive weaving of space-filling thread segments, and (d) the proposed soluble-foam-scaffold approach.}
+\label{fig:manufacturing-comparison}
+\end{figure}
 
 \section{Geometric Characterization of Printed cP-Weaves}
 \label{sec:print-characterization}
@@ -69,10 +83,34 @@ r = 0.65\,\mathrm{mm} \;\Rightarrow\; \mathrm{vf} = 0.6640, \qquad r = 0.01\,\ma
 \]
 so that achievable volume fractions for this configuration lie in approximately $[0.67, 1.0]$. Guided by this range, we target $\mathrm{vf} = 0.8$ for the specimens in Section~\ref{sec:print-char-matrix}, found by a bisection search on $r$ (iterated to a tolerance of $0.001$ in $\mathrm{vf}$) rather than a closed-form inversion, since this level of precision is what lets the predicted and actual printed material mass be controlled tightly.
 
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=\textwidth]{ch07_fig03a_wo_wd_geometry_diagram.png}
+\caption{Weave offset ($\mathrm{wo}$), weave depth ($\mathrm{wd}$), and strand radius ($r$) on a single unit cell.}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=\textwidth]{ch07_fig03b_radius_vs_volume_fraction_curve.png}
+\caption{Volume fraction $\mathrm{vf}$ as a function of strand radius $r$, with the feasible printable range and the $\mathrm{vf}=0.8$ target marked.}
+\end{subfigure}
+\caption[Geometric parameters and the radius/volume-fraction relationship.]{(a) The geometric parameters $\mathrm{wo}$, $\mathrm{wd}$, and $r$ used to control a printed cP-weave's volume fraction, and (b) the resulting relationship between strand radius and volume fraction for the $1\_1\_1\_1$ plain configuration, used by the bisection search of Section~\ref{sec:print-char-vf}.}
+\label{fig:wo-wd-vf-curve}
+\end{figure}
+
 \subsection{Validation Against Printed Mass}
 \label{sec:print-char-mass}
 
-As an independent check on the target volume fraction, we compare the mass predicted from $\mathrm{vf}$ against the mass reported by the slicer for the actual printed geometry. A fully solid $16\,\mathrm{mm}^3$ reference cube requires approximately $5.35\,\mathrm{g}$ of material (per the slicer), so a specimen at the target $\mathrm{vf}=0.8$ should require approximately $4.28\,\mathrm{g}$. Table~\ref{tab:print-mass} reports the slicer-estimated mass for four printed $a/b/c/d$ shift configurations at the same target volume fraction, together with the volume fraction implied by that mass (mass $\div\ 5.35\,\mathrm{g}$).
+As an independent check on the target volume fraction, we compare the mass predicted from $\mathrm{vf}$ against the mass reported by the slicer for the actual printed geometry. A fully solid $16\,\mathrm{mm}^3$ reference cube requires approximately $5.35\,\mathrm{g}$ of material (per the slicer), so a specimen at the target $\mathrm{vf}=0.8$ should require approximately $4.28\,\mathrm{g}$. Table~\ref{tab:print-mass} reports the slicer-estimated mass for four printed $a/b/c/d$ shift configurations at the same target volume fraction, together with the volume fraction implied by that mass (mass $\div\ 5.35\,\mathrm{g}$); Figure~\ref{fig:printed-abcd-specimens} shows the four printed specimens used for this comparison.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6in]{ch07_fig04_printed_abcd_specimens.png}
+\caption[Printed specimens for the four $a/b/c/d$ shift configurations.]{The four printed $a/b/c/d$ shift-configuration specimens ($1\_1\_1\_1$, $2\_1\_1\_1$, $2\_2\_1\_1$, $3\_1\_1\_1$) used for the mass-based volume-fraction validation of Table~\ref{tab:print-mass}, each targeting $\mathrm{vf}=0.8$ at a $16\,\mathrm{mm}^3$ bounding-box size.}
+\label{fig:printed-abcd-specimens}
+\end{figure}
 
 \begin{table}[h!]
 \centering
@@ -93,7 +131,24 @@ Two observations follow from Table~\ref{tab:print-mass}. First, the mass-based v
 \subsection{Strand-Radius Feasibility from Minimum Inter-Strand Clearance}
 \label{sec:print-char-clearance}
 
-More generally, for a chosen pair of geometric parameters $(\mathrm{wo}, \mathrm{wd})$, the maximal admissible strand radius is determined computationally: for every point along a given strand, we compute its distance to every other strand in the construction, and take the minimum such distance over the whole assembly as the ceiling on $r$ (beyond this radius, neighboring strands would merge or self-intersect). As a worked example, for $2\times2\times2$ plain local patterns tiled onto a $4\times4\times4$ domain, this procedure yields a \emph{single} radius value that achieves an $80\%$ volume fraction consistently across every plain-pattern arrangement -- because, regardless of how the two plain local configurations are assigned to the cells of the domain, every individual strand has the same geometry and therefore the same volume within its unit cell. There are $64$ distinct $2\times2\times2$ plain-pattern arrangements (shapes) for which this consistency was checked.
+More generally, for a chosen pair of geometric parameters $(\mathrm{wo}, \mathrm{wd})$, the maximal admissible strand radius is determined computationally: for every point along a given strand, we compute its distance to every other strand in the construction, and take the minimum such distance over the whole assembly as the ceiling on $r$ (beyond this radius, neighboring strands would merge or self-intersect) (Figure~\ref{fig:clearance-method}a). As a worked example, for $2\times2\times2$ plain local patterns tiled onto a $4\times4\times4$ domain, this procedure yields a \emph{single} radius value that achieves an $80\%$ volume fraction consistently across every plain-pattern arrangement -- because, regardless of how the two plain local configurations are assigned to the cells of the domain, every individual strand has the same geometry and therefore the same volume within its unit cell. There are $64$ distinct $2\times2\times2$ plain-pattern arrangements (shapes) for which this consistency was checked (Figure~\ref{fig:clearance-method}b).
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.46\textwidth}
+\centering
+\includegraphics[width=\textwidth]{ch07_fig05a_min_interstrand_clearance.png}
+\caption{Minimum inter-strand clearance computed along one strand, setting the ceiling on $r$.}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.50\textwidth}
+\centering
+\includegraphics[width=\textwidth]{ch07_fig05b_64_plain_pattern_shapes.png}
+\caption{A sample of the $64$ distinct $2\times2\times2$ plain-pattern arrangements sharing one consistent radius/volume fraction.}
+\end{subfigure}
+\caption[Strand-radius feasibility from inter-strand clearance.]{(a) The minimum-distance method for determining the maximal admissible strand radius for a given $(\mathrm{wo},\mathrm{wd})$ pair, and (b) a sample of the $64$ distinct $2\times2\times2$ plain-pattern arrangements on a $4\times4\times4$ domain, all of which share the same $80\%$-volume-fraction radius.}
+\label{fig:clearance-method}
+\end{figure}
 
 \section{Mechanical Characterization: Auxetic Behavior of Weave-Based Foams}
 \label{sec:mechanical}
@@ -113,7 +168,14 @@ Preliminary foam-based realizations of volumetric Bravais weaves exhibit visuall
 
 \textbf{Design and fabrication.} Foam geometries will be generated directly from the $a/b/c/d$ shift parameters of the cP-weave design space (Section~\ref{sec:cp-weaves}), alongside non-re-entrant baseline (control) foam geometries. Two geometric control conditions will be used to isolate the effect of the weave pattern itself from confounding geometric factors: constant wall thickness across designs, and constant volume ratio across designs. All geometries will be fabricated by additive manufacturing in both PLA (brittle) and TPU (compliant).
 
-\textbf{Mechanical testing.} Specimens will be tested in uniaxial compression on a 10~kN testing machine at a controlled loading rate (1~mm/min), recording force--displacement data.
+\textbf{Mechanical testing.} Specimens will be tested in uniaxial compression on a 10~kN testing machine at a controlled loading rate (1~mm/min), recording force--displacement data (Figure~\ref{fig:test-setup}).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=4in]{ch07_fig06_compression_test_setup.png}
+\caption[Uniaxial compression test setup.]{Uniaxial compression test setup: a weave-derived foam specimen is placed between the top and bottom compression plates of the 10~kN testing machine and loaded at a controlled rate of 1~mm/min.}
+\label{fig:test-setup}
+\end{figure}
 
 \textbf{Data analysis.} From the force--displacement data, converted to stress--strain, we will extract the elastic modulus, plateau stress, and energy absorbed up to densification (via numerical integration of the stress--strain curve), and estimate Poisson's ratio from lateral strain measured via image analysis / digital image correlation (DIC). Key indicators of auxetic behavior include a negative Poisson's ratio ($\nu < 0$), increased energy absorption relative to non-auxetic controls, and an S-shaped or delayed densification region in the stress--strain curve.
 
@@ -157,7 +219,21 @@ Specimen and test geometry are constrained by the testing apparatus and printer 
 
 \subsection{Preliminary Results}
 
-Six weave-foam designs and three control (non-re-entrant) shapes have been manufactured in both PLA and TPU, all at a constant volume ratio of 35\% and matched periodicity across shapes, and preliminary uniaxial compression tests have been performed, yielding force--displacement data for each condition. Initial comparisons across pattern families indicate that gyroid- and cubic-pattern weave-derived foams exhibit higher energy-absorbing characteristics than the tested controls, consistent with hypothesis H1; a full statistical analysis across all replicates, materials, and geometry-control conditions, together with Poisson's-ratio estimation via image analysis, remains to be completed as part of the proposed work (see Chapter~\ref{cha:summary} for the completion timeline).
+Six weave-foam designs and three control (non-re-entrant) shapes have been manufactured in both PLA and TPU, all at a constant volume ratio of 35\% and matched periodicity across shapes (Figure~\ref{fig:printed-foam-specimens}), and preliminary uniaxial compression tests have been performed, yielding force--displacement data for each condition (Figure~\ref{fig:force-displacement-prelim}). Initial comparisons across pattern families indicate that gyroid- and cubic-pattern weave-derived foams exhibit higher energy-absorbing characteristics than the tested controls, consistent with hypothesis H1; a full statistical analysis across all replicates, materials, and geometry-control conditions, together with Poisson's-ratio estimation via image analysis, remains to be completed as part of the proposed work (see Chapter~\ref{cha:summary} for the completion timeline).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6in]{ch07_fig07_printed_foam_specimens_pla_tpu.png}
+\caption[Manufactured weave-foam specimens.]{The six weave-foam designs and three non-re-entrant control shapes manufactured in PLA and TPU at a constant $35\%$ volume ratio for preliminary compression testing.}
+\label{fig:printed-foam-specimens}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6in]{ch07_fig08_preliminary_force_displacement_curves.png}
+\caption[Preliminary force--displacement curves.]{Preliminary force--displacement curves from uniaxial compression testing of the specimens in Figure~\ref{fig:printed-foam-specimens}; gyroid- and cubic-pattern weave-derived foams show higher energy absorption (area under the curve) than the tested non-auxetic controls.}
+\label{fig:force-displacement-prelim}
+\end{figure}
 
 \section{Remaining Proposed Work}
 

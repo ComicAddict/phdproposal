@@ -17,14 +17,28 @@ The motivating examples introduced in Chapter~\ref{cha:introduction} include not
 \section{Hypergraph Rotation Systems}
 \label{sec:h-grs}
 
-The first of these two manuscripts~\cite{yildiz2026hypergraph} introduces \emph{Hypergraph Rotation Systems (H-GRS)}, a combinatorial representation in which edges are the primary entities and faces define higher-order relationships among them, so that topology is captured entirely by the cyclic ordering of edge--face incidences. Because this representation does not assume a manifold surface or a globally consistent orientation, it naturally supports non-manifold connectivity -- a requirement that classical rotation-system representations do not meet, but that arbitrary linked-knot (LK) structures generally violate.
+The first of these two manuscripts~\cite{yildiz2026hypergraph} introduces \emph{Hypergraph Rotation Systems (H-GRS)}, a combinatorial representation in which edges are the primary entities and faces define higher-order relationships among them, so that topology is captured entirely by the cyclic ordering of edge--face incidences (Figure~\ref{fig:hgrs-schematic}). Because this representation does not assume a manifold surface or a globally consistent orientation, it naturally supports non-manifold connectivity -- a requirement that classical rotation-system representations do not meet, but that arbitrary linked-knot (LK) structures generally violate.
 
-On top of this representation, integer-valued \emph{twist} assignments on edges act as local operators that deterministically control the global cycle structure, linking pattern, and connectivity of the resulting assembly: at an edge shared by $m$ faces with an assigned twist $k$, the number of distinct cycles produced locally is governed by $\gcd(m,k)$. This single local rule is expressive enough to reproduce, within one framework:
+\begin{figure}[h!]
+\centering
+\includegraphics[width=5in]{ch06_fig01_hgrs_edge_face_incidence.png}
+\caption[Hypergraph Rotation System (H-GRS) schematic.]{Schematic of a Hypergraph Rotation System: edges (bold) are the primary combinatorial entities, and the cyclic ordering of the faces incident to each edge (arrows) determines the topology of the resulting linked-knot structure, without requiring a manifold surface or global orientation.}
+\label{fig:hgrs-schematic}
+\end{figure}
+
+On top of this representation, integer-valued \emph{twist} assignments on edges act as local operators that deterministically control the global cycle structure, linking pattern, and connectivity of the resulting assembly: at an edge shared by $m$ faces with an assigned twist $k$, the number of distinct cycles produced locally is governed by $\gcd(m,k)$ (Figure~\ref{fig:hgrs-twist-examples}). This single local rule is expressive enough to reproduce, within one framework:
 \begin{itemize}
 \item \textbf{unicursal (single-cycle) constructions}, where a whole structure is traced by one continuous thread -- directly relevant to the ``snake pattern'' finite-weave threading strategy discussed in Chapter~\ref{cha:proposed-work};
 \item \textbf{multi-component chainmail and weave constructions}, obtained with different twist assignments on the same underlying mesh; and
 \item \textbf{articulated and compliant assemblies}, via a region-decomposition method that separates locally compliant regions from globally rigid or articulated ones, and \textbf{triply periodic woven and knitted materials}, obtained by applying H-GRS to periodic honeycomb meshes.
 \end{itemize}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6in]{ch06_fig02_twist_operator_examples.png}
+\caption[Effect of the integer twist operator on cycle structure.]{Effect of the integer-valued twist operator at an edge shared by three faces: twists that are multiples of three produce disconnected but interlocked rings, while other twist values merge the three original cycles into a single connected cycle. (Adapted from the range of twist values explored in~\cite{yildiz2026hypergraph}.)}
+\label{fig:hgrs-twist-examples}
+\end{figure}
 
 The framework was validated with physical prototypes fabricated both by 3D printing (as single pieces, unfolded flat panels, and modular assemblies) and by paper-strip construction over a printed scaffold, echoing the foldability and modular-assembly themes introduced in Chapter~\ref{cha:modular-planar}.
 
@@ -33,7 +47,14 @@ The framework was validated with physical prototypes fabricated both by 3D print
 
 The second manuscript~\cite{yildiz2026polycatenane} specializes this unifying perspective to \emph{polycatenanes}: collections of many mechanically interlocked, individually unknotted spatial graphs, generalizing classical links (whose components are simple closed curves) to arbitrary interlocked 3D graphs. Despite their importance in chemistry and materials science, polycatenanes have received little systematic mathematical treatment; prior work addresses small, finite configurations rather than extended, periodic families.
 
-The proposed methodology uses labeled, cell-transitive 3-honeycombs -- the same triply periodic, Wigner--Seitz-cell tessellations used to define volumetric Bravais weaves in Chapter~\ref{cha:volumetric-bravais} -- as geometric and combinatorial scaffolds. From a labeled honeycomb, corresponding \emph{primal} and \emph{dual} spatial graphs are derived, with embeddings inherited directly from the honeycomb structure; the primal--dual relationship then provides the combinatorial scaffold from which mechanically interlocked graph pairs are constructed, reducing the design problem to the construction and labeling of a periodic honeycomb. Different labeling strategies applied to the same underlying honeycomb yield different periodic polycatenane domains while preserving the underlying crystallographic symmetry. Because the framework applies uniformly to any cell-transitive 3-honeycomb, it covers the same family of Bravais/Wigner--Seitz cell types (cP, hP, cF, oF, cI) introduced in Section~\ref{sec:bravais}; the cubic body-centered lattice (cI) and its truncated-octahedron Wigner--Seitz cell are used as a principal worked example -- referred to informally as \emph{cI-links} in the preliminary presentation of this work -- and the approach was validated with additive-manufacturing prototypes confirming physical realizability.
+The proposed methodology uses labeled, cell-transitive 3-honeycombs -- the same triply periodic, Wigner--Seitz-cell tessellations used to define volumetric Bravais weaves in Chapter~\ref{cha:volumetric-bravais} -- as geometric and combinatorial scaffolds. From a labeled honeycomb, corresponding \emph{primal} and \emph{dual} spatial graphs are derived, with embeddings inherited directly from the honeycomb structure; the primal--dual relationship then provides the combinatorial scaffold from which mechanically interlocked graph pairs are constructed, reducing the design problem to the construction and labeling of a periodic honeycomb (Figure~\ref{fig:primal-dual-polycatenane}). Different labeling strategies applied to the same underlying honeycomb yield different periodic polycatenane domains while preserving the underlying crystallographic symmetry. Because the framework applies uniformly to any cell-transitive 3-honeycomb, it covers the same family of Bravais/Wigner--Seitz cell types (cP, hP, cF, oF, cI) introduced in Section~\ref{sec:bravais}; the cubic body-centered lattice (cI) and its truncated-octahedron Wigner--Seitz cell are used as a principal worked example -- referred to informally as \emph{cI-links} in the preliminary presentation of this work -- and the approach was validated with additive-manufacturing prototypes confirming physical realizability (Figure~\ref{fig:primal-dual-polycatenane}, right).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6in]{ch06_fig03_primal_dual_polycatenane.png}
+\caption[Primal--dual polycatenane construction from a labeled honeycomb.]{Constructing a primal--dual polycatenane from a labeled, cell-transitive 3-honeycomb: (left) the labeled honeycomb scaffold, (center) the derived primal and dual spatial graphs, and (right) a 3D-printed cI-links prototype confirming physical realizability.}
+\label{fig:primal-dual-polycatenane}
+\end{figure}
 
 \section{Synthesis: Toward a Dimension- and Topology-Independent Design Calculus}
 

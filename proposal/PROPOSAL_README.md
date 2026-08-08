@@ -20,7 +20,33 @@ xelatex Proposal_TolgaYildiz.tex
 ```
 
 This was verified to compile cleanly (no errors, no undefined references) in
-this environment (TeX Live 2023) and produces a 51-page PDF.
+this environment (TeX Live 2023) and produces a 67-page PDF.
+
+## Figure placeholders
+
+Every chapter (and Appendix A) now has `\includegraphics` calls with
+descriptive filenames and full captions — 29 figures in total — but **none
+of the underlying image files exist yet**. To let the document still
+compile cleanly, `graphicx` is loaded with the `demo` option (see the
+comment at the top of `Proposal_TolgaYildiz.tex`), which draws a plain
+black box of the requested size instead of erroring on a missing file.
+This means:
+
+- Every figure's position, size, and caption are already correct and will
+  show up properly in the Table of Contents / List of Figures.
+- The box itself is just a placeholder — nothing to read into its
+  appearance.
+- **As you get real images**, drop each one into `graphic/` under the
+  exact filename already used in its `\includegraphics` call (e.g.,
+  `ch04_fig02_cp_eight_local_configurations.png`) — no `.tex` edits
+  needed. They just won't render yet: `demo` mode draws a placeholder box
+  for *every* figure regardless of whether the file exists, so nothing
+  will look different until you take the next step.
+- **Once every figure has a real file**, remove (or comment out) the line
+  `\PassOptionsToPackage{demo}{graphicx}` near the top of
+  `Proposal_TolgaYildiz.tex` and recompile — all 29 figures will render
+  for real at once. (Removing it earlier, while some files are still
+  missing, will bring back "File not found" errors for those figures.)
 
 ## Structure
 
@@ -70,11 +96,12 @@ your committee) can supply:
    enumeration preprint once posted.
 4. **`data/section8.tex`**: the proposed timeline table is entirely
    placeholder dates — replace with your actual plan.
-5. **Figures**: the presentation was provided with its media stripped out,
-   so no figures were carried over. Chapters III–VII would all benefit from
-   pulling in figures from the corresponding papers/slides (e.g., the
-   teaser figures, the $a/b/c/d$ shift examples, the compression-test
-   plots) — the `\includegraphics` calls just need to be added once you have
-   the image files in `graphic/`.
+5. **Figures**: all 29 figure placements, filenames, and captions are now
+   in place (see "Figure placeholders" above) — the presentation and
+   papers were provided/created without their image files, so these are
+   all placeholders. Populate `graphic/` with real images (or renders
+   regenerated from the papers' source figures) under the filenames
+   already referenced, then remove the `demo` option once all of them
+   exist.
 6. **Dedication/Acknowledgements**: optional pages, currently drafted —
    edit, or delete the corresponding `\include{...}` line in the main file.

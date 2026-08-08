@@ -12,7 +12,14 @@ This chapter introduces, through the simplest possible case, the two conceptual 
 \section{Case Study: 2-Way 2-Fold Weaves}
 \label{sec:case-study}
 
-Consider the simplest nontrivial class of woven structures: \emph{2-way, 2-fold} weaves. ``2-way'' means that weave threads follow two distinct directions (conventionally called warp and weft); ``2-fold'' means the structure consists of two interlaced layers of threads. Every unit of the weave -- the region where one warp thread crosses one weft thread -- can be in exactly one of two local states: the warp thread passes over the weft thread, or vice versa. This binary local state is the starting point for a topological, rather than purely geometric, description of the weave.
+Consider the simplest nontrivial class of woven structures: \emph{2-way, 2-fold} weaves. ``2-way'' means that weave threads follow two distinct directions (conventionally called warp and weft); ``2-fold'' means the structure consists of two interlaced layers of threads. Every unit of the weave -- the region where one warp thread crosses one weft thread -- can be in exactly one of two local states: the warp thread passes over the weft thread, or vice versa (Figure~\ref{fig:2way2fold-states}). This binary local state is the starting point for a topological, rather than purely geometric, description of the weave.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=4in]{ch02_fig01_2way2fold_local_states.png}
+\caption[The two local states of a 2-way 2-fold weave unit.]{The two local states of a single 2-way, 2-fold weave unit: (left) the warp thread passes over the weft thread; (right) the weft thread passes over the warp thread. These two states are related by a mirror transformation and form the cyclic group $\mathrm{GF}(2)$ used for the compact representation in Appendix~\ref{app:cp-symmetry}.}
+\label{fig:2way2fold-states}
+\end{figure}
 
 \section{Topological Labeling of Local Configurations}
 \label{sec:topological-labeling}
@@ -34,4 +41,11 @@ What these applications share is the insight that a small, discrete, local label
 
 The planar topological-labeling framework above is naturally tied to a 2D tessellation and a binary (over/under) label. To extend this idea to volumetric weaves, this dissertation introduces \emph{cell-induced topological elements}: one-dimensional (thread-like) elements defined relative to the elements of a 3D cell -- its center, its facets, and its edges -- rather than relative to a 2D crossing.
 
-Informally, given a cell of a space-filling 3D tessellation, a cell-induced topological element is a combinatorial description of how a thread enters and exits that cell through its boundary. Just as a planar topological label records which thread is ``on top'' at a crossing, a cell-induced topological element records, for a given cell, which pair of boundary elements (e.g., which pair of opposite facets) a straight thread segment connects. The collection of all such elements for a given cell type forms the basis for the \emph{local configurations} used throughout Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus} to build volumetric weaves out of individually well-defined, enumerable building blocks. This is the key conceptual step that allows the remainder of this proposal to treat volumetric weaving with the same combinatorial rigor that Gr\"unbaum and Shephard brought to planar weaving, while remaining dimension independent: the same construction specializes to the 2D case (Chapter~\ref{cha:modular-planar}) and generalizes to 3D lattices (Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus}).
+Informally, given a cell of a space-filling 3D tessellation, a cell-induced topological element is a combinatorial description of how a thread enters and exits that cell through its boundary. Just as a planar topological label records which thread is ``on top'' at a crossing, a cell-induced topological element records, for a given cell, which pair of boundary elements (e.g., which pair of opposite facets) a straight thread segment connects (Figure~\ref{fig:cell-induced-elements}). The collection of all such elements for a given cell type forms the basis for the \emph{local configurations} used throughout Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus} to build volumetric weaves out of individually well-defined, enumerable building blocks.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=4.5in]{ch02_fig02_cell_induced_elements.png}
+\caption[Cell-induced topological elements on a cube cell.]{Cell-induced topological elements on a single cube cell: a straight thread segment is described combinatorially by the pair of boundary facets it connects (center, front) rather than by its explicit geometry, generalizing the crossing label of Figure~\ref{fig:2way2fold-states} from a 2D tile to a 3D cell.}
+\label{fig:cell-induced-elements}
+\end{figure} This is the key conceptual step that allows the remainder of this proposal to treat volumetric weaving with the same combinatorial rigor that Gr\"unbaum and Shephard brought to planar weaving, while remaining dimension independent: the same construction specializes to the 2D case (Chapter~\ref{cha:modular-planar}) and generalizes to 3D lattices (Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus}).
