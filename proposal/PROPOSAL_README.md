@@ -24,6 +24,11 @@ this environment (TeX Live 2023) and produces a 67-page PDF.
 
 ## Figure placeholders
 
+Each caption ends with a red **TODO (images)** note naming the source
+figure (paper + figure label + image files, or prelim slide + media name)
+to build it from; `FIGURE_SOURCES.md` has the same list as a checklist.
+Set `\showfigtodosfalse` in the main file to hide the notes.
+
 Every chapter (and Appendix A) now has `\includegraphics` calls with
 descriptive filenames and full captions — 29 figures in total — but **none
 of the underlying image files exist yet**. To let the document still

@@ -40,7 +40,8 @@ Two complementary manufacturing strategies address this limitation:
 \begin{figure}[h!]
 \centering
 \includegraphics[width=4in]{ch07_fig01_chiral_guide_pair.png}
-\caption[Chiral pair of printed modular guide shapes.]{The chiral pair of printed modular guide shapes needed for modular weaving: the two shapes are mirror images of one another and cannot be obtained by rotation alone; all remaining local configurations of the cP-weave cell are obtained by rotating one of these two base shapes.}
+\caption[Chiral pair of printed modular guide shapes.]{The chiral pair of printed modular guide shapes needed for modular weaving: the two shapes are mirror images of one another and cannot be obtained by rotation alone; all remaining local configurations of the cP-weave cell are obtained by rotating one of these two base shapes.
+\figtodo{Prelim\_v2 slide~56 (``approach: modular weaving'', chiral pair; media \fs{image153.png}--\fs{image156.png}).}}
 \label{fig:chiral-guides}
 \end{figure}
 
@@ -51,7 +52,8 @@ Building on the partitive idea, we propose a third strategy: rather than printin
 \begin{figure}[h!]
 \centering
 \includegraphics[width=6in]{ch07_fig02_manufacturing_strategy_comparison.png}
-\caption[Comparison of the four manufacturing strategies.]{The four manufacturing strategies for volumetric Bravais weaves considered in this proposal, in increasing order of automation: (a) single-cycle snake-pattern printing, (b) modular weaving with chiral printed guides, (c) partitive weaving of space-filling thread segments, and (d) the proposed soluble-foam-scaffold approach.}
+\caption[Comparison of the four manufacturing strategies.]{The four manufacturing strategies for volumetric Bravais weaves considered in this proposal, in increasing order of automation: (a) single-cycle snake-pattern printing, (b) modular weaving with chiral printed guides, (c) partitive weaving of space-filling thread segments, and (d) the proposed soluble-foam-scaffold approach.
+\figtodo{Prelim\_v2: (a) single-cycle, slides~53--54 (\fs{image143.png}--\fs{image149.jpeg}); (b) modular, slides~56--57 (\fs{image153.png}--\fs{image157.jpg}, hand-woven photo); (c) partitive, slides~58--60 (\fs{image158.gif} from \cite{krishnamurthy2021geometrically}, \fs{image159.png}--\fs{image162.jpg}); (d) soluble-foam scaffold, slide~61 (\fs{image163.png}--\fs{image165.png}).}}
 \label{fig:manufacturing-comparison}
 \end{figure}
 
@@ -97,7 +99,8 @@ so that achievable volume fractions for this configuration lie in approximately 
 \includegraphics[width=\textwidth]{ch07_fig03b_radius_vs_volume_fraction_curve.png}
 \caption{Volume fraction $\mathrm{vf}$ as a function of strand radius $r$, with the feasible printable range and the $\mathrm{vf}=0.8$ target marked.}
 \end{subfigure}
-\caption[Geometric parameters and the radius/volume-fraction relationship.]{(a) The geometric parameters $\mathrm{wo}$, $\mathrm{wd}$, and $r$ used to control a printed cP-weave's volume fraction, and (b) the resulting relationship between strand radius and volume fraction for the $1\_1\_1\_1$ plain configuration, used by the bisection search of Section~\ref{sec:print-char-vf}.}
+\caption[Geometric parameters and the radius/volume-fraction relationship.]{(a) The geometric parameters $\mathrm{wo}$, $\mathrm{wd}$, and $r$ used to control a printed cP-weave's volume fraction, and (b) the resulting relationship between strand radius and volume fraction for the $1\_1\_1\_1$ plain configuration, used by the bisection search of Section~\ref{sec:print-char-vf}.
+\figtodo{No existing source. (a) New annotated render of one $4\,$mm plain $1\_1\_1\_1$ cell from the weave generator, marking wo, wd, $r$. (b) Plot $\mathrm{vf}(r)$ from the bisection-search data of the printed-weave characterization notes (\fs{characterizing_the_printed_wovens.txt}): mark $r{=}0.65\,$mm$\to$0.664, $r{=}0.01\,$mm$\to$0.9999, and the $\mathrm{vf}{=}0.8$ target.}}
 \label{fig:wo-wd-vf-curve}
 \end{figure}
 
@@ -109,7 +112,8 @@ As an independent check on the target volume fraction, we compare the mass predi
 \begin{figure}[h!]
 \centering
 \includegraphics[width=6in]{ch07_fig04_printed_abcd_specimens.png}
-\caption[Printed specimens for the four $a/b/c/d$ shift configurations.]{The four printed $a/b/c/d$ shift-configuration specimens ($1\_1\_1\_1$, $2\_1\_1\_1$, $2\_2\_1\_1$, $3\_1\_1\_1$) used for the mass-based volume-fraction validation of Table~\ref{tab:print-mass}, each targeting $\mathrm{vf}=0.8$ at a $16\,\mathrm{mm}^3$ bounding-box size.}
+\caption[Printed specimens for the four $a/b/c/d$ shift configurations.]{The four printed $a/b/c/d$ shift-configuration specimens ($1\_1\_1\_1$, $2\_1\_1\_1$, $2\_2\_1\_1$, $3\_1\_1\_1$) used for the mass-based volume-fraction validation of Table~\ref{tab:print-mass}, each targeting $\mathrm{vf}=0.8$ at a $16\,\mathrm{mm}^3$ bounding-box size.
+\figtodo{New photos (or slicer screenshots) of the four printed specimens $1\_1\_1\_1$, $2\_1\_1\_1$, $2\_2\_1\_1$, $3\_1\_1\_1$ from the characterization notes. For a matching render style see Prelim\_v2 slide~45 ($a/b/c/d$ renders, media \fs{image105.jpg}--\fs{image108.jpg}) and \cite{yildiz2025volumetric} Fig.~\fs{fig_3D/a_b_c_notation} (\fs{fig9-abcd-weave.pdf}).}}
 \label{fig:printed-abcd-specimens}
 \end{figure}
 
@@ -147,7 +151,8 @@ More generally, for a chosen pair of geometric parameters $(\mathrm{wo}, \mathrm
 \includegraphics[width=\textwidth]{ch07_fig05b_64_plain_pattern_shapes.png}
 \caption{A sample of the $64$ distinct $2\times2\times2$ plain-pattern arrangements sharing one consistent radius/volume fraction.}
 \end{subfigure}
-\caption[Strand-radius feasibility from inter-strand clearance.]{(a) The minimum-distance method for determining the maximal admissible strand radius for a given $(\mathrm{wo},\mathrm{wd})$ pair, and (b) a sample of the $64$ distinct $2\times2\times2$ plain-pattern arrangements on a $4\times4\times4$ domain, all of which share the same $80\%$-volume-fraction radius.}
+\caption[Strand-radius feasibility from inter-strand clearance.]{(a) The minimum-distance method for determining the maximal admissible strand radius for a given $(\mathrm{wo},\mathrm{wd})$ pair, and (b) a sample of the $64$ distinct $2\times2\times2$ plain-pattern arrangements on a $4\times4\times4$ domain, all of which share the same $80\%$-volume-fraction radius.
+\figtodo{No existing source. (a) New render: one strand with its closest-point segments to neighbouring strands highlighted. (b) $8{\times}8$ thumbnail grid of the $64$ plain $2{\times}2{\times}2$ arrangements (pattern codes \fs{000}--\fs{333}, as in the \fs{comp-anal} plain metadata sheet), rendered from the weave generator.}}
 \label{fig:clearance-method}
 \end{figure}
 
@@ -175,8 +180,9 @@ Print batch, build-plate position, and print and test dates are recorded for eve
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=6in]{ch07_fig09_woven_vs_tpms_specimen_sets.png}
-\caption[Woven-foam and TPMS-baseline specimen sets.]{The two specimen sets of the comparative study: (top) representative woven foams from the $64$ plain cP-weave pattern codes, and (bottom) the eight TPMS baseline families -- gyroid, Schwarz~P, Schwarz~D, Schwarz~F-RD, Schoen~I-WP, Fischer--Koch~S, Lidinoid, and split~P -- shown at one of their eight scales. All specimens are $16\,\mathrm{mm}$ PLA cubes at a volume fraction of $0.8$.}
+\includegraphics[width=6in]{ch07_fig06_woven_vs_tpms_specimen_sets.png}
+\caption[Woven-foam and TPMS-baseline specimen sets.]{The two specimen sets of the comparative study: (top) representative woven foams from the $64$ plain cP-weave pattern codes, and (bottom) the eight TPMS baseline families -- gyroid, Schwarz~P, Schwarz~D, Schwarz~F-RD, Schoen~I-WP, Fischer--Koch~S, Lidinoid, and split~P -- shown at one of their eight scales. All specimens are $16\,\mathrm{mm}$ PLA cubes at a volume fraction of $0.8$.
+\figtodo{No existing source. Top: renders (or photos) of a few woven foams from the $64$ plain codes. Bottom: one render per TPMS family at a single common scale (gyroid, Schwarz~P, D, F-RD, Schoen I-WP, Fischer--Koch~S, Lidinoid, split~P; names as in \fs{comp-anal/data/metadata/baseline_metadata.csv}).}}
 \label{fig:tpms-specimen-sets}
 \end{figure}
 
@@ -224,15 +230,17 @@ Finally, because each TPMS family is printed at eight scales, we will ask \emph{
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=6in]{ch07_fig10_class_stress_strain_envelopes.png}
-\caption[Class stress--strain envelopes, woven foams against TPMS families.]{Planned stress--strain envelope figure: one panel per class (each TPMS family), showing that class's range, middle $50\%$, and median curve, with the woven-foam median and middle $50\%$ repeated in grey in every panel for direct comparison. The load-limit stress is marked as a dashed line.}
+\includegraphics[width=6in]{ch07_fig07_class_stress_strain_envelopes.png}
+\caption[Class stress--strain envelopes, woven foams against TPMS families.]{Planned stress--strain envelope figure: one panel per class (each TPMS family), showing that class's range, middle $50\%$, and median curve, with the woven-foam median and middle $50\%$ repeated in grey in every panel for direct comparison. The load-limit stress is marked as a dashed line.
+\figtodo{Planned figure: produced by the \fs{comp-anal} pipeline~\cite{companal2026} as \fs{results/figures/class_envelopes.png} (\fs{scripts/run_analysis.py}). Until results are reported, use the pipeline's synthetic demo (\fs{scripts/make_demo_data.py}, then \fs{run_analysis.py --root demo}) and label it ``illustrative, synthetic data'', or a hand-drawn schematic.}}
 \label{fig:tpms-envelopes}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=6in]{ch07_fig11_tpms_scale_matching.png}
-\caption[Matching TPMS scale to the woven-foam response.]{Planned scale-matching figure: each property against TPMS scale, one line per family, with the woven-foam median and middle $50\%$ as a grey band, the geometrically comparable range of scales shaded, and the best-matching scale marked.}
+\includegraphics[width=6in]{ch07_fig08_tpms_scale_matching.png}
+\caption[Matching TPMS scale to the woven-foam response.]{Planned scale-matching figure: each property against TPMS scale, one line per family, with the woven-foam median and middle $50\%$ as a grey band, the geometrically comparable range of scales shaded, and the best-matching scale marked.
+\figtodo{Planned figure: \fs{comp-anal} \fs{results/figures/scale_match/scale_trends.png} (\fs{scripts/match_scale.py}). Same rule as Figure~\ref{fig:tpms-envelopes}: synthetic demo output or a schematic until results are reported.}}
 \label{fig:tpms-scale-match}
 \end{figure}
 
@@ -262,8 +270,9 @@ Preliminary foam-based realizations of volumetric Bravais weaves exhibit visuall
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=4in]{ch07_fig06_compression_test_setup.png}
-\caption[Uniaxial compression test setup.]{Uniaxial compression test setup: a weave-derived foam specimen is placed between the top and bottom compression plates of the 10~kN testing machine and loaded at a controlled rate of 1~mm/min.}
+\includegraphics[width=4in]{ch07_fig09_compression_test_setup.png}
+\caption[Uniaxial compression test setup.]{Uniaxial compression test setup: a weave-derived foam specimen is placed between the top and bottom compression plates of the 10~kN testing machine and loaded at a controlled rate of 1~mm/min.
+\figtodo{Prelim\_v2 slide~71 (``Testing Setup and Measurement Scheme'', top/bottom plates; media \fs{image175.png}, \fs{image176.png}); slide~72 (\fs{image175.png}) for the design-constraint annotations.}}
 \label{fig:test-setup}
 \end{figure}
 
@@ -313,15 +322,17 @@ Six weave-foam designs and three control (non-re-entrant) shapes have been manuf
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=6in]{ch07_fig07_printed_foam_specimens_pla_tpu.png}
-\caption[Manufactured weave-foam specimens.]{The six weave-foam designs and three non-re-entrant control shapes manufactured in PLA and TPU at a constant $35\%$ volume ratio for preliminary compression testing.}
+\includegraphics[width=6in]{ch07_fig10_printed_foam_specimens_pla_tpu.png}
+\caption[Manufactured weave-foam specimens.]{The six weave-foam designs and three non-re-entrant control shapes manufactured in PLA and TPU at a constant $35\%$ volume ratio for preliminary compression testing.
+\figtodo{Prelim\_v2 slide~73 (``Current progress'': six weave-foam designs + three controls in PLA and TPU; media \fs{image177.png}). Optionally slide~65 (re-entrant foam renders, \fs{image172.png}--\fs{image174.png}).}}
 \label{fig:printed-foam-specimens}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=6in]{ch07_fig08_preliminary_force_displacement_curves.png}
-\caption[Preliminary force--displacement curves.]{Preliminary force--displacement curves from uniaxial compression testing of the specimens in Figure~\ref{fig:printed-foam-specimens}; gyroid- and cubic-pattern weave-derived foams show higher energy absorption (area under the curve) than the tested non-auxetic controls.}
+\includegraphics[width=6in]{ch07_fig11_preliminary_force_displacement_curves.png}
+\caption[Preliminary force--displacement curves.]{Preliminary force--displacement curves from uniaxial compression testing of the specimens in Figure~\ref{fig:printed-foam-specimens}; gyroid- and cubic-pattern weave-derived foams show higher energy absorption (area under the curve) than the tested non-auxetic controls.
+\figtodo{Prelim\_v2 slides~75--77 (``Preliminary results''; media \fs{image179.png}--\fs{image184.png}). Pick the PLA and TPU force--displacement plots, or regenerate them from the raw test exports with matching axes.}}
 \label{fig:force-displacement-prelim}
 \end{figure}
 
