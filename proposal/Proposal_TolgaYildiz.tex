@@ -56,6 +56,17 @@
 \usepackage{algpseudocode}
 \usepackage{xcolor}
 
+% Figure-source TODOs. Every figure caption ends with \figtodo{...},
+% listing the images needed for that figure and where they come from
+% (paper + figure label + image files, or prelim slide + media name).
+% Paper keys: see proposal/FIGURE_SOURCES.md. Set \showfigtodosfalse to
+% hide all of them at once (e.g., for a clean committee copy).
+\newif\ifshowfigtodos
+\showfigtodostrue
+\DeclareRobustCommand{\figtodo}[1]{\ifshowfigtodos\par\smallskip{\color{red}\footnotesize\textbf{TODO (images):} #1}\fi}
+% File paths / figure labels inside \figtodo (handles underscores).
+\DeclareRobustCommand{\fs}[1]{\nolinkurl{#1}}
+
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{definition}[theorem]{Definition}
