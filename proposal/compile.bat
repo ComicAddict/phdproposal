@@ -1,0 +1,4 @@
+xelatex -interaction=nonstopmode Proposal_TolgaYildiz.tex
+bibtex Proposal_TolgaYildiz
+xelatex -interaction=nonstopmode Proposal_TolgaYildiz.tex
+xelatex -interaction=nonstopmode Proposal_TolgaYildiz.tex
