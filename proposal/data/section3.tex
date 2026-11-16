@@ -1,0 +1,70 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  CHAPTER III -- COMPLETED RESEARCH I:
+%  MODULAR CONSTRUCTION OF PLANAR BI-AXIAL WEAVES
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{\uppercase{Completed Research I: Modular Construction of Planar Bi-Axial Weaves with Congruent Tiles}}
+\label{cha:modular-planar}
+
+This chapter summarizes the first completed contribution of this dissertation, published as~\cite{yildiz2023modular}, which addresses the base case of the framework developed in this proposal: 2-way, 2-fold planar weaves (Section~\ref{sec:case-study}).
+
+\section{Motivation}
+
+Modularity is a fundamental and appealing property of fabrics: given a fixed set of threads, different geometries -- and therefore different physical behaviors -- can be obtained simply by changing how the threads are linked to one another. Most engineering treatments of woven composites, however, model fabrics as reinforcement embedded in a secondary matrix material that fills the gaps between threads. This raises a basic geometric question that had not been fully resolved: can a woven structure's threads be made \emph{space-filling} on their own, without a secondary filler material?
+
+\section{Approach}
+
+This work answers that question constructively. We show that a single modular element -- a \emph{yin-yang}-type piece obtained by partitioning a cube into two congruent halves along a specific parametric surface -- can be used to build space-filling threads directly. Because the partitioning surface is parametrized (Section~\ref{sec:parametric-tiles}), there exist infinitely many distinct congruent tiles of this kind, each corresponding to a different family of thread cross-sections.
+
+\subsection{Parametric Congruent Tiles}
+\label{sec:parametric-tiles}
+
+The construction begins by identifying Voronoi decompositions of the cube that are closed under the warp--weft symmetry required by a 2-way 2-fold weave: the two halves of the cube, corresponding to the warp and weft states, must be exchangeable by a symmetry of the cube (a mirror in the $z$-direction, in our convention). Starting from families of parametric curves on the unfolded boundary of the cube that are closed under this symmetry, we obtain a continuous family of congruent-tile pairs, each of which tiles the cube into two yin-yang--shaped pieces representing the two local (warp/weft) states (Figure~\ref{fig:yinyang-tiles}).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=5in]{ch03_fig01_yinyang_congruent_tiles.png}
+\caption[Parametric yin-yang congruent tile pair.]{A parametric yin-yang congruent tile pair obtained by partitioning a cube with a closed parametric curve on its unfolded boundary: the two pieces represent the warp and weft local states and are exchanged by a mirror in $z$. Varying the parametric curve (right) yields infinitely many distinct congruent-tile families.}
+\label{fig:yinyang-tiles}
+\end{figure}
+
+\subsection{Foldability}
+
+A key practical property of these congruent tiles is that they are \emph{foldable}: each tile can be unfolded into a single flat panel and therefore fabricated economically from planar sheet material (e.g., by laser cutting), rather than requiring a molding or additive process (Figure~\ref{fig:tile-unfolding}). This directly supports the manufacturing perspective introduced in Chapter~\ref{cha:introduction}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=4.5in]{ch03_fig02_tile_unfolding_laser_cut.png}
+\caption[Unfolding a congruent tile into a flat, laser-cuttable panel.]{Unfolding one of the yin-yang congruent tiles of Figure~\ref{fig:yinyang-tiles} into a single flat panel suitable for laser cutting from planar sheet material.}
+\label{fig:tile-unfolding}
+\end{figure}
+
+\subsection{Modular Assembly}
+
+Because each tile represents exactly one of the two local topological labels of a 2-way 2-fold weave (Section~\ref{sec:topological-labeling}), any 2-way 2-fold woven pattern -- plain weave, twill, or any other pattern expressible with the notation of Gr\"unbaum and Shephard~\cite{Grunbaum80} -- can be constructed purely by translating and rotating copies of these two tile types according to the desired label assignment (Figure~\ref{fig:tile-assembly-examples}). No additional filler material or bonding matrix is required: the assembled tiles are, by construction, self-supporting and space-filling.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=5.5in]{ch03_fig03_assembled_pattern_examples.png}
+\caption[Planar slabs assembled from the two congruent tile types.]{Planar fabric slabs assembled purely by translating and rotating the two congruent tile types of Figure~\ref{fig:yinyang-tiles}: (left) plain weave, (center) twill, (right) a higher-order pattern, following the notation of Gr\"unbaum and Shephard~\cite{Grunbaum80}.}
+\label{fig:tile-assembly-examples}
+\end{figure}
+
+\section{Contributions}
+
+The paper makes four principal contributions, which we summarize here because they anchor the terminology and design pattern used throughout the remainder of this proposal:
+
+\begin{enumerate}
+\item \textbf{A parametric approach} to producing an infinite family of congruent tiles that can be used as modules to construct a planar fabric slab of arbitrary size with any given 2-way 2-fold weaving pattern.
+\item \textbf{Foldability:} every tile in this family can be unfolded into a single flat panel, enabling economical manufacture.
+\item \textbf{Modular design:} the tiles are sufficient, in combination, to realize \emph{every} possible 2-way 2-fold weaving pattern -- not just a fixed subset.
+\item \textbf{Design power:} because a single family of tiles realizes every pattern, a wide variety of mechanical behaviors can be obtained from one fabrication process simply by changing the assignment of tiles to positions, i.e., by changing the topological labeling rather than the tile geometry.
+\end{enumerate}
+
+Relaxing the strict congruence requirement further shows that any 2-way 2-fold pattern on a cylindrical slab can be realized with only three tile types, and that the same modular strategy extends (with position-dependent tile shapes) to height fields and general two-manifold surfaces -- for example, guaranteeing a plain-weave pattern on any two-manifold mesh.
+
+\section{Relation to the Proposed Framework}
+
+This modular, tile-based construction is the 2D anchor point for the volumetric generalization pursued in Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus}: replacing the cube's warp/weft partition with the partition of a 3D Wigner--Seitz cell into cell-induced topological elements (Section~\ref{sec:cell-induced}) is precisely the step that promotes this planar modularity into a volumetric design framework. The matrix-based notation for planar patterns developed in this work also foreshadows the algebraic, numerical representation of periodic designs introduced in Chapter~\ref{cha:algebraic-calculus}.

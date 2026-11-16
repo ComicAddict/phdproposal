@@ -1,0 +1,339 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  CHAPTER VII -- PROPOSED RESEARCH
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{\uppercase{Proposed Research: Manufacturing and Mechanical Characterization of Volumetric Bravais Weaves}}
+\label{cha:proposed-work}
+
+Chapters~\ref{cha:modular-planar}--\ref{cha:algebraic-calculus} establish a design-side framework: volumetric weaves, nonwovens, and interlocked structures can be represented, enumerated, and algebraically generated. This chapter proposes the remaining, physically oriented half of the dissertation: (i) manufacturing strategies that turn a designed volumetric Bravais weave into a physical, self-supporting object using additive manufacturing; (ii) a geometric characterization of printed cP-weaves that establishes a reliable method for controlling their volume fraction (porosity); (iii) a comparative compression study of woven foams against triply periodic minimal surface (TPMS) foams; and (iv) an experimental study of the mechanical behavior -- specifically, the auxetic (negative Poisson's ratio) response -- of weave-based foam structures.
+
+\section{Overview}
+
+The proposed work has four closely related components:
+\begin{enumerate}
+\item \textbf{Manufacturing volumetric Bravais weaves} using additive manufacturing, including modular scaffolds for weaving, a partitive-assembly strategy, and a proposed soluble-foam-scaffold approach (Section~\ref{sec:manufacturing}).
+\item \textbf{Geometric characterization of printed cP-weaves}, establishing a strand-radius-based method for hitting a target volume fraction (porosity) regardless of weave pattern, gap size, aspect ratio, or local configuration, and validating it against printed specimen mass (Section~\ref{sec:print-characterization}).
+\item \textbf{Comparative compression testing of woven foams against TPMS baselines}, placing the $64$ plain cP-weave foams alongside eight TPMS families printed at the same volume fraction (Section~\ref{sec:tpms-comparison}).
+\item \textbf{Mechanical characterization of weave-based structures}, in particular foam-like realizations of volumetric weaves and their compressive, auxetic response (Section~\ref{sec:mechanical}).
+\end{enumerate}
+
+\section{Manufacturing Volumetric Bravais Weaves}
+\label{sec:manufacturing}
+
+\subsection{The Finite-Design Problem}
+
+The design space developed in Chapter~\ref{cha:volumetric-bravais} is, by construction, periodic and (in principle) infinite. Any physical realization, however, is necessarily finite, so thread ends at the boundary of the fabricated domain must be resolved: since threads are not self-supporting at a free end, thread ends must be connected to one another. Any pairing of thread ends is topologically valid, but for concreteness we adopt a \emph{snake-pattern} threading convention, in which threads of the same direction are joined end-to-end in a single continuous path -- directly realizable as a unicursal (single-cycle) construction in the Hypergraph Rotation System framework of Section~\ref{sec:h-grs}.
+
+\subsection{From Single-Cycle Weaves to Modular and Partitive Weaving}
+
+A single-cycle weave, in which all threads of one direction are joined into one continuous path, gives rigidity along that direction while preserving flexibility between different thread directions -- a property well suited to fused deposition modeling (FDM) with brittle filament, since each printed thread need not be self-supporting in isolation. As the underlying cP-weave configuration becomes more complex, however, single-cycle printing requires increasing amounts of interior support material that becomes difficult or impossible to remove after printing.
+
+Two complementary manufacturing strategies address this limitation:
+
+\begin{itemize}
+\item \textbf{Modular weaving.} The cubic domain is decomposed into modular, per-cell guiding structures -- print-in-place local scaffolds through which a physical thread is subsequently woven by hand. Because a cP-weave admits chiral pairs of local configurations that cannot be obtained from one another by rigid motion alone (rotation-equivalent configurations can be generated from a base shape, but mirror-equivalent ones cannot, since mirroring is not physically realizable), exactly two distinct printed guide shapes are required, with the remaining local configurations obtained by rotating one of the two (Figure~\ref{fig:chiral-guides}). After hand-weaving, the guide structure can be dissolved or broken away, leaving only the woven thread. This strategy is flexible but manually laborious.
+\item \textbf{Partitive weaving.} Following the partitive, space-filling tile construction used for 2D weaves in prior work~\cite{krishnamurthy2021geometrically}, the cubic domain defined by a cP-weave is instead decomposed ``by thread'': each thread is printed directly as a partitive, space-filling volumetric segment (rather than guided and hand-woven), and, if printed in a compliant material, can be bent into place to complete the assembly. This preserves the weave's geometric interlocking, though the resulting structure may not fully preserve textile-like mechanical characteristics, and some manual assembly is still required.
+\end{itemize}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=4in]{ch07_fig01_chiral_guide_pair.png}
+\caption[Chiral pair of printed modular guide shapes.]{The chiral pair of printed modular guide shapes needed for modular weaving: the two shapes are mirror images of one another and cannot be obtained by rotation alone; all remaining local configurations of the cP-weave cell are obtained by rotating one of these two base shapes.}
+\label{fig:chiral-guides}
+\end{figure}
+
+\subsection{Proposed: Soluble-Foam-Scaffold Weaving}
+
+Building on the partitive idea, we propose a third strategy: rather than printing a partitive \emph{thread}, print a partitive \emph{foam} -- a water-soluble scaffold whose pore structure matches the target weave geometry. After a compliant or rigid thread material is introduced into (or grown within) the scaffold, the soluble scaffold is dissolved away, leaving the finished weave without the manual-labor burden of modular or partitive weaving. Developing and validating this scaffold-based fabrication pipeline for volumetric Bravais weaves, across the shift-parametrized ($a/b/c/d$) design space of Chapter~\ref{cha:volumetric-bravais}, is a core piece of the proposed work.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6in]{ch07_fig02_manufacturing_strategy_comparison.png}
+\caption[Comparison of the four manufacturing strategies.]{The four manufacturing strategies for volumetric Bravais weaves considered in this proposal, in increasing order of automation: (a) single-cycle snake-pattern printing, (b) modular weaving with chiral printed guides, (c) partitive weaving of space-filling thread segments, and (d) the proposed soluble-foam-scaffold approach.}
+\label{fig:manufacturing-comparison}
+\end{figure}
+
+\section{Geometric Characterization of Printed cP-Weaves}
+\label{sec:print-characterization}
+
+Whatever manufacturing strategy is used (Section~\ref{sec:manufacturing}), a printed weave specimen is ultimately a solid object with a target \emph{volume fraction} (equivalently, porosity): the fraction of the specimen's bounding volume that is occupied by printed material once the thread channels of the weave have been carved out of, or built into, that volume. Before the mechanical-characterization study of Section~\ref{sec:mechanical} can be run at scale across weave patterns, cell configurations, and domain sizes, the manufacturing pipeline needs a reliable, repeatable way to hit a chosen target volume fraction regardless of which of these design choices is made. This section describes that method -- a strand-radius search validated against printed specimen mass -- together with the planned experimental sweep across weave pattern, gap size, aspect ratio, and local cell configuration. Preliminary work toward this section has already been carried out and is summarized below; the remaining test matrix is proposed work.
+
+\subsection{Specimen Design and Test Matrix}
+\label{sec:print-char-matrix}
+
+Specimens are built from a $2\times2\times2$ array of cP-weave unit cells with a total specimen (bounding-box) volume of $1\,\mathrm{cm}^3$. Three complementary experiments are planned, each holding volume fraction (porosity) constant so that only the parameter of interest varies:
+
+\begin{enumerate}
+\item \textbf{Fixed weave pattern.} With the local weave topology held fixed, sweep gap size (two levels, small and large) crossed with aspect ratio (five levels: $8{\times}8{\times}8$, $8{\times}8{\times}4$, $16{\times}16{\times}4$, $16{\times}16{\times}8$, $24{\times}24{\times}8$), to isolate the effect of specimen proportions and gap size from pattern topology.
+\item \textbf{Across weave patterns.} Compare plain, twill, and satin weave patterns within the cP-weave family, sweeping gap size (small, large) at a fixed aspect ratio of $16{\times}16{\times}4$, to isolate the effect of weave-pattern topology at matched porosity, gap size, and proportions.
+\item \textbf{Across local cell configurations.} With gap size and aspect ratio both held fixed, vary the local cell configuration (i.e., the specific $a/b/c/d$-parametrized cP-weave shift configuration being printed), to check that the volume-fraction control method of Section~\ref{sec:print-char-vf} generalizes across the design space of Chapter~\ref{cha:volumetric-bravais} rather than being tuned to a single configuration.
+\end{enumerate}
+
+A fourth, complementary study examines the effect of \emph{specimen scale} on realized porosity: the same pattern is printed at multiple physical scales while targeting the same volume fraction, to check that the volume-fraction control method (Section~\ref{sec:print-char-vf}) is scale-invariant rather than tuned to one unit-cell size.
+
+\subsection{Volume-Fraction Control via Strand Radius}
+\label{sec:print-char-vf}
+
+For a given weave pattern, the printed material occupies the region within a fixed radius $r$ of each thread's centerline; increasing $r$ increases the printed (solid) volume fraction $\mathrm{vf}$ of the specimen, while decreasing $r$ opens up larger channels and lowers $\mathrm{vf}$. The maximum admissible radius is governed by two geometric parameters of the weave construction, the \emph{weave offset} ($\mathrm{wo}$) and \emph{weave depth} ($\mathrm{wd}$): for a $4\,\mathrm{mm}$ unit cell tiled $4\times4\times4$ (a $16\,\mathrm{mm}$ block) with the plain $1\_1\_1\_1$ configuration, $\mathrm{wo} = 1.4603\,\mathrm{mm}$ and $\mathrm{wd} = 0.0952\,\mathrm{mm}$, giving an upper bound on $r$ of roughly $0.5$--$0.6\,\mathrm{mm}$ (bounded above by half the unit-cell size, $2\,\mathrm{mm}$, less a $0.4\,\mathrm{mm}$ clearance).
+
+In practice, this purely geometric maximum is not the binding constraint: sub-millimeter features below the printer's effective resolution are not reliably captured by the print, which narrows the feasible radius range to
+\[
+r = 0.65\,\mathrm{mm} \;\Rightarrow\; \mathrm{vf} = 0.6640, \qquad r = 0.01\,\mathrm{mm} \;\Rightarrow\; \mathrm{vf} = 0.9999,
+\]
+so that achievable volume fractions for this configuration lie in approximately $[0.67, 1.0]$. Guided by this range, we target $\mathrm{vf} = 0.8$ for the specimens in Section~\ref{sec:print-char-matrix}, found by a bisection search on $r$ (iterated to a tolerance of $0.001$ in $\mathrm{vf}$) rather than a closed-form inversion, since this level of precision is what lets the predicted and actual printed material mass be controlled tightly.
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=\textwidth]{ch07_fig03a_wo_wd_geometry_diagram.png}
+\caption{Weave offset ($\mathrm{wo}$), weave depth ($\mathrm{wd}$), and strand radius ($r$) on a single unit cell.}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=\textwidth]{ch07_fig03b_radius_vs_volume_fraction_curve.png}
+\caption{Volume fraction $\mathrm{vf}$ as a function of strand radius $r$, with the feasible printable range and the $\mathrm{vf}=0.8$ target marked.}
+\end{subfigure}
+\caption[Geometric parameters and the radius/volume-fraction relationship.]{(a) The geometric parameters $\mathrm{wo}$, $\mathrm{wd}$, and $r$ used to control a printed cP-weave's volume fraction, and (b) the resulting relationship between strand radius and volume fraction for the $1\_1\_1\_1$ plain configuration, used by the bisection search of Section~\ref{sec:print-char-vf}.}
+\label{fig:wo-wd-vf-curve}
+\end{figure}
+
+\subsection{Validation Against Printed Mass}
+\label{sec:print-char-mass}
+
+As an independent check on the target volume fraction, we compare the mass predicted from $\mathrm{vf}$ against the mass reported by the slicer for the actual printed geometry. A fully solid $16\,\mathrm{mm}^3$ reference cube requires approximately $5.35\,\mathrm{g}$ of material (per the slicer), so a specimen at the target $\mathrm{vf}=0.8$ should require approximately $4.28\,\mathrm{g}$. Table~\ref{tab:print-mass} reports the slicer-estimated mass for four printed $a/b/c/d$ shift configurations at the same target volume fraction, together with the volume fraction implied by that mass (mass $\div\ 5.35\,\mathrm{g}$); Figure~\ref{fig:printed-abcd-specimens} shows the four printed specimens used for this comparison.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6in]{ch07_fig04_printed_abcd_specimens.png}
+\caption[Printed specimens for the four $a/b/c/d$ shift configurations.]{The four printed $a/b/c/d$ shift-configuration specimens ($1\_1\_1\_1$, $2\_1\_1\_1$, $2\_2\_1\_1$, $3\_1\_1\_1$) used for the mass-based volume-fraction validation of Table~\ref{tab:print-mass}, each targeting $\mathrm{vf}=0.8$ at a $16\,\mathrm{mm}^3$ bounding-box size.}
+\label{fig:printed-abcd-specimens}
+\end{figure}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Configuration} & \textbf{Slicer Mass} & \textbf{Implied vf (mass-based)} \\ \hline
+$1\_1\_1\_1$ & 4.37\,g & 0.817 \\ \hline
+$2\_1\_1\_1$ & 4.33\,g & 0.81--0.82 \\ \hline
+$2\_2\_1\_1$ & 4.32\,g & $\approx 0.81$ \\ \hline
+$3\_1\_1\_1$ & 4.33\,g & $\approx 0.81$ \\ \hline
+\end{tabular}
+\caption{Slicer-reported mass and mass-implied volume fraction for four printed $a/b/c/d$ shift configurations, all targeting $\mathrm{vf}=0.8$ (predicted mass $\approx 4.28\,$g for a $16\,\mathrm{mm}^3$ bounding block).}
+\label{tab:print-mass}
+\end{table}
+
+Two observations follow from Table~\ref{tab:print-mass}. First, the mass-based volume-fraction estimates are systematically a few percentage points above the geometric target ($\approx 0.81$--$0.82$ vs.\ a target of $0.80$); we attribute this offset to nozzle-diameter effects that slightly widen printed features relative to the nominal geometry, which makes mass-based validation informative but not fully reliable as an absolute measurement. Second, and more importantly for the experiments of Section~\ref{sec:print-char-matrix}, the four configurations agree with one another to within about $\pm 0.002$ in implied volume fraction. Since the radius search of Section~\ref{sec:print-char-vf} was performed independently for each configuration, this agreement indicates that the method delivers a consistent, predictable volume fraction \emph{regardless of which local cell configuration is printed} -- precisely the property needed to isolate pattern, gap-size, and aspect-ratio effects at constant porosity in the planned test matrix.
+
+\subsection{Strand-Radius Feasibility from Minimum Inter-Strand Clearance}
+\label{sec:print-char-clearance}
+
+More generally, for a chosen pair of geometric parameters $(\mathrm{wo}, \mathrm{wd})$, the maximal admissible strand radius is determined computationally: for every point along a given strand, we compute its distance to every other strand in the construction, and take the minimum such distance over the whole assembly as the ceiling on $r$ (beyond this radius, neighboring strands would merge or self-intersect) (Figure~\ref{fig:clearance-method}a). As a worked example, for $2\times2\times2$ plain local patterns tiled onto a $4\times4\times4$ domain, this procedure yields a \emph{single} radius value that achieves an $80\%$ volume fraction consistently across every plain-pattern arrangement -- because, regardless of how the two plain local configurations are assigned to the cells of the domain, every individual strand has the same geometry and therefore the same volume within its unit cell. There are $64$ distinct $2\times2\times2$ plain-pattern arrangements (shapes) for which this consistency was checked (Figure~\ref{fig:clearance-method}b).
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.46\textwidth}
+\centering
+\includegraphics[width=\textwidth]{ch07_fig05a_min_interstrand_clearance.png}
+\caption{Minimum inter-strand clearance computed along one strand, setting the ceiling on $r$.}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.50\textwidth}
+\centering
+\includegraphics[width=\textwidth]{ch07_fig05b_64_plain_pattern_shapes.png}
+\caption{A sample of the $64$ distinct $2\times2\times2$ plain-pattern arrangements sharing one consistent radius/volume fraction.}
+\end{subfigure}
+\caption[Strand-radius feasibility from inter-strand clearance.]{(a) The minimum-distance method for determining the maximal admissible strand radius for a given $(\mathrm{wo},\mathrm{wd})$ pair, and (b) a sample of the $64$ distinct $2\times2\times2$ plain-pattern arrangements on a $4\times4\times4$ domain, all of which share the same $80\%$-volume-fraction radius.}
+\label{fig:clearance-method}
+\end{figure}
+
+\section{Comparative Compression Testing: Woven Foams Against TPMS Baselines}
+\label{sec:tpms-comparison}
+
+The geometric characterization of Section~\ref{sec:print-characterization} lets us print a volumetric weave as a \emph{foam}: a solid cube with the weave's thread channels as its internal, negative-volume pattern, at a controlled volume fraction. Triply periodic minimal surfaces (TPMS) are the standard family of architected foams that such a structure has to be measured against: like a volumetric Bravais weave, a TPMS foam is triply periodic and is defined by a compact implicit description, and TPMS lattices are widely used in lightweight and energy-absorbing parts~\cite{schoen1970infinite}. We therefore propose a comparative compression study that asks three questions:
+\begin{enumerate}
+\item \textbf{Per pattern:} how stiff is each woven foam, where does it plateau, when does it densify, and how much energy does it absorb?
+\item \textbf{Across the design space:} what range of mechanical response does the woven-foam design space reach, how does it compare with the range reached by the TPMS families, and how much of the spread is pattern-to-pattern rather than replicate-to-replicate scatter?
+\item \textbf{What drives it:} which design parameters (the weave's pattern code) and which manufacturing parameters (print batch, build-plate position, print and test dates) correlate with the measured properties once the others are held fixed?
+\end{enumerate}
+
+\subsection{Specimen Sets}
+\label{sec:tpms-specimens}
+
+Two specimen sets are printed under the same conditions: $16\,\mathrm{mm}$ PLA cubes at the target volume fraction of $0.8$ set by the strand-radius search of Section~\ref{sec:print-char-vf}.
+
+\begin{itemize}
+\item \textbf{Woven foams.} All $64$ plain cP-weave arrangements of a $2\times2\times2$ pattern on a $4\times4\times4$ domain (Section~\ref{sec:print-char-clearance}), identified by a three-digit pattern code with each digit treated as a separate design parameter. Because every plain-weave strand has the same geometry, the $64$ specimens share one radius and one volume fraction, so they differ \emph{only} in how the local configurations are arranged -- the property the comparison is meant to isolate.
+\item \textbf{TPMS baselines.} Eight TPMS families -- gyroid, Schwarz~P, Schwarz~D, Schwarz~F-RD, Schoen~I-WP, Fischer--Koch~S, Lidinoid, and split~P -- each printed at eight scales of its defining function ($64$ specimens). Changing the scale makes the features larger or smaller at a fixed volume fraction, so each family spans a range of feature sizes rather than being represented by a single, arbitrarily scaled specimen.
+\end{itemize}
+
+Print batch, build-plate position, and print and test dates are recorded for every specimen. Where possible, the specimens of each class are spread across batches, days, and plate positions, so that a manufacturing effect cannot be mistaken for a pattern effect (for example, a TPMS family printed entirely in one patch of the bed would make bed position and family indistinguishable).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6in]{ch07_fig09_woven_vs_tpms_specimen_sets.png}
+\caption[Woven-foam and TPMS-baseline specimen sets.]{The two specimen sets of the comparative study: (top) representative woven foams from the $64$ plain cP-weave pattern codes, and (bottom) the eight TPMS baseline families -- gyroid, Schwarz~P, Schwarz~D, Schwarz~F-RD, Schoen~I-WP, Fischer--Koch~S, Lidinoid, and split~P -- shown at one of their eight scales. All specimens are $16\,\mathrm{mm}$ PLA cubes at a volume fraction of $0.8$.}
+\label{fig:tpms-specimen-sets}
+\end{figure}
+
+\subsection{Testing and Data Processing}
+\label{sec:tpms-processing}
+
+Each cube is loaded in uniaxial compression on a 10~kN universal testing frame (the same frame as the auxetic study of Section~\ref{sec:mechanical}), set to stop at $9.5\,\mathrm{kN}$. Raw force--displacement exports are processed by an open-source analysis pipeline written for this study~\cite{companal2026}, which performs the following steps before any metric is computed:
+\begin{itemize}
+\item the instrument's header is located by scanning rather than a fixed line offset, and the units row is validated (a silent kN-to-N change would rescale every result);
+\item the load cell's pre-contact tare is measured and subtracted, and the contact point is taken as the first sample that rises above a threshold and stays above it, so that seating slack is removed without being triggered by noise;
+\item duplicate exports of the same test are detected by hashing the parsed data rather than the file, so that one test is never counted twice as two replicates;
+\item tests that end against the load limit are flagged as \emph{truncated}, and any quantity that depends on the unmeasured part of the curve is recorded as a lower bound rather than a value.
+\end{itemize}
+Because the displacement channel is crosshead travel, measured stiffness includes the frame's compliance; this does not change the ranking of specimens of one size, and an absolute modulus requires a separate frame-compliance measurement, which we plan to make.
+
+\subsection{Metrics}
+\label{sec:tpms-metrics}
+
+From each engineering stress--strain curve we extract the standard cellular-solid metrics~\cite{gibson1997cellular,iso13314}:
+\begin{itemize}
+\item \textbf{Young's modulus}, from a sliding-window linear fit at low strain, choosing the steepest of the windows statistically tied for best fit (the highest-$R^2$ window alone can select a straight plateau instead of the elastic region);
+\item \textbf{plateau stress}, the mean stress over a fixed strain window, reported only when the test covers that window;
+\item \textbf{densification strain}, by the energy-efficiency criterion -- the strain that maximizes
+\[
+\eta(\varepsilon) = \frac{1}{\sigma(\varepsilon)}\int_0^{\varepsilon}\sigma\,d\varepsilon
+\]
+-- with the tangent-modulus and ISO~13314 criteria as cross-checks;
+\item \textbf{energy absorption} $W = \int_0^{\varepsilon_D}\sigma\,d\varepsilon$ and \textbf{specific energy absorption} (SEA, per unit mass when specimens are weighed);
+\item \textbf{first peak and crush force}, counting a peak only when the stress then drops by a real margin;
+\item \textbf{fixed-strain metrics} -- stress and absorbed energy at $10\%$ and $20\%$ strain -- which remain complete measurements for every test that reaches those strains, and so give a fair comparison even when a test is truncated by the load limit.
+\end{itemize}
+
+\subsection{Analysis}
+\label{sec:tpms-analysis}
+
+The woven-foam set and the TPMS set are compared at three levels:
+
+\begin{enumerate}
+\item \textbf{Stress--strain envelopes.} All curves are resampled onto a common strain grid. For each class (the woven foams, and each TPMS family) we plot the range, middle $50\%$, and median curve, with the woven-foam median and middle $50\%$ repeated in every TPMS panel so that each baseline reads directly against the woven foams. The woven foams are also split by each digit of the pattern code, to see which parts of the code move the response (Figure~\ref{fig:tpms-envelopes}).
+\item \textbf{Property space.} Pairs of metrics (e.g., modulus against plateau stress, or plateau stress against absorbed energy) are plotted with one point per test and each class's median marked, showing which region of property space each class reaches and whether the woven foams occupy a region that no TPMS family covers.
+\item \textbf{Parameter--property statistics.} Every design and manufacturing parameter is tested against every property using Spearman rank correlation (cellular-solid properties follow power laws, which rank correlation captures without assuming linearity), with Benjamini--Hochberg false-discovery-rate control across the many parameter--property pairs~\cite{benjamini1995fdr}. Partial correlations, with the other parameters held fixed, separate genuine effects from effects borrowed from a correlated parameter; variance inflation factors and pairwise association measures flag parameters that cannot be separated in the data. Categorical factors (TPMS family, print batch) are tested with Kruskal--Wallis and, holding the other parameters fixed, with Quade's rank analysis of covariance~\cite{quade1967rank}. Gibson--Ashby scaling exponents against relative density~\cite{gibson1997cellular} indicate whether a class behaves as a bending-dominated or a stretch-dominated architecture.
+\end{enumerate}
+
+Finally, because each TPMS family is printed at eight scales, we will ask \emph{which scale of each family behaves most like the woven foams}. Each TPMS specimen's properties are expressed as robust $z$-scores against the woven-foam distribution (median and median absolute deviation), and its curve shape is compared with the woven-foam median curve after normalizing by stress at $10\%$ strain. The distance is fitted as a smooth function of scale and minimized, with a bootstrap over both specimen sets giving an interval on the best-matching scale. The mechanical answer is then checked against the range of scales that are \emph{geometrically} comparable to the woven foams (similar numbers of holes through the cube): agreement between the two would mean that a TPMS family that looks like the woven foams also behaves like them, and disagreement would point to an effect of the woven topology itself (Figure~\ref{fig:tpms-scale-match}).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6in]{ch07_fig10_class_stress_strain_envelopes.png}
+\caption[Class stress--strain envelopes, woven foams against TPMS families.]{Planned stress--strain envelope figure: one panel per class (each TPMS family), showing that class's range, middle $50\%$, and median curve, with the woven-foam median and middle $50\%$ repeated in grey in every panel for direct comparison. The load-limit stress is marked as a dashed line.}
+\label{fig:tpms-envelopes}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6in]{ch07_fig11_tpms_scale_matching.png}
+\caption[Matching TPMS scale to the woven-foam response.]{Planned scale-matching figure: each property against TPMS scale, one line per family, with the woven-foam median and middle $50\%$ as a grey band, the geometrically comparable range of scales shaded, and the best-matching scale marked.}
+\label{fig:tpms-scale-match}
+\end{figure}
+
+\subsection{Expected Outcome}
+
+This study will place the woven foams within the established landscape of architected cellular materials: it will show whether the arrangement of local configurations alone -- at fixed strand geometry and fixed volume fraction -- produces a mechanical spread comparable to the one obtained by switching between TPMS families, and where in property space the woven foams sit relative to them. Together with the auxetic study of Section~\ref{sec:mechanical}, it provides the measurements needed for the design-to-property mapping proposed in Section~\ref{sec:remaining-work}.
+
+\section{Mechanical Characterization: Auxetic Behavior of Weave-Based Foams}
+\label{sec:mechanical}
+
+\subsection{Motivation and Prior Work}
+
+Preliminary foam-based realizations of volumetric Bravais weaves exhibit visually apparent \emph{re-entrant} features within the pore structure of the foam -- geometric motifs long associated with auxetic (negative Poisson's ratio) mechanical behavior in cellular solids and architected foams~\cite{liu2021foam,abtew2020auxetic,li2021auxetic}. This observation motivates a systematic experimental study of whether, and to what extent, the shift-parametrized weave design space of Chapter~\ref{cha:volumetric-bravais} can be used to tune auxetic response.
+
+\subsection{Hypotheses}
+
+\begin{itemize}
+\item \textbf{H1 (Geometry-driven auxeticity).} The re-entrant motifs observed in weave-derived foam structures will exhibit a negative Poisson's ratio under compression, indicating auxetic behavior.
+\item \textbf{H2 (Material influence).} A compliant material (TPU) will amplify the auxetic response relative to a brittle material (PLA), owing to its capacity for larger elastic deformation prior to yielding.
+\end{itemize}
+
+\subsection{Experimental Methodology}
+
+\textbf{Design and fabrication.} Foam geometries will be generated directly from the $a/b/c/d$ shift parameters of the cP-weave design space (Section~\ref{sec:cp-weaves}), alongside non-re-entrant baseline (control) foam geometries. Two geometric control conditions will be used to isolate the effect of the weave pattern itself from confounding geometric factors: constant wall thickness across designs, and constant volume ratio across designs. All geometries will be fabricated by additive manufacturing in both PLA (brittle) and TPU (compliant).
+
+\textbf{Mechanical testing.} Specimens will be tested in uniaxial compression on a 10~kN testing machine at a controlled loading rate (1~mm/min), recording force--displacement data (Figure~\ref{fig:test-setup}).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=4in]{ch07_fig06_compression_test_setup.png}
+\caption[Uniaxial compression test setup.]{Uniaxial compression test setup: a weave-derived foam specimen is placed between the top and bottom compression plates of the 10~kN testing machine and loaded at a controlled rate of 1~mm/min.}
+\label{fig:test-setup}
+\end{figure}
+
+\textbf{Data analysis.} From the force--displacement data, converted to stress--strain, we will extract the elastic modulus, plateau stress, and energy absorbed up to densification (via numerical integration of the stress--strain curve), and estimate Poisson's ratio from lateral strain measured via image analysis / digital image correlation (DIC). Key indicators of auxetic behavior include a negative Poisson's ratio ($\nu < 0$), increased energy absorption relative to non-auxetic controls, and an S-shaped or delayed densification region in the stress--strain curve.
+
+\subsection{Experimental Design}
+
+Table~\ref{tab:test-matrix} summarizes the planned $2\times2$ test matrix (geometry control $\times$ material), each condition repeated for at least three samples to support statistical comparison.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Geometry Control} & \textbf{Material} & \textbf{Expected Behavior} \\ \hline
+Constant wall thickness & PLA & Brittle deformation, possible early fracture \\ \hline
+Constant wall thickness & TPU & Pronounced elastic recovery \\ \hline
+Constant volume ratio & PLA & Reduced densification stress \\ \hline
+Constant volume ratio & TPU & Enhanced recoverability, possible auxetic response \\ \hline
+\end{tabular}
+\caption{Planned test matrix: four conditions (geometry control $\times$ material), each replicated $\geq 3$ times.}
+\label{tab:test-matrix}
+\end{table}
+
+Table~\ref{tab:expected-results} summarizes the qualitative predictions used to evaluate H1 and H2.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Metric} & \textbf{Auxetic (re-entrant)} & \textbf{Non-auxetic (control)} \\ \hline
+Poisson's ratio & Negative & Positive \\ \hline
+Energy absorption & Higher & Lower \\ \hline
+Plateau stress & More gradual & Sharper \\ \hline
+Lateral strain behavior & Expansion under compression & Contraction under compression \\ \hline
+\end{tabular}
+\caption{Expected qualitative differences between auxetic (weave-derived) and non-auxetic (control) foam structures under compression.}
+\label{tab:expected-results}
+\end{table}
+
+\subsection{Design Constraints}
+
+Specimen and test geometry are constrained by the testing apparatus and printer resolution: a compression-plate radius of 56~mm; a specimen domain size of 30~mm (space diagonal 42~mm); a printing resolution and minimum wall thickness of 0.4~mm; and a minimum volume ratio of 20\%. Within these constraints, a $6\times6\times6$ cP-weave domain provides sufficient design freedom to realize a meaningful range of the $a/b/c/d$ shift-parameter space while respecting minimum wall-thickness and printability limits.
+
+\subsection{Preliminary Results}
+
+Six weave-foam designs and three control (non-re-entrant) shapes have been manufactured in both PLA and TPU, all at a constant volume ratio of 35\% and matched periodicity across shapes (Figure~\ref{fig:printed-foam-specimens}), and preliminary uniaxial compression tests have been performed, yielding force--displacement data for each condition (Figure~\ref{fig:force-displacement-prelim}). Initial comparisons across pattern families indicate that gyroid- and cubic-pattern weave-derived foams exhibit higher energy-absorbing characteristics than the tested controls, consistent with hypothesis H1; a full statistical analysis across all replicates, materials, and geometry-control conditions, together with Poisson's-ratio estimation via image analysis, remains to be completed as part of the proposed work (see Chapter~\ref{cha:summary} for the completion timeline).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6in]{ch07_fig07_printed_foam_specimens_pla_tpu.png}
+\caption[Manufactured weave-foam specimens.]{The six weave-foam designs and three non-re-entrant control shapes manufactured in PLA and TPU at a constant $35\%$ volume ratio for preliminary compression testing.}
+\label{fig:printed-foam-specimens}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6in]{ch07_fig08_preliminary_force_displacement_curves.png}
+\caption[Preliminary force--displacement curves.]{Preliminary force--displacement curves from uniaxial compression testing of the specimens in Figure~\ref{fig:printed-foam-specimens}; gyroid- and cubic-pattern weave-derived foams show higher energy absorption (area under the curve) than the tested non-auxetic controls.}
+\label{fig:force-displacement-prelim}
+\end{figure}
+
+\section{Remaining Proposed Work}
+\label{sec:remaining-work}
+
+To complete this chapter's program, the following tasks are proposed:
+\begin{enumerate}
+\item Complete the manufacturing pipeline for soluble-foam-scaffold weaving (Section~\ref{sec:manufacturing}) and validate it across a broader region of the $a/b/c/d$ design space, and extend local-configuration enumeration to the remaining Wigner--Seitz cell types (hP, cF, oF, cI) begun in Chapter~\ref{cha:volumetric-bravais}.
+\item Execute the full geometric-characterization test matrix of Section~\ref{sec:print-char-matrix} -- fixed-pattern gap-size/aspect-ratio sweep, cross-pattern (plain/twill/satin) sweep, cross-configuration sweep, and the scale-invariance study -- and extend the strand-radius/mass-validation method of Sections~\ref{sec:print-char-vf}--\ref{sec:print-char-mass} to weave patterns beyond plain (twill, satin) and, eventually, to the non-cP Wigner--Seitz cell types.
+\item Print and test the $64$ woven foams and the $64$ TPMS baselines of Section~\ref{sec:tpms-comparison}, with print batches, dates, and build-plate positions spread across classes; weigh every specimen (for SEA per unit mass and a measured relative density); measure the frame's compliance for absolute moduli; and run the envelope, property-space, parameter--property, and scale-matching analyses.
+\item Complete the full compression-test matrix (Table~\ref{tab:test-matrix}) with $\geq 3$ replicates per condition, including Poisson's-ratio estimation via digital image correlation.
+\item Statistically evaluate hypotheses H1 and H2, and relate the resulting mechanical metrics (elastic modulus, plateau stress, energy absorption, Poisson's ratio) back to the $a/b/c/d$ shift parameters and the controlled volume fraction from Section~\ref{sec:print-characterization} that generated each tested geometry, in order to establish a design-to-property mapping for volumetric-weave-derived foams.
+\item Synthesize the manufacturing, geometric-characterization, TPMS-comparison, and mechanical-characterization results with the design-space contributions of Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus} into the dissertation's concluding framework.
+\end{enumerate}

@@ -1,0 +1,79 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  CHAPTER I -- INTRODUCTION AND LITERATURE REVIEW
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{plain} % No headers, just page numbers
+\pagenumbering{arabic} % Arabic numerals
+\setcounter{page}{1}
+
+\chapter{\uppercase{Introduction and Literature Review}}
+\label{cha:introduction}
+
+\section{Weaving as a Structural Principle}
+\label{sec:motivation}
+
+Weaving is one of humanity's oldest activities: the creation of ordered, repeating structures by interlacing threads or filaments. Woven objects exemplify a principle that recurs throughout materials science -- the whole is greater than the sum of its parts -- because the resulting fabric exhibits mechanical and functional properties that are not present in any individual thread. This principle underlies the use of weaves across an enormous range of scales and applications: from everyday woven carpets and baskets, to fiber-reinforced woven composites used in aerospace and automotive structures, to emerging three-dimensional (3D) woven wearables that must conform to and move with the human body. Related interlacement principles also appear in mail and chain-link structures, where rings rather than threads are mechanically interlocked (polycatenated) to form flexible, load-bearing sheets, and in nature, where woven-like arrangements are observed in elastic biological tissues such as collagen and cellular membranes (Figure~\ref{fig:motivation-montage}).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=5.5in]{ch01_fig01_motivation_montage.png}
+\caption[Weaving across scales and applications.]{Weaving as a structural principle across scales and applications: (a) a woven carpet, (b) a fiber-reinforced woven composite panel, (c) a 3D woven wearable, and (d) polycatenated chainmail. In each case the assembled structure exhibits mechanical or functional properties -- flexibility, load-bearing capacity, or conformability -- that are not present in any individual thread or ring.}
+\label{fig:motivation-montage}
+\end{figure}
+
+Traditional woven fabrics are anisotropic: their strength manifests primarily along the directions in which the threads are laid, which is sufficient when threads are confined to a plane. Extending the value of textiles into industrial and engineering applications -- which typically require strength and functional behavior in more than two directions -- has pushed textile and materials engineers toward three-dimensional (volumetric) woven structures. From a manufacturing standpoint, the most direct route to a volumetric weave has been to build planar layers and connect them with straight through-thickness threads, effectively stacking 2D weaves along a third axis. While this approach is manufacturable, it does not provide a systematic account of \emph{what} volumetric weaves are possible, nor how their local thread configurations relate to global structure and symmetry. This dissertation addresses that gap: starting from a single thread and a small set of local configurations, it develops a framework that connects modularity, algebra, and lattice symmetry into a unified account of volumetric weaving.
+
+\section{Manufacturing, Analysis, and the Systematic-Design Challenge}
+\label{sec:challenge}
+
+Work on volumetric weaves spans several complementary perspectives:
+
+\begin{itemize}
+\item \textbf{Manufacturing.} Realizing a volumetric weave requires machine instructions -- for automated fiber placement, braiding, or, as pursued in this proposal, additive manufacturing -- that are compatible with the topology of the intended structure.
+\item \textbf{Material analysis.} Once fabricated, a woven structure's behavior is studied through computational structural analysis (e.g., finite-element or homogenization models) and physical characterization (e.g., mechanical testing).
+\item \textbf{Mathematical analysis.} Independently of any specific material realization, woven structures can be analyzed combinatorially and topologically, for example through projective-knot analysis and the enumeration of admissible symmetries.
+\end{itemize}
+
+Across all three perspectives, the central open challenge is \emph{systematic design}: the ability to (i) organize known and novel structures into a taxonomy, (ii) identify meaningful subclasses within that taxonomy, and (iii) define a formal design space that can be explored and enumerated rather than discovered by ad hoc construction. For planar weaves, this systematic view has existed since the 1980s. For volumetric weaves, it has not.
+
+\section{Related Work and the Knowledge Gap}
+\label{sec:related-work}
+
+The mathematical study of woven structures originates with Gr\"unbaum and Shephard, who classified planar (isonemal) fabrics with respect to symmetry using tools from combinatorics and group theory~\cite{Grunbaum80,Grunbaum85,Grunbaum86,grunbaum1988isonemal}. This line of work established that a planar weave's local structure -- which thread passes over or under another at each crossing -- can be encoded compactly and then classified using the symmetry group of the resulting pattern. Related \emph{topological-labeling} strategies have since been used productively across computer graphics and computational fabrication: for cyclic twill-woven meshes on arbitrary surfaces~\cite{akleman2011cyclic}, for interactive design and simulation of 3D weaves through user-specified crossing patterns~\cite{wu2020weavecraft}, and for knit-purl grids that generalize stitch-level labeling to knitted structures~\cite{niu2024knitting}. Geometrically interlocking, space-filling tile constructions have also been used to realize bi-axial weaving patterns as physical, self-supporting tilings~\cite{krishnamurthy2020bi,krishnamurthy2021geometrically}.
+
+Despite this progress, the extension of these ideas to volumetric weaves remains incomplete. Existing treatments of 3D entanglement -- for instance, periodic entanglements derived from hyperbolic reticulations and hyperbolic line patterns embedded in triply periodic surfaces~\cite{evans2013periodiceentanglement1,evans2013periodiceentanglement2} -- provide rich families of periodic 3D structures, but they parametrize an entanglement through a single global embedding rather than through independently assignable \emph{local} thread configurations, and they are not formulated as a design space that can be systematically enumerated. Likewise, more recent efforts pointed to in the preliminary examination materials for this proposal~\cite{liu2018knowledgegap,andriamanalina2025} continue to highlight the same knowledge gap from the perspective of representation and formal design spaces. Taken together, the literature reveals three specific missing pieces that this dissertation targets:
+
+\begin{enumerate}
+\item \textbf{Representation:} a modular formalization of volumetric weaves that assigns a local, topological label to each unit cell of a 3D tessellation, analogous to the crossing labels used for planar weaves.
+\item \textbf{Dimension independence:} a definition of ``weave'' that does not presuppose planarity, so that the same conceptual machinery applies uniformly in two and three dimensions (and, ultimately, to related linked and interlocked structures such as chainmail and catenanes).
+\item \textbf{Algebraic configuration space:} a symbolic/algebraic way of generating and relating whole families of volumetric weaves, rather than requiring every large design to be specified configuration-by-configuration.
+\end{enumerate}
+
+Figure~\ref{fig:knowledge-gap} summarizes these three gaps and previews which chapter of this proposal addresses each one.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=5in]{ch01_fig02_knowledge_gap_schematic.png}
+\caption[The three-part knowledge gap addressed by this dissertation.]{The three-part knowledge gap identified in Section~\ref{sec:related-work} -- representation, dimension independence, and an algebraic configuration space -- and the chapters of this proposal that address each one.}
+\label{fig:knowledge-gap}
+\end{figure}
+
+\section{Research Goal}
+\label{sec:goal}
+
+The goal of this dissertation is to develop a design space for volumetric weaves that is:
+
+\begin{itemize}
+\item \textbf{dimension independent}, so that the same formalism specializes to known planar weaves and generalizes to volumetric weaves, links, and related interlocked structures;
+\item \textbf{defined through local topology}, so that a volumetric weave is specified by assigning a small, enumerable set of local configurations to the cells of an underlying tessellation; and
+\item \textbf{systematically explorable}, so that the resulting design space supports enumeration, classification, and algebraic manipulation, rather than only ad hoc construction.
+\end{itemize}
+
+\section{Organization of This Proposal}
+\label{sec:organization}
+
+Chapter~\ref{cha:preliminaries} introduces the conceptual preliminaries -- topological labeling and cell-induced topological elements -- through the simplest case of 2-way 2-fold planar weaves. Chapters~\ref{cha:modular-planar}--\ref{cha:algebraic-calculus} summarize completed research, organized around the manuscripts produced during the course of this dissertation: modular construction of planar bi-axial weaves from congruent tiles (Chapter~\ref{cha:modular-planar}); the lattice-based definition, enumeration, and classification of volumetric Bravais weaves, with cubic primitive (cP) weaves as the principal worked example (Chapter~\ref{cha:volumetric-bravais}); an algebraic framework for volumetric nonwoven textiles that extends these ideas to structures not restricted by the over--under interlacing rule (Chapter~\ref{cha:nonwoven}); and, moving toward a more general algebraic design calculus, a shift- and $p$-adic-inspired parametrization of periodic weave designs together with a unifying combinatorial model (hypergraph rotation systems) for links, knots, weaves, and chainmail, including an application to primal--dual polycatenanes (Chapter~\ref{cha:algebraic-calculus}). Chapter~\ref{cha:proposed-work} presents the proposed work: additive-manufacturing strategies for physically realizing volumetric Bravais weaves, and an experimental plan to characterize the mechanical (in particular, auxetic) behavior of weave-based foam structures. Chapter~\ref{cha:summary} summarizes anticipated contributions and gives a timeline to completion.
+
+As a related but ancillary line of work, methods for embedding optical channels directly into 3D-printed objects using Voronoi-based segmentation were also developed during this dissertation~\cite{deshpande2025optical}; while not part of the core weave-design narrative, this project shares its computational-fabrication methodology and is noted here for completeness (see Chapter~\ref{cha:proposed-work}, footnote discussion, and the Contributors and Funding Sources section).

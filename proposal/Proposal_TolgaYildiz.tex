@@ -1,0 +1,138 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  PhD Proposal (Preliminary Examination Document)
+%  Built on the TAMU Thesis/Dissertation LaTeX Template
+%  (New template code for TAMU Theses and Dissertations,
+%   Spring 2021 revision, provided by the Thesis Office).
+%
+%  Author: Tolga Yildiz
+%  Department of Computer Science & Engineering
+%  Texas A&M University
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{report}
+
+% NOTE (figure placeholders): the "demo" option below makes every
+% \includegraphics draw a plain black placeholder box of the requested
+% size instead of loading a real image file. This is intentional for now:
+% none of the figures referenced in Chapters I-VIII and the appendices
+% exist yet as image files, and this option lets the document compile
+% cleanly (no "File not found" errors) while every figure's intended
+% position, size, and caption are already in place. TODO: once you have
+% the real images (drop them into graphic/, following the filenames
+% already used in each \includegraphics call), remove this line -- the
+% plain \usepackage{graphicx} call below is unaffected and will then
+% load the real figures normally. It must be passed here, before
+% tamuconfig, because tamuconfig loads graphicx indirectly (via the
+% "rotating" package) -- loading it later with different options would
+% otherwise raise a "Option clash for package graphicx" error.
+\PassOptionsToPackage{demo}{graphicx}
+
+\usepackage{tamuconfig}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+
+%This package allows for the use of graphics in the document.
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.png,.jpg,.pdf}
+
+\graphicspath{ {./graphic/} }
+
+% For quick document navigation.
+\usepackage[hidelinks]{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Begin student defined packages.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%End student defined packages.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% End preamble. Document begins below.
+
+\begin{document}
+
+%The title of your document goes here.
+\renewcommand{\tamumanuscripttitle}{Volumetric Weaves: Design, Manufacturing, and Application}
+
+%Type only Thesis, Dissertation, or Record of Study.
+%NOTE: A Preliminary Examination Proposal is not one of the Thesis Office's
+%three official binding categories; "Dissertation Proposal" is used here
+%so the title page reads correctly for committee/departmental submission.
+%Replace with whichever wording your department/OGAPS requires.
+\renewcommand{\tamupapertype}{Dissertation Proposal}
+
+%Your full name goes here, as it is in university records.
+\renewcommand{\tamufullname}{Tolga Talha Yildiz}
+
+%The degree title goes here.
+\renewcommand{\tamudegree}{Doctor of Philosophy}
+\renewcommand{\tamuchairone}{Ergun Akleman}
+
+% Co-Chair of Committee.
+\newcommand{\tamuchairtwo}{Vinayak R. Krishnamurthy}
+\renewcommand{\tamumemberone}{[Committee Member 2 -- TODO: fill in]}
+\newcommand{\tamumembertwo}{[Committee Member 3 -- TODO: fill in]}
+\newcommand{\tamumemberthree}{[Committee Member 4 -- TODO: fill in]}
+\renewcommand{\tamudepthead}{[Department Head -- TODO: fill in]}
+
+%Type only May, August, or December.
+\renewcommand{\tamugradmonth}{[TODO: Month]}
+\renewcommand{\tamugradyear}{[TODO: Year]}
+%Your department name goes here.
+\renewcommand{\tamudepartment}{Computer Science and Engineering}
+
+
+\include{data/titlepage} % Formats and adds the titlepage.
+
+\include{data/abstract}
+\include{data/dedication}
+\include{data/acknowledgements}
+\include{data/contributors}
+\include{data/nomenclature}
+
+\include{data/lists}  % Formats and adds the toc, lof, and lot.
+
+\include{data/section1}
+\include{data/section2}
+\include{data/section3}
+\include{data/section4}
+\include{data/section5}
+\include{data/section6}
+\include{data/section7}
+\include{data/section8}
+
+%fix spacing in bibliography, if any...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\let\oldbibitem\bibitem
+\renewcommand{\bibitem}{\setlength{\itemsep}{0pt}\oldbibitem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{ieeetr}
+
+\phantomsection
+\addcontentsline{toc}{chapter}{REFERENCES}
+
+\renewcommand{\bibname}{{\normalsize\rm REFERENCES}}
+
+\bibliography{data/myReference}
+
+\include{data/appendices}
+
+\end{document}

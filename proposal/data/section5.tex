@@ -1,0 +1,69 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  CHAPTER V -- COMPLETED RESEARCH III:
+%  AN ALGEBRAIC FRAMEWORK FOR VOLUMETRIC NONWOVEN
+%  TEXTILES AND PERIODIC PATTERN DESIGN
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{\uppercase{Completed Research III: An Algebraic Framework for Volumetric Nonwoven Textiles and Periodic Pattern Design}}
+\label{cha:nonwoven}
+
+Chapter~\ref{cha:volumetric-bravais} treated volumetric weaves in which threads strictly follow an over--under interlacing rule at every cell interface. This chapter summarizes~\cite{yildiz2024nonwoven}, which relaxes that rule and, in doing so, both (i) extends the cell-induced framework to \emph{nonwoven} structures and (ii) introduces the algebraic machinery -- a numeral system based on $2^K$-adic and $8^K$-adic ``zeros'' -- that this dissertation uses to \emph{design} within a periodic configuration space directly, rather than enumerating it after the fact.
+
+\section{Motivation: Beyond the Over--Under Rule}
+
+Woven fabrics are only one way of achieving fabric-like connectivity. \emph{Nonwoven} structures -- more precisely, planar nonwoven textiles that mimic the connectivity of woven fabric without the crossing rule -- instead form a network of paths joined by local attachments (nails, gluing, welding, or chemical bonding) rather than physical interlacing (Figure~\ref{fig:woven-vs-nonwoven}). Extending nonwoven connectivity into three dimensions turns out to be comparatively direct, in contrast to the significant conceptual step required to extend \emph{woven} structures into three dimensions (Chapter~\ref{cha:volumetric-bravais}). This asymmetry is itself useful: volumetric nonwoven structures can be designed to mimic the mechanical behavior of woven fabrics while also realizing configurations -- including representations of previously unknown infinite regular and semi-regular polyhedra, and flexible ``wood''-like frame structures -- that are simply not achievable with planar or volumetric woven constructions.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=5in]{ch05_fig01_woven_vs_nonwoven_connectivity.png}
+\caption[Woven versus nonwoven connectivity.]{Woven versus nonwoven connectivity: (left) a woven structure, where threads physically interlace at each crossing; (right) a nonwoven structure with the same overall path topology, where threads instead meet at local attachment points (e.g., nails or bonding), avoiding the crossing rule.}
+\label{fig:woven-vs-nonwoven}
+\end{figure}
+
+\section{Representation: From Matrices to Octal Tensors}
+
+Two-way, two-layer nonwoven structures are represented with a binary matrix recording, for each grid position, whether a connection is present between two layers -- a direct generalization of Gr\"unbaum and Shephard's matrix notation for planar weaves~\cite{Grunbaum80,Grunbaum85,Grunbaum86,grunbaum1988isonemal}. Multi-layer two-way nonwovens generalize this matrix to a tensor. For fully volumetric nonwovens, each cell of a 3D grid can connect to its neighbors in the positive $x$, $y$, and $z$ directions independently, so each cell's local state is naturally described by an \emph{octal} digit (one bit per axis) rather than a binary one -- directly analogous to, but more general than, the eight local line configurations of a cP-weave cell (Section~\ref{sec:cp-weaves}) (Figure~\ref{fig:octal-tensor}).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=5.5in]{ch05_fig02_octal_tensor_representation.png}
+\caption[From binary matrices to octal tensors for volumetric nonwovens.]{Generalizing the binary connection matrix of two-way, two-layer nonwovens (left) to an octal tensor for fully volumetric nonwovens (right): each cell's local state is one octal digit, one bit per positive coordinate direction ($+x$, $+y$, $+z$).}
+\label{fig:octal-tensor}
+\end{figure}
+
+\section{Design: An Algebra of \texorpdfstring{$2^K$}{2\^{}K}-adic and \texorpdfstring{$8^K$}{8\^{}K}-adic Zeros}
+\label{sec:padic-design}
+
+Filling a large 3D tensor of local states by hand, or at random, does not scale, and random filling can introduce disconnected ``floating'' components that must be repaired with graph-search post-processing. To design large, symmetric, periodic structures directly, this work develops an algebra over $2^K$-adic zeros -- infinitely repeating $2^K$-adic numbers that all represent zero -- inspired by (1) multiplicative cyclic subgroups of finite fields and (2) classical $p$-adic number systems~\cite{krishnamurthy1975finite}. The key structural fact exploited here is that a repeating decimal (or, more generally, a repeating base-$P$ expansion) is exactly a periodic pattern: just as $0.\overline{3} = 1/3$ and $0.\overline{012}$ and $0.\overline{285714}$ are familiar examples of eventually periodic digit sequences, an infinitely repeating $2^K$-adic (or $8^K$-adic) number is, by construction, a periodic tiling of one-, two-, or three-dimensional space by local configuration labels.
+
+This numeral system supports algebraic operations that act directly on the design:
+\begin{itemize}
+\item \textbf{Cyclic addition.} Adding a fixed pattern $A$ to a starting pattern $N_x(0)$ repeatedly (modulo the periodicity) generates a whole orbit of related patterns without having to specify each one explicitly.
+\item \textbf{Identity and inverse patterns.} The all-zero pattern acts as an additive identity; multiplying a pattern by $-1$ yields its additive inverse, giving a principled way to generate ``complementary'' designs.
+\item \textbf{Shift as cyclic multiplication.} Multiplying a $2^K$-adic (or $8^K$-adic) pattern by a power of the base is equivalent to cyclically shifting it -- unifying the ad hoc shift-based notations used earlier for weaves (e.g., the extended $[A/B/s_x/s_y]$ notation) into a single algebraic operation.
+\end{itemize}
+
+Because these operations are performed on patterns that are already guaranteed to be periodic (they are, by construction, $2^K$- or $8^K$-adic zeros), every result of every operation is automatically a valid, periodic design -- the algebra never produces a pattern with an infinite, non-repeating fundamental domain. This is the design-time counterpart to the enumeration-time results of Chapter~\ref{cha:volumetric-bravais}: rather than counting how many valid designs exist, the algebra of $P^K$-adic zeros lets a designer \emph{generate} large families of valid, symmetric designs directly, using a handful of algebraic operations (addition, negation, multiplication by a shift) on a compact numeral representation (Figure~\ref{fig:padic-shift-example}).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=5.5in]{ch05_fig03_padic_cyclic_addition_example.png}
+\caption[Generating a family of periodic patterns by cyclic addition.]{A family of related periodic patterns generated by repeated cyclic addition of a fixed offset pattern $A$ to a starting $2^K$-adic zero $N_x(0)$, illustrating how the algebraic operations of Section~\ref{sec:padic-design} generate whole orbits of designs from a single starting pattern.}
+\label{fig:padic-shift-example}
+\end{figure}
+
+\section{Contributions}
+
+In summary, this line of work contributes:
+\begin{enumerate}
+\item a tensor-based binary/octal numbering scheme that uniquely describes inter-layer and inter-cell connections for two-way, multi-layer, and fully volumetric nonwoven structures;
+\item an algebraic framework, based on $2^K$-adic and $8^K$-adic zeros, for constructing tensors that correspond to symmetric nonwoven (and, by the same construction, woven) structures;
+\item an identification of the relevant algebraic properties of these numbers (cyclic addition, identity and inverse patterns, shift-as-multiplication), including the observation that a special subset corresponding to Mersenne primes can support cyclic multiplication with additional structure; and
+\item a demonstration that the resulting volumetric nonwoven structures can represent previously undocumented infinite regular and semi-regular polyhedra and flexible frame structures~\cite{grunbaum1993infinite,grunbaum2015uniform}.
+\end{enumerate}
+
+\section{Relation to the Proposed Framework}
+
+This chapter completes the ``algebraic configuration space'' item identified as a knowledge gap in Chapter~\ref{cha:introduction}: where Chapter~\ref{cha:volumetric-bravais} shows that volumetric weaves \emph{can} be enumerated, this chapter shows that a specific class of them (and their nonwoven relatives) can be \emph{algebraically generated} by design. Chapter~\ref{cha:algebraic-calculus} builds on this algebra to move from single-cell-type, axis-aligned periodic patterns toward a more general, topology-first combinatorial model that also accommodates links, knots, and interlocked (catenated) structures -- moving closer to the fully dimension- and topology-independent design space that is the overall goal of this dissertation (Section~\ref{sec:goal}).
