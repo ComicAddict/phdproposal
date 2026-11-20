@@ -24,34 +24,24 @@ this environment (TeX Live 2023) and produces a 67-page PDF.
 
 ## Figure placeholders
 
-Each caption ends with a red **TODO (images)** note naming the source
-figure (paper + figure label + image files, or prelim slide + media name)
-to build it from; `FIGURE_SOURCES.md` has the same list as a checklist.
-Set `\showfigtodosfalse` in the main file to hide the notes.
+The proposal has 30 figures (32 image files, since Figures 7.3 and 7.5
+have two panels each). The images are added one at a time:
 
-Every chapter (and Appendix A) now has `\includegraphics` calls with
-descriptive filenames and full captions — 29 figures in total — but **none
-of the underlying image files exist yet**. To let the document still
-compile cleanly, `graphicx` is loaded with the `demo` option (see the
-comment at the top of `Proposal_TolgaYildiz.tex`), which draws a plain
-black box of the requested size instead of erroring on a missing file.
-This means:
+1. Save the image into `graphic/` under the filename in its
+   `\includegraphics` call (e.g., `ch04_fig02_cp_eight_local_configurations.png`).
+2. Tick its box in `FIGURE_SOURCES.md`.
+3. Recompile (`compile.bat`).
 
-- Every figure's position, size, and caption are already correct and will
-  show up properly in the Table of Contents / List of Figures.
-- The box itself is just a placeholder — nothing to read into its
-  appearance.
-- **As you get real images**, drop each one into `graphic/` under the
-  exact filename already used in its `\includegraphics` call (e.g.,
-  `ch04_fig02_cp_eight_local_configurations.png`) — no `.tex` edits
-  needed. They just won't render yet: `demo` mode draws a placeholder box
-  for *every* figure regardless of whether the file exists, so nothing
-  will look different until you take the next step.
-- **Once every figure has a real file**, remove (or comment out) the line
-  `\PassOptionsToPackage{demo}{graphicx}` near the top of
-  `Proposal_TolgaYildiz.tex` and recompile — all 29 figures will render
-  for real at once. (Removing it earlier, while some files are still
-  missing, will bring back "File not found" errors for those figures.)
+A figure whose file is in `graphic/` renders normally. A figure whose file
+is not there yet shows a grey box of the same size, labelled with the
+missing filename, instead of stopping the compile with "File not found".
+Positions, sizes, captions, and the List of Figures are already final.
+
+Each caption also ends with a red **TODO (images)** note naming the source
+to build that figure from (paper + figure label + image files, or prelim
+slide + media name); `FIGURE_SOURCES.md` has the same list as the
+checklist. Delete a figure's `\figtodo{...}` line once it is done, or set
+`\showfigtodosfalse` in the main file to hide all of them.
 
 ## Structure
 
@@ -101,12 +91,8 @@ your committee) can supply:
    enumeration preprint once posted.
 4. **`data/section8.tex`**: the proposed timeline table is entirely
    placeholder dates — replace with your actual plan.
-5. **Figures**: all 29 figure placements, filenames, and captions are now
-   in place (see "Figure placeholders" above) — the presentation and
-   papers were provided/created without their image files, so these are
-   all placeholders. Populate `graphic/` with real images (or renders
-   regenerated from the papers' source figures) under the filenames
-   already referenced, then remove the `demo` option once all of them
-   exist.
+5. **Figures**: all 30 figure placements, filenames, and captions are in
+   place; add the 32 image files to `graphic/` as you go, using the
+   checklist in `FIGURE_SOURCES.md` (see "Figure placeholders" above).
 6. **Dedication/Acknowledgements**: optional pages, currently drafted —
    edit, or delete the corresponding `\include{...}` line in the main file.

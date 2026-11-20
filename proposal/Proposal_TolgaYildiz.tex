@@ -13,22 +13,6 @@
 
 \documentclass[12pt]{report}
 
-% NOTE (figure placeholders): the "demo" option below makes every
-% \includegraphics draw a plain black placeholder box of the requested
-% size instead of loading a real image file. This is intentional for now:
-% none of the figures referenced in Chapters I-VIII and the appendices
-% exist yet as image files, and this option lets the document compile
-% cleanly (no "File not found" errors) while every figure's intended
-% position, size, and caption are already in place. TODO: once you have
-% the real images (drop them into graphic/, following the filenames
-% already used in each \includegraphics call), remove this line -- the
-% plain \usepackage{graphicx} call below is unaffected and will then
-% load the real figures normally. It must be passed here, before
-% tamuconfig, because tamuconfig loads graphicx indirectly (via the
-% "rotating" package) -- loading it later with different options would
-% otherwise raise a "Option clash for package graphicx" error.
-\PassOptionsToPackage{demo}{graphicx}
-
 \usepackage{tamuconfig}
 
 \usepackage{times}
@@ -39,6 +23,31 @@
 \DeclareGraphicsExtensions{.png,.jpg,.pdf}
 
 \graphicspath{ {./graphic/} }
+
+% Figure placeholders, per figure: an \includegraphics whose file is in
+% graphic/ renders normally; one whose file is not there yet draws a grey
+% box of the requested size labelled with the missing filename, instead
+% of stopping the compile with "File not found". So you can add images
+% one at a time (tick them off in FIGURE_SOURCES.md) and recompile.
+\makeatletter
+\AtBeginDocument{%
+  \let\Gin@include@real\Ginclude@graphics
+  \def\Ginclude@graphics#1{%
+    \begingroup
+      \let\input@path\Ginput@path
+      \IfFileExists{#1}{\endgroup\Gin@include@real{#1}}%
+        {\endgroup\Gin@placeholder{#1}}}%
+}
+\def\Gin@placeholder#1{%
+  \begingroup
+    \@ifundefined{Gin@@ewidth}{\dimen@=150pt}{\dimen@=\Gin@@ewidth\relax}%
+    \@ifundefined{Gin@@eheight}{\dimen2=0.4\dimen@}{\dimen2=\Gin@@eheight\relax}%
+    \setlength{\fboxsep}{0pt}%
+    \fbox{\colorbox{black!8}{\parbox[c][\dimen2][c]{\dimen@}{\centering
+      \footnotesize\textsf{image not added yet:}\\[2pt]
+      \texttt{\detokenize{#1}}}}}%
+  \endgroup}
+\makeatother
 
 % For quick document navigation.
 \usepackage[hidelinks]{hyperref}
