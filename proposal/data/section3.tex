@@ -1,73 +1,87 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  CHAPTER III -- COMPLETED RESEARCH I:
-%  MODULAR CONSTRUCTION OF PLANAR BI-AXIAL WEAVES
+%  CHAPTER III -- VOLUMETRIC BRAVAIS WEAVES
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{\uppercase{Completed Research I: Modular Construction of Planar Bi-Axial Weaves with Congruent Tiles}}
-\label{cha:modular-planar}
+\chapter{\uppercase{Volumetric Bravais Weaves: Lattices as Scaffolds}}
+\label{cha:volumetric-bravais}
 
-This chapter summarizes the first completed contribution of this dissertation, published as~\cite{yildiz2023modular}, which addresses the base case of the framework developed in this proposal: 2-way, 2-fold planar weaves (Section~\ref{sec:case-study}).
+This chapter summarizes~\cite{yildiz2025volumetric} and the companion enumeration work~\cite{akpanya2025enumeration}, which replace the planar grid of Chapter~\ref{cha:modular-planar} by a crystallographic lattice and each lattice cell by a configuration of threads.
 
-\section{Motivation}
+\section{Definition}
+\label{sec:bravais}
 
-Modularity is a fundamental and appealing property of fabrics: given a fixed set of threads, different geometries -- and therefore different physical behaviors -- can be obtained simply by changing how the threads are linked to one another. Most engineering treatments of woven composites, however, model fabrics as reinforcement embedded in a secondary matrix material that fills the gaps between threads. This raises a basic geometric question that had not been fully resolved: can a woven structure's threads be made \emph{space-filling} on their own, without a secondary filler material?
+Let $B=\{v_1,v_2,v_3\}$ be a basis of $\mathbb{R}^3$ and $\mathcal{L}(B)=\{iv_1+jv_2+kv_3 \mid i,j,k\in\mathbb{Z}\}$ the corresponding Bravais lattice. The Wigner-Seitz (Voronoi) cell $C$ of a lattice point is the set of points closer to it than to any other lattice point, and its translates fill space. Up to combinatorial type there are five such cells: the cube (cubic primitive, cP), the hexagonal prism (hP), the rhombic dodecahedron (cF), the elongated dodecahedron (oF), and the truncated octahedron (cI) (Figure~\ref{fig:wigner-seitz-cells}).
 
-\section{Approach}
+We restrict attention to weaves whose crossing points lie on the lattice and in which the same number of threads meet at every crossing. Each thread passes through a pair of opposite faces of $C$, so a cell with $2n$ faces carries $n$ threads. Around a lattice point these threads are diverted into an arrangement of skew lines, which records which thread passes above which.
 
-This work answers that question constructively. We show that a single modular element -- a \emph{yin-yang}-type piece obtained by partitioning a cube into two congruent halves along a specific parametric surface -- can be used to build space-filling threads directly. Because the partitioning surface is parametrized (Section~\ref{sec:parametric-tiles}), there exist infinitely many distinct congruent tiles of this kind, each corresponding to a different family of thread cross-sections.
+\begin{definition}[Volumetric Bravais weave~\cite{yildiz2025volumetric}]
+Let $C$ be the Wigner-Seitz cell of $\mathcal{L}(B)$ with $2n$ faces, and let $\ell$ be the number of configurations of $n$ skew lines through opposite faces of $C$. A \emph{volumetric Bravais weave} is a map $V:\mathcal{L}(B)\to\{1,\ldots,\ell\}$. The value $V(i,j,k)$ is the configuration of the threads meeting at $(i,j,k)$.
+\end{definition}
 
-\subsection{Parametric Congruent Tiles}
-\label{sec:parametric-tiles}
+This is a replacement system in the sense of Table~\ref{tab:scheme}: the scaffold is the lattice, the label is the configuration, and the rule replaces each cell by its configured thread segments. Two kinds of symmetry act on it: the isometries of the cell, which relate configurations to one another, and the isometries of the lattice, which relate whole weaves.
 
-The construction begins by identifying Voronoi decompositions of the cube that are closed under the warp--weft symmetry required by a 2-way 2-fold weave: the two halves of the cube, corresponding to the warp and weft states, must be exchangeable by a symmetry of the cube (a mirror in the $z$-direction, in our convention). Starting from families of parametric curves on the unfolded boundary of the cube that are closed under this symmetry, we obtain a continuous family of congruent-tile pairs, each of which tiles the cube into two yin-yang--shaped pieces representing the two local (warp/weft) states (Figure~\ref{fig:yinyang-tiles}).
-
-\begin{figure}[h!]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=5in]{ch03_fig01_yinyang_congruent_tiles.png}
-\caption[Parametric yin-yang congruent tile pair.]{A parametric yin-yang congruent tile pair obtained by partitioning a cube with a closed parametric curve on its unfolded boundary: the two pieces represent the warp and weft local states and are exchanged by a mirror in $z$. Varying the parametric curve (right) yields infinitely many distinct congruent-tile families.
-\figtodo{\cite{yildiz2023modular} Fig.~\fs{fig:2Dweave}: left = \fs{2D/curves_0.png}, \fs{2D/curves_1.png} (Voronoi-site curves), \fs{2D/2Dweave3_3d.png}, \fs{2D/2Dweave2_3d.png} (tile pair); right = parameter sweep from Fig.~\fs{fig:parametric/flat} (\fs{2D/AB/100_000.png}, \fs{2D/AB/100_050.png}, \fs{2D/AB/100_100.png}, \fs{2D/AB/050_050.png}).}}
-\label{fig:yinyang-tiles}
+\includegraphics[width=6in]{ch03_fig01_wigner_seitz_cells.png}
+\caption[The five Wigner-Seitz cell types.]{The five Wigner-Seitz cell types of Bravais lattices (cP, hP, cF, oF, cI), each shown with an example volumetric weave built on it.
+\figtodo{\cite{yildiz2025volumetric} Fig.~\fs{fig_teaser} (\fs{fig1-teaser.pdf}), panels (d) and (e); or the cell row of \cite{yildiz2025linked} Fig.~\fs{fig_teaser} (\fs{images/ws/CP.jpg}, \fs{HP.jpg}, \fs{CF.jpg}, \fs{OF.jpg}, \fs{CI.jpg}).}}
+\label{fig:wigner-seitz-cells}
 \end{figure}
 
-\subsection{Foldability}
+\section{Cubic Primitive Weaves}
+\label{sec:cp-weaves}
 
-A key practical property of these congruent tiles is that they are \emph{foldable}: each tile can be unfolded into a single flat panel and therefore fabricated economically from planar sheet material (e.g., by laser cutting), rather than requiring a molding or additive process (Figure~\ref{fig:tile-unfolding}). This directly supports the manufacturing perspective introduced in Chapter~\ref{cha:introduction}.
+For the cubic lattice $\mathbb{Z}^3$ the cell is a cube carrying three threads, one per axis. A configuration of three skew lines through opposite faces of a cube is determined by three edges of the cube, no two sharing a vertex~\cite{viro2006configurations}, which gives eight configurations (Figure~\ref{fig:cp-local-configurations}). Fixing one configuration as the identity, the others are obtained by the mirror matrices
+\begin{equation}
+M_{(x,y,z)}=\mathrm{diag}\big((-1)^x,(-1)^y,(-1)^z\big),\qquad x,y,z\in\{0,1\},
+\end{equation}
+and since $M_{(x_1,y_1,z_1)}M_{(x_2,y_2,z_2)}=M_{(x_1+x_2,\,y_1+y_2,\,z_1+z_2)}$ with addition modulo~2, the configurations form a group isomorphic to $\mathrm{GF}(2)^3$. A cP-weave is therefore a map $V:\mathbb{Z}^3\to\mathrm{GF}(2)^3$, and a periodic cP-weave with an $N\times M\times K$ translation cell is a cubic array with entries in $\mathrm{GF}(2)^3$. Discrete derivatives $\delta_xV$, $\delta_yV$, $\delta_zV$ record how configurations change between neighboring cells.
 
-\begin{figure}[h!]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=4.5in]{ch03_fig02_tile_unfolding_laser_cut.png}
-\caption[Unfolding a congruent tile into a flat, laser-cuttable panel.]{Unfolding one of the yin-yang congruent tiles of Figure~\ref{fig:yinyang-tiles} into a single flat panel suitable for laser cutting from planar sheet material.
-\figtodo{\cite{yildiz2023modular} Fig.~\fs{fig:folding1} (\fs{2D/folding1.png}, planar-faced tile, $a{=}1,b{=}1$); optionally add Fig.~\fs{fig:folding0} (\fs{2D/folding0a.png}, smooth tile) side by side.}}
-\label{fig:tile-unfolding}
+\includegraphics[width=6in]{ch03_fig02_cp_configurations.png}
+\caption[The eight cP configurations.]{The eight configurations of a cP cell, labeled by $\mathrm{GF}(2)^3$. Each group of four is related by rotations of the cube; the two groups are mirror images.
+\figtodo{\cite{yildiz2025volumetric} Fig.~\fs{cpconfs} (\fs{fig3-cp-confs.pdf}); optionally add Fig.~\fs{fig:rot_isotopy} (\fs{fig7-cube-automorphism.pdf}) as a side panel.}}
+\label{fig:cp-local-configurations}
 \end{figure}
 
-\subsection{Modular Assembly}
+\textbf{Plain cP-weaves.} A regular plain cP-weave is one in which every planar slice orthogonal to a coordinate axis is a plain weave. The plain constraint fixes most derivatives, and a plain cP-weave with an $M\times M\times M$ translation cell is determined by a starting configuration and three binary vectors, written compactly as $[x_0\ldots x_{M-1} : y_0\ldots y_{M-1} : z_0\ldots z_{M-1}]$. This reduces $3M^3$ binary parameters to $3M$. Where planar weaving admits exactly one plain weave, the cubic case already has 64 plain $2\times2\times2$ translation cells, which fall into four orbits under the lattice isometry group $\mathbb{Z}^3\rtimes O_h$. These 64 cells are the specimens of the mechanical study in Chapter~\ref{cha:mechanical}.
 
-Because each tile represents exactly one of the two local topological labels of a 2-way 2-fold weave (Section~\ref{sec:topological-labeling}), any 2-way 2-fold woven pattern -- plain weave, twill, or any other pattern expressible with the notation of Gr\"unbaum and Shephard~\cite{Grunbaum80} -- can be constructed purely by translating and rotating copies of these two tile types according to the desired label assignment (Figure~\ref{fig:tile-assembly-examples}). No additional filler material or bonding matrix is required: the assembled tiles are, by construction, self-supporting and space-filling.
+\textbf{Size of the design space.} Dividing the number of labelings by the order of the symmetry group gives lower bounds on the number of distinct regular weaves with an $M\times M\times M$ translation cell:
+\begin{equation}
+N_{\mathrm{cP}}(M)\;\ge\;\tfrac{1}{48}\,2^{3(M^3-\log_2 M)}, \qquad
+N_{\mathrm{plain}}(M)\;\ge\;\tfrac{1}{48}\,2^{3(M-\log_2 M)}.
+\end{equation}
+Even plain cP-weaves grow exponentially with $M$.
 
-\begin{figure}[h!]
+\textbf{Exact enumeration.} The companion work~\cite{akpanya2025enumeration} replaces these bounds with an exact count for partial $n\times n\times n$ cP-weaves. The group $G_n=\mathrm{Rot}(C)\ltimes\mathbb{Z}_n^3$ acts on the $n^3$ cells and on the configurations. Computing the cycle structure of every element and applying Burnside's lemma in the de Bruijn framework gives
+\begin{equation}
+\psi(n)=\frac{1}{|G_n|}\sum_{g\in G_n}\mathrm{Fix}(g)
+\end{equation}
+in closed form for every $n\ge3$, with $n=2$ treated separately.
+
+\section{Designing cP-Weaves by Rule}
+\label{sec:cp-design}
+
+With $8^{NMK}$ possible arrays, a designer cannot choose every cell by hand. We therefore generate arrays by rule. The planar $a/b/c$ notation assigns cell $(i,j)$ one of two labels depending on whether $i+jc \bmod (a+b)$ is less than $a$. For cP-weaves we pick two configurations $c_1,c_2$ with $c_1-c_2=(1,1,1)$, so that every change between them is a crossing in all three directions, and add a layer shift $d$:
+\begin{equation}
+W(i,j,k)=\begin{cases} c_1 & i+jc+kd \bmod (a+b) < a,\\ c_2 & \text{otherwise.}\end{cases}
+\label{eq:abcd}
+\end{equation}
+This $a/b/c/d$ notation places different planar weaves in the three families of coordinate planes (Figure~\ref{fig:abcd-weaves}). A second rule shifts an $N\times M$ planar weave by $(s_0,s_1)$ from one layer to the next, giving the $(N,s_0)\times(M,s_1)$ notation that extends the $(n,s)$ notation of Gr\"unbaum and Shephard. Both rules apply to every Bravais cell type, because every lattice point is an integer combination of basis vectors and can be indexed by a cubic array.
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=5.5in]{ch03_fig03_assembled_pattern_examples.png}
-\caption[Planar slabs assembled from the two congruent tile types.]{Planar fabric slabs assembled purely by translating and rotating the two congruent tile types of Figure~\ref{fig:yinyang-tiles}: (left) plain weave, (center) twill, (right) satin, following the notation of Gr\"unbaum and Shephard~\cite{Grunbaum80}.
-\figtodo{\cite{yildiz2023modular} Fig.~\fs{fig:planarslabs}: plain \fs{2D/results/slab1.png}, twill \fs{2D/results/slab.png}, satin \fs{2D/results/slab2.png} (use ``satin'' for the right panel). Optional photo row from Fig.~\fs{fig:photos} (\fs{photos/plain.jpg}, \fs{photos/twill.jpg}).}}
-\label{fig:tile-assembly-examples}
+\includegraphics[width=6in]{ch03_fig03_abcd_weaves.png}
+\caption[cP-weaves designed with the $a/b/c/d$ notation.]{cP-weaves generated by the $a/b/c/d$ rule of Equation~\ref{eq:abcd}, with slices showing the different planar weaves in each family of coordinate planes.
+\figtodo{\cite{yildiz2025volumetric} Fig.~\fs{fig_3D/a_b_c_notation} (\fs{fig9-abcd-weave.pdf}) and Fig.~\fs{fig_3D/internal_structures} (\fs{fig11-internal.pdf}).}}
+\label{fig:abcd-weaves}
 \end{figure}
 
-\section{Contributions}
+\section{Generality and Lesson Carried Forward}
 
-The paper makes four principal contributions, which we summarize here because they anchor the terminology and design pattern used throughout the remainder of this proposal:
+The framework contains planar weaves as the two-dimensional case, where tetragonal and hexagonal 2D lattices give 2-way 2-fold and 3-way 3-fold weaves. It also contains invariant cubic rod packings~\cite{okeeffe2001invariant_cubic_rod_packing}, which correspond to a single repeated configuration, Several of the periodic entanglements of~\cite{evans2013periodiceentanglement1,evans2013periodiceentanglement2} can be derived as cP-weaves, where they occupy only a small part of the design space.
 
-\begin{enumerate}
-\item \textbf{A parametric approach} to producing an infinite family of congruent tiles that can be used as modules to construct a planar fabric slab of arbitrary size with any given 2-way 2-fold weaving pattern.
-\item \textbf{Foldability:} every tile in this family can be unfolded into a single flat panel, enabling economical manufacture.
-\item \textbf{Modular design:} the tiles are sufficient, in combination, to realize \emph{every} possible 2-way 2-fold weaving pattern -- not just a fixed subset.
-\item \textbf{Design power:} because a single family of tiles realizes every pattern, a wide variety of mechanical behaviors can be obtained from one fabrication process simply by changing the assignment of tiles to positions, i.e., by changing the topological labeling rather than the tile geometry.
-\end{enumerate}
-
-Relaxing the strict congruence requirement further shows that any 2-way 2-fold pattern on a cylindrical slab can be realized with only three tile types, and that the same modular strategy extends (with position-dependent tile shapes) to height fields and general two-manifold surfaces -- for example, guaranteeing a plain-weave pattern on any two-manifold mesh.
-
-\section{Relation to the Proposed Framework}
-
-This modular, tile-based construction is the 2D anchor point for the volumetric generalization pursued in Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus}: replacing the cube's warp/weft partition with the partition of a 3D Wigner--Seitz cell into cell-induced topological elements (Section~\ref{sec:cell-induced}) is precisely the step that promotes this planar modularity into a volumetric design framework. The matrix-based notation for planar patterns developed in this work also foreshadows the algebraic, numerical representation of periodic designs introduced in Chapter~\ref{cha:algebraic-calculus}.
+The lesson is that the replacement system does not depend on what is placed in each cell. Any lattice whose entries carry labels from a finite set defines a design space with the same symmetry machinery. The difficulty moves elsewhere: these spaces grow so quickly that filling them requires an algebra on the labels themselves.

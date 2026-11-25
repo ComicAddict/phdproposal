@@ -1,16 +1,16 @@
-# PhD Proposal — "Volumetric Weaves: Design, Manufacturing, and Application"
+# PhD Proposal: "Weaves, Knits, and Chainmail: Design Frameworks for Fibrillar Structures and Their Physical Realization"
 
-This folder is a filled-in copy of `../template` (the TAMU Thesis/Dissertation
-LaTeX template) containing a full draft of Tolga Yildiz's PhD proposal,
-built from:
-
-- `../template/data/abstract.tex` (the existing abstract, carried over verbatim)
-- `../presentation/Prelim_v2` (the preliminary-exam slide deck)
-- `../papers/*` (the attached manuscripts)
+This folder holds the proposal, built on the TAMU thesis template
+(`../template`). The narrative is organized around one idea: every
+construction in the dissertation is a scaffold, a small set of local
+labels, and a replacement rule, and hypergraph rotation systems (H-GRS)
+unify the cycle-based constructions with a single twist operator. The
+proposed work is manufacturing volumetric weaves and a mechanical
+exploration of cP-weave plate lattices against TPMS baselines.
 
 ## Compiling
 
-The template is designed for XeLaTeX + BibTeX:
+XeLaTeX + BibTeX (`compile.bat` runs the sequence):
 
 ```
 xelatex Proposal_TolgaYildiz.tex
@@ -19,80 +19,40 @@ xelatex Proposal_TolgaYildiz.tex
 xelatex Proposal_TolgaYildiz.tex
 ```
 
-This was verified to compile cleanly (no errors, no undefined references) in
-this environment (TeX Live 2023) and produces a 67-page PDF.
+With all figures as placeholders the build is 56 pages with no
+undefined references. Real images will change the page count somewhat.
 
-## Figure placeholders
+## Figures
 
-The proposal has 30 figures (32 image files, since Figures 7.3 and 7.5
-have two panels each). The images are added one at a time:
-
-1. Save the image into `graphic/` under the filename in its
-   `\includegraphics` call (e.g., `ch04_fig02_cp_eight_local_configurations.png`).
-2. Tick its box in `FIGURE_SOURCES.md`.
-3. Recompile (`compile.bat`).
-
-A figure whose file is in `graphic/` renders normally. A figure whose file
-is not there yet shows a grey box of the same size, labelled with the
-missing filename, instead of stopping the compile with "File not found".
-Positions, sizes, captions, and the List of Figures are already final.
-
-Each caption also ends with a red **TODO (images)** note naming the source
-to build that figure from (paper + figure label + image files, or prelim
-slide + media name); `FIGURE_SOURCES.md` has the same list as the
-checklist. Delete a figure's `\figtodo{...}` line once it is done, or set
-`\showfigtodosfalse` in the main file to hide all of them.
+Figures are placeholders until their image is saved in `graphic/` under
+the filename in its `\includegraphics`. Each caption ends with a red
+`\figtodo{...}` note naming the source; `FIGURE_SOURCES.md` has the same
+list as a checklist (21 figures). Images stay local and are not
+committed to this repository.
 
 ## Structure
 
-- `Proposal_TolgaYildiz.tex` — main file (title, degree, committee variables; chapter includes)
-- `data/titlepage.tex` — edited to show **co-chairs** (Akleman + Krishnamurthy)
-- `data/abstract.tex` — your existing abstract, lightly cleaned (removed commented-out drafts, straightened smart quotes/dashes that XeLaTeX + the `times` package can't render)
-- `data/dedication.tex`, `data/acknowledgements.tex` — optional front matter, drafted but easy to delete
-- `data/contributors.tex` — Contributors & Funding Sources (required by the template); filled with real funding info found in the papers (NSF #2048182, DFG SFB/TRR280) and per-chapter authorship attribution
-- `data/nomenclature.tex` — abbreviations used across the chapters (cP/hP/cF/oF/cI, H-GRS, FDM, TPU, PLA, DIC, ...)
-- `data/section1.tex` – Ch. I: Introduction and Literature Review
-- `data/section2.tex` – Ch. II: Conceptual Preliminaries (topological labeling, cell-induced elements)
-- `data/section3.tex` – Ch. III: Completed Research I — modular planar bi-axial weaves (SMI 2023 paper)
-- `data/section4.tex` – Ch. IV: Completed Research II — volumetric Bravais weaves / cP-weave enumeration (PNAS Nexus paper + arXiv enumeration paper)
-- `data/section5.tex` – Ch. V: Completed Research III — algebraic nonwoven framework + $2^K$/$8^K$-adic periodic design (SMI 2024 paper)
-- `data/section6.tex` – Ch. VI: Completed Research IV — Hypergraph Rotation Systems + Primal-Dual Polycatenanes (SIGGRAPH Asia 2026 submission + SMI 2026 draft)
-- `data/section7.tex` – Ch. VII: Proposed Research — manufacturing strategies + auxetic-foam mechanical characterization plan
-- `data/section8.tex` – Ch. VIII: Summary, Anticipated Contributions, Timeline
-- `data/appendix1.tex` – Appendix A: GF(2) / symmetry-operator representation used for cP-weave enumeration (from the PNAS Nexus supplementary document)
-- `data/appendix2.tex` – Appendix B: table of manuscripts/status
-- `data/myReference.bib` — merged bibliography (see below)
+| File | Content | Source |
+|---|---|---|
+| `data/abstract.tex` | Abstract | |
+| `data/section1.tex` | Ch. 1, Introduction and Background: motivation, background, thesis statement, scheme table (Table 1.1), contributions C1 to C7 | |
+| `data/section2.tex` | Ch. 2, Modularity and Symmetry in Planar Weaves | SMI 2023 |
+| `data/section3.tex` | Ch. 3, Volumetric Bravais Weaves | PNAS Nexus 2025, enumeration manuscript |
+| `data/section4.tex` | Ch. 4, An Algebra for Populating Labeled Lattices | SMI 2024 |
+| `data/section5.tex` | Ch. 5, Linked and Catenated Structures | SMI 2025, SMI 2026 |
+| `data/section6.tex` | Ch. 6, Hypergraph Rotation Systems, with the synthesis table (Table 6.1) | ACM TOG / SIGGRAPH Asia 2026 |
+| `data/section7.tex` | Ch. 7, Proposed Work I: Manufacturing Volumetric Weaves | SCF 2025, unpublished methods |
+| `data/section8.tex` | Ch. 8, Proposed Work II: Mechanical Exploration of cP-Weave Plate Lattices | in progress |
+| `data/section9.tex` | Ch. 9, Summary, Contributions, and Timeline | |
+| `data/appendix2.tex` | Appendix A, Publications and manuscripts | |
 
-## The `SCF25_Optics` paper
+`data/dedication.tex`, `data/acknowledgements.tex`, and
+`data/appendix1.tex` (GF(2) operators) are kept but not included; restore
+their `\include`/`\input` lines to bring them back.
 
-This manuscript ("Fabricating Interactions through Optical Pathways") isn't
-part of the volumetric-weaves narrative in your abstract or prelim slides,
-so — pending your confirmation — it's currently given only a brief mention
-as ancillary/related work in Chapter I and the Contributors section, plus a
-line in the Appendix B publication table. If you'd rather it get its own
-chapter, or be dropped entirely, say so and I'll adjust.
+## Remaining TODOs
 
-## TODOs before this is submission-ready
-
-Search the `.tex` files for `TODO` — every one marks something only you (or
-your committee) can supply:
-
-1. **Title page** (`Proposal_TolgaYildiz.tex`): 2nd–4th committee members,
-   department head, target month/year.
-2. **`data/contributors.tex`**: names/departments of the additional
-   committee members; any personal fellowship/assistantship funding.
-3. **`data/myReference.bib`**: five citations named only by author/year on
-   the prelim slides (Liu 2018, Andriamanalina et al. 2025, Liu et al. 2021,
-   Abtew et al. 2020, Li 2021) — I could not find these in any attached
-   manuscript's `.bib` file, so I left clearly-marked placeholder entries
-   rather than invent volume/page/DOI details. Also: fill in exact
-   volume/page/DOI for the two SMI (Computers & Graphics) papers and the
-   PNAS Nexus paper once those are finalized, and the arXiv ID for the
-   enumeration preprint once posted.
-4. **`data/section8.tex`**: the proposed timeline table is entirely
-   placeholder dates — replace with your actual plan.
-5. **Figures**: all 30 figure placements, filenames, and captions are in
-   place; add the 32 image files to `graphic/` as you go, using the
-   checklist in `FIGURE_SOURCES.md` (see "Figure placeholders" above).
-6. **Dedication/Acknowledgements**: optional pages, currently drafted —
-   edit, or delete the corresponding `\include{...}` line in the main file.
+1. `data/section9.tex`: timeline dates.
+2. `data/myReference.bib`: volume and pages for the SMI 2024 nonwoven
+   paper and the SMI 2026 polycatenane paper once assigned.
+3. Figures: add images using `FIGURE_SOURCES.md`.

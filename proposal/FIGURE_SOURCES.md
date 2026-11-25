@@ -8,89 +8,73 @@ one comes from. This file is the same information as a checklist.
   filename below, tick its box, and recompile. A figure whose file is in
   `graphic/` renders; one that is not yet there shows a grey box labelled
   with the missing filename, so the document always compiles.
+- Images stay local (and on Overleaf if you upload them there); they are
+  not committed to this repository.
 - Once a figure is final, delete the `\figtodo{...}` line at the end of
-  its caption (or hide all notes at once with `\showfigtodosfalse` near
-  the top of `Proposal_TolgaYildiz.tex`).
+  its caption, or hide all notes at once with `\showfigtodosfalse` near
+  the top of `Proposal_TolgaYildiz.tex`.
 
 ## Source keys
 
-| Key in captions | Folder in this repo | Bib key |
-|---|---|---|
-| SMI 2023 woven tiles | `papers/SMI2023_Woven_Tiles/` | `yildiz2023modular` |
-| SMI 2024 nonwovens | `papers/SMI2024_High_Genus_Surface_NonWoven/` | `yildiz2024nonwoven` |
-| PNAS Nexus (main) | `papers/PNAS_Nexus___cP_Weaves___Final/` | `yildiz2025volumetric` |
-| PNAS Nexus supplementary | `papers/PNAS_Nexus___A_Construcive_Framework_..._Supplementary/` | `yildiz2025volumetric` |
-| Enumeration preprint | `papers/Enumeration_of_cP_and_hP_Weaves/` | `akpanya2025enumeration` |
-| SIGGRAPH Asia 2026 (H-GRS) | `papers/SIGGRAPH_Asia_2026___Surface_Knots/` (`main.tex`, `supplementary.tex`) | `yildiz2026hypergraph` |
-| SMI 2026 polycatenanes | `papers/SMI2026_Primal_Dual_Structures/` | `yildiz2026polycatenane` |
-| Prelim\_v2 slide N | `presentation/Prelim_v2/` | — |
-| comp-anal | `github.com/ComicAddict/comp-anal` | `companal2026` |
+| Bib key in notes | Folder in this repo |
+|---|---|
+| `yildiz2023modular` | `papers/SMI2023_Woven_Tiles/` |
+| `yildiz2024nonwoven` | `papers/SMI2024_High_Genus_Surface_NonWoven/` |
+| `yildiz2025volumetric` | `papers/PNAS_Nexus___cP_Weaves___Final/` |
+| `yildiz2025linked` | `papers/SMI2025_Linked/` |
+| `yildiz2026polycatenane` | `papers/SMI2026_Primal_Dual_Structures/` |
+| `yildiz2026hypergraph` | `papers/SIGGRAPHASIA2026_HGRS/` |
+| `deshpande2025optical` | `papers/SCF25_Optics/` |
+| Prelim_v2 slide N | `presentation/Prelim_v2/` (media names from `ppt/slides/_rels/slideN.xml.rels`) |
+| `companal2026` | `github.com/ComicAddict/comp-anal` |
 
-Image paths in the captions are relative to each paper's folder, as they
-appear in that paper's `\includegraphics`. The image files themselves are
-not in this repository; take them from the papers' Overleaf projects.
-
-**Prelim slides:** the deck in `presentation/Prelim_v2/` had its media
-stripped, so the `imageN.png` names in the captions come from
-`ppt/slides/_rels/slideN.xml.rels`. To get the images, unzip the original
-`Prelim_v2.pptx` and look in `ppt/media/`.
+Image paths in the notes are relative to each paper's folder, as they
+appear in that paper's `\includegraphics`. The image files themselves
+are not in this repository; take them from the papers' Overleaf projects.
 
 ## Checklist
 
-Tick a box (`- [x]`) once the file is in `graphic/`. Figure numbers are
-as in the current build.
+Figure numbers are as in the current build (21 figures).
 
-### A. Reuse directly from a paper figure
-
-- [ ] **2.1** `ch02_fig01_2way2fold_local_states.png` — PNAS supplementary, `2dweaveunits`
-- [ ] **3.1** `ch03_fig01_yinyang_congruent_tiles.png` — SMI 2023, `fig:2Dweave` + `fig:parametric/flat`
-- [ ] **3.2** `ch03_fig02_tile_unfolding_laser_cut.png` — SMI 2023, `fig:folding1` (+ `fig:folding0`)
-- [ ] **3.3** `ch03_fig03_assembled_pattern_examples.png` — SMI 2023, `fig:planarslabs` (+ `fig:photos`)
-- [ ] **4.1** `ch04_fig01_wigner_seitz_cell_types.png` — PNAS `fig_teaser` (a), or SMI 2026 `fig_teaser` top row
-- [ ] **4.2** `ch04_fig02_cp_eight_local_configurations.png` — Enumeration `fig:8conf`, or PNAS `cpconfs`
-- [ ] **4.3** `ch04_fig03_symmetry_operations_on_domain.png` — PNAS `fig:rot_isotopy` + Enumeration `fig:actiononweaves3d`
-- [ ] **5.1** `ch05_fig01_woven_vs_nonwoven_connectivity.png` — SMI 2024, `fig_woven_vs_nonwoven`
-- [ ] **5.2** `ch05_fig02_octal_tensor_representation.png` — SMI 2024, `fig_matrix_woven_vs_nonwoven4` + `fig_tensor`
-- [ ] **5.3** `ch05_fig03_padic_cyclic_addition_example.png` — SMI 2024, `fix_8adic_shifting` (**see note below**)
-- [ ] **6.1** `ch06_fig01_hgrs_edge_face_incidence.png` — SIGGRAPH supp. `fig:supp_chirality` + main `fig:teaser`
-- [ ] **6.2** `ch06_fig02_twist_operator_examples.png` — SIGGRAPH `fig:3_mantwist` (exact match)
-- [ ] **6.3** `ch06_fig03_primal_dual_polycatenane.png` — SMI 2026, `fig1_4` + `fig_teaser` cI row + `fig:3dprinting` (**see note below**)
-- [ ] **A.1** `appA_fig01_translation_rotation_mirror_operators.png` — Enumeration `fig:actiononweaves` / `fig:actiononweaves3d`
-
-### B. Reuse from the prelim slides
-
-- [ ] **1.1** `ch01_fig01_motivation_montage.png` — slide 5 (+ chainmail from SIGGRAPH `fig:tetra_link`); **third-party photos: add credits**
-- [ ] **2.2** `ch02_fig02_cell_induced_elements.png` — slide 15
-- [ ] **4.4** `ch04_fig04_plain_cp_weave_orbits.png` — slide 30 (4×4×4); top row from PNAS `fig_plain_weave`
-- [ ] **7.1** `ch07_fig01_chiral_guide_pair.png` — slide 56
-- [ ] **7.2** `ch07_fig02_manufacturing_strategy_comparison.png` — slides 53–54, 56–57, 58–60, 61
-- [ ] **7.9** `ch07_fig09_compression_test_setup.png` — slides 71–72
-- [ ] **7.10** `ch07_fig10_printed_foam_specimens_pla_tpu.png` — slide 73 (+ 65)
-- [ ] **7.11** `ch07_fig11_preliminary_force_displacement_curves.png` — slides 75–77
-
-### C. Compose or redraw (sources exist, layout is new)
-
-- [ ] **1.2** `ch01_fig02_knowledge_gap_schematic.png` — slides 8–9 thumbnails, new 3-column layout
-- [ ] **8.1** `ch08_fig01_dissertation_overview_diagram.png` — slides 3, 18–19 overview + one thumbnail per chapter
-
-### D. New renders, photos, or plots (no existing image)
-
-- [ ] **7.3a** `ch07_fig03a_wo_wd_geometry_diagram.png` — annotated render of one 4 mm plain `1_1_1_1` cell (wo, wd, r)
-- [ ] **7.3b** `ch07_fig03b_radius_vs_volume_fraction_curve.png` — vf(r) plot from the bisection-search data in the printed-weave notes
-- [ ] **7.4** `ch07_fig04_printed_abcd_specimens.png` — photos of the four printed `a_b_c_d` specimens
-- [ ] **7.5a** `ch07_fig05a_min_interstrand_clearance.png` — render of one strand with closest-point segments
-- [ ] **7.5b** `ch07_fig05b_64_plain_pattern_shapes.png` — 8×8 grid of the 64 plain codes `000`–`333`
-- [ ] **7.6** `ch07_fig06_woven_vs_tpms_specimen_sets.png` — woven-foam renders + one render per TPMS family
-- [ ] **7.7** `ch07_fig07_class_stress_strain_envelopes.png` — comp-anal `class_envelopes.png`; synthetic demo or schematic until results are reported
-- [ ] **7.8** `ch07_fig08_tpms_scale_matching.png` — comp-anal `scale_match/scale_trends.png`; same rule
-
-## Caption mismatches to resolve
-
-- **Fig. 5.3**: the caption describes *cyclic addition*, but the SMI 2024
-  8-adic figure shows *shift by multiplication*. Either redraw the 3×7
-  cyclic-addition matrix from that paper's §"Design with 2^K-adic
-  Symmetry Operations", or reword the caption.
-- **Fig. 6.3**: the caption says the right panel is a printed cI-links
-  prototype, but the SMI 2026 print photo (`fig:3dprinting`) is the
-  tetrahedral–octahedral honeycomb. Reword the caption or photograph a
-  cI print.
+- [ ] **1.1** `ch01_fig01_motivation_montage.png`: Fibrillar structures across scales.  
+  Compose four panels. (a), (b) Prelim_v2 slide 5 ("Motivation": woven carpet, woven composites; media `image7.png`, `image8.jpeg`--`image11.png`). (c) a knit: [yildiz2026hypergraph] Fig. `fig:bravais2D_repeated_nonuniform` panel `images/ws_2d/2_2_1.jpg`, or a photo. (d) chainmail: [yildiz2026hypergraph] Fig. `fig:tetra_link` (`images/tetchain/0.png`). Slide-5 photos are third-party: add credits to the caption.
+- [ ] **1.2** `ch01_fig02_roadmap.png`: Roadmap of the dissertation.  
+  New schematic. One thumbnail per chapter, left to right: woven tiles ([yildiz2023modular] Fig. `fig:planarslabs`, `2D/results/slab1.png`), cP-weave ([yildiz2025volumetric] `fig1-teaser.pdf`), nonwoven frame ([yildiz2024nonwoven] `images/flexible_wood/wood3.png`), linked structure ([yildiz2025linked] `images/ws/CP.jpg`), H-GRS ([yildiz2026hypergraph] `images/teaser/cube/2man_chainmail.jpg`); then a second row for fabrication (Prelim_v2 slide 56) and mechanical testing (Prelim_v2 slide 71). Arrows labeled with each chapter's "lesson".
+- [ ] **2.1** `ch02_fig01_yinyang_tiles.png`: Parametric yin-yang congruent tiles.  
+  [yildiz2023modular]: left, Fig. `fig:2Dweave_internal` (`2D/internal_cube_1.png`); middle, Fig. `fig:parametric/smooth` (`2D/Parametric0_s.png`, `2D/Parametric2_s.png`); right, unfolding from Fig. `fig:folding1` (`2D/folding1.png`).
+- [ ] **2.2** `ch02_fig02_assembled_slabs.png`: Slabs assembled from congruent tiles.  
+  [yildiz2023modular] Fig. `fig:planarslabs` (`2D/results/slab1.png`, `2D/results/slab.png`, `2D/results/slab2.png`) and Fig. `fig:cylinders` (`2D/results/cylinder4.png`). Optionally a photo from Fig. `fig:photos` (`photos/plain.jpg`).
+- [ ] **3.1** `ch03_fig01_wigner_seitz_cells.png`: The five Wigner-Seitz cell types.  
+  [yildiz2025volumetric] Fig. `fig_teaser` (`fig1-teaser.pdf`), panels (d) and (e); or the cell row of [yildiz2025linked] Fig. `fig_teaser` (`images/ws/CP.jpg`, `HP.jpg`, `CF.jpg`, `OF.jpg`, `CI.jpg`).
+- [ ] **3.2** `ch03_fig02_cp_configurations.png`: The eight cP configurations.  
+  [yildiz2025volumetric] Fig. `cpconfs` (`fig3-cp-confs.pdf`); optionally add Fig. `fig:rot_isotopy` (`fig7-cube-automorphism.pdf`) as a side panel.
+- [ ] **3.3** `ch03_fig03_abcd_weaves.png`: cP-weaves designed with the $a/b/c/d$ notation.  
+  [yildiz2025volumetric] Fig. `fig_3D/a_b_c_notation` (`fig9-abcd-weave.pdf`) and Fig. `fig_3D/internal_structures` (`fig11-internal.pdf`).
+- [ ] **4.1** `ch04_fig01_nonwoven_tensor.png`: Volumetric nonwovens as octal tensors.  
+  [yildiz2024nonwoven]: left, Fig. `fig_woven_vs_nonwoven` (`images/nonwoven_woven_explanation/7-1-3-woven-2d-top-v2.png`, `7-1-3-nonwoven-2d-top-v2.png`); right, Fig. `fig_tensor` (a few of `images/tensor_figures/001.png`--`111.png`) and Fig. `fig_tensor_construction` (`images/generalized_frames/3x3x3_random_struct.png`).
+- [ ] **4.2** `ch04_fig02_padic_operations.png`: Patterns generated by $P^K$-adic operations.  
+  [yildiz2024nonwoven] Fig. `fix_8adic_shifting` (`images/8_adic_shifting/1443_matrix_from_mul_4.png`, `1443_tensor_from_y_mul_4_x_mul_2.png`) and Fig. `fig_matrix_woven_vs_nonwoven2` (`images/disconnected_nonwovens/ABCD-4-1-2-3-nonwoven.png`).
+- [ ] **5.1** `ch05_fig01_linked_structures.png`: Linked structures from labeled meshes.  
+  [yildiz2025linked]: top row, Fig. `fig_teaser1b` (`images/link_algo/2man`, `2man_linked`, `2man_linked_partial`); bottom row, two cells from Fig. `fig_teaser` (`images/ws/CP.jpg`, `images/ws/CI.jpg`) and Fig. `fig_4x4x4twill` (`images/EXAMPLES/1100_1_1.jpg`).
+- [ ] **5.2** `ch05_fig02_primal_dual.png`: Primal-dual polycatenane construction.  
+  [yildiz2026polycatenane] Fig. `fig1_4` (`images/fig4_primal_dual/primal.jpg`, `dual.jpg`, `primal_dual_catenated.jpg`, `primal_dual_catenated_periodic.jpg`) and Fig. `fig:3dprinting` (`images/prints/oct_tet_1.jpg`).
+- [ ] **6.1** `ch06_fig01_twist_rule.png`: The twist rule at a single edge.  
+  [yildiz2026hypergraph] Fig. `fig:2_mantwist` (`images/2man/input_mesh.jpg`, `n2_tw.jpg`, `n1_tw.jpg`, `0_tw.jpg`, `1_tw.jpg`, `2_tw.jpg`) and Fig. `fig:3_mantwist` (`images/3man/n3_tw.jpg` to `3_tw.jpg`).
+- [ ] **6.2** `ch06_fig02_tetra_chainmail_knots.png`: Chainmail and unicursal knots from a tetrahedron.  
+  [yildiz2026hypergraph] Fig. `fig:tetra_link` (`images/tetchain/0.png`--`3.png`) and Fig. `fig:tetra_knot` (`images/tetknot/0.png`--`3.png`).
+- [ ] **6.3** `ch06_fig03_periodic_hgrs.png`: Periodic H-GRS structures.  
+  [yildiz2026hypergraph] Fig. `fig:bravais3D_repeated` (`images/bravais/cp_1.jpg`--`cp_3.jpg`), Fig. `fig:bravais2D_repeated_nonuniform` (`images/ws_2d/2_1.jpg`, `2_2_1.jpg`), Fig. `fig:cp_single` (`images/cp_nonuniform/2_1_1_tiled.jpg`) and Fig. `fig:cp_multiple` (`images/cp_nonuniform/1_3_1_tiled.jpg`).
+- [ ] **6.4** `ch06_fig04_prototypes.png`: Physical H-GRS prototypes.  
+  [yildiz2026hypergraph] Fig. `fig:cube_behaviour` (`images/photos/cube_1.jpg`, `cube_2.jpg`), Fig. `fig:flexon_behaviour` (`images/photos/flex_1.jpg`) and Fig. `fig:troct_paper` (`images/photos/1twist_clear.jpeg`, `2twist_cleaner.jpeg`, `3twist_cleaner.jpeg`).
+- [ ] **7.1** `ch07_fig01_optical_channels.png`: Voronoi partitioning for printing optical channels.  
+  [deshpande2025optical] teaser figure `fig:teaser` (panels a to e), from the SCF '25 paper folder `papers/SCF25_Optics/`.
+- [ ] **7.2** `ch07_fig02_manufacturing_methods.png`: Manufacturing methods for volumetric weaves.  
+  Prelim_v2: (a) single-cycle, slides 53--54 (`image143.png`--`image149.jpeg`); (b) modular, slides 56--57 (`image153.png`--`image157.jpg`, chiral pair and hand-woven photo); (c) partitive, slides 58--60 (`image159.png`--`image162.jpg`); (d) a photo of a printed tubular negative-space cube from the mechanical study; (e) soluble scaffold, slide 61 (`image163.png`--`image165.png`).
+- [ ] **7.3** `ch07_fig03_preliminary_foams.png`: Preliminary Voronoi-based weave foams.  
+  Prelim_v2 slide 73 ("Current progress": six weave-foam designs and three controls in PLA and TPU; media `image177.png`). Optionally slide 65 (re-entrant foam renders, `image172.png`--`image174.png`).
+- [ ] **8.1** `ch08_fig01_vf_control.png`: Volume-fraction control by strand radius.  
+  No existing source. (a) New annotated render of one 4mm plain 1_1_1_1 cell from the weave generator, marking wo, wd, r, and the closest-point segments to neighboring strands. (b) Plot of \mathrm{vf}(r) from the bisection data in the printed-weave characterization notes: mark r{=}0.65mm\to0.664, r{=}0.01mm\to0.9999, and the \mathrm{vf}{=}0.8 target.
+- [ ] **8.2** `ch08_fig02_specimen_sets.png`: Woven and TPMS specimen sets.  
+  No existing source. Top: renders or photos of a few woven lattices, ideally one per isometry orbit. Bottom: one render per TPMS family at a common scale (names as in `comp-anal/data/metadata/baseline_metadata.csv`).
+- [ ] **8.3** `ch08_fig03_envelopes.png`: Planned stress-strain envelope comparison.  
+  Planned figure from the `comp-anal` pipeline [companal2026], `results/figures/class_envelopes.png` (`scripts/run_analysis.py`). Until results are reported, use the synthetic demo (`scripts/make_demo_data.py`) labeled "illustrative", or a schematic.

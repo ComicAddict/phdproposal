@@ -1,0 +1,57 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  CHAPTER IX -- SUMMARY, CONTRIBUTIONS, AND TIMELINE
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{\uppercase{Summary, Contributions, and Timeline}}
+\label{cha:summary}
+
+\section{Summary}
+
+This proposal argues that weaves, knits, chainmail, links, and catenanes can be designed within one framework, because each is a scaffold whose elements carry local labels and are replaced by pieces of fiber. The completed work builds this framework in steps. Congruent tiles showed that a planar weave is a labeling of a grid (Chapter~\ref{cha:modular-planar}). Volumetric Bravais weaves made crystallographic lattices the scaffold and gave the resulting design spaces bounds and exact counts (Chapter~\ref{cha:volumetric-bravais}). The algebra of $P^K$-adic zeros generated label arrays by rule (Chapter~\ref{cha:nonwoven}). Linked structures and primal-dual polycatenanes applied the scheme to meshes and honeycombs (Chapter~\ref{cha:linked}). Hypergraph rotation systems then replaced the family-specific replacement rules with one twist operator on a graph with faces, unifying the cycle-based families and making clear which structures lie outside (Chapter~\ref{cha:hgrs}).
+
+The proposed work connects these designs to the physical world. Chapter~\ref{cha:manufacturing} proposes a systematic, evaluated set of manufacturing methods for volumetric weaves, grounded in our work on fabricating optical pathways. Chapter~\ref{cha:mechanical} uses the most faithful of these methods to test the premise of the dissertation: 64 cP-weave plate lattices with identical strands and volume fraction, compared with eight TPMS families, measure how much arrangement alone changes mechanical response.
+
+\section{Contributions}
+
+\begin{enumerate}
+\item[\textbf{C1}] Two congruent, foldable tiles that realize every 2-way 2-fold weave~\cite{yildiz2023modular}.
+\item[\textbf{C2}] Volumetric Bravais weaves, with design strategies, lower bounds, and enumeration of cP-weaves~\cite{yildiz2025volumetric,akpanya2025enumeration}.
+\item[\textbf{C3}] An algebra of $P^K$-adic zeros for generating periodic label arrays~\cite{yildiz2024nonwoven}.
+\item[\textbf{C4}] Triply periodic linked structures and primal-dual polycatenanes~\cite{yildiz2025linked,yildiz2026polycatenane}.
+\item[\textbf{C5}] Hypergraph rotation systems as a unified representation of knots, links, weaves, knits, and chainmail~\cite{yildiz2026hypergraph}.
+\item[\textbf{C6}] (Proposed) Manufacturing methods for volumetric weaves, with criteria for what each can realize and measurements of fidelity.
+\item[\textbf{C7}] (Proposed) A mechanical comparison of cP-weave plate lattices with TPMS lattices at fixed volume fraction.
+\end{enumerate}
+
+\section{Risks}
+
+The mass-based check of volume fraction shows a systematic offset from nozzle width, so the characterization matrix needs a direct dimensional measurement, by calipers or micro-CT, before its results can be reported. The soluble-scaffold method depends on filling the scaffold reliably, which we have not yet demonstrated; if it fails, modular and partitive weaving remain as the faithful methods and the chapter reports the comparison without it. In the mechanical study, tests that reach the load limit leave part of each curve unmeasured; the fixed-strain metrics are chosen so that every test still contributes complete measurements.
+
+\section{Future Directions}
+
+Several questions raised by this work remain beyond the proposal. Whether every cP-weave can be produced by some twist assignment on the cubic honeycomb would make the conceptual unification of Chapter~\ref{cha:hgrs} exact. Entanglement that is not captured by cycles, as in polycatenanes, needs invariants beyond the cycle structure. The exact enumeration, currently complete for partial cP-weaves, can be extended to the other Bravais cells and to periodic twist assignments. On the physical side, the same design-to-measurement pipeline can be applied to compliant materials and to periodic H-GRS structures, where linkage rather than crossing carries the load.
+
+\section{Timeline}
+
+Table~\ref{tab:timeline} gives the planned schedule. [TODO: set the dates to match the defense timeline.]
+
+\begin{table}[htbp]
+\centering
+\begin{singlespace}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.72\textwidth}@{}}
+\toprule
+\textbf{Period} & \textbf{Milestone} \\
+\midrule
+{[TODO]} & Print, weigh, and test the 64 woven and 64 TPMS specimens; measure frame compliance; run the analyses of Chapter~\ref{cha:mechanical}. \\[3pt]
+{[TODO]} & Run the fidelity matrix for tubular negative-space printing with dimensional verification. \\[3pt]
+{[TODO]} & Develop and evaluate the soluble-scaffold method; map each method against cell type and configuration complexity. \\[3pt]
+{[TODO]} & Submit the manufacturing paper and the mechanical exploration paper. \\[3pt]
+{[TODO]} & Write and defend the dissertation. \\
+\bottomrule
+\end{tabular}
+\end{singlespace}
+\caption{Timeline to completion.}
+\label{tab:timeline}
+\end{table}

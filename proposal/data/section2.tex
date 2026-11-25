@@ -1,53 +1,49 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  CHAPTER II -- CONCEPTUAL PRELIMINARIES
+%  CHAPTER II -- MODULARITY AND SYMMETRY IN PLANAR WEAVES
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{\uppercase{Conceptual Preliminaries}}
-\label{cha:preliminaries}
+\chapter{\uppercase{Modularity and Symmetry in Planar Weaves}}
+\label{cha:modular-planar}
 
-This chapter introduces, through the simplest possible case, the two conceptual ingredients that recur throughout the remainder of this proposal: \emph{topological labeling} of local thread configurations, and the \emph{cell-induced topological elements} used to generalize that labeling from planar to volumetric weaves.
+This chapter summarizes~\cite{yildiz2023modular}, the first construction in Table~\ref{tab:scheme}. It asks whether a woven structure can be assembled from identical modules, and answers with two congruent tiles that realize every 2-way 2-fold weave.
 
-\section{Case Study: 2-Way 2-Fold Weaves}
-\label{sec:case-study}
+\section{Motivation}
 
-Consider the simplest nontrivial class of woven structures: \emph{2-way, 2-fold} weaves. ``2-way'' means that weave threads follow two distinct directions (conventionally called warp and weft); ``2-fold'' means the structure consists of two interlaced layers of threads. Every unit of the weave -- the region where one warp thread crosses one weft thread -- can be in exactly one of two local states: the warp thread passes over the weft thread, or vice versa (Figure~\ref{fig:2way2fold-states}). This binary local state is the starting point for a topological, rather than purely geometric, description of the weave.
+Given the same set of threads, one can obtain different geometries and therefore different physical behavior simply by changing how the threads cross. Engineering models of fabrics, however, usually treat them as reinforcement inside a matrix that fills the gaps between threads. We asked a geometric question instead: can the threads themselves fill space, so that no secondary material is needed, and can such space-filling threads be built from a single repeated module?
 
-\begin{figure}[h!]
+\section{Congruent Woven Tiles}
+\label{sec:parametric-tiles}
+
+A 2-way 2-fold weave can be described cell by cell on a square grid. In each cell either the warp passes over the weft or the weft passes over the warp. We partition a cube into two pieces, one for each thread in the cell, and require the partition to respect this warp-weft relationship: the two pieces must be exchanged by the symmetry that swaps warp and weft.
+
+We obtain such partitions from Voronoi decompositions. Placing Voronoi sites on two semicircular arcs on the sphere inscribed in the cube splits the cube into two congruent, interlocking \emph{yin-yang} pieces. The interface between them is formed by connecting the center of the cube to a closed boundary curve, which makes the interface developable. This observation removes the need to compute a Voronoi decomposition at all. Any closed control polygon that is invariant under the warp-weft symmetry, smoothed by a symmetry-preserving spline or subdivision scheme, defines a valid boundary curve and therefore a valid tile. There are infinitely many such tiles (Figure~\ref{fig:yinyang-tiles}).
+
+Because the interface is developable, every tile in this family can be unfolded into a single flat panel. Tiles can therefore be laser cut and folded rather than molded or printed.
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=4in]{ch02_fig01_2way2fold_local_states.png}
-\caption[The two local states of a 2-way 2-fold weave unit.]{The two local states of a single 2-way, 2-fold weave unit: (left) the warp thread passes over the weft thread; (right) the weft thread passes over the warp thread. These two states are related by a mirror transformation and form the cyclic group $\mathrm{GF}(2)$ used for the compact representation in Appendix~\ref{app:cp-symmetry}.
-\figtodo{\cite{yildiz2025volumetric} supplementary, Fig.~\fs{2dweaveunits} (\fs{Figures/0.pdf}, \fs{Figures/1.pdf}); optionally add the assembled plain weave \fs{Figures/1_1_1.pdf} (Fig.~\fs{subfig_2dweavedemo}). Alternative: Prelim\_v2 slides~11--12 (media \fs{image24.png}--\fs{image29.png}).}}
-\label{fig:2way2fold-states}
+\includegraphics[width=5.5in]{ch02_fig01_yinyang_tiles.png}
+\caption[Parametric yin-yang congruent tiles.]{Parametric yin-yang tiles. A closed boundary curve, invariant under the warp-weft symmetry, is connected to the cube center to form a developable interface. Different control polygons give different tiles, and each tile unfolds into one flat panel.
+\figtodo{\cite{yildiz2023modular}: left, Fig.~\fs{fig:2Dweave_internal} (\fs{2D/internal_cube_1.png}); middle, Fig.~\fs{fig:parametric/smooth} (\fs{2D/Parametric0_s.png}, \fs{2D/Parametric2_s.png}); right, unfolding from Fig.~\fs{fig:folding1} (\fs{2D/folding1.png}).}}
+\label{fig:yinyang-tiles}
 \end{figure}
 
-\section{Topological Labeling of Local Configurations}
-\label{sec:topological-labeling}
+\section{Modular Assembly}
 
-Gr\"unbaum and Shephard formalized this idea for planar fabrics in the 1980s~\cite{Grunbaum80,Grunbaum85,Grunbaum86,grunbaum1988isonemal}: each tile of the weave (each warp--weft crossing) is given a \emph{topological label} that records only its local over/under configuration, independent of the specific geometric shape of the threads. A weave is then a function from the tiles of a 2D tessellation (a square or triangular grid, depending on the pattern) to this small set of local labels, and questions about the weave's symmetry, periodicity, and classification become questions about the combinatorics of this labeling function together with the symmetry group of the underlying tessellation.
+Each tile corresponds to one local label of a 2-way 2-fold weave. Any pattern in the notation of Gr\"unbaum and Shephard~\cite{Grunbaum80} is therefore built by translating and rotating copies of a single tile according to the binary matrix of the pattern (Figure~\ref{fig:tile-assembly-examples}). The assembled slab is space-filling and interlocking without any filler. Because one tile family realizes every pattern, a wide range of behaviors can be obtained from one fabrication process by changing the labeling alone.
 
-The same idea of topological labeling has since been productively applied well beyond the original planar-fabric setting:
-\begin{itemize}
-\item \textbf{Stitch meshes}~\cite{niu2024knitting} generalize local labeling to yarn-level detail in knitted clothing.
-\item \textbf{Knit-purl knitting grids}~\cite{niu2024knitting} extend labeling to the stitch types used in machine knitting.
-\item \textbf{Cyclic twill-woven meshes}~\cite{akleman2011cyclic} apply topological labeling to weaves embedded on arbitrary (not necessarily planar) meshes.
-\item \textbf{WeaveCraft}~\cite{wu2020weavecraft} builds an interactive design and simulation tool directly on top of a user-specified local labeling.
-\end{itemize}
+Relaxing congruence extends the method. Any pattern on a cylindrical slab needs only three tile types. Height fields and curved slabs need position-dependent tiles but keep the same construction. On a general 2-manifold mesh, topological constraints of the mesh limit the guaranteed pattern to plain weaving~\cite{akleman2009cyclic,akleman2020topologically}, a result of the rotation-system analysis that Chapter~\ref{cha:hgrs} returns to.
 
-What these applications share is the insight that a small, discrete, local label -- rather than a full geometric description -- is sufficient to specify a combinatorially rich family of global structures, and that the symmetry of the underlying tessellation then organizes that family into a design space.
-
-\section{Cell-Induced Topological Elements}
-\label{sec:cell-induced}
-
-The planar topological-labeling framework above is naturally tied to a 2D tessellation and a binary (over/under) label. To extend this idea to volumetric weaves, this dissertation introduces \emph{cell-induced topological elements}: one-dimensional (thread-like) elements defined relative to the elements of a 3D cell -- its center, its facets, and its edges -- rather than relative to a 2D crossing.
-
-Informally, given a cell of a space-filling 3D tessellation, a cell-induced topological element is a combinatorial description of how a thread enters and exits that cell through its boundary. Just as a planar topological label records which thread is ``on top'' at a crossing, a cell-induced topological element records, for a given cell, which pair of boundary elements (e.g., which pair of opposite facets) a straight thread segment connects (Figure~\ref{fig:cell-induced-elements}). The collection of all such elements for a given cell type forms the basis for the \emph{local configurations} used throughout Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus} to build volumetric weaves out of individually well-defined, enumerable building blocks.
-
-\begin{figure}[h!]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=4.5in]{ch02_fig02_cell_induced_elements.png}
-\caption[Cell-induced topological elements on a cube cell.]{Cell-induced topological elements on a single cube cell: a straight thread segment is described combinatorially by the pair of boundary facets it connects (center, front) rather than by its explicit geometry, generalizing the crossing label of Figure~\ref{fig:2way2fold-states} from a 2D tile to a 3D cell.
-\figtodo{Prelim\_v2 slide~15 (``Cell Induced Topological Elements'', media \fs{image40.jpg}, the same cube render reused on slides~23, 25, 37). Alternative: panel (a) of \cite{yildiz2025volumetric} Fig.~\fs{fig:rot_isotopy} (\fs{fig7-cube-automorphism.pdf}). Add facet/center labels by hand.}}
-\label{fig:cell-induced-elements}
-\end{figure} This is the key conceptual step that allows the remainder of this proposal to treat volumetric weaving with the same combinatorial rigor that Gr\"unbaum and Shephard brought to planar weaving, while remaining dimension independent: the same construction specializes to the 2D case (Chapter~\ref{cha:modular-planar}) and generalizes to 3D lattices (Chapters~\ref{cha:volumetric-bravais}--\ref{cha:algebraic-calculus}).
+\includegraphics[width=5.5in]{ch02_fig02_assembled_slabs.png}
+\caption[Slabs assembled from congruent tiles.]{Planar slabs assembled by translating and rotating one congruent tile: plain, twill, and satin patterns, followed by a cylindrical slab built from three tile types.
+\figtodo{\cite{yildiz2023modular} Fig.~\fs{fig:planarslabs} (\fs{2D/results/slab1.png}, \fs{2D/results/slab.png}, \fs{2D/results/slab2.png}) and Fig.~\fs{fig:cylinders} (\fs{2D/results/cylinder4.png}). Optionally a photo from Fig.~\fs{fig:photos} (\fs{photos/plain.jpg}).}}
+\label{fig:tile-assembly-examples}
+\end{figure}
+
+\section{Lesson Carried Forward}
+
+This work established two ideas that recur through the dissertation. First, a pattern is a labeling of a scaffold, and the geometry of the module can be chosen independently of the pattern. This is the first replacement system: each labeled cell is replaced by a tile. Second, the symmetry of the module decides which labels exist. The warp-weft symmetry of the cube was what made a single congruent tile possible. Studying these symmetries in three dimensions, where a cell can hold more than two threads, led directly to volumetric Bravais weaves.

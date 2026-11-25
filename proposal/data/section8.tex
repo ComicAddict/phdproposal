@@ -1,66 +1,93 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  CHAPTER VIII -- SUMMARY AND ANTICIPATED CONTRIBUTIONS
+%  CHAPTER VIII -- PROPOSED WORK II: MECHANICAL EXPLORATION
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{SUMMARY AND ANTICIPATED CONTRIBUTIONS \label{cha:summary}}
+\chapter{\uppercase{Proposed Work II: Mechanical Exploration of cP-Weave Plate Lattices}}
+\label{cha:mechanical}
 
-\begin{figure}[h!]
+The premise of this dissertation is that the arrangement of parts, not the parts themselves, determines the behavior of a fibrillar structure. This chapter proposes a direct physical test of that premise. We print cP-weaves as plate lattices with the tubular negative-space method of Chapter~\ref{cha:manufacturing}, so that the solid walls between thread channels carry the load, and compare them in compression with triply periodic minimal surface (TPMS) lattices printed under the same conditions. The design framework defines the specimens, the enumeration tells us which are distinct, and the manufacturing method makes them reproducible.
+
+\section{A Deliberately Small Design Space}
+\label{sec:mech-designspace}
+
+The cP design space grows too quickly to test exhaustively (Chapter~\ref{cha:volumetric-bravais}). We therefore restrict it to a set in which only the arrangement varies. We use the 64 plain $2\times2\times2$ translation cells, each tiled to a $4\times4\times4$ domain of $4\,\mathrm{mm}$ cells, giving $16\,\mathrm{mm}$ cubes. In every plain cP-weave each strand has the same geometry and therefore the same volume within its cell, so one strand radius gives the same volume fraction for all 64 specimens. The specimens differ only in how the local configurations are arranged. Each is identified by a three-digit code, one digit per axis, from the compact representation of Section~\ref{sec:cp-weaves}.
+
+The 64 cells fall into four orbits under the lattice isometry group. Specimens in the same orbit represent the same infinite weave up to translation, rotation, or reflection, but are cut from it differently or loaded along a different axis. Comparing them separates the effect of the weave from the effect of its orientation and boundary.
+
+\section{Volume-Fraction Control}
+\label{sec:vf-control}
+
+A specimen is a solid cube from which tubes of radius $r$ around every thread centerline are removed. Increasing $r$ lowers the volume fraction $\mathrm{vf}$. The largest admissible radius is set by the minimum distance between neighboring strands, which we compute by measuring, for every point on every strand, the distance to all other strands. For the plain $1\_1\_1\_1$ configuration with weave offset $\mathrm{wo}=1.4603\,\mathrm{mm}$ and weave depth $\mathrm{wd}=0.0952\,\mathrm{mm}$, printer resolution narrows the useful range to $r\in[0.01,0.65]\,\mathrm{mm}$, giving $\mathrm{vf}\in[0.664,0.9999]$. We target $\mathrm{vf}=0.8$ and find $r$ by bisection to a tolerance of $0.001$ in $\mathrm{vf}$ (Figure~\ref{fig:vf-control}).
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=6.5in]{ch08_fig01_dissertation_overview_diagram.png}
-\caption[Overview of the dissertation's chapters and their relationships.]{Overview of how the chapters of this dissertation relate to one another: Chapters~\ref{cha:introduction}--\ref{cha:preliminaries} establish the motivation and shared conceptual vocabulary; Chapters~\ref{cha:modular-planar}--\ref{cha:algebraic-calculus} build the design-space theory in stages, from planar tiles to volumetric lattices to an algebraic design calculus to a unified model for linked structures; and Chapter~\ref{cha:proposed-work} connects that theory back to physical manufacturing and mechanical behavior.
-\figtodo{Redraw from the Prelim\_v2 ``Research Overview'' graphic (slides~18--19, 41, 49; media \fs{image6.png}) and the outline on slide~3, extended with Chapters~III, V, and VII. One thumbnail per chapter can reuse the lead figure of that chapter.}}
-\label{fig:dissertation-overview}
+\includegraphics[width=6in]{ch08_fig01_vf_control.png}
+\caption[Volume-fraction control by strand radius.]{Volume-fraction control. (a) Weave offset, weave depth, and strand radius on one cell, with the minimum inter-strand clearance that bounds the radius. (b) Volume fraction as a function of strand radius, with the printable range and the target $\mathrm{vf}=0.8$.
+\figtodo{No existing source. (a) New annotated render of one $4\,$mm plain $1\_1\_1\_1$ cell from the weave generator, marking wo, wd, $r$, and the closest-point segments to neighboring strands. (b) Plot of $\mathrm{vf}(r)$ from the bisection data in the printed-weave characterization notes: mark $r{=}0.65\,$mm$\to$0.664, $r{=}0.01\,$mm$\to$0.9999, and the $\mathrm{vf}{=}0.8$ target.}}
+\label{fig:vf-control}
 \end{figure}
 
-\section{Summary}
+As a preliminary check, we compared the target with the slicer-reported mass of four configurations. A solid $16\,\mathrm{mm}$ cube needs about $5.35\,\mathrm{g}$ of PLA, so $\mathrm{vf}=0.8$ predicts about $4.28\,\mathrm{g}$ (Table~\ref{tab:print-mass}). The mass-implied volume fractions are about one to two points above the target, which we attribute to the nozzle widening printed features. More importantly, the four configurations agree with each other to within $0.05\,\mathrm{g}$, or about $0.01$ in volume fraction, even though each radius was found independently. The method therefore holds volume fraction constant across configurations, which is the property the study needs.
 
-This proposal argues that volumetric weaving -- long treated as an ad hoc extension of planar weaving, obtained by stacking 2D patterns along a third axis -- admits a systematic, symmetry-driven, and algebraically generative design theory, and that this dissertation has already built the core of that theory. Chapter~\ref{cha:introduction} identified three specific gaps in the existing literature: the lack of a modular, local representation for volumetric weaves; the lack of a dimension-independent definition of weaving; and the lack of an algebraic configuration space for periodic designs. Chapter~\ref{cha:preliminaries} introduced the shared conceptual vocabulary -- topological labeling and cell-induced topological elements -- used to close these gaps.
-
-Chapters~\ref{cha:modular-planar}--\ref{cha:algebraic-calculus} then presented four completed contributions that close these gaps in stages: a modular, foldable, congruent-tile construction for every planar 2-way 2-fold weave~\cite{yildiz2023modular}; a lattice-based definition of volumetric Bravais weaves, with an exact enumeration of cP-weaves via Burnside's lemma and de Bruijn-style orbit counting~\cite{yildiz2025volumetric,akpanya2025enumeration}; an algebra of $2^K$-/$8^K$-adic zeros for representing and \emph{generating} periodic volumetric nonwoven (and, by the same construction, woven) designs~\cite{yildiz2024nonwoven}; and a unifying combinatorial model, Hypergraph Rotation Systems, together with a primal--dual construction for polycatenanes, that extends the same cell-induced perspective to links, knots, chainmail, and mechanically interlocked graph structures~\cite{yildiz2026hypergraph,yildiz2026polycatenane}.
-
-Chapter~\ref{cha:proposed-work} proposed the remaining work needed to connect this design-space theory back to physical material behavior: manufacturing strategies -- modular, partitive, and a proposed soluble-foam-scaffold approach -- for realizing volumetric Bravais weaves by additive manufacturing; a geometric characterization of printed cP-weaves that controls volume fraction (porosity) via a strand-radius search, validated against printed specimen mass to within about $\pm0.002$ across four different local configurations; a comparative compression study placing the $64$ plain cP-weave foams against eight TPMS families printed at the same volume fraction; and an experimental plan to test whether the shift-parametrized ($a/b/c/d$) cP-weave design space can be used to tune auxetic (negative Poisson's ratio) mechanical behavior in weave-derived foams. Preliminary compression testing on six weave-foam designs and three controls, in both PLA and TPU, is already consistent with the proposal's central hypothesis that re-entrant, weave-derived geometry increases energy absorption relative to non-auxetic controls.
-
-\section{Anticipated Contributions}
-
-Upon completion, this dissertation is expected to contribute:
-\begin{enumerate}
-\item a dimension-independent, cell-induced formalism for weaves, nonwovens, and interlocked (linked/catenated) structures, unifying planar and volumetric weaving under a single topological-labeling framework;
-\item an exact enumeration methodology (via lattice-symmetry group actions and Burnside/de Bruijn counting) for volumetric weave design spaces, worked out fully for cubic primitive (cP) weaves and partially for the remaining Bravais cell types;
-\item an algebraic design calculus ($2^K$-/$8^K$-adic zeros and Hypergraph Rotation Systems) that generates valid periodic and interlocked designs directly, rather than requiring exhaustive enumeration;
-\item validated additive-manufacturing strategies for physically realizing volumetric Bravais weaves, including a proposed soluble-foam-scaffold method;
-\item a validated method for controlling the printed volume fraction (porosity) of a cP-weave specimen, via a strand-radius search that is consistent across weave patterns, gap sizes, aspect ratios, and local cell configurations;
-\item a benchmark of woven foams against eight TPMS families at matched volume fraction, locating the woven-foam design space within the established landscape of architected cellular materials; and
-\item an experimentally grounded design-to-property mapping between the $a/b/c/d$ shift-parameter design space and the mechanical (in particular, auxetic) behavior of weave-derived foam structures.
-\end{enumerate}
-
-\section{Challenges}
-
-The principal remaining risks are: (i) completing local-configuration enumeration for the hP, cF, oF, and cI Wigner--Seitz cells, which grows combinatorially faster than the cP case already completed (Section~\ref{sec:cp-weaves}); (ii) achieving reliable, repeatable soluble-scaffold fabrication across the full $a/b/c/d$ parameter range at the printer-resolution limits identified in Section~\ref{sec:mechanical}; (iii) the mass-based volume-fraction validation of Section~\ref{sec:print-char-mass} showed a systematic offset attributed to nozzle-diameter effects, so the geometric-characterization test matrix (Section~\ref{sec:print-char-matrix}) will need a more direct dimensional-verification method (e.g., micro-CT or calipered cross-sections) before its results can be reported with confidence; and (iv) obtaining sufficient replicate mechanical-test data, including reliable Poisson's-ratio estimates via image analysis, to support statistically defensible conclusions about hypotheses H1 and H2.
-
-\section{Further Study}
-
-Beyond the scope of this dissertation, the frameworks developed here suggest several directions for future work: extending the exact Burnside/de Bruijn enumeration of Chapter~\ref{cha:volumetric-bravais} to all five Bravais cell types; using the Hypergraph Rotation System twist operator (Section~\ref{sec:h-grs}) to design articulated, compliant volumetric weaves rather than only rigid ones; and applying the auxetic-foam characterization methodology of Chapter~\ref{cha:proposed-work} to other cell types and materials beyond PLA/TPU.
-
-\section{Proposed Timeline}
-
-Table~\ref{tab:timeline} outlines the anticipated timeline to complete the proposed work described in Chapter~\ref{cha:proposed-work} and to prepare the final dissertation document. [TODO: adjust dates to match your actual defense timeline and committee's expectations.]
-
-\begin{table}[h!]
+\begin{table}[htbp]
 \centering
-\begin{tabular}{|p{0.20\textwidth}|p{0.65\textwidth}|}
-\hline
-\textbf{Period} & \textbf{Milestone} \\ \hline
-[TODO: e.g., Fall 2026] & Complete local-configuration enumeration for remaining Bravais cell types (hP, cF, oF, cI). \\ \hline
-[TODO] & Execute the geometric-characterization test matrix (pattern $\times$ gap size $\times$ aspect ratio, plain/twill/satin comparison, cell-configuration sweep, scale-invariance study; Section~\ref{sec:print-characterization}), including an independent dimensional-verification method beyond slicer mass. \\ \hline
-[TODO] & Print, weigh, and compression-test the $64$ woven foams and $64$ TPMS baselines (Section~\ref{sec:tpms-comparison}); run envelope, property-space, parameter--property, and scale-matching analyses. \\ \hline
-[TODO] & Finalize soluble-foam-scaffold manufacturing pipeline; fabricate full compression-test matrix. \\ \hline
-[TODO] & Complete mechanical testing (PLA/TPU, all geometry-control conditions, $\geq 3$ replicates) and DIC-based Poisson's-ratio analysis. \\ \hline
-[TODO] & Statistical evaluation of H1/H2; draft design-to-property mapping chapter. \\ \hline
-[TODO] & Submit journal manuscript(s) for manufacturing/mechanical-characterization results. \\ \hline
-[TODO] & Write and defend final dissertation. \\ \hline
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Configuration} & \textbf{Slicer mass (g)} & \textbf{Mass-implied vf} \\
+\midrule
+$1\_1\_1\_1$ & 4.37 & 0.817 \\
+$2\_1\_1\_1$ & 4.33 & 0.809 \\
+$2\_2\_1\_1$ & 4.32 & 0.807 \\
+$3\_1\_1\_1$ & 4.33 & 0.809 \\
+\bottomrule
 \end{tabular}
-\caption{Proposed timeline to completion.}
-\label{tab:timeline}
+\caption{Slicer-reported mass and mass-implied volume fraction for four configurations at a target of $\mathrm{vf}=0.8$ (solid cube: $5.35\,$g).}
+\label{tab:print-mass}
 \end{table}
+
+\section{Specimens and Testing}
+\label{sec:tpms-specimens}
+
+Two sets of $16\,\mathrm{mm}$ PLA cubes are printed at $\mathrm{vf}=0.8$ under the same conditions (Figure~\ref{fig:tpms-specimen-sets}):
+
+\begin{itemize}
+\item \textbf{Woven lattices}: the 64 plain cP-weave specimens of Section~\ref{sec:mech-designspace}.
+\item \textbf{TPMS baselines}: eight families (gyroid, Schwarz P, Schwarz D, Schwarz F-RD, Schoen I-WP, Fischer-Koch S, Lidinoid, and split P), each at eight scales of its defining function. Changing the scale changes feature size at fixed volume fraction, so each family is represented by a range rather than one arbitrary specimen.
+\end{itemize}
+
+Print batch, build-plate position, and print and test dates are recorded and spread across both sets, so that a manufacturing effect cannot be mistaken for a design effect. Each cube is compressed uniaxially on a 10~kN frame with a stop at 9.5~kN. Raw exports are processed by an open analysis pipeline written for this study~\cite{companal2026}. It removes the pre-contact tare and seating slack, detects duplicate exports by content, and flags tests that reach the load limit, so that quantities depending on the unmeasured part of the curve are reported as lower bounds. Because displacement is crosshead travel, measured stiffness includes frame compliance, which we will measure separately for absolute moduli.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=6in]{ch08_fig02_specimen_sets.png}
+\caption[Woven and TPMS specimen sets.]{The two specimen sets: (top) woven lattices from the 64 plain cP-weave codes and (bottom) the eight TPMS families at one of their eight scales. All are $16\,\mathrm{mm}$ PLA cubes at $\mathrm{vf}=0.8$.
+\figtodo{No existing source. Top: renders or photos of a few woven lattices, ideally one per isometry orbit. Bottom: one render per TPMS family at a common scale (names as in \fs{comp-anal/data/metadata/baseline_metadata.csv}).}}
+\label{fig:tpms-specimen-sets}
+\end{figure}
+
+\section{Metrics and Analysis}
+\label{sec:tpms-analysis}
+
+From each stress-strain curve we extract standard cellular-solid metrics~\cite{gibson1997cellular,iso13314}: Young's modulus from a sliding-window fit, plateau stress, densification strain by the energy-efficiency criterion, absorbed and specific absorbed energy, first peak stress, and stress and energy at 10\% and 20\% strain. The fixed-strain metrics remain valid for every test that reaches those strains, including truncated ones.
+
+The two sets are compared at three levels.
+\begin{enumerate}
+\item \textbf{Envelopes.} Curves are resampled on a common strain grid, and each class is summarized by its median and interquartile band, with the woven median shown in every TPMS panel (Figure~\ref{fig:tpms-envelopes}). The woven set is also split by each digit of the pattern code and by isometry orbit.
+\item \textbf{Property space.} Pairs of metrics, such as modulus against plateau stress, show which regions each class reaches and whether the woven lattices occupy a region no TPMS family covers.
+\item \textbf{Parameter-property statistics.} Spearman rank correlations with Benjamini-Hochberg control of the false discovery rate~\cite{benjamini1995fdr}, partial correlations to separate correlated parameters, and rank analysis of covariance for categorical factors such as family and batch~\cite{quade1967rank}. Gibson-Ashby exponents indicate whether a class is bending or stretching dominated.
+\end{enumerate}
+Finally, for each TPMS family we find the scale whose response is closest to the woven distribution, with a bootstrap interval, and compare it with the scales that are geometrically comparable to the woven lattices. Agreement would mean that a TPMS that looks like the woven lattices also behaves like them. Disagreement would point to an effect of the woven topology itself.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=6in]{ch08_fig03_envelopes.png}
+\caption[Planned stress-strain envelope comparison.]{Planned envelope comparison: one panel per TPMS family showing its median curve and interquartile band, with the woven-lattice median and band repeated in grey in every panel. The load limit is marked by a dashed line.
+\figtodo{Planned figure from the \fs{comp-anal} pipeline~\cite{companal2026}, \fs{results/figures/class_envelopes.png} (\fs{scripts/run_analysis.py}). Until results are reported, use the synthetic demo (\fs{scripts/make_demo_data.py}) labeled ``illustrative'', or a schematic.}}
+\label{fig:tpms-envelopes}
+\end{figure}
+
+\section{Expected Outcome}
+
+The study will show whether rearranging the same strands at the same volume fraction moves the mechanical response as much as switching between TPMS families, and where woven lattices sit among established architected materials. A large, structured spread across the 64 arrangements, with consistent differences between orbits, would be direct evidence that in fibrillar structures the whole is greater than the sum of its parts. It also establishes a pipeline from a labeled design to a measured property that can be reused for other cell types and periodic H-GRS structures.

@@ -1,72 +1,52 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  CHAPTER V -- COMPLETED RESEARCH III:
-%  AN ALGEBRAIC FRAMEWORK FOR VOLUMETRIC NONWOVEN
-%  TEXTILES AND PERIODIC PATTERN DESIGN
+%  CHAPTER V -- LINKED AND CATENATED STRUCTURES
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{\uppercase{Completed Research III: An Algebraic Framework for Volumetric Nonwoven Textiles and Periodic Pattern Design}}
-\label{cha:nonwoven}
+\chapter{\uppercase{Linked and Catenated Structures from Labeled Honeycombs}}
+\label{cha:linked}
 
-Chapter~\ref{cha:volumetric-bravais} treated volumetric weaves in which threads strictly follow an over--under interlacing rule at every cell interface. This chapter summarizes~\cite{yildiz2024nonwoven}, which relaxes that rule and, in doing so, both (i) extends the cell-induced framework to \emph{nonwoven} structures and (ii) introduces the algebraic machinery -- a numeral system based on $2^K$-adic and $8^K$-adic ``zeros'' -- that this dissertation uses to \emph{design} within a periodic configuration space directly, rather than enumerating it after the fact.
+Weaves hold together because threads cross. Chainmail and catenanes hold together because closed components pass through one another, so that they cannot be separated without cutting. Recent work on polycatenated architected materials showed that such structures can switch between fluid-like and solid-like mechanical behavior~\cite{zhou20253d}, yet most examples are found individually rather than designed from a framework. This chapter summarizes two papers that apply the scaffold-label-rule scheme to this class: triply periodic linked structures~\cite{yildiz2025linked} and primal-dual polycatenanes~\cite{yildiz2026polycatenane}.
 
-\section{Motivation: Beyond the Over--Under Rule}
+\section{Triply Periodic Linked Structures}
+\label{sec:linked}
 
-Woven fabrics are only one way of achieving fabric-like connectivity. \emph{Nonwoven} structures -- more precisely, planar nonwoven textiles that mimic the connectivity of woven fabric without the crossing rule -- instead form a network of paths joined by local attachments (nails, gluing, welding, or chemical bonding) rather than physical interlacing (Figure~\ref{fig:woven-vs-nonwoven}). Extending nonwoven connectivity into three dimensions turns out to be comparatively direct, in contrast to the significant conceptual step required to extend \emph{woven} structures into three dimensions (Chapter~\ref{cha:volumetric-bravais}). This asymmetry is itself useful: volumetric nonwoven structures can be designed to mimic the mechanical behavior of woven fabrics while also realizing configurations -- including representations of previously unknown infinite regular and semi-regular polyhedra, and flexible ``wood''-like frame structures -- that are simply not achievable with planar or volumetric woven constructions.
+A link is a set of closed curves embedded in space, and a geometrically interlocked structure is one that cannot be taken apart without intersections. Edge twisting on manifold meshes can produce links~\cite{akleman2015extended,akleman2020topologically}, but it does not guarantee that every component is an unknot, and the resulting geometry is often hard to read. The Borromean rings, for example, arise from a uniform half-twist on a tetrahedron but rarely look like three ellipses.
 
-\begin{figure}[h!]
+We instead use a replacement system that keeps every component simple. Each face of a mesh becomes a \emph{face-cycle}, a closed quadratic B-spline that follows the face boundary. Each \emph{labeled} edge becomes an \emph{edge-cycle}, a circle centered at the edge midpoint, perpendicular to the edge, and large enough to enclose the face-cycles around it (Figure~\ref{fig:linked-structures}). Bundling every edge gives a \emph{fully linked} structure. Bundling only a subset still keeps the structure in one interlocked piece if the labeling has the \emph{single-link property}, and this choice of subset is what makes the design space large. The method accepts 2-manifold, non-manifold, and 3-manifold meshes.
+
+For periodic structures we use the Wigner-Seitz honeycombs of Chapter~\ref{cha:volumetric-bravais}. Their faces are planar, so face-cycles are planar curves that show no apparent crossings from any viewpoint. Each cell type needs only a small set of edges to label every edge of the honeycomb exactly once: 3 for cP, 5 for hP, 8 for cF, 9 for oF, and 12 for cI. A triply periodic linked structure is then a function
+\begin{equation}
+F:\mathbb{Z}_M^3\to\mathrm{GF}(2)^E,
+\end{equation}
+which is again a labeled cubical array, of the same form as a cP-weave. Rule-based labelings adapted from weave patterns, random labelings, and a procedure for enforcing single links generate the designs.
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=5in]{ch05_fig01_woven_vs_nonwoven_connectivity.png}
-\caption[Woven versus nonwoven connectivity.]{Woven versus nonwoven connectivity: (left) a woven structure, where threads physically interlace at each crossing; (right) a nonwoven structure with the same overall path topology, where threads instead meet at local attachment points (e.g., nails or bonding), avoiding the crossing rule.
-\figtodo{\cite{yildiz2024nonwoven} Fig.~\fs{fig_woven_vs_nonwoven}: woven \fs{images/nonwoven_woven_explanation/7-1-3-woven-2d-side-v2.png} vs.\ nonwoven \fs{.../7-1-3-nonwoven-2d-side-top-v2.png}; optionally add the attachment variants from Fig.~\fs{pipe_explanation} (\fs{images/pipe_introduction/7-1-3-nailed-nonwoven-side-top.png}).}}
-\label{fig:woven-vs-nonwoven}
+\includegraphics[width=6in]{ch05_fig01_linked_structures.png}
+\caption[Linked structures from labeled meshes.]{Linked structures from labeled meshes. A mesh (left) becomes a fully linked structure when every edge is bundled (middle) and a partially linked structure with the single-link property when only some edges are bundled (right). Bottom: triply periodic linked structures on Wigner-Seitz honeycombs.
+\figtodo{\cite{yildiz2025linked}: top row, Fig.~\fs{fig_teaser1b} (\fs{images/link_algo/2man}, \fs{2man_linked}, \fs{2man_linked_partial}); bottom row, two cells from Fig.~\fs{fig_teaser} (\fs{images/ws/CP.jpg}, \fs{images/ws/CI.jpg}) and Fig.~\fs{fig_4x4x4twill} (\fs{images/EXAMPLES/1100_1_1.jpg}).}}
+\label{fig:linked-structures}
 \end{figure}
 
-\section{Representation: From Matrices to Octal Tensors}
+\section{Primal-Dual Polycatenanes}
+\label{sec:polycatenanes}
 
-Two-way, two-layer nonwoven structures are represented with a binary matrix recording, for each grid position, whether a connection is present between two layers -- a direct generalization of Gr\"unbaum and Shephard's matrix notation for planar weaves~\cite{Grunbaum80,Grunbaum85,Grunbaum86,grunbaum1988isonemal}. Multi-layer two-way nonwovens generalize this matrix to a tensor. For fully volumetric nonwovens, each cell of a 3D grid can connect to its neighbors in the positive $x$, $y$, and $z$ directions independently, so each cell's local state is naturally described by an \emph{octal} digit (one bit per axis) rather than a binary one -- directly analogous to, but more general than, the eight local line configurations of a cP-weave cell (Section~\ref{sec:cp-weaves}) (Figure~\ref{fig:octal-tensor}).
+Polycatenanes generalize links from closed curves to spatial graphs: they are collections of mechanically interlocked, individually unknotted graphs~\cite{carlucci2003polycatenation}. Knot and link theory offers no comparable framework for extended or periodic catenated networks, and the examples in the chemistry literature are isolated constructions that are hard to generalize.
 
-\begin{figure}[h!]
+Our starting point was one such example, a network of cube-shaped graphs. Each cube graph sits in a cell of the cubic honeycomb, and the graph that links eight of them is the vertex cell of the dual honeycomb. Once this primal-dual relationship is recognized, the cubic case is no longer special. Starting from any cell-transitive 3-honeycomb, each primal cell yields one spatial graph and each vertex cell of the dual yields a second graph that links its neighbors (Figure~\ref{fig:primal-dual}). Labeling cells as selected or not produces partially connected polycatenanes and periodic domains that serve as modular building blocks. We construct the honeycombs from symmetric Delone sets under crystallographic groups, including multi-seed Bravais honeycombs, so the same procedure covers a broad family of crystallographic structures.
+
+We printed a rhombic dodecahedral example, whose dual is the tetrahedral-octahedral honeycomb, in PLA with water-soluble PVA support on a multi-material FDM printer. After the support dissolved, the components were geometrically separate and held together only by catenation.
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=5.5in]{ch05_fig02_octal_tensor_representation.png}
-\caption[From binary matrices to octal tensors for volumetric nonwovens.]{Generalizing the binary connection matrix of two-way, two-layer nonwovens (left) to an octal tensor for fully volumetric nonwovens (right): each cell's local state is one octal digit, one bit per positive coordinate direction ($+x$, $+y$, $+z$).
-\figtodo{Left: \cite{yildiz2024nonwoven} Fig.~\fs{fig_matrix_woven_vs_nonwoven4} (\fs{images/matrix_figures/2-2-1-1-1-3d-nonwoven-matrix-single.png}, \fs{...-matrix.png}). Right: Fig.~\fs{fig_tensor} (\fs{images/tensor_figures/000.png}--\fs{111.png}, the eight octal cell states).}}
-\label{fig:octal-tensor}
+\includegraphics[width=6in]{ch05_fig02_primal_dual.png}
+\caption[Primal-dual polycatenane construction.]{Primal-dual polycatenanes. (a) A triply periodic honeycomb and (b) its dual. (c) Spatial graphs in the primal cells are linked by graphs in the dual vertex cells. (d) The periodic catenated structure and (e) a printed prototype after the soluble support is removed.
+\figtodo{\cite{yildiz2026polycatenane} Fig.~\fs{fig1_4} (\fs{images/fig4_primal_dual/primal.jpg}, \fs{dual.jpg}, \fs{primal_dual_catenated.jpg}, \fs{primal_dual_catenated_periodic.jpg}) and Fig.~\fs{fig:3dprinting} (\fs{images/prints/oct_tet_1.jpg}).}}
+\label{fig:primal-dual}
 \end{figure}
 
-\section{Design: An Algebra of \texorpdfstring{$2^K$}{2\^{}K}-adic and \texorpdfstring{$8^K$}{8\^{}K}-adic Zeros}
-\label{sec:padic-design}
+\section{Lesson Carried Forward}
 
-Filling a large 3D tensor of local states by hand, or at random, does not scale, and random filling can introduce disconnected ``floating'' components that must be repaired with graph-search post-processing. To design large, symmetric, periodic structures directly, this work develops an algebra over $2^K$-adic zeros -- infinitely repeating $2^K$-adic numbers that all represent zero -- inspired by (1) multiplicative cyclic subgroups of finite fields and (2) classical $p$-adic number systems~\cite{krishnamurthy1975finite}. The key structural fact exploited here is that a repeating decimal (or, more generally, a repeating base-$P$ expansion) is exactly a periodic pattern: just as $0.\overline{3} = 1/3$ and $0.\overline{012}$ and $0.\overline{285714}$ are familiar examples of eventually periodic digit sequences, an infinitely repeating $2^K$-adic (or $8^K$-adic) number is, by construction, a periodic tiling of one-, two-, or three-dimensional space by local configuration labels.
-
-This numeral system supports algebraic operations that act directly on the design:
-\begin{itemize}
-\item \textbf{Cyclic addition.} Adding a fixed pattern $A$ to a starting pattern $N_x(0)$ repeatedly (modulo the periodicity) generates a whole orbit of related patterns without having to specify each one explicitly.
-\item \textbf{Identity and inverse patterns.} The all-zero pattern acts as an additive identity; multiplying a pattern by $-1$ yields its additive inverse, giving a principled way to generate ``complementary'' designs.
-\item \textbf{Shift as cyclic multiplication.} Multiplying a $2^K$-adic (or $8^K$-adic) pattern by a power of the base is equivalent to cyclically shifting it -- unifying the ad hoc shift-based notations used earlier for weaves (e.g., the extended $[A/B/s_x/s_y]$ notation) into a single algebraic operation.
-\end{itemize}
-
-Because these operations are performed on patterns that are already guaranteed to be periodic (they are, by construction, $2^K$- or $8^K$-adic zeros), every result of every operation is automatically a valid, periodic design -- the algebra never produces a pattern with an infinite, non-repeating fundamental domain. This is the design-time counterpart to the enumeration-time results of Chapter~\ref{cha:volumetric-bravais}: rather than counting how many valid designs exist, the algebra of $P^K$-adic zeros lets a designer \emph{generate} large families of valid, symmetric designs directly, using a handful of algebraic operations (addition, negation, multiplication by a shift) on a compact numeral representation (Figure~\ref{fig:padic-shift-example}).
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=5.5in]{ch05_fig03_padic_cyclic_addition_example.png}
-\caption[Generating a family of periodic patterns by cyclic addition.]{A family of related periodic patterns generated by repeated cyclic addition of a fixed offset pattern $A$ to a starting $2^K$-adic zero $N_x(0)$, illustrating how the algebraic operations of Section~\ref{sec:padic-design} generate whole orbits of designs from a single starting pattern.
-\figtodo{\cite{yildiz2024nonwoven} Fig.~\fs{fix_8adic_shifting} (\fs{images/8_adic_shifting/1443_matrix_from_mul_4.png}, \fs{1443_tensor_from_y_mul_4_x_mul_2.png}) and Prelim\_v2 slide~48 (media \fs{image138.png}--\fs{image140.png}). NOTE: those show shift-as-multiplication; to match ``cyclic addition'' redraw the $3{\times}7$ example matrix from the paper's \fs{Subsec_Design_2Kadic}, or change the caption to multiplication.}}
-\label{fig:padic-shift-example}
-\end{figure}
-
-\section{Contributions}
-
-In summary, this line of work contributes:
-\begin{enumerate}
-\item a tensor-based binary/octal numbering scheme that uniquely describes inter-layer and inter-cell connections for two-way, multi-layer, and fully volumetric nonwoven structures;
-\item an algebraic framework, based on $2^K$-adic and $8^K$-adic zeros, for constructing tensors that correspond to symmetric nonwoven (and, by the same construction, woven) structures;
-\item an identification of the relevant algebraic properties of these numbers (cyclic addition, identity and inverse patterns, shift-as-multiplication), including the observation that a special subset corresponding to Mersenne primes can support cyclic multiplication with additional structure; and
-\item a demonstration that the resulting volumetric nonwoven structures can represent previously undocumented infinite regular and semi-regular polyhedra and flexible frame structures~\cite{grunbaum1993infinite,grunbaum2015uniform}.
-\end{enumerate}
-
-\section{Relation to the Proposed Framework}
-
-This chapter completes the ``algebraic configuration space'' item identified as a knowledge gap in Chapter~\ref{cha:introduction}: where Chapter~\ref{cha:volumetric-bravais} shows that volumetric weaves \emph{can} be enumerated, this chapter shows that a specific class of them (and their nonwoven relatives) can be \emph{algebraically generated} by design. Chapter~\ref{cha:algebraic-calculus} builds on this algebra to move from single-cell-type, axis-aligned periodic patterns toward a more general, topology-first combinatorial model that also accommodates links, knots, and interlocked (catenated) structures -- moving closer to the fully dimension- and topology-independent design space that is the overall goal of this dissertation (Section~\ref{sec:goal}).
+Both papers reuse the scaffolds and label arrays of the earlier chapters: Wigner-Seitz honeycombs, cubical arrays, and rule-based labelings. What changed from one family to the next was the replacement rule. Weaves replaced a cell with thread segments, linked structures replaced faces and edges with separate cycles, and polycatenanes replaced cells with graphs. Each new family needed a new rule, chosen by hand. This raised the question that led to hypergraph rotation systems: is there one local rule from which weaves, knits, links, and chainmail all follow?
