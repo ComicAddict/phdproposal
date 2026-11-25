@@ -1,0 +1,1155 @@
+\documentclass[acmtog]{acmart}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{overpic}
+\usepackage{xcolor}
+
+\setcopyright{cc}
+\setcctype{by}
+\acmJournal{TOG}
+\acmYear{2026} \acmVolume{45} \acmNumber{6} \acmArticle{184}
+\acmMonth{12} \acmDOI{10.1145/3842537}
+
+\keywords{hypergraph rotation systems, linked knots, linked structures,
+knots and links, topological modeling, computational design}
+
+\begin{document}
+
+\title[Supplementary Material:H-GRS]{Supplementary Material for Hypergraph Rotation Systems: A Unified Framework for Linked Knot
+Structures}
+
+\author{Tolga Talha Yıldız}
+\affiliation{%
+  \institution{Texas A\&M University}
+  \city{College Station}
+  \state{Texas}
+  \country{USA}
+}
+\email{tolgayildiz@tamu.edu}
+\orcid{0000-0002-4834-9389}
+
+\author{Uğur Önal}
+\affiliation{%
+  \institution{Texas A\&M University}
+  \city{College Station}
+  \state{Texas}
+  \country{USA}
+}
+\email{uguronal@tamu.edu}
+\orcid{0000-0001-8347-3038}
+
+\author{Alison Martin}
+\affiliation{%
+  \institution{Weaver and Independent Researcher}
+  \city{Livorno}
+  \country{Italy}
+}
+\email{alisonmartin57@gmail.com}
+\orcid{0000-0003-0207-3898}
+
+\author{Vinayak R. Krishnamurthy}
+\affiliation{%
+  \institution{Texas A\&M University}
+  \city{College Station}
+  \state{Texas}
+  \country{USA}
+}
+\email{vinayak@tamu.edu}
+\orcid{0000-0001-6434-2577}
+
+\author{Ergun Akleman}
+\affiliation{%
+  \institution{Texas A\&M University}
+  \city{College Station}
+  \state{Texas}
+  \country{USA}
+}
+\authornote{Corresponding Author}
+\email{ergun@tamu.edu}
+\orcid{0000-0003-3618-4166}
+
+\renewcommand{\shortauthors}{Yildiz et al.}
+
+\begin{teaserfigure}
+    \centering
+    \begin{subfigure}[t]{0.16\textwidth}
+        \includegraphics[width=\textwidth]{images/teaser/tr_oct/cf_base.jpg}
+        \includegraphics[width=\textwidth]{images/teaser/tr_oct/cf_chainmail.jpg}
+        \caption{A link.}
+        \label{teaser20}
+    \end{subfigure}
+    \hfill
+        \begin{subfigure}[t]{0.16\textwidth}
+        \includegraphics[width=\textwidth]{images/teaser/tr_oct/cf_base.jpg}
+        \includegraphics[width=\textwidth]{images/teaser/tr_oct/cf_all_single.jpg}
+        \caption{A knot.}
+        \label{teaser21}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.16\textwidth}
+        \includegraphics[width=\textwidth]{images/teaser/tr_oct/cf_unfolded_base.jpg}
+        \includegraphics[width=\textwidth]{images/teaser/tr_oct/cf_unfolded.jpg}
+        \caption{LK structures.}
+        \label{teaser22}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.16\textwidth}
+        \includegraphics[width=\textwidth]{images/teaser/tr_oct/cf_lid_base.jpg}
+        \includegraphics[width=\textwidth]{images/teaser/tr_oct/cf_lid.jpg}
+        \caption{LK structures.}
+        \label{teaser23}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.16\textwidth}
+        \includegraphics[width=\textwidth]{images/teaser/tr_oct/cf_piano_base.jpg}
+        \includegraphics[width=\textwidth]{images/teaser/tr_oct/cf_piano.jpg}
+        \caption{LK structures.}
+        \label{teaser24}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.16\textwidth}     
+    \includegraphics[width=\textwidth]{images/teaser/tr_oct/cf_tess.jpg}
+    \includegraphics[width=\textwidth]{images/teaser/tr_oct/cf_threads.jpg}
+        \caption{Periodic LKs.}
+        \label{teaser25}
+    \end{subfigure}
+    \hfill
+ \caption{Another example of a space-filling shape that can form Isochoric 3-Honeycombs (Truncated Octahedron) to demonstrate how
+ local cyclic face orderings and integer-labeled edges provide a minimal representation for designing linked structures with controllable topology and motion. Starting from simple scaffolds (top), the resulting Linked Knot (LK) geometries (bottom) exhibit a wide range of behaviors, including chainmail links (a), unicursal knots (b), articulated structures (c–d), functional mechanisms (e), and periodic configurations (f). These examples illustrate how variations in scaffold connectivity, boundary conditions, periodicity, and local twist assignments generate distinct LK structures within a single H-GRS framework.}
+ \Description{Six paired examples show truncated-octahedron-based scaffolds above and their corresponding linked-knot structures below, including links, knots, articulated mechanisms, and a periodic structure.}
+  \label{fig:teaser2}
+\end{teaserfigure}
+
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10010147.10010371.10010396.10010398</concept_id>
+       <concept_desc>Computing methodologies~Mesh geometry models</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10010147.10010371.10010396.10010399</concept_id>
+       <concept_desc>Computing methodologies~Parametric curve and surface models</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+ </ccs2012>
+\end{CCSXML}
+\ccsdesc[500]{Computing methodologies~Mesh geometry models}
+\ccsdesc[500]{Computing methodologies~Parametric curve and surface models}
+
+\keywords{hypergraph rotation systems, linked knots, linked structures,
+knots and links, topological modeling, computational design}
+
+\maketitle
+
+\section*{Overview}
+
+
+This supplementary document provides additional conceptual, visual, and implementation details that support the H-GRS framework presented in the main paper. The main paper gives the formal representation and algorithms for constructing and extracting LK cycles. Here, we complement that presentation by explaining the reasoning behind the representation and construction, providing additional examples and systematic evaluation, and discussing geometric and physical realization.
+
+The supplementary material is organized into four parts. We first provide additional details of the H-GRS representation and construction, including the roles of cyclic ordering, radial ordering, edge labels, and local twist operations, and explain how the resulting combinatorial cycles are converted into geometric curves. We then present further examples and results that illustrate the range of structures generated by the framework. Next, we systematically evaluate the combinatorial design space of twist assignments under scaffold symmetries. Finally, we discuss practical methods for physically constructing the resulting LK structures.
+
+
+
+
+\section{Details of H-GRS: Representation and Construction}
+
+This section provides additional details on the representation and construction of H-GRS. We begin by explaining why incidence information alone is insufficient and why cyclic ordering is required to obtain a well-defined combinatorial scaffold. We then distinguish the two types of cyclic ordering used in H-GRS and clarify the roles of edge direction, radial ordering, geometric compatibility, and twist chirality. Building on this representation, we explain how integer edge labels act as local twist operators whose combined action determines the global LK cycles. Finally, we describe how these combinatorial cycles are converted into spatial curves and thickened strands.
+
+\subsection{From Graphs to Well-Defined Combinatorial Scaffolds}
+\label{sec:rotation-necessity}
+
+The main paper introduces H-GRS as a compact abstraction that directly
+encodes cyclic edge--face incidence. This abstraction highlights a limitation
+of graph-only constructions: an abstract graph specifies incidence, but
+incidence alone does not uniquely determine the cycles required to construct
+knots and links. The additional cyclic ordering provided by a rotation system
+is needed to make these cycles well defined
+\cite{edmonds1960combinatorial,gross2001topological}. Earlier graph-based and
+surface-based methods obtain such ordering information from an embedding or
+surface structure
+\cite{akleman1999guaranteeing,akleman2009cyclic,akleman2015extended}.
+
+Figure~\ref{fig:supp_tait} illustrates why this additional information is
+necessary. The same abstract graph can give rise to different medial graphs
+when different cyclic orderings are assigned to its vertices. EGRS \cite{akleman2009cyclic,akleman2015extended,akleman2020topologically}, Block
+Meshes \cite{akleman2015blockmeshes}, and H-GRS address this issue by incorporating cyclic orderings into
+their respective scaffold representations. The main paper provides a detailed
+comparison of H-GRS with earlier EGRS weaving methods and Block Meshes. The
+essential distinction here is that H-GRS directly stores the cyclic
+edge--face incidence and integer twist information needed for deterministic
+LK construction, without requiring an underlying manifold representation.
+In this sense, H-GRS provides a minimal combinatorial scaffold for LK
+construction: it retains the information needed to determine the LK cycles
+without imposing additional topological structure that is not required by
+the construction.
+
+
+
+\begin{figure}[htb!]
+    \centering
+   \includegraphics[width=0.9\columnwidth]{images/tait1}
+    \caption{The two red graphs are both medial graphs of the blue graph, but they are not isomorphic. Thus, the same underlying graph can lead to different medial graphs and therefore to non-isomorphic knot structures. This illustrates why graph connectivity alone is insufficient for controllable LK design: local cyclic ordering must also be specified.}
+    \Description{A blue graph is shown with two different red medial graphs produced by different cyclic orderings, illustrating that connectivity alone does not uniquely determine the resulting structure.}
+    \label{fig:supp_tait}
+\end{figure}
+
+
+
+
+\subsection{Oriented and Unoriented Cyclic Orderings in H-GRS}
+\label{sec:hgrs-cyclic-orderings}
+
+Figure~\ref{fig:hgrs-tetrahedron} uses a tetrahedral scaffold to illustrate the different roles played by cyclic ordering and orientation in H-GRS. Let
+\[
+V=\{v_1,v_2,v_3,v_4\},\qquad
+E=\{E_1,E_2,E_3,E_4,E_5,E_6\},
+\]
+and let
+\[
+F=\{F_1,F_2,F_3,F_4\}
+\]
+denote the four faces. The vertices specify only the endpoints needed to construct the scaffold edges; H-GRS does not require an explicit vertex-neighbor rotation system. In Figures~\ref{fig:hgrs-tetrahedron}(a) and~\ref{fig:hgrs-tetrahedron}(b), arrows are shown on the edges and face rotations only to make particular orientation choices visible.
+
+
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/schegeltetrahedron/0}
+        \caption{Consistent face rotations: all cyclic order are the same.}
+        \label{fig:hgrs-tetrahedron-manifold}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering       \includegraphics[width=\linewidth]{images/schegeltetrahedron/1}
+        \caption{The cyclic order of $F_1$ is reversed.}
+        \label{fig:hgrs-tetrahedron-nonmanifold}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.75\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/schegeltetrahedron/2}
+        \caption{Visual representation of H-GRS: face cycles have unoriented cyclic orderings, and scaffold edges are undirected.}
+        \label{tetrahedron_unoriented}
+    \end{subfigure}
+    \caption{ A tetrahedral scaffold example demonstrates there is no need for orientation in face cycles and direction in edges in H-GRS. (a) A choice of face rotations compatible with a consistently oriented tetrahedral 2-manifold. (b) Reversing the cyclic order of $F_1$ destroys global face-orientation consistency but does not change the underlying H-GRS face structure. (c) The same structure represented without unnecessary orientation and edge direction choices: scaffold edges are undirected, and the cyclic orderings around faces are unoriented. In contrast, the radial cyclic ordering of incident faces around an edge remains oriented, as required to distinguish positive and negative twists (see Section~\ref{sec:chirality}.)}
+    \Description{Three tetrahedral scaffold diagrams compare consistent and reversed face cyclic orderings, followed by the equivalent H-GRS representation with undirected edges and unoriented face cycles.}
+    \label{fig:hgrs-tetrahedron}
+\end{figure}
+
+For the first configuration in Fig.~\ref{fig:hgrs-tetrahedron}(a), the cyclic edge orderings around the four faces are
+\[
+\begin{aligned}
+F_1 &: (E_1,E_3,E_5),\\
+F_2 &: (E_2,E_6,E_3),\\
+F_3 &: (E_4,E_5,E_6),\\
+F_4 &: (E_1,E_4,E_2),
+\end{aligned}
+\]
+where each tuple is understood cyclically. Conversely, the edge--face incidences can be written as
+\[
+\begin{aligned}
+E_1 &: (F_1,F_4),&
+E_2 &: (F_2,F_4),&
+E_3 &: (F_1,F_2),\\
+E_4 &: (F_3,F_4),&
+E_5 &: (F_1,F_3),&
+E_6 &: (F_2,F_3).
+\end{aligned}
+\]
+The first set describes the cyclic ordering of edges around faces, while the second describes the radial cyclic ordering of incident faces around edges. Together they explicitly exhibit the two complementary rotation systems used by H-GRS. In this tetrahedral example every edge has valence two, so the edge--face incidences can also be inferred from the face data and are therefore redundant. We list them explicitly to expose the complete H-GRS structure; for higher-valence radial edges, their cyclic ordering contains additional information and must be specified.
+
+In Fig.~\ref{fig:hgrs-tetrahedron}(a), the chosen face rotations are mutually consistent and can be interpreted as those of an oriented tetrahedral 2-manifold. Now consider Fig.~\ref{fig:hgrs-tetrahedron}(b). The vertices, edges, and edge--face incidences are unchanged, but the cyclic ordering of only $F_1$ is reversed:
+\[
+F_1:(E_1,E_5,E_3),
+\]
+while
+\[
+F_2:(E_2,E_6,E_3),\qquad
+F_3:(E_4,E_5,E_6),\qquad
+F_4:(E_1,E_4,E_2)
+\]
+remain unchanged. The resulting set of oriented face rotations is no longer compatible with the globally consistent orientation of the tetrahedral 2-manifold shown in Fig.~\ref{fig:hgrs-tetrahedron}(a). Nevertheless, the two configurations represent the same H-GRS face structure for our LK construction.
+
+This equivalence reveals an important property of the face rotation system in H-GRS. Although the cyclic ordering of edges around a face is essential, the orientation of that cyclic ordering is not. For example,
+\[
+(E_1,E_3,E_5)
+\qquad\text{and}\qquad
+(E_1,E_5,E_3)
+\]
+differ by reversal but represent the same underlying cyclic adjacency. We therefore regard the cyclic ordering around each face as an \emph{unoriented cyclic ordering}: cyclic permutations and their reversals represent the same face ordering. More generally,
+\[
+(a_1,a_2,\ldots,a_n)
+\equiv
+(a_2,\ldots,a_n,a_1)
+\equiv
+(a_1,a_n,\ldots,a_2).
+\]
+Thus, the face rotation system retains the cyclic adjacency required by the LK construction without imposing an orientation on the face.
+
+This explains why Figures~\ref{fig:hgrs-tetrahedron}(a) and~\ref{fig:hgrs-tetrahedron}(b) are equivalent for H-GRS despite their different manifold-orientation behavior. Figure~\ref{fig:hgrs-tetrahedron}(c) shows the corresponding representation after removing these unnecessary orientation choices. The scaffold edges are undirected, and the face rotations are represented as unoriented cyclic orderings. In particular, neither a preferred direction for a scaffold edge nor a globally consistent orientation of the faces is required. This allows H-GRS to retain the combinatorial information needed for LK construction without imposing manifold-orientation constraints that are irrelevant to the resulting cycles.
+
+The radial rotation system around an edge plays a different role. Although the scaffold edge itself does not require an intrinsic direction, the cyclic ordering of its incident faces must retain an orientation. For a radial edge incident on $k$ faces, an ordering
+\[
+(F_1,F_2,\ldots,F_k)
+\]
+and its reversal
+\[
+(F_1,F_k,\ldots,F_2)
+\]
+represent the two opposite radial senses. Unlike the face rotations, these two radial orderings are not identified, because their distinction is required to distinguish the two signs of a twist. Thus, H-GRS uses \emph{unoriented cyclic orderings of edges around faces}, but \emph{oriented cyclic orderings of faces around radial edges}.
+
+The orientation of a radial ordering should not be confused with an intrinsic direction of the edge itself. A scaffold edge has no preferred direction, and either direction may be chosen arbitrarily as a local reference. Once such a direction is chosen, the oriented radial ordering can be interpreted relative to that directed axis. Reversing the chosen edge direction reverses the observed radial cyclic order and, correspondingly, the sign convention for the twist. When these changes are made consistently, the represented LK structure is unchanged. Edge direction is therefore an auxiliary reference choice rather than intrinsic H-GRS data.
+
+This distinction becomes geometrically meaningful because the H-GRS is realized in three-dimensional space. Locally in 3D, an arbitrarily directed edge provides an oriented axis around which the two senses of rotation are geometrically distinguishable by chirality. Consequently, the oriented radial ordering can distinguish positive and negative twists without requiring either a preferred edge direction or a globally consistent manifold orientation. The following section formalizes this intrinsically three-dimensional relationship between radial ordering, edge direction, and twist chirality.
+
+
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=0.99\linewidth]{images/teaser/teaser_suggested.jpg}
+    \caption{The chirality of a twist in three dimensions is uniquely defined. A twist operation generates spiral structures whose chirality can be identified by fixing a direction along the spiral. When viewed along this direction, the spiral rotates either clockwise or counterclockwise. This rotation direction defines its handedness. Mirror-image spirals rotate in opposite ways and cannot be superimposed. Once one chirality is designated as a positive twist, the opposite chirality is naturally defined as negative. 
+    This also explains why cyclic orderings $\sigma_{\vec e}$ are defined relative to the orientation of the directed edge $\vec e$: reversing the direction induces the inverse ordering. Since clockwise and counterclockwise are defined with respect to an oriented axis, chirality cannot be distinguished without fixing this direction.
+    This image is hand-drawn by one of the authors and not AI-generated.}
+    \Description{Two side-by-side illustrations compare left- and right-handed spiral twists around an oriented axis.}
+    \label{fig:supp_chiralspiral}
+\end{figure}
+
+\subsection{Edge Direction, Radial Ordering, and Twist Chirality}
+\label{sec:chirality}
+
+The preceding section establishes an important distinction: a scaffold edge does not require an intrinsic direction, but the radial cyclic ordering of faces around that edge must remain oriented. At first, these two requirements may appear contradictory, since clockwise and counterclockwise rotation around an edge can only be distinguished geometrically after choosing a direction along its axis. The purpose of this section is to show why no intrinsic edge direction is nevertheless required.
+
+Consider an undirected scaffold edge $e$ in a three-dimensional realization of the H-GRS. We may arbitrarily choose either direction along $e$ as a local reference axis. Relative to this choice, the geometric arrangement of the incident faces has an oriented radial sense, and an integer twist $t(e)$ has a well-defined handedness. Reversing the chosen edge direction reverses the observed radial sense and simultaneously reverses the sign convention for the twist. Thus, neither the edge direction nor the twist sign relative to that direction is independently intrinsic; what is preserved is their coupled chiral relationship.
+
+This relationship is inherently three-dimensional. Locally in 3D, the plane perpendicular to an edge is two-dimensional, allowing the two senses of rotation around the edge to be distinguished after choosing a reference direction. A helical twist therefore has a unique handedness relative to the chosen axis: it appears clockwise or counterclockwise when viewed along that direction. Mirror-image twists have opposite handedness. Once one handedness is designated positive, the other is naturally negative.
+The twist chirality considered in this work is therefore specific to the realization of one-dimensional LK curves in three-dimensional space.
+
+Figure~\ref{fig:supp_chiralspiral} illustrates this convention. It also explains why the radial cyclic ordering around an edge must remain oriented even though the scaffold edge itself is undirected. Reversing the arbitrary reference direction reverses both the observed radial sense and the twist sign, leaving the represented LK structure unchanged. Edge direction is therefore auxiliary, whereas oriented radial ordering together with twist chirality carries the information required by H-GRS.
+
+\begin{figure*}[htb!]
+    \centering
+    \begin{subfigure}[t]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{images/cylinders/00}
+        \caption{No twist}
+        \label{fig:cylinder00}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{images/cylinders/+1}
+        \caption{Some counter-clockwise twist}
+        \label{fig:cylinder+1}
+    \end{subfigure}
+    \hfill
+        \begin{subfigure}[t]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{images/cylinders/+2}
+        \caption{More counter-clockwise twist}
+        \label{fig:cylinder+2}
+    \end{subfigure}
+    \hfill
+        \begin{subfigure}[t]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{images/cylinders/-1}
+        \caption{Some clockwise twist}
+        \label{fig:cylinder-1}
+    \end{subfigure}
+    \hfill
+        \begin{subfigure}[t]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{images/cylinders/-2}
+        \caption{More clockwise twist}
+        \label{fig:cylinder-2}
+    \end{subfigure}
+    \hfill
+    \caption{Cycle formation under local edge twists. Each edge $e$ is incident to $m$ face-sides with a cyclic radial ordering. We replace a small neighborhood of $e$ by a prism-like connector whose side strips correspond to these face-sides. (a) No twist ($t(e)=0$): the strips run straight, and each face-side connects to itself across the edge, producing trivial local connectivity. (b,c) Counterclockwise twists: applying a positive twist shifts the correspondence between face-sides by a cyclic offset, causing them to connect to different neighbors. Increasing the twist magnitude increases the amount of this shift. (d,e) Clockwise twists: negative twists produce the opposite cyclic permutation, yielding mirror-image (chiral) configurations and different connectivity. This image was created through a collaboration between AI and a human. The initial drawing was produced by one of the authors, refined by AI, and subsequently corrected by the author.
+} 
+    \Description{Five examples show no twist, increasing positive twists, and increasing negative twists, illustrating opposite chiral directions around the same edge.}
+    \label{fig:supp_chirality}
+\end{figure*}
+
+
+
+\subsection{Geometric Compatibility of Radial Cyclic Orderings}
+
+An oriented radial cyclic ordering is combinatorial data and can be defined independently of any geometric embedding. For an edge $e$ with incident faces $F_e$, H-GRS stores a cyclic ordering $\sigma_e=(f_0,f_1,\ldots,f_{m_e-1})$. The construction of LK geometry, however, requires this combinatorial scaffold to be realized in three-dimensional space 
+(see Section\ref{sec:chirality}). This introduces an additional compatibility requirement between the prescribed combinatorial ordering and the geometric arrangement of the incident faces.
+
+For an edge embedded in 3D, the plane perpendicular to the edge is two-dimensional. After choosing either direction along the edge as a local reference, we can construct a frame in this plane and assign an angular coordinate $\theta_f$ to each incident face $f\in F_e$. The prescribed cyclic ordering $\sigma_e$ must then agree with the geometric ordering given by increasing $\theta_f$. Equivalently, the opposite edge direction produces the opposite angular convention; either choice is valid as long as the correspondence is maintained consistently.
+
+This geometric interpretation is specific to realization in three-dimensional space. In a higher-dimensional ambient space, an edge direction alone does not generally determine a two-dimensional rotation plane; for example, the space perpendicular to an edge in four dimensions is three-dimensional. Thus, the oriented radial ordering is not derived from edge direction itself. It remains combinatorial H-GRS data whose clockwise or counterclockwise geometric interpretation arises from the chosen 3D realization.
+
+The reference direction therefore does not make the scaffold edge intrinsically directed. It is an auxiliary choice used to establish the correspondence between $\sigma_e$ and the angular ordering required for geometric curve construction. For a two-valent edge, reversing the radial sense does not change the combinatorial cyclic ordering, since a cyclic ordering of two elements is equivalent to its reverse. Nevertheless, the reference direction remains geometrically useful because it distinguishes the two chiral senses of a spiral around the edge. For edges with more than two incident faces, the reference direction additionally distinguishes the two possible orientations of the radial cyclic ordering. Thus, geometric realization requires a consistent angular convention at every edge, although its effect on the combinatorial ordering becomes visible only for valence greater than two.
+
+\subsection{Integer Edge Labels}
+\label{sec:integer-labels}
+
+The rotation systems of H-GRS specify the incidence structure and its cyclic
+adjacency, but they do not specify what happens locally at each edge. To
+construct different LK structures from the same H-GRS scaffold, we therefore
+associate an additional integer label with every edge,
+\[
+t(e)\in\mathbb{Z}.
+\]
+In other words, H-GRS without edge labels specifies the incidence structure
+and its cyclic adjacency; the labels specify what happens locally at each
+edge.
+
+The use of integers follows naturally from the radial cyclic ordering around
+an edge. A label records a discrete amount of twisting about that edge:
+$t(e)=0$ represents no twist, while the magnitude $|t(e)|$ specifies the
+amount of twisting. Because the radial cyclic ordering is oriented, the two
+directions of twisting are distinct. The sign of $t(e)$ records this
+distinction, with positive and negative values corresponding to the two
+chiral senses established in Section~\ref{sec:chirality}.
+
+Importantly, the integer label belongs to the edge as a whole, rather than to
+any individual incident face. It describes a local operation on the complete
+radial configuration of face-sides around that edge. Thus, the combinatorial
+scaffold and its rotation systems determine the available local structure,
+while the integer edge labels determine how that local structure is twisted.
+
+The following section makes this interpretation operational by showing
+how each integer edge label acts as a local twist operator on the incident
+face-sides and how these local operations combine to determine the global LK cycles.
+
+\subsection{Cycle Formation via Local Twist Operators}
+
+Figure~\ref{fig:supp_chirality} illustrates the fundamental mechanism by which cycles are formed and modified in the H-GRS framework. The construction is entirely local, yet it induces global changes in connectivity.
+
+Consider an edge $e$ incident to $m$ face-sides with a fixed cyclic radial ordering that is geometrically consistent with the 3D realization, as described in Section~1.4. We replace a small neighborhood of $e$ with a prism-like connector whose side strips correspond to these incident face-sides (Figure~~\ref{fig:supp_chirality}). Each strip represents one face-side and inherits its geometrically consistent cyclic position around the edge.
+
+\paragraph{No twist ($t(e)=0$).}
+When no twist is applied (Figure~\ref{fig:cylinder00}), the strips run straight along the connector. In this case, each face-side connects directly to itself across the edge. As a result, no mixing occurs between face-sides, and the induced cycles remain locally trivial. Globally, this typically produces multiple disconnected components.
+
+\paragraph{Nonzero twist.}
+A twist label $t(e)\in\mathbb{Z}$ applies a discrete helical shift along the connector according to this geometric radial ordering. This twist preserves the cyclic order but reindexes the correspondence between incoming and outgoing face-sides.
+Concretely, each face-side is mapped to another by a cyclic permutation of offset $t(e)$.
+
+As shown in Figure~\ref{fig:cylinder+1} and~\ref{fig:cylinder+2}, increasing the magnitude of the twist produces increasing amounts
+of helical rotation around the edge. More importantly, it changes which face-sides connect across the edge. This local permutation alters how face boundaries concatenate, producing different global cycles.
+
+\paragraph{Chirality and sign.}
+The sign of $t(e)$ determines the handedness of the twist. Positive and negative twists produce mirror-image helical structures (Figure~~\ref{fig:cylinder-1} and~\ref{fig:cylinder-2}), and therefore induce different permutations of the face-sides. This distinction is essential: opposite signs induce opposite local cyclic permutations and can therefore lead to different global cycle structures.
+
+\paragraph{Cycle formation.}
+Cycles are obtained by tracing face boundaries across edges. At each edge, the twist-induced permutation determines how face-sides are concatenated. Thus, a global cycle emerges as a sequence of local transitions governed entirely by the twist labels.
+
+In summary, the twist operator acts as a local permutation on the cyclic ordering of face-sides, and global cycles arise from the repeated concatenation of these local permutations. This mechanism explains how simple integer labels on edges generate complex linked structures.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{\columnwidth}
+        \includegraphics[width=0.32\linewidth]{images/spiral_dist/spiral_even.jpg}    
+        \includegraphics[width=0.32\textwidth]{images/spiral_dist/spiral_even_control_points.jpg}
+        \includegraphics[width=0.32\textwidth]{images/spiral_dist/spiral_even_interpolated.jpg}    
+        \caption{Mesh with even angle distribution among the faces.}
+        \label{fig:even_uneven_1}
+    \end{subfigure}
+    \begin{subfigure}[t]{\columnwidth}
+        \includegraphics[width=0.32\textwidth]{images/spiral_dist/spiral_noteven.jpg}    
+        \includegraphics[width=0.32\textwidth]{images/spiral_dist/spiral_noteven_control_points.jpg}
+        \includegraphics[width=0.32\textwidth]{images/spiral_dist/spiral_noteven_interpolated.jpg}    
+        \caption{Mesh with uneven angle distribution between the faces}
+        \label{fig:even_uneven_2}
+    \end{subfigure}
+    \caption{Here we demonstrate the effect of angle distribution on thread geometry. When the mesh faces are evenly distributed around an edge, the resulting spiral functions are nearly identical to one another, as shown in ~\ref{fig:even_uneven_1}. When faces are close to one another, the formulated spiral functions (left) still preserve the order, and therefore the order of the sampled points for the control curve (middle) is also preserved. These control curves are then interpolated with 4th-order NURBS to generate a smooth curve (right), which likewise preserves the topological order in three-dimensional space.}
+    \Description{Two rows compare evenly and unevenly distributed faces around an edge, showing the source geometry, sampled control points, and the resulting interpolated spiral curves.}
+    \label{fig:even_uneven}
+\end{figure}
+\subsection{Geometric Realization of H-GRS Cycles}
+\label{sec:geometric-realization}
+
+The H-GRS construction determines the combinatorial connectivity of the
+resulting cycles, but it does not prescribe a unique geometric realization.
+Once the cycles have been extracted, they can be converted into spatial
+curves using a variety of curve-generation procedures. In our implementation,
+we use the geometry of the scaffold as a guide to generate sample points,
+locally connect these samples according to the extracted cycles, and then
+approximate the resulting point sequences using parametric curves. The curves
+can subsequently be thickened to obtain the strand-like geometries shown in
+our examples. The following steps are implemented within Blender's Geometry Nodes system \cite{blender}.
+
+\subsubsection{Offset Corner Points and Intermediate Spiral Points}
+
+The first step in the geometric realization is to determine the offset corner 
+points at which edge transitions occur. 
+We then use these offset corner points and the twisting number associated with 
+each edge to formulate a spiral function. 
+Given the source point $\mathbf{c_1}$, destination point $\mathbf{c_2}$, the edge axis $\hat{\mathbf{d}}$, middle point on the edge $\mathbf{a}$, $t(e)$ is the twisting number of edge and $m$ is the valence of the edge:
+
+\begin{align*}
+\mathbf{p}(t) &=
+\mathbf{a}
++
+h(t)\hat{\mathbf{d}}
++
+r\left[
+\cos\left(\theta(t)\right)\hat{\mathbf{u}}
++
+\sin\left(\theta(t)\right)\hat{\mathbf{v}}
+\right]\\
+h(t)&=(1-t)h_1+th_2\\
+\theta(t)&=t(\theta+2\pi \lfloor |t(e)|/m\rfloor)
+\end{align*}
+
+Where $h_1 = (\mathbf{c}_1-\mathbf{a})\cdot\hat{\mathbf{d}}$ and $h_2 = (\mathbf{c}_2-\mathbf{a})\cdot\hat{\mathbf{d}}$ are the axis coordinates of the endpoints.
+Radial components of corners are $\mathbf{q}_1=\mathbf{c_1}-\mathbf{a}-h_1\hat{\mathbf{d}}$ and $\mathbf{q}_2=\mathbf{c_2}-\mathbf{a}-h_2\hat{\mathbf{d}}$. 
+Radius is therefore $r=||\mathbf{q}_1||$. Then we can form a frame such that $\hat{\mathbf{u}}=\mathbf{q}_1/r$ and $\hat{\mathbf{v}}=\hat{\mathbf{d}}\times\hat{\mathbf{u}}$. 
+Angle between the corner points is $\theta=\text{atan2}(\mathbf{q_2}\cdot\hat{\mathbf{v}},\mathbf{q_2}\cdot\hat{\mathbf{u}})$. Here $\mathbf{p}(0)=\mathbf{c}_1$ and $\mathbf{p}(1)=\mathbf{c}_2$.
+
+The number of points that needs to be sampled is determined by the number of
+twists applied to the spiral. For each full rotation, we sample an additional of four points
+to capture sufficient positional and curvature information. The number of
+samples are calculated by the number of twists:
+$4*(\lfloor |t(e)|/m\rfloor+1)$
+
+After determining the number of points, we sample the spiral function starting
+from the initial source corner point of an edge to the destination corner
+point of the edge.
+
+\subsubsection{Constructing Curves}
+
+An important consequence of the H-GRS representation is that the extracted
+cycles are \emph{unoriented}. A cycle specifies cyclic adjacency, but neither
+of its two traversal directions is preferred. We represent such cycles using
+doubly linked connections, so that every local curve segment can be traversed
+in either direction. Consequently, curve construction does not require a
+globally consistent orientation of a cycle.
+
+This representation allows the geometric construction to remain local.
+Sampled curve segments can be generated independently for faces and edge
+neighborhoods and then combined using only their doubly linked adjacency.
+When two local segments are joined, either segment can simply be traversed in
+the direction required by the local connection. There is therefore no need
+to propagate an arbitrary orientation through the complete cycle before
+constructing its geometry. Reversing the traversal direction of the resulting
+closed cycle represents the same geometric strand.
+
+After the local segments have been combined into a closed sequence of sample
+points, we use fourth-order NURBS interpolation to form a continuous curve
+from the sampled points.
+
+\subsubsection{Thickening by Sweeping}
+
+For visualization or fabrication, the resulting parametric curves can be
+thickened into strands by sweeping a cross section along each curve. The frame
+calculation for the sweeping process uses a rotation-minimizing frame
+\cite{rmf}. A circular cross section produces the tube-like strands used in
+most of our examples, although other cross sections can also be used. Strand
+thickness is a geometric parameter and is independent of the combinatorial
+H-GRS representation.
+
+The H-GRS construction guarantees the combinatorial connectivity of the
+cycles, but it does not guarantee that an arbitrary geometric realization is
+free of self-intersections or intersections between different strands. Such
+intersections depend on geometric choices, including the sampled spiral
+radius, offsets from corners, curve approximation, smoothing, and strand
+thickness. We do not explicitly prevent such intersections in the current
+implementation. If an intersection-free realization is required, collision
+detection and geometric optimization can be incorporated as an additional
+geometric post-processing step without changing the underlying H-GRS
+representation.
+
+
+
+
+\section{Further Examples and Results}
+
+
+The main paper focuses on the H-GRS formulation and presents representative periodic structures. Figures~8--11 provide additional context for how earlier Wigner--Seitz-based periodic constructions fit into the same edge-twist viewpoint. They are included here as supplementary visual evidence that the H-GRS framework encompasses classical planar periodic patterns as well as volumetric periodic structures.
+
+
+\subsection{Classical Knots and Links as Emergent Instances}
+\label{sec:supp_classical}
+
+The main paper emphasizes the general H-GRS construction rather than cataloging specific classical knots. Nevertheless, it is useful to show that familiar prime knots and links appear naturally as low-complexity instances of the framework. These examples are not individually hand-designed as knot diagrams; they arise from simple labeled surface scaffolds and local twist assignments.
+
+\begin{figure}[htb!]
+    \centering
+    \begin{subfigure}[t]{0.23\columnwidth}
+        \includegraphics[width=\textwidth]{images/known_knots/trefoil_base.jpg}
+        \includegraphics[width=\textwidth]{images/known_knots/trefoil.jpg}
+        \caption{Trefoil knot ($3_1$).}
+        \label{fig:supp_prime00}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\columnwidth}
+        \includegraphics[width=\textwidth]{images/known_knots/4-1_base.jpg}
+        \includegraphics[width=\textwidth]{images/known_knots/4-1.jpg}
+        \caption{Figure-eight knot ($4_1$).}
+        \label{fig:supp_prime01}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\columnwidth}
+        \includegraphics[width=\textwidth]{images/known_knots/5-1_base.jpg}
+        \includegraphics[width=\textwidth]{images/known_knots/5-1.jpg}
+        \caption{$5_1$ knot.}
+        \label{fig:supp_prime02}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\columnwidth}
+        \includegraphics[width=\textwidth]{images/known_knots/7-1_base.jpg}
+        \includegraphics[width=\textwidth]{images/known_knots/7-1.jpg}
+        \caption{$7_1$ knot.}
+        \label{fig:supp_prime03}
+    \end{subfigure}
+    \caption{Examples of classical prime knots emerging from simple labeled surface meshes. The trefoil, $5_1$, and $7_1$ examples are produced by twisting the edges of two-sided regular polygons with an odd number of face sides. The figure-eight knot uses a slightly different two-sided surface scaffold, with one side formed by two triangles and the opposite side by a quadrilateral.}
+    \Description{Four examples pair simple source meshes with their corresponding trefoil, figure-eight, (5_1), and (7_1) knot structures.}
+    \label{fig:supp_prime_knots}
+\end{figure}
+
+The examples in Figure~\ref{fig:supp_prime_knots} demonstrate that classical prime knots can be obtained from very small scaffolds. These examples demonstrate that familiar knot types generated by earlier
+surface-based constructions arise naturally within H-GRS, while integer
+twist labels and non-manifold incidence structures provide a broad
+design space.
+\begin{figure}[htb!]
+    \centering
+    \begin{subfigure}[t]{0.23\columnwidth}
+        \includegraphics[width=\textwidth]{images/known_links/borromean_base.jpg}
+        \includegraphics[width=\textwidth]{images/known_links/borromean.jpg}
+        \caption{Borromean rings.}
+        \label{fig:supp_prime10}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\columnwidth}
+        \includegraphics[width=\textwidth]{images/known_links/whitehead_base.jpg}
+        \includegraphics[width=\textwidth]{images/known_links/whitehead.jpg}
+        \caption{Whitehead link.}
+        \label{fig:supp_prime11}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\columnwidth}
+        \includegraphics[width=\textwidth]{images/known_links/solomon_base.jpg}
+        \includegraphics[width=\textwidth]{images/known_links/solomon.jpg}
+        \caption{Solomon link.}
+        \label{fig:supp_prime12}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\columnwidth}
+        \includegraphics[width=\textwidth]{images/known_links/2,8_base.jpg}
+        \includegraphics[width=\textwidth]{images/known_links/2,8.jpg}
+        \caption{(2,8) torus link.}
+        \label{fig:supp_prime13}
+    \end{subfigure}
+    \caption{Examples of well-known linked structures generated by labeled surface meshes. The Borromean rings, Whitehead link, Solomon link, and a torus link arise as outcomes of local combinatorial choices rather than as separately encoded knot diagrams.}
+    \Description{Four examples pair simple source meshes with the corresponding Borromean rings, Whitehead link, Solomon link, and ((2,8)) torus link.}
+    \label{fig:supp_prime_links}
+\end{figure}
+
+Figure~\ref{fig:supp_prime_links} shows that classical links similarly arise as natural outcomes of the framework. The Solomon link and the $(2,8)$ torus link can be produced from two-sided regular polygons with even numbers of sides, while the Borromean rings arise from a tetrahedral scaffold and the Whitehead link from a 2-manifold with boundary.
+
+
+
+
+\begin{figure}[htb!]
+    \centering
+    \rotatebox{90}{\parbox[t]{0.120\textwidth}{\centering cP}}
+    \includegraphics[width=0.30\linewidth]{images/ws_2d/cp.jpg}
+    \includegraphics[width=0.30\linewidth]{images/ws_2d/cp_unique_edges.jpg}
+    \includegraphics[width=0.30\linewidth]{images/ws_2d/cp_unique_spiral.jpg}\\
+    \rotatebox{90}{\parbox[t]{0.120\textwidth}{\centering hP}}
+    \includegraphics[width=0.30\linewidth]{images/ws_2d/hp.jpg}
+    \includegraphics[width=0.30\linewidth]{images/ws_2d/hp_unique_edges.jpg}
+    \includegraphics[width=0.30\linewidth]{images/ws_2d/hp_unique_spirals.jpg}\\
+    \rotatebox{90}{\parbox[t]{0.01\textwidth}{\centering }}
+    \parbox[t]{0.30\linewidth}{\centering Unit Cells}
+    \parbox[t]{0.30\linewidth}{\centering Unique Edges}
+    \parbox[t]{0.30\linewidth}{\centering Twisting Elements}
+    \caption{In two dimensions, there are two topologically distinct Wigner--Seitz cells. The figure illustrates the unique edges arising in the tessellations of these cells and their associated twisting elements. These examples show how edge classes in a periodic cell become twist-label carriers.}
+    \Description{Two rows show square and hexagonal Wigner–Seitz cells, their distinct edge classes, and the corresponding twisting elements.}
+    \label{fig:supp_bravais2D}
+\end{figure}
+
+
+\begin{figure*}[htb!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.30\linewidth]{images/ws_2d/cp0.jpg}
+        \includegraphics[width=0.30\linewidth]{images/ws_2d/cp1.jpg}
+        \includegraphics[width=0.30\linewidth]{images/ws_2d/cp2.jpg}\\
+        \includegraphics[width=0.30\linewidth]{images/ws_2d/cp0_tiled.jpg}
+        \includegraphics[width=0.30\linewidth]{images/ws_2d/cp1_tiled.jpg}
+        \includegraphics[width=0.30\linewidth]{images/ws_2d/cp2_tiled.jpg}\\
+        \parbox[t]{0.30\linewidth}{\centering 0 twist}
+        \parbox[t]{0.30\linewidth}{\centering 1 twist}
+        \parbox[t]{0.30\linewidth}{\centering 2 twist}
+        \caption{Uniform twist applied to square tessellation.}
+        \label{fig:supp_ws2d_quad}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.30\linewidth]{images/ws_2d/hp0.jpg}
+        \includegraphics[width=0.30\linewidth]{images/ws_2d/hp1.jpg}
+        \includegraphics[width=0.30\linewidth]{images/ws_2d/hp2.jpg}\\
+        \includegraphics[width=0.30\linewidth]{images/ws_2d/hp0_tiled.jpg}
+        \includegraphics[width=0.30\linewidth]{images/ws_2d/hp1_tiled.jpg}
+        \includegraphics[width=0.30\linewidth]{images/ws_2d/hp2_tiled.jpg}\\
+        \parbox[t]{0.30\linewidth}{\centering 0 twist}
+        \parbox[t]{0.30\linewidth}{\centering 1 twist}
+        \parbox[t]{0.30\linewidth}{\centering 2 twist}
+        \caption{Uniform twist applied to hexagonal tessellation.}
+        \label{fig:supp_ws2d_hex}
+    \end{subfigure}
+    \caption{Effect of uniform edge twisting in 2D tessellations. With zero twist, the structure consists of disconnected links. Applying a single twist generates biaxial and triaxial weaving patterns, while applying two twists yields chainmail-like configurations. These examples provide a planar analogue of the periodic H-GRS constructions in the main paper.}
+    \Description{Square and hexagonal tessellations are shown with uniform twist values of 0, 1, and 2, together with the corresponding tiled interlaced patterns.}
+    \label{fig:supp_bravais2D_repeated}
+\end{figure*}
+
+
+\begin{figure*}[htb!]
+    \centering
+    \rotatebox{90}{\parbox[t]{0.12\textwidth}{\centering Unit Cells}}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/cp.jpg}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/hp.jpg}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/cf.jpg}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/of.jpg}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/ci.jpg}\\
+    \rotatebox{90}{\parbox[t]{0.12\textwidth}{\centering Unique Edges}}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/cp1.jpg}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/hp1.jpg}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/cf1.jpg}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/of1.jpg}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/ci1.jpg}\\
+    \rotatebox{90}{\parbox[t]{0.12\textwidth}{\centering Twist Units}}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/cp_braids.jpg}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/hp_braids.jpg}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/cf_braids.jpg}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/of_braids.jpg}
+    \includegraphics[width=0.18\linewidth]{images/distinct_edges/ci_braids.jpg}\\
+    \rotatebox{90}{\parbox[t]{0.01\textwidth}{\centering }}
+    \parbox[t]{0.18\linewidth}{\centering cP}
+    \parbox[t]{0.18\linewidth}{\centering hP}
+    \parbox[t]{0.18\linewidth}{\centering oF}
+    \parbox[t]{0.18\linewidth}{\centering cF}
+    \parbox[t]{0.18\linewidth}{\centering cI}
+    \caption{Five topologically distinct Wigner--Seitz cells in three dimensions. For each type, the distinct edge classes required to define a repeating structure are indicated, and the corresponding unit twisting elements are shown. This figure illustrates how volumetric periodic scaffolds can be reduced to finite edge-labeling data.}
+    \Description{Five columns show 3D Wigner–Seitz cells, their distinct edge classes, and the corresponding twisting elements.}
+    \label{fig:supp_bravais3D}
+\end{figure*}
+
+
+\begin{figure*}[htp!]
+    \centering
+    \begin{overpic}[width=0.23\linewidth]{images/bravais/cf/1_tw.jpg}
+        \put(-5,65){\centering 1}
+    \end{overpic}
+    \begin{overpic}[width=0.23\linewidth]{images/bravais/cf/2_tw.jpg}
+        \put(-5,65){\centering 2}
+    \end{overpic}
+    \begin{overpic}[width=0.23\linewidth]{images/bravais/cf/3_tw.jpg}
+        \put(-5,65){\centering 3}
+    \end{overpic}
+    \begin{overpic}[width=0.23\linewidth]{images/bravais/cf/4_tw.jpg}
+        \put(-5,65){\centering 4}
+    \end{overpic}\\
+    \includegraphics[width=0.23\linewidth]{images/bravais/cf/1_tw_tess.jpg}
+    \includegraphics[width=0.23\linewidth]{images/bravais/cf/2_tw_tess.jpg}
+    \includegraphics[width=0.23\linewidth]{images/bravais/cf/3_tw_tess.jpg}
+    \includegraphics[width=0.23\linewidth]{images/bravais/cf/4_tw_tess.jpg}
+    \caption{Uniform twisting on a truncated-octahedron tessellation. Similar to the cubic periodic example in the main paper, tileable twisting modules are assigned to the distinct edge classes. This example uses truncated octahedra as the tiling basis, giving 12 unique edges, each with a three-face layout. Uniform twist values produce periodic LK structures with distinct global component behavior.}
+    \Description{Four uniform twist values are shown with their corresponding local twisting modules and tiled truncated-octahedron structures.}
+    \label{fig:supp_bravais3D_repeated_cf}
+\end{figure*}
+
+
+
+
+\section{Systematic Enumeration of Twist Assignments}
+\label{sec:systematic-enumeration}
+
+To quantify the combinatorial design space generated by integer twists, we consider a finite set of $k$ distinct twist values. For symmetry enumeration, the numerical magnitudes of these values are irrelevant: each distinct twist value acts as a distinct edge color. The problem is therefore analogous to classical coloring enumeration, including necklace and bracelet counting, although here colors are assigned to scaffold edges and equivalence is determined by the orientation-preserving symmetry group of the scaffold. We use Burnside's lemma \cite{burnside1911theory} and P\'olya-style enumeration~\cite{polya1987combinatorial}.
+
+Let $\mathcal{T}=\{t_1,t_2,\ldots,t_k\}$ be a set of $k$ distinct allowed twist values. For a scaffold with edge set $E$, each edge can independently receive any element of $\mathcal{T}$, giving
+\begin{equation}
+k^{|E|}
+\end{equation}
+raw assignments before symmetry is taken into account. We identify assignments only under orientation-preserving symmetries. Reflections are not quotiented out because they reverse chirality and therefore generally exchange an assignment with its mirror configuration.
+
+Let $G$ be the orientation-preserving symmetry group of the scaffold. Each $g\in G$ induces a permutation of the edge set. If this permutation contains $c_E(g)$ cycles, an assignment is fixed by $g$ exactly when all edges in each permutation cycle receive the same twist value. Thus,
+\begin{equation}
+|\mathrm{Fix}(g)|=k^{c_E(g)}.
+\end{equation}
+Burnside's lemma gives
+\begin{equation}
+N_G(k)=\frac{1}{|G|}\sum_{g\in G}|\mathrm{Fix}(g)|
+=\frac{1}{|G|}\sum_{g\in G}k^{c_E(g)}.
+\label{eq:burnside-twist}
+\end{equation}
+This also explains why simply dividing $k^{|E|}$ by $|G|$ is not exact: assignments with nontrivial stabilizers have smaller symmetry orbits.
+
+\subsection{Representative Scaffolds}
+
+We evaluate Eq.~\eqref{eq:burnside-twist} on a set of simple scaffolds used in this work. The set contains all five Platonic solids---with dual pairs grouped because they induce the same rotational action on corresponding edges---and all five Wigner--Seitz cell types used in our periodic 3-honeycomb constructions: cube, hexagonal prism, rhombic dodecahedron, elongated dodecahedron, and truncated octahedron. Thus, the enumeration covers both the simplest closed 2-manifold scaffolds and the cells underlying the higher-valence periodic H-GRS constructions.
+
+\textit{Primal--dual correspondence.}
+For closed 2-manifold polyhedral scaffolds, primal--dual
+correspondence preserves the number of edges and establishes a
+one-to-one correspondence between primal and dual edges. Consequently,
+dual Platonic pairs such as the cube and octahedron, and the
+dodecahedron and icosahedron, have the same edge-based enumeration and
+can be grouped in the analysis below. 
+This equivalence does not extend to primal and dual 3-honeycombs:
+under three-dimensional duality, primal edges correspond to dual
+faces, rather than to dual edges, and the resulting combinatorial
+structures are therefore different.
+The cubic Wigner--Seitz
+case is an exception because the cubic honeycomb is self-dual.
+
+For the tetrahedron,
+\begin{equation}
+N_{\mathrm{tet}}(k)=\frac{k^6+3k^4+8k^2}{12}.
+\end{equation}
+
+The cube and octahedron are dual and induce the same rotational action on their 12 corresponding edges:
+\begin{equation}
+N_{\mathrm{cube/oct}}(k)=\frac{k^{12}+6k^7+3k^6+8k^4+6k^3}{24}.
+\end{equation}
+
+For the regular hexagonal prism,
+\begin{equation}
+N_{\mathrm{hex}}(k)=\frac{k^{18}+3k^{10}+4k^9+2k^6+2k^3}{12}.
+\end{equation}
+
+For the rhombic dodecahedron,
+\begin{equation}
+N_{\mathrm{rhomb}}(k)=\frac{k^{24}+9k^{12}+8k^8+6k^6}{24}.
+\end{equation}
+
+For the elongated dodecahedral Wigner--Seitz cell associated with the face-centered orthorhombic construction used here, the orientation-preserving symmetry group has order $4$. Its three nonidentity half-turns each induce 14 edge cycles, giving
+\begin{equation}
+N_{\mathrm{elong}}(k)=\frac{k^{28}+3k^{14}}{4}.
+\end{equation}
+
+The dodecahedron and icosahedron are dual and induce the same rotational action on their 30 corresponding edges:
+\begin{equation}
+N_{\mathrm{dod/ico}}(k)=\frac{k^{30}+15k^{16}+20k^{10}+24k^6}{60}.
+\end{equation}
+
+Finally, for the truncated octahedron,
+\begin{equation}
+N_{\mathrm{trunc}}(k)=\frac{k^{36}+6k^{19}+3k^{18}+8k^{12}+6k^9}{24}.
+\end{equation}
+
+\begin{table*}[t]
+\centering
+\caption{ Numbers of symmetry-distinct edge-twist assignments for $k$ distinct twist values. Mirror-related configurations remain distinct because reflections reverse chirality. The examples include all five Platonic solids (with dual pairs grouped) and all five Wigner--Seitz cell types used in our periodic 3-honeycomb constructions. Large counts are shown in scientific notation.}
+\label{tab:twist-enumeration}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+
+\begin{tabular}{c|r|r|r|r|r|r|r}
+\hline
+$k$ &
+Tetrahedron &
+Cube/Octahedron &
+Hexagonal Prism &
+Rhombic Dodecahedron &
+Elongated Dodecahedron &
+Dodecahedron/Icosahedron &
+Truncated Octahedron \\
+\hline
+2 & 12 & 218 & 22,284 & 700,688 & $6.71\times10^{7}$ & $1.79\times10^{7}$ & $2.86\times10^{9}$ \\
+3 & 87 & 22,815 & $3.23\times10^{7}$ & $1.18\times10^{10}$ & $5.72\times10^{12}$ & $3.43\times10^{12}$ & $6.25\times10^{15}$ \\
+4 & 416 & 703,760 & $5.73\times10^{9}$ & $1.17\times10^{13}$ & $1.80\times10^{16}$ & $1.92\times10^{16}$ & $1.97\times10^{20}$ \\
+5 & 1,475 & $1.02\times10^{7}$ & $3.18\times10^{11}$ & $2.48\times10^{15}$ & $9.31\times10^{18}$ & $1.55\times10^{19}$ & $6.06\times10^{23}$ \\
+6 & 4,236 & $9.08\times10^{7}$ & $8.46\times10^{12}$ & $1.97\times10^{17}$ & $1.54\times10^{21}$ & $3.68\times10^{21}$ & $4.30\times10^{26}$ \\
+\hline
+\end{tabular}}
+\end{table*}
+
+\subsection{Polynomial Growth in the Number of Twist Values and Exponential Growth in Scaffold Size}
+
+Equation~\eqref{eq:burnside-twist} makes two different growth behaviors explicit. For a fixed scaffold, $|E|$ and $G$ are fixed, so $N_G(k)$ is a polynomial in $k$ of degree $|E|$. Increasing the number of available twist values therefore produces polynomial growth in $k$, although the degree is high for scaffolds with many edges.
+
+The exponential behavior concerns scaffold size. For a fixed number $k>1$ of available twist values, the raw labeling space contains $k^{|E|}$ assignments. The identity element of the symmetry group contributes exactly this term to Burnside's sum, whereas every nonidentity symmetry contributes a term $k^{c_E(g)}$ with $c_E(g)<|E|$. Consequently, for a family of scaffolds whose symmetry-group orders do not themselves grow exponentially with $|E|$, the dominant behavior is
+\begin{equation}
+N_G(k)\sim\frac{k^{|E|}}{|G|}.
+\end{equation}
+Thus, quotienting by scaffold symmetry removes redundant assignments but does not remove the exponential dependence on the number of scaffold edges. Table~\ref{tab:twist-enumeration} illustrates both effects: moving downward within a column shows the polynomial dependence on $k$ for a fixed scaffold, whereas moving across scaffolds of increasing edge count demonstrates the much faster growth with scaffold size.
+
+\subsection{Interpretation for Chainmails and Unicursal Knots}
+
+The enumeration above depends only on the number of distinct twist labels, not on their numerical values. It can therefore be specialized by restricting the allowed labels. In the two-fold case, if all $k$ allowed twists are nonzero even integers, every edge preserves the two local strands rather than merging them. The resulting structures belong to the chainmail class, so the same Burnside polynomials enumerate symmetry-distinct chainmail assignments when the $k$ colors are interpreted as $k$ distinct nonzero even twist values.
+
+The unicursal case is more constrained. Producing a single global cycle requires a suitable set of odd-twist edges that connects and merges the initial face cycles. As discussed in the main paper, this condition is naturally related to a spanning-tree construction. Counting unicursal configurations therefore requires counting admissible tree-like selections of odd-twist edges together with their twist assignments rather than independently coloring every edge.
+
+The counts in this section should therefore be distinguished from the family-specific counts in the main paper. There, particular classes such as chainmails and unicursal knots are considered separately. Here, the Burnside formulation provides a general symmetry-reduced characterization of the twist-label design space and, under appropriate restrictions on the allowed twist values, specializes directly to corresponding families such as chainmails.
+
+
+
+
+\section{Physical Constructions}
+\label{sec:physical_construction}
+
+The H-GRS framework specifies linked knot (LK) structures
+combinatorially, so a given design can be realized through several
+distinct fabrication pipelines. The choice of pipeline is largely
+independent of the underlying H-GRS data and depends instead on
+material availability, target scale, and the desired degree of
+articulation. In this section we summarize the two principal
+construction routes we have used to produce physical LK structures:
+3D printing and paper-strip wrapping over a scaffold. Both routes
+take the same H-GRS scaffold and twist labeling as input, but they
+differ in how the resulting cycles are realized as physical strands.
+
+\subsection{3D Printing}
+
+Direct fabrication on a fused-deposition or resin printer is the
+most flexible option, because every cycle generated by the H-GRS
+framework can be exported as a closed tube or thickened strand mesh.
+We have used three practical print strategies in this work, each
+trading off geometric fidelity, support consumption, post-processing
+effort, and ease of assembly.
+
+\paragraph{Single-piece printing with sacrificial supports.}
+The simplest approach is to print the complete LK structure in its
+final assembled configuration (Figure~\ref{fig:print_singlepiece}).
+Because LK geometries are inherently interlinked, every cycle is
+supported only by adjacent cycles and the surrounding air, so the
+printer must generate temporary supports beneath every overhanging
+segment. For coarse scaffolds with few crossings, single-material
+supports printed in the same filament as the structure can be removed
+mechanically after printing. For denser scaffolds, particularly the
+volumetric periodic examples shown in
+Figures~\ref{fig:print_singlepiece}a,b, mechanical removal is
+impractical because supports are trapped inside enclosed cycles.
+In these cases we use a dual-extrusion printer with a water-soluble
+support material such as PVA (polyvinyl alcohol); after printing,
+the part is immersed in water until the support dissolves, leaving
+the linked cycles free to articulate. This route preserves the
+topology guaranteed by the H-GRS construction without any manual
+assembly, but it consumes substantial support material and printing
+time, and it does not scale well to large structures.
+
+\begin{figure}[t]
+  \centering
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=0.49\linewidth]{images/photos/cp_4.jpg}
+    \includegraphics[width=0.49\linewidth]{images/photos/cp_5.jpg}
+    \caption{cP tesselation LK structure using PVA supports}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=0.49\linewidth]{images/photos/oct_1.jpg}
+    \includegraphics[width=0.49\linewidth]{images/photos/oct_2.jpg}
+    \caption{cP tesselation LK structure using PLA supports}
+  \end{subfigure}
+  \caption{(a) Single-piece 3D-printed LK structures using sacrificial
+  PVA supports. Cubic periodic weave-like structures
+  printed and shown after dissolving the water-soluble supports.
+  (b) Truncated-octahedron periodic LK structures from the same
+  pipeline with larger corner offset and scale to enable manual removal of PLA supports.}
+  \Description{Four photographs show single-piece 3D-printed periodic linked-knot structures fabricated using dissolvable PVA or removable PLA supports.}
+  \label{fig:print_singlepiece}
+\end{figure}
+
+\paragraph{Unfolded or disconnected printing followed by assembly.}
+For structures where supports would dominate the print, we exploit the fact that the H-GRS scaffold remains valid even when individual cycles are temporarily cut. We print each cycle, or a small set of mutually disjoint cycles, in a planar or near-planar layout that requires few or no supports (Figure~\ref{fig:print_unfolded}). The flat layout can be printed quickly and with negligible support material; after printing, the cycles are manually folded into their target three-dimensional shape and the designated cut points are rejoined by friction-fit, adhesive, or heat welding. From the H-GRS perspective this corresponds to treating selected edge-sides as temporarily null during fabrication and restoring them during assembly. The trade-off is that print time and support material are reduced, while the burden shifts to manual assembly and to identifying cut points that minimize linking complexity at the join step.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.85\linewidth]{images/photos/troct_4.jpg}
+  \includegraphics[width=0.49\linewidth]{images/photos/troct_1.jpg}
+  \includegraphics[width=0.49\linewidth]{images/photos/troct_2.jpg}
+  \caption{Top: An unfolded 3D-printed layout of a truncated-octahedron
+  LK unit. Hexagonal and quadrilateral cycles are pre-twisted along
+  shared connectors and laid out in a near-planar configuration,
+  which prints with minimal supports. Bottom: After printing, the cycles
+  are folded into the target three-dimensional configuration.}
+  \Description{Three photographs show an unfolded 3D-printed linked-knot unit and its assembly into the final truncated-octahedron structure.}
+  \label{fig:print_unfolded}
+\end{figure}
+
+\paragraph{Modular printing with reusable thread elements.}
+When the LK structure has a high degree of symmetry, for instance
+the periodic constructions in Section~5 of the main paper, many
+cycles are congruent up to rigid motion. In this case we print a
+small library of modular thread segments, each of which is a short
+tube terminated by mating connector features (cylindrical pegs and
+matching sockets). The full LK structure is then assembled from
+these modules in a Lego-like construction
+(Figure~\ref{fig:print_modular}). Because the H-GRS framework already
+classifies edges into equivalence classes per unit cell
+(Figures~\ref{fig:supp_bravais2D}
+and~\ref{fig:supp_bravais3D}), the number of distinct modules
+needed is bounded by the number of unique edge classes, which is
+typically small. Modular printing is the most scalable of the three
+strategies and is also the most forgiving of print failures, since
+individual modules can be reprinted without restarting the entire
+build.
+
+\paragraph{Material selection for modular printing.}
+The choice of filament for modular printing deserves explicit
+discussion. During assembly, modules that are already attached at
+one end must be threaded through and around modules that are still
+being inserted, and the curved or helically twisted geometry of each
+module means that adjacent modules frequently overlap in space
+before the structure reaches its final configuration. With a rigid
+material such as PLA, this overlap manifests as mechanical
+interference: a module cannot be physically routed into its target
+position without temporarily displacing modules that are already in
+place, and once enough modules are seated, no further insertion is
+possible. We have found that printing the modules in a flexible
+filament such as thermoplastic polyurethane (TPU) largely eliminates
+this problem (Figure~\ref{fig:print_modular}). TPU modules can be
+bent out of the way during insertion of neighbors and elastically
+recover their intended shape afterward, so the assembly order
+becomes far less constrained and the overall process is significantly
+easier. Material flexibility also makes the connector pegs more
+forgiving of small dimensional inaccuracies introduced by the
+printer, since they can deform slightly to seat into their sockets.
+For very small or highly symmetric LK structures where assembly
+interference is not severe, rigid filaments remain viable and yield
+a stiffer final object; for larger or denser structures, TPU has
+been our default choice.
+
+\begin{figure}[t]
+  \centering
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{images/photos/cp_mod_1.jpg}
+    \caption{Modular construction with PLA weave modules.}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{images/photos/cp_mod_3.jpg}
+    \caption{Modular construction with TPU weave modules.}
+  \end{subfigure}
+  \caption{Modular 3D-printed LK structures assembled from a small
+  library of reusable thread segments. The modules are printed in
+  flexible TPU filament, which lets neighboring modules bend out of
+  the way during insertion and elastically return to their target
+  shape, greatly reducing assembly-time interference between curved
+  strands. Different colors mark different edge equivalence classes
+  in the unit cell.}
+  \Description{Two photographs compare modular linked-knot assemblies printed in rigid PLA and flexible TPU filament.}
+  \label{fig:print_modular}
+\end{figure}
+
+\subsection{Paper-Strip Construction Over a Scaffold}
+
+The second construction route is non-additive and is well suited
+to educational demonstrations, rapid prototyping, and large-scale
+installations where 3D printing is impractical. The idea is to build
+a physical proxy of the H-GRS scaffold from stiff paper, and then
+realize the cycles by wrapping flexible paper strips around the
+scaffold according to the twist labels.
+
+\paragraph{Building the scaffold.}
+The scaffold mirrors the underlying surface mesh from which the
+H-GRS data is derived. We cut paper strips corresponding to each
+edge of the mesh and assemble them into the polyhedral or polygonal
+scaffold using glued joints at the vertices
+(Figure~\ref{fig:paper_scaffold}). Because the scaffold only needs
+to maintain the cyclic ordering of face-sides around each edge, the
+faces themselves do not have to be closed; an open wire-frame in
+paper is sufficient. For the periodic examples in this supplement,
+a single unit cell of the scaffold is built and replicated, and
+adjacent cells share boundary edges so that the same wrapping pattern
+extends seamlessly between them.
+
+\begin{figure}[t]
+  \centering
+  \begin{subfigure}[b]{0.31\linewidth}
+    \includegraphics[width=\linewidth]{images/photos/scaffold_small.jpeg}
+    \caption{}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.31\linewidth}
+    \includegraphics[width=\linewidth]{images/photos/scaffold_big_cleaner.jpeg}
+    \caption{}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.31\linewidth}
+    \includegraphics[width=\linewidth]{images/photos/scaffold_big.jpeg}
+    \caption{}
+  \end{subfigure}
+  \caption{Paper scaffolds used for strip-wrapping construction.
+  (a) A small truncated-octahedron scaffold representing a single
+  unit cell. (b,c) Larger replicated scaffolds spanning several unit
+  cells, viewed from two angles. The scaffold preserves the cyclic
+  ordering of face-sides around each edge while leaving the faces
+  open so that strips can be wrapped through them.}
+  \Description{Three photographs show small and large paper scaffolds used to construct periodic linked-knot structures by strip wrapping.}
+  \label{fig:paper_scaffold}
+\end{figure}
+
+\paragraph{Wrapping with face-side strips.}
+Each face-side of the H-GRS scaffold is realized by a separate paper
+strip, whose length is determined by the perimeter of the
+corresponding face boundary and whose width is chosen for visual
+clarity. The strips are pre-creased at fold points marking the
+location of each incident edge of the scaffold
+(Figure~\ref{fig:paper_wrapping}a). To assemble a cycle, a strip is
+threaded around the scaffold so that at each edge it passes over the prism-like connector described in
+Section~4 and Figure~5, taking the
+cyclic offset prescribed by the twist label $t(e)$. A zero-twist edge
+allows the strip to continue straight; a unit twist redirects the
+strip onto the neighboring face-side
+(Figure~\ref{fig:paper_wrapping}b); larger twist magnitudes correspond
+to multiple wrappings around the edge before continuing
+(Figure~\ref{fig:paper_wrapping}c). After all strips have been
+wrapped, the open ends of each strip are joined to close the
+respective cycles. The resulting physical object reproduces the
+same combinatorial structure as the 3D-printed version, but with
+paper as the strand material and the scaffold left in place as a
+permanent internal support.
+
+\begin{figure}[t]
+  \centering
+  \begin{subfigure}[b]{0.31\linewidth}
+    \includegraphics[width=\linewidth]{images/photos/paper_strips.jpeg}
+    \caption{}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.31\linewidth}
+    \includegraphics[width=\linewidth]{images/photos/1twist_nobg_2_cropped.jpg}
+    \caption{}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.31\linewidth}
+    \includegraphics[width=\linewidth]{images/photos/2twist.jpeg}
+    \caption{}
+  \end{subfigure}
+  \caption{Paper-strip construction over the scaffold of
+  Figure~\ref{fig:paper_scaffold}. (a) Pre-creased strips, each
+  carrying a color that identifies its cycle, shown alongside a
+  partially wrapped scaffold. (b) Result of uniformly applying a
+  unit twist at every edge: the strips spiral cleanly across edges
+  and the global cycles begin to emerge. (c) Result of applying a
+  twist of magnitude two: strips wrap twice around each edge before
+  continuing, producing a denser woven appearance and different
+  global cycles.}
+  \Description{Three photographs show pre-creased paper strips and linked-knot structures produced by wrapping the strips around a scaffold with one- and two-twist configurations.}
+  \label{fig:paper_wrapping}
+\end{figure}
+
+\paragraph{Practical notes.}
+Paper-strip construction is particularly effective for verifying
+H-GRS designs by hand, because the wrapping process exposes the
+twist-induced permutation explicitly: an error in the twist label
+is immediately visible as a strip that fails to close into a cycle.
+The scaffold can also be removed after assembly if the paper strips
+are stiff enough to maintain shape on their own, which recovers an
+unsupported LK structure analogous to the 3D-printed output. For
+larger installations the same approach generalizes to fabric strips
+over wooden or metal scaffolds.
+
+\subsection{Discussion}
+
+The two construction routes are complementary. 3D printing yields
+precise, durable, and articulated structures, and is the natural
+choice for small- to medium-scale prototypes and for LK designs
+intended for mechanical evaluation; the choice between single-piece,
+unfolded, and modular sub-routes is driven primarily by the density
+of the structure and the available support material, and the choice
+of filament (rigid versus flexible) is driven by assembly
+interference between curved strands. Paper-strip construction is
+inexpensive, requires no specialized equipment beyond a cutter and
+adhesive, and produces structures whose topology can be verified
+visually during assembly. In both cases the input is the same: the
+H-GRS scaffold and its twist labels. This independence of
+combinatorial specification from physical realization is, in our
+view, one of the principal advantages of the H-GRS framework, and
+it is what allows the same design to be reproduced at scales ranging
+from desktop prints to room-sized installations.
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}
